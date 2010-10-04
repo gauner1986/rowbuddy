@@ -1,0 +1,84 @@
+%	$Date$
+%	$Revision$
+%	$Author$
+%	$Id$
+
+\input{./system/header}
+      
+	\setTitle{Rowbuddy}
+	\setSubtitle{Software Requirement Specification}
+	
+	\setAuthor{Rowbuddy Devteam (JEE GroupE)}
+	\setStudentnr{Chiaradia, Daniel (2109134))\newline
+	Fleischer, Georg (2133563)\newline
+	Heinecke, Sebastian (2117823)\newline
+	Trzeszkowski, Jan Nikolai (2114403)\newline
+	Wall, Lydia(2109143)}
+	
+	\setStudy{Software Engineering}
+	\setModul{JEE - Java Enterprise Edition and Architectural Patterns}
+	
+	\setLecturer{Mr. Uwe van Heesch}
+	
+	\setRepos{http://code.google.com/p/rowbuddy}
+	
+	\setStatus{working}
+	
+	\svnInfo $Id$
+	
+\begin{document}
+
+	%alternative titleplages are available (see system folder)
+	\include{./system/titlepage}
+	
+	\renewcommand{\thepage}{\Roman{page}}
+	\setcounter{page}{1}
+	\setcounter{section}{0}
+	
+	\newpage
+	\input{./chapter/changelog.tex}
+	\newpage
+	
+	\addcontentsline{toc}{section}{Table of Contents}
+	\tableofcontents   	
+	\newpage
+	
+	\addcontentsline{toc}{section}{List of figures}
+	\listoffigures 
+	
+	\addcontentsline{toc}{section}{List of tables}
+	\listoftables
+	
+	\addcontentsline{toc}{section}{Listings}
+	\lstlistoflistings
+	\newpage
+	
+	\setcounter{page}{1}
+	\setcounter{section}{0}
+	\renewcommand{\thepage}{\arabic{page}}
+	\pagestyle{fancy}	
+	
+	%Content
+	%add your content to chapter directory
+	\input{./chapter/introduction}
+	\input{./chapter/overall_description}
+	\newpage
+	
+	
+	%Bib
+	\addcontentsline{toc}{section}{Bibliography}
+	\bibliographystyle{abbrv}
+	\bibliography{./bibliography/bibtex}
+	\newpage
+	
+	\pagestyle{plain}	
+	\setcounter{appendix}{0}
+	\renewcommand{\thesection}{A\arabic{appendix}}
+	\renewcommand{\thesubsection}{A\arabic{appendix}-\alpharabic{subsection}}
+	%\setcounter{section}{0}
+	%Appendix
+	\section*{Appendix}
+	\addcontentsline{toc}{section}{Appendix}
+	\input{./appendix/appendix}
+	
+\end{document}

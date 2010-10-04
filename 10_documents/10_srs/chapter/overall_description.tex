@@ -1,0 +1,76 @@
+\section{Overall description}
+The purpose of this section is to provide a brief description of the project and to describe known actors and their interaction with the system. The section presents a high level view. For more detailed information, please refer to the developer team.
+
+	\subsection{Stakeholders}
+	\begin{itemize}
+		\item \textbf{Rowing club administrators:} Must integrate the system into the rowing club's network infrastructure. Their concern is, that the system is usable for logging routes without any extended knowledge of computer systems.
+		\item \textbf{Developers:} JEE course students, that are developing the system. Developers include architects, testers and quality engineers.
+		\item \textbf{Rowing club members:} Use the system to log their rowed routes.
+		\item \textbf{Lecturer:} Checks the state of development and marks the result of the developers for the JEE course.
+	\end{itemize}
+	
+	\subsection{Actors}
+	The following actors can be defined:\\
+	
+	\begin{itemize}
+		\item \textbf{Rowing club administrator:} The rowing club administrator uses the system to create and publish boats and routes. Rowing club administrators also use the system to generate analysis and view statistics. Another task of him is to observe the status of boats for retrieving information about damaged boats.
+		\item \textbf{Rowing club member:} The rowing club member uses the system to log their rowed routes and publish these routes on their profile.
+	\end{itemize}
+	
+	
+	\subsection{Use case Model Survey}
+	According to the four parts identified in section \ref{scope}, the use case model is broken into packages. The use cases presented in this survey are high level use cases and are presented in figure \ref{img:rowbuddyPackages}.
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\includegraphics[width=0.5\textwidth]{./figures/rowbuddy_packages.pdf}
+			\caption{RowBuddy Packages}
+			\label{img:rowbuddyPackages}
+		\end{center}
+	\end{figure}
+	
+	
+	
+		\subsubsection{Package RowBuddy Online Storage}
+		The use cases in the \textit{RowBuddy Online Storage package} deal with configuring, setting up and using the system as an administrator.\\
+				
+		TODO IMAGE
+		\begin{itemize}
+			\item \textbf{HLUC-1:} Create Boats
+			\item \textbf{HLUC-2:} Browse Boats
+			\item \textbf{HLUC-3:} Create Users
+			\item \textbf{HLUC-4:} Browse Users
+			\item \textbf{HLUC-5:} Create Routes
+			\item \textbf{HLUC-6:} Browse Routes
+		\end{itemize}		
+		
+		
+		\subsubsection{Package RowBuddy Route and Event Logger}
+		The use cases in the \textit{RowBuddy Route and Event Logger package} deal with logging new routes and other things. Users may p.e. log a damaged boat.\\
+		
+		TODO IMAGE
+		\begin{itemize}
+			\item \textbf{HLUC-7:} Log rowed route
+			\item \textbf{HLUC-8:} Log damaged boat
+		\end{itemize}
+		
+		\subsubsection{Package RowBuddy Report Generator}
+		The use cases in the \textit{RowBuddy Report Generator package} deal with generating all kinds of reports. The content of the reports are configurable to individualize the reports based on the logged routes.\\
+				
+		TODO IMAGE
+		\begin{itemize}
+			\item \textbf{HLUC-9:} Generate year statistic of all members
+			\item \textbf{HLUC-10:} Generate boat statistics
+			\item \textbf{HLUC-11:} Generate individual statistics for a member
+		\end{itemize}
+		
+		
+		\subsubsection{Package RowBuddy Member's Profile}
+		The use cases in the \textit{RowBuddy Member's Profile package} deal with the profiles of a member. How he can publish his own results and how to view the profiles of other row buddys.\\
+		
+		TODO IMAGE
+		\begin{itemize}
+			\item \textbf{HLUC-12:} Publish route on profile
+			\item \textbf{HLUC-13:} VIew other club members profile
+		\end{itemize}
+		

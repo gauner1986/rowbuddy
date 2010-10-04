@@ -1,0 +1,39 @@
+%	$Date: 2009-02-17 23:15:47 +0100 (Di, 17 Feb 2009) $
+%	$Revision: 10 $
+%	$Author: i2109138 $
+%	$Id: titlepage.tex 10 2009-02-17 22:15:47Z i2109138 $
+
+\begin{titlepage}
+
+\renewcommand{\familydefault}{phv}		
+\newpage
+{
+\setlength{\unitlength}{1mm}
+\begin{picture}(0,0)(25,270)
+
+\put(-1,0){\fbox{\includegraphics[width=215mm]{figures/fontys-page.png}}}
+\put(30,150){\begin{minipage}[b]{\textwidth}
+    \parindent=0in\raggedright
+    		{\Huge \bf \color{fontys_pink_dark}\title}\hfill{\-}\- \\
+		{\bf \it \color{fontys_pink_dark}\subtitle} \hfill{\-}\-\\
+		\vspace{5mm}
+				\begin{tabular}{p{7cm}p{10cm}}
+				\sffamily study course:	& 	\sffamily\study		\\
+				\sffamily modul: 		& 	\sffamily \modul 		\\
+				\sffamily lecturer:		&	\sffamily\lecturer 		\\
+				\sffamily date:			&	\sffamily\today{}		\\
+				\sffamily status:			&	\sffamily\status		\\
+				\\
+				\sffamily repository:			&	\sffamily \repos		\\
+				\\
+				\sffamily by:&\\
+				\\
+				{\bf \author}&{\small \it \studentnr}\\
+				\end{tabular}
+  \end{minipage}}
+\end{picture}
+}
+
+	
+
+\end{titlepage}
