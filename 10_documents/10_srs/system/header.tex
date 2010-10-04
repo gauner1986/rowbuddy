@@ -45,6 +45,71 @@
 \newcommand{\setRepos}[1]		{\newcommand{\repos}{#1}}
 
 %
+% new commands
+%
+
+%High level use case
+\newcommand{\hluc}[7]{%
+\begin{table}[H]
+	\begin{center}
+	\begin{tabular*}{\textwidth}{|p{2cm}|p{13.1cm}|}
+	\hline	
+		\multicolumn{2}{|l|}{%
+			\hspace{-0.92em}
+			\begin{tabular}{l|l|l|l|l|l}%
+			\cellcolor[gray]{.8}Code:& #1 & \cellcolor[gray]{.8}Name:& #2 & \cellcolor[gray]{.8}Package: & #3 \\
+			\end{tabular}
+		}\\
+	\hline
+	\cellcolor[gray]{.8}Description: & #7\\
+	\hline
+	\cellcolor[gray]{.8}Refined by: & #6\\
+	\hline
+		
+		\multicolumn{2}{|l|}{%
+			\hspace{-0.92em}
+			\begin{tabular}{l|l|l|l}%
+			\cellcolor[gray]{.8}Version: & #4 & \cellcolor[gray]{.8}Author: & #5  \\
+			\end{tabular}
+		}\\
+	\hline
+	\end{tabular*}
+	\end{center}
+	\caption{#1 - #2}
+	\label{hluc:#1}
+\end{table}%
+}
+
+% specific use case
+\newcommand{\spuc}[6]{%
+	\begin{table}[H]
+		\begin{center}
+			\begin{tabular*}{\textwidth}{|p{2.3cm}|p{12.8cm}|}
+				\hline	
+				\multicolumn{2}{|l|}{%
+				\hspace{-0.92em}
+				\begin{tabular}{l|l|l|l|l|l}%
+					\cellcolor[gray]{.8}Code:& #1 & \cellcolor[gray]{.8}Name:& #2 & \cellcolor[gray]{.8}Package: & #3 \\
+				\end{tabular}
+				}\\
+				\hline
+				#6
+				\multicolumn{2}{|l|}{%
+				\hspace{-0.92em}
+				\begin{tabular}{l|l|l|l}%
+					\cellcolor[gray]{.8}Version: & #4 & \cellcolor[gray]{.8}Author: & #5  \\
+				\end{tabular}
+				}\\
+				\hline
+			\end{tabular*}
+		\end{center}
+	\caption{#1 - #2}
+	\label{spuc:#1}
+	\end{table}%
+}
+
+
+%
 %	Footer/Header Definition
 %
 \fancyhf{}
