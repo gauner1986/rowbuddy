@@ -69,10 +69,12 @@ This use case includes adding, browsing, changing, removing users and creating a
 			\end{center}
 		\end{figure}
 	
-		\begin{itemize}
-			\item \textbf{HLUC-4:} Log rowed route
-			\item \textbf{HLUC-5:} Log damaged boat
-		\end{itemize}
+			\hluc{HLUC-4}{Log rowed route}{RowBuddy Route and Event Logger}{1}{hei}{}{%
+				In this use case a rowed route is recorded in the electronic logbook. The user that rowed the route sets the date and time the route ended and started, the river the route was rowed on and either the GPS coordinates of ending- and starting-points or a short description of those. The route is then added in the users profile.
+			}
+			\hluc{HLUC-5}{Log damaged boat}{RowBuddy Route and Event Logger}{1}{hei}{}{%
+				This use case deals with recording a damaged boat. The user inputs the type of boat, a description of what is damaged, when and where the defect occurred and optionally the incident that damaged the boat.
+			}
 		
 		\subsubsection{Package RowBuddy Report Generator}
 		The use cases in the \textit{RowBuddy Report Generator package} deal with generating all kinds of reports. The content of the reports are configurable to individualize the reports based on the logged routes.\\
