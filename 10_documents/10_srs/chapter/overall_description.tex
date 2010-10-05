@@ -21,7 +21,7 @@ The purpose of this section is to provide a brief description of the project and
 	\subsection{Use case Model Survey}
 	According to the four parts identified in section \ref{scope}, the use case model is broken into packages. The use cases presented in this survey are high level use cases and are presented in figure \ref{img:rowbuddyPackages}.
 	
-	\begin{figure}[h!]
+	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[width=0.5\textwidth]{./figures/rowbuddy_packages.pdf}
 			\caption{RowBuddy Packages}
@@ -33,6 +33,14 @@ The purpose of this section is to provide a brief description of the project and
 	
 		\subsubsection{Package RowBuddy Online Storage}
 		The use cases in the \textit{RowBuddy Online Storage package} deal with configuring, setting up and using the system as an administrator.\\
+	
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=0.6\textwidth]{./figures/01_OnlineStorage.pdf}
+				\caption{Use case diagram package Online Storage}
+				\label{img:UConlineStorage}
+			\end{center}
+		\end{figure}
 
 \hluc{HLUC-1}{Manage Boats}{RowBuddy Online Storage}{1}{wal}{}{%
 		In this use case the Manager configures boats. It includes adding, removing, browsing and locking a boat if it is damaged.
@@ -52,8 +60,15 @@ This use case includes adding, browsing, changing, removing users and creating a
 		
 		\subsubsection{Package RowBuddy Route and Event Logger}
 		The use cases in the \textit{RowBuddy Route and Event Logger package} deal with logging new routes and other things. Users may p.e. log a damaged boat.\\
-		
-		TODO IMAGE
+	
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=0.6\textwidth]{./figures/02_RouteAndEventLogger.pdf}
+				\caption{Use case diagram package Route and Event Logger}
+				\label{img:UCrouteAndEventLogger}
+			\end{center}
+		\end{figure}
+	
 		\begin{itemize}
 			\item \textbf{HLUC-4:} Log rowed route
 			\item \textbf{HLUC-5:} Log damaged boat
@@ -61,6 +76,14 @@ This use case includes adding, browsing, changing, removing users and creating a
 		
 		\subsubsection{Package RowBuddy Report Generator}
 		The use cases in the \textit{RowBuddy Report Generator package} deal with generating all kinds of reports. The content of the reports are configurable to individualize the reports based on the logged routes.\\
+	
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=0.6\textwidth]{./figures/03_ReportGenerator.pdf}
+				\caption{Use case diagram package Report Generator}
+				\label{img:UCreportGenerator}
+			\end{center}
+		\end{figure}
 
 		\hluc{HLUC-6}{Generate year statistic of all members}{ RowBuddy Report Generator}{1}{dch}{}{%
 		
@@ -77,6 +100,14 @@ This use case includes adding, browsing, changing, removing users and creating a
 		
 		\subsubsection{Package RowBuddy Member's Profile}
 The use cases in the the package \emph{Member's Profile} deal with the member's profiles. This is functionality for maintaining the profile, publishing his own results and routes, searching for other member's profiles and visiting other member's profiles.\\
+	
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=0.6\textwidth]{./figures/04_MembersProfile.pdf}
+				\caption{Use case diagram package Member's Profile}
+				\label{img:UCmembersProfile}
+			\end{center}
+		\end{figure}
 
 % offline club member: person who is rowing in the club
 % online club member: club member that has entered his email address}
