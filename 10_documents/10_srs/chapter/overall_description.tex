@@ -71,15 +71,15 @@ This use case includes adding, browsing, changing, removing users and creating a
 			\end{center}
 		\end{figure}
 	
-			\hluc{HLUC-4}{Start rowing a route}{Route and Event Logger}{1}{hei}{}{%
-				In this use case a rowed route is recorded in the electronic logbook. The user that will start rowing a route selects a boat, the team mebers and a route.
+			\hluc{HLUC-4}{Start rowing a route}{Route and Event Logger}{1}{jnt}{}{%
+				In this use case a rowed route is recorded in the electronic logbook. The user that will start rowing a route selects a boat, the team members and a route.
 			}
 	
-			\hluc{HLUC-5}{Stop rowing a route}{Route and Event Logger}{1}{hei}{}{%
-				In this use case a startet routet created in HLUC-4 is stopped to provide the functionality to return from a trip. The route is then added in the users profile.
+			\hluc{HLUC-5}{Stop rowing a route}{Route and Event Logger}{1}{jnt}{}{%
+				In this use case a started route created in HLUC-4 is stopped to provide the functionality to return from a trip. The route is then added in the users profile.
 			}
 	
-			\hluc{HLUC-6}{Log rowed route}{Route and Event Logger}{1}{hei}{}{%
+			\hluc{HLUC-6}{Log rowed route}{Route and Event Logger}{2}{jnt}{}{%
 				In this use case a rowed route is recorded in the electronic logbook, if HLUC-4 was not executed. The user that rowed the route sets the date and time the route ended and started, the river the route was rowed on and either the GPS coordinates of ending- and starting-points or a short description of those. The route is then added in the users profile.
 			}
 			\hluc{HLUC-7}{Log damaged boat}{Route and Event Logger}{1}{hei}{}{%
@@ -99,15 +99,15 @@ This use case includes adding, browsing, changing, removing users and creating a
 
 		\hluc{HLUC-8}{Generate year statistic of all members}{Report Generator}{1}{dch}{}{%
 		
-		In this use case the admin can create a report and statistic of all members. - Or - In this use case the program automatically create a statistic of all members every year. The admin can set a specific date when it should create the statistics. The statistic contains information about the most valuable rower, most improved rower, graphical representation and best rookies. This use case also include browsing and creating statistics. The members are able to see the generated statistics.
+		In this use case the program automatically create a statistic of all members on demand. The statistic contains information about the most valuable rower, most improved rower, graphical representation and best rookies. This use case also include browsing and creating statistics. The members are able to see the generated statistics.
 		}
 
-\hluc{HLUC-9}{Generate boat statistics}{Report Generator}{1}{dch}{}{%
-		In this use case the admin can create a report and statistic of all boats. - Or - In this use case the programm automatically create a statistic of all boats. The admin can set a specific date when it should create the statistics. This statistic includes new boats, broken boats and boats are no longer used. The users can see this statistic. This use case includes browsing and creating statistics.
+\hluc{HLUC-9}{Generate boat statistics}{Report Generator}{2}{dch}{}{
+		In this use case the programm automatically create a statistic of all boats on demand. This statistic includes new boats, broken boats and boats are no longer used. The users can see this statistic. This use case includes browsing and creating statistics.
 		}
 
 \hluc{HLUC-10}{Generate individual statistics for a member}{Report Generator}{1}{dch}{}{%
-		Each member has an own personal statistic about his activities. This statistic is generated on demand by the member itself. The statistic is attached to the users profile and contains information about total distance, popular routes and used boats.
+		Each member has an own personal statistic about his activities. This statistic is generated on demand by the member itself. The statistic is attached to the users profile and contains information about total distance, popular routes and used boats for the current year and each year in the past.
 		}
 		
 		\subsubsection{Package RowBuddy Member's Profile}
@@ -124,7 +124,7 @@ The use cases in the the package \emph{Member's Profile} deal with the member's 
 % offline club member: person who is rowing in the club
 % online club member: club member that has entered his email address}
 
-		\hluc{HLUC-1}{Login user}{Member's Profile}{1}{gef}{}{%
+		\hluc{HLUC-11}{Login user}{Member's Profile}{1}{gef}{}{%
 The user enters the email address that is known to the club and a password to authenticate himself regarding the system. After a successful login the user is able to view user-specific pages. A user that is not authenticated is only able to view an info page that shows whom he has to contact to get a user account. If the user does not visit any other pages for 1 hour, the user is automatically logged out of the system.}
 
 		\hluc{HLUC-12}{Forgot password}{Member's Profile}{1}{gef}{}{%
@@ -133,11 +133,11 @@ The user has forgotten his password and wants to log in to the system. He reques
 		\hluc{HLUC-13}{Change password}{Member's Profile}{1}{gef}{}{%
 The user can change his password. For that he has to be logged into the system. The user enters his current password and the new password twice. The user cannot use the old password any more for a login, the new password is valid now.}
 
-		\hluc{HLUC-14}{Publish route on profile}{Member's Profile}{1}{gef}{}{%
-A club member can select a route that he has participated in and can publish it on his profile site. For this route selection he can browse his routes and can search for specific routes. The visitors of his profile site can see all relevant characteristics of the route.}
+		\hluc{HLUC-14}{Publish route on profile}{Member's Profile}{2}{gef}{}{%
+A club member can select a trip that he has participated in and can publish it on his profile site. For this trip selection he can browse his rowed trips and can search for specific trips. The visitors of his profile site can see all relevant characteristics of the trip.}
 
 		\hluc{HLUC-15}{View other club members profile}{Member's Profile}{1}{gef}{}{%
-A club member can view the profile sites of other club members. The club member sees information that a user has declared as public including the summed statistics of the user. These statistics are the number of tours, the average length of the tours and the total length of the tours. These statistics are visible for the current year and for all years. }
+A club member can view the profile sites of other club members. The club member sees information that a user has declared as public including the summed statistics of the user. These statistics are the number of trips, the average length of the trips and the total length of the trips. These statistics are visible for the current year and for all years. }
 
 		\hluc{HLUC-16}{Search for club member profile}{Member's Profile}{1}{gef}{}{%
 A club member can search for other club members by their name. The club member sees a list with matching club members.}
