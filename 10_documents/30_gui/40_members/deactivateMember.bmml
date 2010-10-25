@@ -1,0 +1,24 @@
+<mockup version="1.0" skin="sketch" measuredW="868" measuredH="279" mockupW="626" mockupH="246">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Title" x="446" y="23" w="-1" h="-1" measuredW="412" measuredH="62" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Mitglied%20deaktivieren</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::SearchBox" x="232" y="111" w="343" h="-1" measuredW="45" measuredH="25" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Ma</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="234" y="86" w="356" h="25" measuredW="162" measuredH="25" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Aktive%20Mitglieder%20suchen</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::DataGrid" x="232" y="151" w="343" h="118" measuredW="320" measuredH="118" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%20%5E%2C%20Geburtsdatum%2C%20deaktivieren%0AMartin%20Gl%FCck%2C%2031.12.1988%2C%20%5B%5D%0AMax%20Mustermann%2C%2016.08.1960%2C%20%5Bx%5D%0AMax%20Mustermann%2C%2025.05.1990%2C%20%5B%5D</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
