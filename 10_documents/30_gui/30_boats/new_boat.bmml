@@ -1,0 +1,44 @@
+<mockup version="1.0" skin="sketch" measuredW="701" measuredH="236" mockupW="298" mockupH="226">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::TextInput" x="497" y="62" w="194" h="-1" measuredW="79" measuredH="27" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="393" y="62" w="-1" h="-1" measuredW="42" measuredH="23" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="393" y="101" w="-1" h="-1" measuredW="78" measuredH="23" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Bootspl%E4tze%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="393" y="133" w="70" h="23" measuredW="70" measuredH="23" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Gesteuert%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::NumericStepper" x="498" y="99" w="193" h="-1" measuredW="40" measuredH="24" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>4</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::ComboBox" x="497" y="133" w="194" h="-1" measuredW="58" measuredH="50" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nein%0AJa</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Button" x="591" y="198" w="-1" h="-1" measuredW="100" measuredH="28" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Boot%20anlegen</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Title" x="393" y="0" w="-1" h="-1" measuredW="297" measuredH="56" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Boot%20hinzuf%FCgen</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
