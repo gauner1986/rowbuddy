@@ -1,0 +1,49 @@
+<mockup version="1.0" skin="sketch" measuredW="1241" measuredH="399" mockupW="853" mockupH="386">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::DataGrid" x="378" y="123" w="778" h="266" measuredW="749" measuredH="128" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Von%20%5E%2C%20Bis%2C%20Beschreibung%2C%20Reserviert%20von%2C%20Anzahl%20Boote%2C%20Dauer%0A15.10.2010%20-%2015%3A00%2C%2015.10.2010%20-%2017%3A00%2C-%2C%20Peter%20Pan%2C%203%2C%202%20Std.%0A16.3.2011%20-%2008%3A00%2C%2016.3.2011%20-%2012%3A00%2C-%2C%20Peter%20Pan%2C%201%2C%204%20Std.%0A17.4.2011%2C%2020.4.2011%2CWettkampf%20f%FCr%20tolle%20Leute%5Crund%20noch%20tollere%20Leute%2C%20Peter%20Pan%2C%203%2C%204%20Tage</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Title" x="378" y="3" w="-1" h="-1" measuredW="392" measuredH="62" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Bootsreservierungen</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::DateChooser" x="418" y="72" w="188" h="-1" measuredW="181" measuredH="29" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>12.03.2010%20-%2015%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="378" y="75" w="-1" h="-1" measuredW="32" measuredH="25" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Von%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::DateChooser" x="673" y="71" w="188" h="-1" measuredW="180" measuredH="29" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>12.03.2010%20-%2017%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="633" y="73" w="-1" h="-1" measuredW="29" measuredH="25" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Bis%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::Button" x="1162" y="151" w="-1" h="-1" measuredW="69" measuredH="28" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Details</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::Button" x="1162" y="179" w="-1" h="-1" measuredW="69" measuredH="28" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Details</text>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::Button" x="1162" y="213" w="-1" h="-1" measuredW="69" measuredH="28" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Details</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
