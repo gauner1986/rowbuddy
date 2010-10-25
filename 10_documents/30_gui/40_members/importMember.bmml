@@ -1,23 +1,28 @@
-<mockup version="1.0" skin="sketch" measuredW="839" measuredH="218" mockupW="532" mockupH="207">
+<mockup version="1.0" skin="sketch" measuredW="814" measuredH="225" mockupW="507" mockupH="214">
   <controls>
-    <control controlID="0" controlTypeID="com.balsamiq.mockups::Title" x="392" y="1" w="-1" h="-1" measuredW="437" measuredH="62" zOrder="0" locked="false" isInGroup="-1">
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Title" x="392" y="1" w="-1" h="-1" measuredW="412" measuredH="56" zOrder="0" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Mitglieder%20importieren</text>
       </controlProperties>
     </control>
-    <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="297" y="78" w="-1" h="-1" measuredW="179" measuredH="25" zOrder="1" locked="false" isInGroup="-1">
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="297" y="78" w="-1" h="-1" measuredW="170" measuredH="23" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Bitte%20eine%20Datei%20ausw%E4hlen%3A</text>
       </controlProperties>
     </control>
-    <control controlID="2" controlTypeID="com.balsamiq.mockups::TextInput" x="298" y="136" w="396" h="-1" measuredW="217" measuredH="29" zOrder="2" locked="false" isInGroup="-1">
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::TextInput" x="298" y="136" w="396" h="-1" measuredW="207" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
       <controlProperties>
         <text>C%3A/Benutzer/Max/Mitglieder.xls</text>
       </controlProperties>
     </control>
-    <control controlID="3" controlTypeID="com.balsamiq.mockups::Button" x="297" y="180" w="-1" h="-1" measuredW="93" measuredH="28" zOrder="3" locked="false" isInGroup="-1">
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Button" x="500" y="187" w="-1" h="-1" measuredW="95" measuredH="28" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>importieren</text>
+        <text>Importieren</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Button" x="309" y="187" w="-1" h="-1" measuredW="86" measuredH="28" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Abbrechen</text>
       </controlProperties>
     </control>
   </controls>

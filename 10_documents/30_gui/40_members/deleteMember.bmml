@@ -1,28 +1,38 @@
 <mockup version="1.0" skin="sketch" measuredW="900" measuredH="444" mockupW="658" mockupH="411">
   <controls>
-    <control controlID="0" controlTypeID="com.balsamiq.mockups::Title" x="446" y="23" w="-1" h="-1" measuredW="316" measuredH="62" zOrder="0" locked="false" isInGroup="-1">
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Title" x="446" y="23" w="-1" h="-1" measuredW="301" measuredH="56" zOrder="0" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Mitglied%20l%F6schen</text>
       </controlProperties>
     </control>
-    <control controlID="1" controlTypeID="com.balsamiq.mockups::SearchBox" x="232" y="111" w="343" h="-1" measuredW="45" measuredH="25" zOrder="1" locked="false" isInGroup="-1">
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::SearchBox" x="232" y="111" w="343" h="-1" measuredW="72" measuredH="25" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Ma</text>
       </controlProperties>
     </control>
-    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="234" y="86" w="356" h="25" measuredW="116" measuredH="25" zOrder="2" locked="false" isInGroup="-1">
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="234" y="86" w="356" h="25" measuredW="111" measuredH="23" zOrder="2" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Mitglieder%20suchen</text>
       </controlProperties>
     </control>
-    <control controlID="5" controlTypeID="com.balsamiq.mockups::DataGrid" x="232" y="151" w="343" h="118" measuredW="286" measuredH="118" zOrder="3" locked="false" isInGroup="-1">
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::DataGrid" x="232" y="151" w="343" h="118" measuredW="290" measuredH="116" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Name%20%5E%2C%20Geburtsdatum%2C%20l%F6schen%0AMartin%20Gl%FCck%2C%2031.12.1988%2C%20%5B%5D%0AMax%20Mustermann%2C%2016.08.1960%2C%20%5Bx%5D%0AMax%20Mustermann%2C%2025.05.1990%2C%20%5B%5D</text>
       </controlProperties>
     </control>
-    <control controlID="6" controlTypeID="com.balsamiq.mockups::Alert" x="605" y="269" w="285" h="165" measuredW="200" measuredH="165" zOrder="4" locked="false" isInGroup="-1">
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Alert" x="605" y="269" w="285" h="165" measuredW="200" measuredH="156" zOrder="4" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Mitglied%20l%F6schen%0AM%F6chten%20Sie%20Max%20Mustermann%20%2816.08.1960%29%20wirklich%20l%F6schen%3F%0ANein%2C%20Ja</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Button" x="456" y="302" w="-1" h="-1" measuredW="71" measuredH="28" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>L%F6schen</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Button" x="265" y="302" w="-1" h="-1" measuredW="86" measuredH="28" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Abbrechen</text>
       </controlProperties>
     </control>
   </controls>
