@@ -1,0 +1,24 @@
+<mockup version="1.0" skin="sketch" measuredW="1316" measuredH="692" mockupW="1135" mockupH="630">
+  <controls>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="171" y="52" w="1135" h="630" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>RowBuddy%0Ahttp%3A//www.rowbuddy.com</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Link" x="1221" y="132" w="-1" h="-1" measuredW="60" measuredH="23" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Einloggen</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::TextInput" x="1048" y="129" w="-1" h="-1" measuredW="72" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Username</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::TextInput" x="1136" y="130" w="-1" h="-1" measuredW="68" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Password</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

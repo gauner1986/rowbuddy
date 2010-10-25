@@ -1,0 +1,56 @@
+<mockup version="1.0" skin="sketch" measuredW="488" measuredH="385" mockupW="401" mockupH="335">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="77" y="40" w="-1" h="-1" measuredW="171" measuredH="41" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>28</size>
+        <text>Profil%20suchen</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::SearchBox" x="77" y="96" w="-1" h="-1" measuredW="115" measuredH="25" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Stichwortsuche</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::TextInput" x="263" y="153" w="-1" h="-1" measuredW="117" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Max%20Mustermann</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="77" y="156" w="-1" h="-1" measuredW="42" measuredH="23" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="77" y="199" w="-1" h="-1" measuredW="100" measuredH="23" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>E-Mail-Adresse%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::TextInput" x="263" y="196" w="215" h="-1" measuredW="210" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Max.Mustermann@ruderclub.com</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="77" y="241" w="-1" h="-1" measuredW="38" measuredH="23" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Rolle%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::CheckBox" x="264" y="240" w="-1" h="-1" measuredW="106" measuredH="22" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Administrator</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::CheckBox" x="396" y="241" w="-1" h="-1" measuredW="73" measuredH="22" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Mitglied</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="77" y="279" w="84" h="22" measuredW="84" measuredH="23" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Mitglied%20seit%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Calendar" x="263" y="279" w="-1" h="-1" measuredW="96" measuredH="96" zOrder="10" locked="false" isInGroup="-1"/>
+  </controls>
+</mockup>
