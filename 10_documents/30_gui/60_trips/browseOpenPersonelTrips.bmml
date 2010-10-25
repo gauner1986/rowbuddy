@@ -1,0 +1,76 @@
+<mockup version="1.0" skin="sketch" measuredW="1325" measuredH="505" mockupW="1052" mockupH="490">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Title" x="290" y="5" w="-1" h="-1" measuredW="530" measuredH="62" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Pers%F6nliche%20offene%20Fahrten</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::DataGrid" x="263" y="67" w="-1" h="-1" measuredW="597" measuredH="88" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Routenname%20%5E%2C%20Start%20Datum%2C%20End%20Datum%2C%20Anzahl%20der%20Mitfahrer%0AKrefelderSee%2C%2014.04.2010%2013%3A00%3A00%2C%2014.04.2010%2016%3A15%3A00%2C%204%0ASeeImNiergendwo%2C%2024.09.2005%2014%3A20%3A00%2C%2024.09.2005%2018%3A25%3A00%2C%208</text>
+      </controlProperties>
+    </control>
+    <control controlID="26" controlTypeID="com.balsamiq.mockups::Arrow" x="900" y="85" w="-1" h="-1" measuredW="150" measuredH="100" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>top</direction>
+        <leftArrow>false</leftArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="27" controlTypeID="__group__" x="718" y="200" w="-1" h="-1" measuredW="597" measuredH="295" zOrder="0" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="597" h="295" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="27"/>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::List" x="215" y="43" w="225" h="126" measuredW="100" measuredH="126" zOrder="1" locked="false" isInGroup="27">
+          <controlProperties>
+            <text>Karl-Heinz%20Wirt%0AManuel%20Klein%0AStephan%20Holzer%0APeter%20Null</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="215" y="177" w="-1" h="-1" measuredW="111" measuredH="25" zOrder="2" locked="false" isInGroup="27">
+          <controlProperties>
+            <text>Max%20Mustermann</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="215" y="9" w="-1" h="-1" measuredW="89" measuredH="25" zOrder="3" locked="false" isInGroup="27">
+          <controlProperties>
+            <text>KrefelderSee</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="213" y="245" w="-1" h="-1" measuredW="165" measuredH="25" zOrder="4" locked="false" isInGroup="27">
+          <controlProperties>
+            <text>Wetter%20einfach%20super%20%3A-%29</text>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="15" y="10" w="-1" h="-1" measuredW="84" measuredH="25" zOrder="5" locked="false" isInGroup="27">
+          <controlProperties>
+            <text>Routenname%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="16" y="43" w="-1" h="-1" measuredW="73" measuredH="25" zOrder="6" locked="false" isInGroup="27">
+          <controlProperties>
+            <text>Mitfahrer%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="17" y="184" w="-1" h="-1" measuredW="83" measuredH="25" zOrder="7" locked="false" isInGroup="27">
+          <controlProperties>
+            <text>Steuermann%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="16" y="220" w="-1" h="-1" measuredW="68" measuredH="25" zOrder="8" locked="false" isInGroup="27">
+          <controlProperties>
+            <text>Bootname%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="16" y="253" w="-1" h="-1" measuredW="171" measuredH="25" zOrder="9" locked="false" isInGroup="27">
+          <controlProperties>
+            <text>zus%E4tzliche%20Informationen%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="10" controlTypeID="com.balsamiq.mockups::Label" x="215" y="209" w="-1" h="-1" measuredW="35" measuredH="25" zOrder="10" locked="false" isInGroup="27">
+          <controlProperties>
+            <text>Lotti</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+</mockup>
