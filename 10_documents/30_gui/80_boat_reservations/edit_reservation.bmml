@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="sketch" measuredW="960" measuredH="530" mockupW="578" mockupH="517">
+<mockup version="1.0" skin="sketch" measuredW="1589" measuredH="779" mockupW="1207" mockupH="766">
   <controls>
     <control controlID="9" controlTypeID="com.balsamiq.mockups::Title" x="378" y="3" w="-1" h="-1" measuredW="572" measuredH="62" zOrder="0" locked="false" isInGroup="-1">
       <controlProperties>
@@ -21,7 +21,7 @@
       </controlProperties>
     </control>
     <control controlID="20" controlTypeID="com.balsamiq.mockups::HRule" x="373" y="150" w="553" h="-1" measuredW="100" measuredH="5" zOrder="4" locked="false" isInGroup="-1"/>
-    <control controlID="21" controlTypeID="com.balsamiq.mockups::DataGrid" x="378" y="319" w="548" h="155" measuredW="358" measuredH="118" zOrder="5" locked="false" isInGroup="-1">
+    <control controlID="21" controlTypeID="com.balsamiq.mockups::DataGrid" x="378" y="319" w="548" h="155" measuredW="360" measuredH="118" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Name%5E%2C%20Pl%E4tze%2C%20Gesteuert%2C%20Markieren%0AUnsinkbar%20III%2C%204%2C%20Ja%2C%20%5B%5D%0ADer%20feuchte%20Fridolin%2C%208%2C%20Ja%2C%20%5B%5D%0ATitanic%20II%20%2C%202%2C%20Nein%2C%20%5B%5D</text>
       </controlProperties>
@@ -86,21 +86,62 @@
         <text>Peter%20Pan</text>
       </controlProperties>
     </control>
-    <control controlID="35" controlTypeID="com.balsamiq.mockups::HRule" x="372" y="74" w="553" h="-1" measuredW="100" measuredH="5" zOrder="18" locked="false" isInGroup="-1"/>
-    <control controlID="36" controlTypeID="com.balsamiq.mockups::HRule" x="372" y="273" w="553" h="-1" measuredW="100" measuredH="5" zOrder="19" locked="false" isInGroup="-1"/>
-    <control controlID="37" controlTypeID="com.balsamiq.mockups::Button" x="862" y="286" w="-1" h="-1" measuredW="64" measuredH="28" zOrder="20" locked="false" isInGroup="-1">
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::HRule" x="372" y="74" w="553" h="-1" measuredW="100" measuredH="5" zOrder="19" locked="false" isInGroup="-1"/>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::HRule" x="372" y="273" w="553" h="-1" measuredW="100" measuredH="5" zOrder="20" locked="false" isInGroup="-1"/>
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::Button" x="862" y="286" w="-1" h="-1" measuredW="64" measuredH="28" zOrder="21" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Boot%20-</text>
       </controlProperties>
     </control>
-    <control controlID="38" controlTypeID="com.balsamiq.mockups::Button" x="833" y="492" w="90" h="28" measuredW="90" measuredH="28" zOrder="21" locked="false" isInGroup="-1">
+    <control controlID="38" controlTypeID="com.balsamiq.mockups::Button" x="833" y="492" w="90" h="28" measuredW="90" measuredH="28" zOrder="22" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Abbrechen</text>
       </controlProperties>
     </control>
-    <control controlID="39" controlTypeID="com.balsamiq.mockups::Button" x="378" y="489" w="-1" h="-1" measuredW="72" measuredH="28" zOrder="22" locked="false" isInGroup="-1">
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::Button" x="378" y="489" w="-1" h="-1" measuredW="73" measuredH="28" zOrder="23" locked="false" isInGroup="-1">
       <controlProperties>
         <text>L%F6schen</text>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::Arrow" x="826" y="293" w="157" h="102" measuredW="150" measuredH="100" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <leftArrow>false</leftArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::DataGrid" x="1005" y="475" w="548" h="224" measuredW="422" measuredH="148" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%5E%2C%20Pl%E4tze%2C%20Gesteuert%2C%20Reserviert%0AUnsinkbar%20I%2C%204%2C%20Ja%2C%20%5BPeter%20Pan%5CrVon%3A%201.1.2010%2015%3A30%20%5CrBis%3A%201.1.2010%2017%3A30%5D%0ADer%20fidele%20Flipper%2C%208%2C%20Ja%2C%20%5B%5D%0ATitanic%20I%20%2C%202%2C%20Nein%2C%20%5Bx%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::Label" x="1394" y="435" w="-1" h="-1" measuredW="87" measuredH="25" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Mindespl%E4tze</text>
+      </controlProperties>
+    </control>
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::ComboBox" x="1496" y="435" w="-1" h="-1" measuredW="57" measuredH="132" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Alle%0A1%0A2%0A3%0A4%0A8</text>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::CheckBox" x="1005" y="435" w="214" h="26" measuredW="203" measuredH="22" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Bereits%20reservierte%20anzeigen</text>
+      </controlProperties>
+    </control>
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::TitleWindow" x="983" y="395" w="596" h="374" measuredW="450" measuredH="400" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Zus%E4tzliche%20Boote%20reservieren</text>
+      </controlProperties>
+    </control>
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::Button" x="1467" y="706" w="-1" h="-1" measuredW="84" measuredH="28" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Schlie%DFen</text>
+      </controlProperties>
+    </control>
+    <control controlID="48" controlTypeID="com.balsamiq.mockups::Button" x="1363" y="706" w="-1" h="-1" measuredW="98" measuredH="28" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Reservieren</text>
       </controlProperties>
     </control>
   </controls>
