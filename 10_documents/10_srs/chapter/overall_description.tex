@@ -30,115 +30,143 @@ The purpose of this section is to provide a brief description of the project and
 			\label{img:rowbuddyPackages}
 		\end{center}
 	\end{figure}
-	
-	
-	
-		\subsubsection{Package RowBuddy Online Storage}
-		The use cases in the \textit{RowBuddy Online Storage package} deal with configuring, setting up and using the system as an administrator.\\
-	
+
+		\subsubsection{Package RowBuddy Boat Management}
+
 		\begin{figure}[H]
 			\begin{center}
-				\includegraphics[width=0.6\textwidth]{./figures/01_OnlineStorage.pdf}
-				\caption{Use case diagram package Online Storage}
-				\label{img:UConlineStorage}
+				\includegraphics[width=0.6\textwidth]{./figures/HL-BoatManagement.pdf}
+				\caption{Use case diagram package boat management}
+				\label{img:UCBoatManagement}
 			\end{center}
 		\end{figure}
 
-\hluc{HLUC-1}{Manage Boats}{Online Storage}{1}{wal}{}{%
-		In this use case the admin configures boats. It includes adding, removing, browsing and locking a boat if it is damaged.
-The user can select a free boat for the next tour.	
-		}	
+		\hluc{HLUC-1}{Browse / view boats}{Boats}{1}{gef}{}{%
+A member can browse through the boats that exist in the system and view the details of a boat. The detail view of a boat contains information about the properties of a boat like the number of rowers and information about if the boat has a cox.}
 
-\hluc{HLUC-2}{Manage Users/Accounts}{Online Storage}{1}{wal}{}{%
-		In this use case the admin configures users, user rights and accounts. Users
-are members of the club. The user will automatically receive an account when they sign up in the club. This requires that an e-mail address is provided. The administrator also need additional functions within their user account.
-This use case includes adding, browsing, changing, removing users and creating and removing accounts.	
-		}
+		\hluc{HLUC-2}{Manage boats}{Boats}{1}{gef}{}{%
+An administrator can add, edit and delete boats in the system. A boat that is deleted is completely removed from the system as long as it is not used in any other part of the system. If it is deleted and still referenced anywhere, it is visible in any parts where it is referenced, but it cannot be selected any longer for boat relevant actions. A boat can be locked and unlocked so that it cannot be used for trips if it is broken or under repair. }
 
-\hluc{HLUC-3}{Manage Routes}{Online Storage}{1}{wal}{}{%
-		In this use case the Users configures routes. It includes adding, removing, browsing and changing routes. A route contains a name and description. A functionality will be provided that prevents duplicated Route entries.
-		}
-		
-		
-		\subsubsection{Package RowBuddy Route and Event Logger}
-		The use cases in the \textit{RowBuddy Route and Event Logger package} deal with logging new routes and other things. Users may p.e. log a damaged boat.\\
-	
+		\hluc{HLUC-3}{Manage boat reservations}{Boats}{1}{gef}{}{%
+If a member wants to use certain boats at a certain point in the future he is able to reserve them. Therefore he can select a time period and boats that are available during that time. If boats are blocked by other reservations he is able to see that, too. A reservation can be modified or deleted by the person that has created it and an administrator. Modification includes the adding and removing of additional boats. During reservation time the reserved boats can only be used by the person that has reserved the boat. }
+
+		\hluc{HLUC-4}{Manage boat damages}{Boats}{1}{gef}{}{%
+A member can record a damage that has occured on a boat. He browses for a boat and chooses to add a damage. He enters information about the damage on the boat and additional information on the circumstances how the damage has happened. The creator and an administrator is able to edit the damage. An administrator can resolve the damage as fixed. A damage that is not fixed yet does not block a boat for trips. 
+}
+
+		\subsubsection{Package RowBuddy Member Management}
+
 		\begin{figure}[H]
 			\begin{center}
-				\includegraphics[width=0.6\textwidth]{./figures/02_RouteAndEventLogger.pdf}
-				\caption{Use case diagram package Route and Event Logger}
-				\label{img:UCrouteAndEventLogger}
-			\end{center}
-		\end{figure}
-	
-			\hluc{HLUC-4}{Start rowing a route}{Route and Event Logger}{1}{jnt}{}{%
-				In this use case a rowed route is recorded in the electronic logbook. The user that will start rowing a route selects a boat, the team members and a route.
-			}
-	
-			\hluc{HLUC-5}{Stop rowing a route}{Route and Event Logger}{1}{jnt}{}{%
-				In this use case a started route created in HLUC-4 is stopped to provide the functionality to return from a trip. The route is then added in the users profile.
-			}
-	
-			\hluc{HLUC-6}{Log rowed route}{Route and Event Logger}{2}{jnt}{}{%
-				In this use case a rowed route is recorded in the electronic logbook, if HLUC-4 was not executed. The user that rowed the route sets the date and time the route ended and started, the river the route was rowed on and either the GPS coordinates of ending- and starting-points or a short description of those. The route is then added in the users profile.
-			}
-			\hluc{HLUC-7}{Log damaged boat}{Route and Event Logger}{1}{hei}{}{%
-				This use case deals with recording a damaged boat. The user inputs the type of boat, a description of what is damaged, when and where the defect occurred and optionally the incident that damaged the boat.
-			}
-		
-		\subsubsection{Package RowBuddy Report Generator}
-		The use cases in the \textit{RowBuddy Report Generator package} deal with generating all kinds of reports. The content of the reports are configurable to individualize the reports based on the logged routes.\\
-	
-		\begin{figure}[H]
-			\begin{center}
-				\includegraphics[width=0.6\textwidth]{./figures/03_ReportGenerator.pdf}
-				\caption{Use case diagram package Report Generator}
-				\label{img:UCreportGenerator}
+				\includegraphics[width=0.6\textwidth]{./figures/HL-MemberManagement.pdf}
+				\caption{Use case diagram package member management}
+				\label{img:UCMemberManagement}
 			\end{center}
 		\end{figure}
 
-		\hluc{HLUC-8}{Generate year statistic of all members}{Report Generator}{1}{dch}{}{%
-		
-		In this use case the program automatically create a statistic of all members on demand. The statistic contains information about the most valuable rower, most improved rower, graphical representation and best rookies. This use case also include browsing and creating statistics. The members are able to see the generated statistics.
-		}
+		\hluc{HLUC-5}{Manage Members}{Member Management}{1}{gef}{}{%
+An administrator can manage the members in the system. The information that is stored for a member is his address and the email address. A member can be marked as inaktive. His data is still appearing in all statistical reports. A member can have certain roles. Every member has the role \emph{member}, optionally he can have the role \emph{administrator}. }
 
-\hluc{HLUC-9}{Generate boat statistics}{Report Generator}{2}{dch}{}{
-		In this use case the programm automatically create a statistic of all boats on demand. This statistic includes new boats, broken boats and boats are no longer used. The users can see this statistic. This use case includes browsing and creating statistics.
-		}
+		\hluc{HLUC-6}{Import Members}{Member Management}{1}{gef}{}{%
+An administrator can import members from a table based file. This is used to import a large amount of member data. A member is identified by its member-id. If a member-id does already exist in the system, all member data is overridden with the imported data.
+}
+		\subsubsection{Package RowBuddy Member Profiles}
 
-\hluc{HLUC-10}{Generate individual statistics for a member}{Report Generator}{1}{dch}{}{%
-		Each member has an own personal statistic about his activities. This statistic is generated on demand by the member itself. The statistic is attached to the users profile and contains information about total distance, popular routes and used boats for the current year and each year in the past.
-		}
-		
-		\subsubsection{Package RowBuddy Member's Profile}
-The use cases in the the package \emph{Member's Profile} deal with the member's profiles. This is functionality for maintaining the profile, publishing his own results and routes, searching for other member's profiles and visiting other member's profiles.\\
-	
 		\begin{figure}[H]
 			\begin{center}
-				\includegraphics[width=0.6\textwidth]{./figures/04_MembersProfile.pdf}
-				\caption{Use case diagram package Member's Profile}
-				\label{img:UCmembersProfile}
+				\includegraphics[width=0.6\textwidth]{./figures/HL-MemberProfiles.pdf}
+				\caption{Use case diagram package member profiles}
+				\label{img:UCMemberProfiles}
 			\end{center}
 		\end{figure}
 
-% offline club member: person who is rowing in the club
-% online club member: club member that has entered his email address}
+		\hluc{HLUC-7}{Login / Logout}{Member Profiles}{1}{gef}{}{%
+}
 
-		\hluc{HLUC-11}{Login user}{Member's Profile}{1}{gef}{}{%
-The user enters the email address that is known to the club and a password to authenticate himself regarding the system. After a successful login the user is able to view user-specific pages. A user that is not authenticated is only able to view an info page that shows whom he has to contact to get a user account. If the user does not visit any other pages for 1 hour, the user is automatically logged out of the system.}
+		\hluc{HLUC-8}{Request / change password}{Member Profiles}{1}{gef}{}{%
+}
 
-		\hluc{HLUC-12}{Forgot password}{Member's Profile}{1}{gef}{}{%
-The user has forgotten his password and wants to log in to the system. He requests a temporary password by entering his email address. The temporary password that is valid for one hour is sent to his registered email address. During this time he is able to use the temporary and the normal password. After a login with the temporary password, the user must enter a new password. Only if the new password is entered twice the normal password is replaced with this password.}
+		\hluc{HLUC-9}{Search / view other members profile}{Member Profiles}{1}{gef}{}{%
+}
 
-		\hluc{HLUC-13}{Change password}{Member's Profile}{1}{gef}{}{%
-The user can change his password. For that he has to be logged into the system. The user enters his current password and the new password twice. The user cannot use the old password any more for a login, the new password is valid now.}
+		\hluc{HLUC-10}{Publish trip on profile}{Member Profiles}{1}{gef}{}{%
+}
 
-		\hluc{HLUC-14}{Publish route on profile}{Member's Profile}{2}{gef}{}{%
-A club member can select a trip that he has participated in and can publish it on his profile site. For this trip selection he can browse his rowed trips and can search for specific trips. The visitors of his profile site can see all relevant characteristics of the trip.}
+		\subsubsection{Package RowBuddy Route Management}
 
-		\hluc{HLUC-15}{View other club members profile}{Member's Profile}{1}{gef}{}{%
-A club member can view the profile sites of other club members. The club member sees information that a user has declared as public including the summed statistics of the user. These statistics are the number of trips, the average length of the trips and the total length of the trips. These statistics are visible for the current year and for all years. }
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=0.6\textwidth]{./figures/HL-Routes.pdf}
+				\caption{Use case diagram package routes}
+				\label{img:UCRoutes}
+			\end{center}
+		\end{figure}
 
-		\hluc{HLUC-16}{Search for club member profile}{Member's Profile}{1}{gef}{}{%
-A club member can search for other club members by their name. The club member sees a list with matching club members.}
+		\hluc{HLUC-11}{Browse / view routes}{Routes}{1}{gef}{}{%
+A member is able to browse all routes in the system. He can view all details concerning a route. These are a description, the length and a map showing the points of the route. }
+
+		\hluc{HLUC-12}{Manage routes}{Routes}{1}{gef}{}{%
+A member can add, edit and delete routes in the system. Routes can be edited and deleted by any member if they are marked as mutable. Otherwise they can only be edited and deleted by the owner and administrators. If a route is modified the trips that have already used this route must not be altered, otherwise the log book would be manipulated. Therefore, edited routes exist as a new version of the route. If the current version of the route is not used yet, no new version has to be created.}
+
+		\subsubsection{Package RowBuddy Statistics}
+
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=0.6\textwidth]{./figures/HL-Statistics.pdf}
+				\caption{Use case diagram package statistics}
+				\label{img:UCStatistics}
+			\end{center}
+		\end{figure}
+
+		\hluc{HLUC-13}{Generate year statistics for all members}{Statistics}{1}{gef}{}{%
+}
+
+		\hluc{HLUC-14}{Generate month statistics for all members}{Statistics}{1}{gef}{}{%
+}
+
+		\hluc{HLUC-15}{Generate individual statistics fo a member}{Statistics}{1}{gef}{}{%
+}
+
+		\hluc{HLUC-16}{Generate boat statistics}{Statistics}{1}{gef}{}{%
+}
+
+		\hluc{HLUC-17}{Generate route statistics}{Statistics}{1}{gef}{}{%
+}
+
+		\subsubsection{Package RowBuddy Trips}
+
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=0.6\textwidth]{./figures/HL-Trips.pdf}
+				\caption{Use case diagram package trips}
+				\label{img:UCTrips}
+			\end{center}
+		\end{figure}
+
+		\hluc{HLUC-18}{Browse / view personal trips}{Trips}{1}{gef}{}{%
+}
+
+		\hluc{HLUC-19}{Browse / view open trips}{Trips}{1}{gef}{}{%
+}
+
+		\hluc{HLUC-20}{Log rowed trip}{Trips}{1}{gef}{}{%
+}
+
+		\hluc{HLUC-21}{Start / end rowing trip}{Trips}{1}{gef}{}{%
+}
+
+\subsection{Domain Model}
+The following figure \ref{img:DomainModel} shows the domain model of the RowBuddy system.
+
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[width=1.0\textwidth]{./figures/DomainModel.pdf}
+				\caption{RowBuddy Domain Model}
+				\label{img:DomainModel}
+			\end{center}
+		\end{figure}
+
+
+
+
 		
