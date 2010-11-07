@@ -80,16 +80,22 @@ An administrator can import members from a table based file. This is used to imp
 			\end{center}
 		\end{figure}
 
-		\hluc{HLUC-7}{Login / Logout}{Member Profiles}{1}{gef}{}{%
+		\hluc{HLUC-7}{Login / Logout}{Member Profiles}{1}{hei}{}{%
+The user enters the email address that is known to the club and a password to authenticate himself regarding the system. After a successful login the user is able to view user-specific pages. A user that is not authenticated is only able to view an info page that shows whom he has to contact to get a user account. If the user does not visit any other pages for 1 hour, or clicked on logout, the user is logged out of the system.
 }
 
-		\hluc{HLUC-8}{Request / change password}{Member Profiles}{1}{gef}{}{%
+		\hluc{HLUC-8}{Request / change password}{Member Profiles}{1}{hei}{}{%
+The user can change his password. For that he has to be logged into the system. He enters his current password and the new password twice. The old password can not be used any more for a login, the new password is valid now.
+If a user has not logged in into the system at all, he is able to request a temporary password by providing his e-mail address, which is used to mail the password. The users e-mail address has to be known to the system before the password can be requested. If the user has forgotten his password he can also request it. In this case an e-mail is dispatched with a link to confirm that he really wants to change his password. If the confirmation is done, a new e-mail is sent with his new temporary password. The temporary password should be changed afterwards.
 }
 
-		\hluc{HLUC-9}{Search / view other members profile}{Member Profiles}{1}{gef}{}{%
+		\hluc{HLUC-9}{Search / view other members profile}{Member Profiles}{1}{hei}{}{%
+A users profile can be searched for when a user is logged in. The user is able to provide keywords for a full-text-search, or use a name, e-mail-address, role type or member since field to conduct the search.
+Logged in users can view other users profiles. The information shown on a profile includes the name, surname, birth date, e-mail-address, roles, published trips, since when the user is member of the club and if the user is active.
 }
 
-		\hluc{HLUC-10}{Publish trip on profile}{Member Profiles}{1}{gef}{}{%
+		\hluc{HLUC-10}{Publish trip on profile}{Member Profiles}{1}{hei}{}{%
+A user can publish selected trips on his profile. These trips can be selected as published in a users personal rowed routes view. After a user has checked a trip as published other users can view it under a users published trip site on his profile.
 }
 
 		\subsubsection{Package RowBuddy Route Management}
@@ -118,19 +124,24 @@ A member can add, edit and delete routes in the system. Routes can be edited and
 			\end{center}
 		\end{figure}
 
-		\hluc{HLUC-13}{Generate year statistics for all members}{Statistics}{1}{gef}{}{%
+		\hluc{HLUC-13}{Generate year statistics for all members}{Statistics}{1}{hei}{}{%
+Users can watch year statistics for all members, including a high score statistic that shows how many km a user has rowed in total over a year.
 }
 
-		\hluc{HLUC-14}{Generate month statistics for all members}{Statistics}{1}{gef}{}{%
+		\hluc{HLUC-14}{Generate month statistics for all members}{Statistics}{1}{hei}{}{%
+Users can watch a statistic for all members that shows a high score of how many km a user has rowed in total over a month. Additionally a monthly activity statistic is available.
 }
 
-		\hluc{HLUC-15}{Generate individual statistics fo a member}{Statistics}{1}{gef}{}{%
+		\hluc{HLUC-15}{Generate individual statistics for a member}{Statistics}{1}{hei}{}{%
+Individual statistics are generated on demand that can only be watched by the member that owns the particular statistic. These statistics include a year and month statistic that show how many km a user has rowed in a specific boat combined with the date.
 }
 
-		\hluc{HLUC-16}{Generate boat statistics}{Statistics}{1}{gef}{}{%
+		\hluc{HLUC-16}{Generate boat statistics}{Statistics}{1}{hei}{}{%
+Boat statistics are generated on demand that show a high score list of the rowed km of each boat. Additionally a damaged boat statistic for a year can be viewed.
 }
 
-		\hluc{HLUC-17}{Generate route statistics}{Statistics}{1}{gef}{}{%
+		\hluc{HLUC-17}{Generate route statistics}{Statistics}{1}{hei}{}{%
+A year statistic of the most popular routes can be viewed by the users. It shows how often a specific route has been chosen for a tour in form of a high score list.
 }
 
 		\subsubsection{Package RowBuddy Trips}
@@ -143,16 +154,18 @@ A member can add, edit and delete routes in the system. Routes can be edited and
 			\end{center}
 		\end{figure}
 
-		\hluc{HLUC-18}{Browse / view personal trips}{Trips}{1}{gef}{}{%
+		\hluc{HLUC-18}{Browse / view personal trips}{Trips}{1}{hei}{}{%
+A user can browse through his personal trips taken. The browse list gives a short overview consisting of the route name, the date, the boat taken and how many members attended the trip. The trips can be looked at in detail, with information such as the member names, the last editor, if the trip is finished and additional information about the trip.
 }
 
-		\hluc{HLUC-19}{Browse / view open trips}{Trips}{1}{gef}{}{%
+		\hluc{HLUC-19}{Browse / view open trips}{Trips}{1}{hei}{}{%
+
 }
 
-		\hluc{HLUC-20}{Log rowed trip}{Trips}{1}{gef}{}{%
+		\hluc{HLUC-20}{Log rowed trip}{Trips}{1}{hei}{}{%
 }
 
-		\hluc{HLUC-21}{Start / end rowing trip}{Trips}{1}{gef}{}{%
+		\hluc{HLUC-21}{Start / end rowing trip}{Trips}{1}{hei}{}{%
 }
 
 \subsection{Domain Model}
