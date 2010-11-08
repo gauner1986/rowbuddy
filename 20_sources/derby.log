@@ -1,9 +1,0 @@
-2010-10-31 15:36:59.748 GMT : Apache Derby Network Server 10.6.2.1 - (999685) wurde gestartet und ist bereit, Verbindungen am Port 1527 zu akzeptieren.
-----------------------------------------------------------------
-2010-10-31 15:42:04.041 GMT:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.6.2.1 - (999685): instance a816c00e-012c-02ef-322c-00000000002e 
-on database directory /Users/daniel/Documents/workspace/Web Project/sun-appserv-samples  with class loader sun.misc.Launcher$AppClassLoader@6d6f0472 
-Loaded from file:/Users/daniel/eclipse/plugins/org.apache.derby.core_10.6.2/derby.jar
-java.vendor=Apple Inc.
-java.runtime.version=1.6.0_20-b02-279-10M3065
-Database Class Loader started - derby.database.classpath=''
