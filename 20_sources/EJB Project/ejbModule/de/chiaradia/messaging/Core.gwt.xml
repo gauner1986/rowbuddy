@@ -1,0 +1,3 @@
+<module rename-to="de.chiaradia.messaging.Core">
+    <source path="entities"/>
+</module>
