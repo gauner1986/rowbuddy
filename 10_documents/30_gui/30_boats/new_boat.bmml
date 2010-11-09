@@ -25,19 +25,24 @@
         <text>4</text>
       </controlProperties>
     </control>
-    <control controlID="8" controlTypeID="com.balsamiq.mockups::ComboBox" x="497" y="133" w="194" h="-1" measuredW="58" measuredH="50" zOrder="5" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Nein%0AJa</text>
-      </controlProperties>
-    </control>
-    <control controlID="9" controlTypeID="com.balsamiq.mockups::Button" x="591" y="198" w="-1" h="-1" measuredW="100" measuredH="28" zOrder="6" locked="false" isInGroup="-1">
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Button" x="591" y="198" w="-1" h="-1" measuredW="100" measuredH="28" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Boot%20anlegen</text>
       </controlProperties>
     </control>
-    <control controlID="10" controlTypeID="com.balsamiq.mockups::Title" x="393" y="0" w="-1" h="-1" measuredW="297" measuredH="56" zOrder="7" locked="false" isInGroup="-1">
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Title" x="393" y="0" w="-1" h="-1" measuredW="297" measuredH="56" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Boot%20hinzuf%FCgen</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::CheckBox" x="500" y="137" w="-1" h="-1" measuredW="25" measuredH="22" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::Button" x="394" y="197" w="-1" h="-1" measuredW="107" measuredH="28" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Zur%FCcksetzen</text>
       </controlProperties>
     </control>
   </controls>

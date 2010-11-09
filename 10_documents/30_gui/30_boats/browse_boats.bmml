@@ -2,7 +2,7 @@
   <controls>
     <control controlID="8" controlTypeID="com.balsamiq.mockups::DataGrid" x="378" y="68" w="-1" h="-1" measuredW="350" measuredH="176" zOrder="0" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Name%20%5E%2C%20Bootspl%E4tze%2C%20Gesteuert%2C%20Gesperrt%0AAlboflame%2C%202%2C%20Nein%2C%20%5B%5D%0ABruno%20Schroers%2C%202%2C%20Nein%2C%20%5B%5D%0AEmmy%2C%204%2C%20Nein%2C%20%5B%5D%0AOnkel%20Uli%2C%201%2C%20Nein%2C%20%5Bx%5D%0AStarpac%2C%204%2C%20Ja%2C%20%5B%5D</text>
+        <text>Name%20%5E%2C%20Bootspl%E4tze%2C%20Gesteuert%2C%20Gesperrt%0AAlboflame%2C%202%2C%20%5B%5D%2C%20%5B%5D%0ABruno%20Schroers%2C%202%2C%20%5B%5D%2C%20%5B%5D%0AEmmy%2C%204%2C%20%5B%5D%2C%20%5B%5D%0AOnkel%20Uli%2C%201%2C%20%5B%5D%2C%20%5Bx%5D%0AStarpac%2C%204%2C%20%5Bx%5D%2C%20%5B%5D</text>
       </controlProperties>
     </control>
     <control controlID="9" controlTypeID="com.balsamiq.mockups::Title" x="378" y="3" w="-1" h="-1" measuredW="273" measuredH="56" zOrder="1" locked="false" isInGroup="-1">
