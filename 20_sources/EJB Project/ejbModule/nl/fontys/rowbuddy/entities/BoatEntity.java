@@ -16,22 +16,22 @@ public class BoatEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	private String name;
-	private Integer numberOfSeats;
-	private Boolean coxed;
-	private Boolean locked;
-	private Boolean deleted;
+	private long id;
+	private String name = "";
+	private int numberOfSeats = 0;
+	private boolean coxed = false;
+	private boolean locked = false;
+	private boolean deleted = false;
 	private static final long serialVersionUID = 1L;
 
 	public BoatEntity() {
 		super();
 	}   
-	public Long getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}   
 	public String getName() {
@@ -41,32 +41,32 @@ public class BoatEntity implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}   
-	public Integer getNumberOfSeats() {
+	public int getNumberOfSeats() {
 		return this.numberOfSeats;
 	}
 
-	public void setNumberOfSeats(Integer numberOfSeats) {
+	public void setNumberOfSeats(int numberOfSeats) {
 		this.numberOfSeats = numberOfSeats;
 	}   
-	public Boolean isCoxed() {
+	public boolean isCoxed() {
 		return this.coxed;
 	}
 
-	public void setCoxed(Boolean coxed) {
+	public void setCoxed(boolean coxed) {
 		this.coxed = coxed;
 	}   
-	public Boolean isLocked() {
+	public boolean isLocked() {
 		return this.locked;
 	}
 
-	public void setLocked(Boolean locked) {
+	public void setLocked(boolean locked) {
 		this.locked = locked;
 	}   
-	public Boolean isDeleted() {
+	public boolean isDeleted() {
 		return this.deleted;
 	}
 
-	public void setDeleted(Boolean deleted) {
+	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
    
