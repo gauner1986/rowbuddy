@@ -1,5 +1,7 @@
-package nl.fontys.jee.rowbuddy.client.ui;
+package nl.fontys.jee.rowbuddy.client.ui.trip;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -10,14 +12,10 @@ import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.datepicker.client.DateBox;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
 
-public class LogTrip extends Composite {
+public class StartTrip extends Composite {
 
-	public LogTrip() {
+	public StartTrip() {
 		setupUi();
 	}
 	
@@ -36,37 +34,13 @@ public class LogTrip extends Composite {
 		mainTable.addStyleName("cw-FlexTable");
 		initWidget(mainTable);
 		
-		mainTable.setWidget(0, 0, new Label("Start: "));
-		mainTable.setWidget(1, 0, new Label("Ende: "));
-		mainTable.setWidget(2, 0, new Label("Route: "));
-		mainTable.setWidget(3, 0, new Label("Mitfahrer: "));
-		mainTable.setWidget(4, 0, new Label("Boot: "));
-		mainTable.setWidget(5, 0, new Label("zusaetzliche Informationen: "));
-		
-		final DateBox startDateBox = new DateBox();
-		
-		final TimeBox startTimeBox = new TimeBox();
-		
-		final Grid startSubTable = new Grid(1,2);
-		startSubTable.setWidget(0, 0, startDateBox);
-		startSubTable.setWidget(0, 1, startTimeBox);
-		
-		mainTable.setWidget(0, 1, startSubTable);
-		
-		
-		final DateBox endDateBox = new DateBox();
-		
-		final TimeBox endTimeBox = new TimeBox();
-		
-		final Grid endSubTable = new Grid(1,2);
-		endSubTable.setWidget(0, 0, endDateBox);
-		endSubTable.setWidget(0, 1, endTimeBox);
-		
-		mainTable.setWidget(1, 1, endSubTable);
-		
+		mainTable.setWidget(0, 0, new Label("Route: "));
+		mainTable.setWidget(1, 0, new Label("Mitfahrer: "));
+		mainTable.setWidget(2, 0, new Label("Boot: "));
+		mainTable.setWidget(3, 0, new Label("zusaetzliche Informationen: "));
 		
 		final SuggestBox routeSB = new SuggestBox(mwso);
-		mainTable.setWidget(2, 1, routeSB);
+		mainTable.setWidget(0, 1, routeSB);
 		
 		final ListBox rowersLB = new ListBox();
 		rowersLB.setVisibleItemCount(5);
@@ -94,17 +68,17 @@ public class LogTrip extends Composite {
 		rowersSubTable.setWidget(0, 1, rowersAddButton);
 		rowersSubTable.setWidget(1, 1, rowersDelButton);
 		
-		mainTable.setWidget(3, 1, rowersSubTable);
+		mainTable.setWidget(1, 1, rowersSubTable);
 		
 		
 		final SuggestBox boatSB = new SuggestBox(mwso);
-		mainTable.setWidget(4, 1, boatSB);
+		mainTable.setWidget(2, 1, boatSB);
 		
 		final TextArea additionalInformationTA = new TextArea();
-		mainTable.setWidget(5, 1, additionalInformationTA);
+		mainTable.setWidget(3, 1, additionalInformationTA);
 		
 		final Button registerButton = new Button("Registrieren");
-		mainTable.setWidget(6, 0, registerButton);
+		mainTable.setWidget(4, 0, registerButton);
 	}
 
 }
