@@ -1,4 +1,4 @@
-package nl.fontys.jee.rowbuddy.server;
+package de.rowbuddy.web;
 
 import java.util.List;
 
