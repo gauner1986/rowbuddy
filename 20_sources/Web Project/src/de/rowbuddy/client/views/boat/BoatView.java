@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.business.BoatOverview;
+import de.rowbuddy.business.dtos.BoatOverview;
 import de.rowbuddy.client.presenter.BoatPresenter;
 
 public class BoatView extends Composite implements BoatPresenter.Display {

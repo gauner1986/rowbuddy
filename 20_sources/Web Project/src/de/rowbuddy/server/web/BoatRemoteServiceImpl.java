@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import de.rowbuddy.business.BoatOverview;
+import de.rowbuddy.business.dtos.BoatOverview;
 import de.rowbuddy.client.services.BoatRemoteService;
 
 public class BoatRemoteServiceImpl extends RemoteServiceServlet implements BoatRemoteService{

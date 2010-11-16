@@ -11,7 +11,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.business.BoatOverview;
+import de.rowbuddy.business.dtos.BoatOverview;
 import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
