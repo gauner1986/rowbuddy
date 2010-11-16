@@ -1,4 +1,4 @@
-//package nl.fontys.rowbuddy.entities;
+//package de.rowbuddy.entities;
 //
 //
 //import java.util.HashMap;
