@@ -1,0 +1,4 @@
+<module rename-to="de.rowbuddy.Core">
+    <source path="entities"/>
+    <source path="business"/>
+</module>
