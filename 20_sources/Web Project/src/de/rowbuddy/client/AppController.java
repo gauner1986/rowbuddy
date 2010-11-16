@@ -20,6 +20,8 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 	private HasWidgets container;
 	public AppController(BoatRemoteServiceAsync boatService, SimpleEventBus eventBus) {
 		this.boatService = boatService;
+		this.eventBus = eventBus;
+		this.container = container;
 	}  
 	
 	//bind Event handling here
