@@ -39,12 +39,12 @@ public class GWTEntryPoint implements EntryPoint {
 		flexTable.setCellSpacing(5);
 		flexTable.setCellPadding(3);
 		
-		cellFormatter.setHorizontalAlignment(0, 0, HasHorizontalAlignment.ALIGN_LEFT);
+		cellFormatter.setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_LEFT);
 		cellFormatter.setColSpan(0, 0, 2);
 		cellFormatter.setHorizontalAlignment(0, 2, HasHorizontalAlignment.ALIGN_RIGHT);
 		cellFormatter.setVerticalAlignment(1, 0, HasVerticalAlignment.ALIGN_TOP);
 		cellFormatter.setRowSpan(1, 0, 2);
-		cellFormatter.setHorizontalAlignment(1, 1, HasHorizontalAlignment.ALIGN_LEFT);
+		cellFormatter.setHorizontalAlignment(1, 2, HasHorizontalAlignment.ALIGN_LEFT);
 		cellFormatter.setColSpan(1, 1, 2);
 		cellFormatter.setHorizontalAlignment(2, 1, HasHorizontalAlignment.ALIGN_LEFT);
 		cellFormatter.setColSpan(2, 1, 2);
