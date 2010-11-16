@@ -14,7 +14,7 @@
         
         <servlet> 
                 <servlet-name>BoatRemoteServiceImpl</servlet-name> 
-                <servlet-class>BoatRemoteServiceImpl</servlet-class> 
+                <servlet-class>de.rowbuddy.server.web.BoatRemoteServiceImpl</servlet-class> 
         </servlet>  
         <servlet-mapping> 
                 <servlet-name>BoatRemoteServiceImpl</servlet-name> 
