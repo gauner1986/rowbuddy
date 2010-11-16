@@ -1,9 +1,6 @@
 package de.rowbuddy.entities;
 
 import java.io.Serializable;
-import java.lang.Boolean;
-import java.lang.Integer;
-import java.lang.Long;
 import java.lang.String;
 import javax.persistence.*;
 

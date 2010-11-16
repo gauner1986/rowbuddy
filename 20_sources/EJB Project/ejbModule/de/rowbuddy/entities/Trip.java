@@ -1,7 +1,6 @@
 package de.rowbuddy.entities;
 
 import java.io.Serializable;
-import java.lang.Long;
 import java.util.Collection;
 import java.util.Date;
 
@@ -16,7 +15,7 @@ public class Trip implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private long id;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date startDate;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -34,11 +33,11 @@ public class Trip implements Serializable {
 	public Trip() {
 		super();
 	}   
-	public Long getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}   
 	public Date getStartDate() {
@@ -86,28 +85,31 @@ public class Trip implements Serializable {
 	public void setRoute(Route route) {
 		this.route = route;
 	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Trip other = (Trip) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (id != other.id) {
 			return false;
+		}
 		return true;
 	}
+	
+	
 }

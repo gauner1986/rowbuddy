@@ -1,8 +1,6 @@
 package de.rowbuddy.entities;
 
 import java.io.Serializable;
-import java.lang.Boolean;
-import java.lang.Long;
 import java.lang.String;
 import java.util.Collection;
 import java.util.Date;
@@ -19,7 +17,7 @@ public class Member implements Serializable {
 	   
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private long id;
 	private String memberId;
 	private String givenname;
 	private String surname; 
@@ -27,7 +25,7 @@ public class Member implements Serializable {
 	private Date birthdate;
 	private String email;
 	private String password;
-	private Boolean deleted;
+	private boolean deleted;
 	private String street;
 	private String city;
 	private String zipCode;
@@ -38,11 +36,11 @@ public class Member implements Serializable {
 	public Member() {
 		super();
 	}   
-	public Long getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}   
 	public String getMemberId() {
@@ -87,11 +85,11 @@ public class Member implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}   
-	public Boolean getDeleted() {
+	public boolean getDeleted() {
 		return this.deleted;
 	}
 
-	public void setDeleted(Boolean deleted) {
+	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}   
 	public String getStreet() {
@@ -128,26 +126,26 @@ public class Member implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Member other = (Member) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (id != other.id) {
 			return false;
+		}
 		return true;
-	}
-	
-	
+	}	
    
 }

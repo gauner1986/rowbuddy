@@ -1,9 +1,6 @@
 package de.rowbuddy.entities;
 
 import java.io.Serializable;
-import java.lang.Boolean;
-import java.lang.Double;
-import java.lang.Long;
 import java.lang.String;
 import javax.persistence.*;
 
@@ -16,22 +13,22 @@ public class Route implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private long id;
 	private String name;
 	private String shortDescription;
-	private Long versionNumber;
-	private Double lengthKM;
-	private Boolean mutable;
+	private long versionNumber;
+	private double lengthKM;
+	private boolean mutable;
 	private static final long serialVersionUID = 1L;
 
 	public Route() {
 		super();
 	}   
-	public Long getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}   
 	public String getName() {
@@ -55,18 +52,18 @@ public class Route implements Serializable {
 	public void setVersionNumber(Long versionNumber) {
 		this.versionNumber = versionNumber;
 	}   
-	public Double getLengthKM() {
+	public double getLengthKM() {
 		return this.lengthKM;
 	}
 
-	public void setLengthKM(Double lengthKM) {
+	public void setLengthKM(double lengthKM) {
 		this.lengthKM = lengthKM;
 	}   
-	public Boolean getMutable() {
+	public boolean getMutable() {
 		return this.mutable;
 	}
 
-	public void setMutable(Boolean mutable) {
+	public void setMutable(boolean mutable) {
 		this.mutable = mutable;
 	}
    
