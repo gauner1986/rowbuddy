@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import de.rowbuddy.business.dtos.BoatOverview;
 import de.rowbuddy.dao.BoatDAO;
 import de.rowbuddy.dao.BoatOverviewConverter;
 import de.rowbuddy.entities.Boat;

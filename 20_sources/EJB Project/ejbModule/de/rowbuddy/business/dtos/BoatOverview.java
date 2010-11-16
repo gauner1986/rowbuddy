@@ -1,4 +1,4 @@
-package de.rowbuddy.business;
+package de.rowbuddy.business.dtos;
 
 public class BoatOverview {
 	

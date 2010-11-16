@@ -3,7 +3,7 @@ package de.rowbuddy.dao;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import de.rowbuddy.business.BoatOverview;
+import de.rowbuddy.business.dtos.BoatOverview;
 import de.rowbuddy.entities.Boat;
 
 public class BoatOverviewConverter {
