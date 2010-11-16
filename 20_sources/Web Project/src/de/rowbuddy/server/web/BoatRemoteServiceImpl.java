@@ -1,6 +1,8 @@
 package de.rowbuddy.server.web;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -17,8 +19,16 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements BoatR
 	@Override
 	public Collection<BoatOverview> getBoatOverview() {
 		// TODO Auto-generated method stub
-		System.out.println("Call");
-		return null;
+		List<BoatOverview> boats = new LinkedList<BoatOverview>();
+		BoatOverview boat1 = new BoatOverview();
+		boat1.setId(1);
+		boat1.setLocked(false);
+		boat1.setCoxed(true);
+		boat1.setName("Unsinkbar 3");
+		boat1.setNumberOfSeats(5);
+		boats.add(boat1);
+		
+		return boats;
 	}
 	
 	
