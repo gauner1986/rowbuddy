@@ -1,4 +1,4 @@
-package de.rowbuddy.web;
+package de.rowbuddy.server.web;
 
 import java.util.List;
 

@@ -5,12 +5,13 @@ import java.util.Collection;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.business.BoatOverview;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
-public class BoatPresenter {
+public class BoatPresenter implements Presenter{
 	public interface Display{
 		Widget asWidget();
 		HasClickHandlers getAddButton();
@@ -28,5 +29,20 @@ public class BoatPresenter {
 		this.eventBus = eventBus;
 	}
 	
+	private void bind(){
+		
+	}
+
+	@Override
+	public void start(HasWidgets container) {
+		bind();
+		container.clear();
+		container.add(view.asWidget());
+		fetchBoats();
+	}
+	
+	private void fetchBoats(){
+		
+	}
 	
 }

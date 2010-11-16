@@ -1,39 +1,106 @@
 package de.rowbuddy.client.views.boat;
+
 import java.util.Collection;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DecoratorPanel;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTMLTable;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.business.BoatOverview;
 import de.rowbuddy.client.presenter.BoatPresenter;
 
-public class BoatView extends Composite implements BoatPresenter.Display{
+public class BoatView extends Composite implements BoatPresenter.Display {
 
-	
+	private DecoratorPanel decorator;
+	private FlexTable contentTable;
+	private Button addButton;
+	private FlexTable boatTable;
+
+	public BoatView() {
+		decorator = new DecoratorPanel();
+		contentTable = new FlexTable();
+
+		initWidget(decorator);
+		decorator.add(contentTable);
+
+		HorizontalPanel hPanel = new HorizontalPanel();
+		hPanel.setBorderWidth(0);
+		hPanel.setSpacing(0);
+		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
+		addButton = new Button("Add");
+		hPanel.add(addButton);
+		contentTable.getCellFormatter().addStyleName(0, 0, "contacts-ListMenu");
+		contentTable.setWidget(0, 0, hPanel);
+
+		boatTable = new FlexTable();
+		boatTable.setCellSpacing(0);
+		boatTable.setCellPadding(0);
+		boatTable.setWidth("100%");
+		boatTable.addStyleName("contacts-ListContents");
+		boatTable.getColumnFormatter().setWidth(0, "15px");
+		contentTable.setWidget(1, 0, boatTable);
+	}
+
 	@Override
 	public Widget asWidget() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	@Override
 	public HasClickHandlers getAddButton() {
-		// TODO Auto-generated method stub
-		return null;
+		return addButton;
 	}
 
 	@Override
 	public int getClickedRow(ClickEvent event) {
-		// TODO Auto-generated method stub
-		return 0;
+		int selectedRow = -1;
+		HTMLTable.Cell cell = boatTable.getCellForEvent(event);
+
+		if (cell != null) {
+			// Suppress clicks if the user is actually selecting the
+			// check box
+			//
+			if (cell.getCellIndex() > 0) {
+				selectedRow = cell.getRowIndex();
+			}
+		}
+		return selectedRow;
+	}
+
+	public void initTableHead() {
+		boatTable.setText(0, 0, "Name");
+		boatTable.setText(0, 1, "Bootsplätze");
+		boatTable.setText(0, 2, "Gesteuert");
+		boatTable.setText(0, 3, "Gesperrt");
+
 	}
 
 	@Override
 	public void setData(Collection<BoatOverview> boats) {
-		// TODO Auto-generated method stub
-		
+		boatTable.removeAllRows();
+		initTableHead();
+		int i = 0;
+		for (BoatOverview boat : boats) {
+			boatTable.setText(i + 1, 0, boat.getName());
+			boatTable.setText(i + 1, 1, String.valueOf(boat.getNumberOfSeats()));
+
+			CheckBox coxBox = new CheckBox();
+			coxBox.setEnabled(false);
+			coxBox.setValue(boat.isCoxed());
+			boatTable.setWidget(i, 0, coxBox);
+
+			CheckBox lockedBox = new CheckBox();
+			lockedBox.setEnabled(false);
+			lockedBox.setValue(boat.isLocked());
+			i++;
+		}
 	}
 
 }
