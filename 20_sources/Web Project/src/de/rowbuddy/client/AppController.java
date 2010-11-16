@@ -4,8 +4,11 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+import de.rowbuddy.client.events.AddBoatEvent;
+import de.rowbuddy.client.events.AddBoatEventHandler;
 import de.rowbuddy.client.presenter.BoatPresenter;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
@@ -22,8 +25,17 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 	//bind Event handling here
 	private void bind(){
 		History.addValueChangeHandler(this);
+		eventBus.addHandler(AddBoatEvent.TYPE, new AddBoatEventHandler() {
+			@Override
+			public void onAddBoatEvent(AddBoatEvent event) {
+				doOnAddBoatEvent();
+			}
+		});
 	}
 	
+	private void doOnAddBoatEvent(){
+		History.newItem("addBoat");
+	}
 	@Override
 	public void onValueChange(ValueChangeEvent<String> arg0) {
 	//	arg0.get
@@ -32,7 +44,9 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 			Presenter presenter = null;
 			if(token.equals("listBoats")) {
 				presenter = new BoatPresenter(boatService, new BoatView(), eventBus);
-			} 
+			} else {
+				Window.alert("Action undefined! - " + token);
+			}
 
 			if(presenter != null) {
 				presenter.start(container);

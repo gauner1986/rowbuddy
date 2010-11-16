@@ -3,6 +3,7 @@ package de.rowbuddy.client.presenter;
 import java.util.Collection;
 
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -10,6 +11,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.business.BoatOverview;
+import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
 public class BoatPresenter implements Presenter{
@@ -32,7 +34,12 @@ public class BoatPresenter implements Presenter{
 	}
 	
 	private void bind(){
-		
+		view.getAddButton().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent arg0) {
+				eventBus.fireEvent(new AddBoatEvent());
+			}
+		});
 	}
 
 	@Override
