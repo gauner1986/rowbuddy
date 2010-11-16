@@ -1,4 +1,4 @@
-package nl.fontys.rowbuddy.entities;
+package de.rowbuddy.entities;
 
 import java.io.Serializable;
 import java.lang.Long;
@@ -12,7 +12,7 @@ import javax.persistence.*;
  *
  */
 @Entity
-public class TripEntity implements Serializable {
+public class Trip implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -22,16 +22,16 @@ public class TripEntity implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date endDate;
 	@ManyToOne
-	private BoatEntity boat;
+	private Boat boat;
 	@OneToMany
-	private Collection<TripMemberEntity> tripMembers;
+	private Collection<TripMember> tripMembers;
 	@ManyToOne
-	private MemberEntity lastEditor;
+	private Member lastEditor;
 	@ManyToOne
-	private RouteEntity route;
+	private Route route;
 	private static final long serialVersionUID = 1L;
 
-	public TripEntity() {
+	public Trip() {
 		super();
 	}   
 	public Long getId() {
@@ -55,35 +55,35 @@ public class TripEntity implements Serializable {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}   
-	public BoatEntity getBoat() {
+	public Boat getBoat() {
 		return this.boat;
 	}
 
-	public void setBoat(BoatEntity boat) {
+	public void setBoat(Boat boat) {
 		this.boat = boat;
 	}
 	
-	public Collection<TripMemberEntity> getTripMembers() {
+	public Collection<TripMember> getTripMembers() {
 		return tripMembers;
 	}
 	
-	public void setTripMembers(Collection<TripMemberEntity> tripMembers) {
+	public void setTripMembers(Collection<TripMember> tripMembers) {
 		this.tripMembers = tripMembers;
 	}
 	
-	public MemberEntity getLastEditor() {
+	public Member getLastEditor() {
 		return lastEditor;
 	}
 	
-	public void setLastEditor(MemberEntity lastEditor) {
+	public void setLastEditor(Member lastEditor) {
 		this.lastEditor = lastEditor;
 	}
 	
-	public RouteEntity getRoute() {
+	public Route getRoute() {
 		return route;
 	}
 	
-	public void setRoute(RouteEntity route) {
+	public void setRoute(Route route) {
 		this.route = route;
 	}
 	
@@ -102,7 +102,7 @@ public class TripEntity implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TripEntity other = (TripEntity) obj;
+		Trip other = (Trip) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

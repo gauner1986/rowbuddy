@@ -1,4 +1,4 @@
-package nl.fontys.rowbuddy.entities;
+package de.rowbuddy.entities;
 
 import java.io.Serializable;
 import java.lang.Boolean;
@@ -10,11 +10,11 @@ import java.util.Date;
 import javax.persistence.*;
 
 /**
- * Entity implementation class for Entity: MemberEntity
+ * Entity implementation class for Entity: Member
  *
  */
 @Entity
-public class MemberEntity implements Serializable {
+public class Member implements Serializable {
 
 	   
 	@Id
@@ -32,10 +32,10 @@ public class MemberEntity implements Serializable {
 	private String city;
 	private String zipCode;
 	@OneToMany
-	private Collection<TripEntity> publishedTrips;
+	private Collection<Trip> publishedTrips;
 	private static final long serialVersionUID = 1L;
 	
-	public MemberEntity() {
+	public Member() {
 		super();
 	}   
 	public Long getId() {
@@ -116,11 +116,11 @@ public class MemberEntity implements Serializable {
 		this.zipCode = zipCode;
 	}
 	
-	public Collection<TripEntity> getPublishedTrips() {
+	public Collection<Trip> getPublishedTrips() {
 		return publishedTrips;
 	}
 	
-	public void setPublishedTrips(Collection<TripEntity> publishedTrips) {
+	public void setPublishedTrips(Collection<Trip> publishedTrips) {
 		this.publishedTrips = publishedTrips;
 	}
 	
@@ -139,7 +139,7 @@ public class MemberEntity implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MemberEntity other = (MemberEntity) obj;
+		Member other = (Member) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

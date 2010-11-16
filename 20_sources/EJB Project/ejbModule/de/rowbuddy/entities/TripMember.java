@@ -1,33 +1,33 @@
-package nl.fontys.rowbuddy.entities;
+package de.rowbuddy.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * Entity implementation class for Entity: TripMemberEntity
+ * Entity implementation class for Entity: TripMember
  *
  */
 @Entity
-public class TripMemberEntity implements Serializable {
+public class TripMember implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
 	@ManyToOne
-	private MemberEntity member;
+	private Member member;
 	
 	private TripMemberType tripMemberType;
 	private static final long serialVersionUID = 1L;
 
-	public TripMemberEntity() {
+	public TripMember() {
 		super();
 	}   
-	public MemberEntity getMember() {
+	public Member getMember() {
 		return this.member;
 	}
 
-	public void setMember(MemberEntity member) {
+	public void setMember(Member member) {
 		this.member = member;
 	}   
 	public TripMemberType getTripMemberType() {

@@ -1,4 +1,4 @@
-package nl.fontys.rowbuddy.entities;
+package de.rowbuddy.entities;
 
 import java.io.Serializable;
 import java.lang.Boolean;
@@ -12,7 +12,7 @@ import javax.persistence.*;
  *
  */
 @Entity
-public class RouteEntity implements Serializable {
+public class Route implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -24,7 +24,7 @@ public class RouteEntity implements Serializable {
 	private Boolean mutable;
 	private static final long serialVersionUID = 1L;
 
-	public RouteEntity() {
+	public Route() {
 		super();
 	}   
 	public Long getId() {
