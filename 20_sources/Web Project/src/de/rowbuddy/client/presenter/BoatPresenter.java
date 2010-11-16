@@ -5,6 +5,7 @@ import java.util.Collection;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -22,6 +23,7 @@ public class BoatPresenter implements Presenter{
 	private Display view;
 	private BoatRemoteServiceAsync boatService;
 	private SimpleEventBus eventBus;
+	private Collection<BoatOverview> fetchedBoats;
 	
 	public BoatPresenter(BoatRemoteServiceAsync boatService, Display view, SimpleEventBus eventBus) {
 		this.view = view;
@@ -42,7 +44,18 @@ public class BoatPresenter implements Presenter{
 	}
 	
 	private void fetchBoats(){
-		
+		boatService.getBoatOverview(new AsyncCallback<Collection<BoatOverview>>() {
+			
+			@Override
+			public void onSuccess(Collection<BoatOverview> arg0) {
+				fetchedBoats = arg0;
+				view.setData(fetchedBoats);
+			} 
+			
+			@Override
+			public void onFailure(Throwable arg0) {
+			}
+		});
 	}
 	
 }
