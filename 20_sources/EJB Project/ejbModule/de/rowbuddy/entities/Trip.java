@@ -15,7 +15,7 @@ public class Trip implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
+	private Long id;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date startDate;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -33,11 +33,11 @@ public class Trip implements Serializable {
 	public Trip() {
 		super();
 	}   
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}   
 	public Date getStartDate() {

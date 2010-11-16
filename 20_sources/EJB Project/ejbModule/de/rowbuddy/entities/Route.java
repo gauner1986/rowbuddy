@@ -13,7 +13,7 @@ public class Route implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
+	private Long id;
 	private String name;
 	private String shortDescription;
 	private long versionNumber;
@@ -24,11 +24,11 @@ public class Route implements Serializable {
 	public Route() {
 		super();
 	}   
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}   
 	public String getName() {
