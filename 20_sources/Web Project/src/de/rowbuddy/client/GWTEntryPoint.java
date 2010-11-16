@@ -1,6 +1,10 @@
 package de.rowbuddy.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -8,9 +12,20 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.services.BoatRemoteService;
+import de.rowbuddy.client.services.BoatRemoteServiceAsync;
+
 public class GWTEntryPoint implements EntryPoint {
 
 	public void onModuleLoad() {
+//		BoatRemoteServiceAsync boatService = (BoatRemoteServiceAsync) GWT.create(BoatRemoteService.class);
+//		((ServiceDefTarget) boatService).setServiceEntryPoint( GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
+//		Window.alert(GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
+
+
+//		SimpleEventBus eventBus = new SimpleEventBus();
+//		AppController controller = new AppController(boatService, eventBus);
+//		controller.start(RootPanel.get());
 		RootPanel.get().add(initalRootFlexTable());
 		/*
 		 * 
