@@ -86,19 +86,20 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 	public void setData(Collection<BoatOverview> boats) {
 		boatTable.removeAllRows();
 		initTableHead();
-		int i = 0;
+		int i = 1;
 		for (BoatOverview boat : boats) {
-			boatTable.setText(i + 1, 0, boat.getName());
-			boatTable.setText(i + 1, 1, String.valueOf(boat.getNumberOfSeats()));
+			boatTable.setText(i, 0, boat.getName());
+			boatTable.setText(i, 1, String.valueOf(boat.getNumberOfSeats()));
 
 			CheckBox coxBox = new CheckBox();
 			coxBox.setEnabled(false);
 			coxBox.setValue(boat.isCoxed());
-			boatTable.setWidget(i, 0, coxBox);
+			boatTable.setWidget(i, 2, coxBox);
 
 			CheckBox lockedBox = new CheckBox();
 			lockedBox.setEnabled(false);
 			lockedBox.setValue(boat.isLocked());
+			boatTable.setWidget(i, 3, lockedBox);
 			i++;
 		}
 	}
