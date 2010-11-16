@@ -6,11 +6,11 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<jta-data-source>jdbc/__default</jta-data-source>
 		<class>de.chiaradia.messaging.entities.MessageEntity</class>
-		<class>nl.fontys.rowbuddy.entities.MemberEntity</class>
-		<class>nl.fontys.rowbuddy.entities.RouteEntity</class>
-		<class>nl.fontys.rowbuddy.entities.TripEntity</class>
-		<class>nl.fontys.rowbuddy.entities.BoatEntity</class>
-		<class>nl.fontys.rowbuddy.entities.TripMemberEntity</class>
+		<class>de.rowbuddy.entities.Member</class>
+		<class>de.rowbuddy.entities.Route</class>
+		<class>de.rowbuddy.entities.Trip</class>
+		<class>de.rowbuddy.entities.Boat</class>
+		<class>de.rowbuddy.entities.TripMember</class>
 		<properties>
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
 		</properties>
