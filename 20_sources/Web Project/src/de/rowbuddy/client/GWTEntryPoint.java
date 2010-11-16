@@ -1,19 +1,14 @@
 package de.rowbuddy.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.shared.SimpleEventBus;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.Widget;
-
-import de.rowbuddy.client.services.BoatRemoteService;
-import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
 public class GWTEntryPoint implements EntryPoint {
 
@@ -40,15 +35,32 @@ public class GWTEntryPoint implements EntryPoint {
 		final FlexTable flexTable = new FlexTable();
 		FlexCellFormatter cellFormatter = flexTable.getFlexCellFormatter();
 		flexTable.addStyleName("flexTable");
-		flexTable.setWidth("1000em");
+		flexTable.setWidth("80em");
 		flexTable.setCellSpacing(5);
 		flexTable.setCellPadding(3);
 		
 		cellFormatter.setHorizontalAlignment(0, 0, HasHorizontalAlignment.ALIGN_LEFT);
 		cellFormatter.setHorizontalAlignment(0, 2, HasHorizontalAlignment.ALIGN_RIGHT);
+		cellFormatter.setColSpan(0, 0, 2);
+		cellFormatter.setVerticalAlignment(1, 0, HasVerticalAlignment.ALIGN_TOP);
+		cellFormatter.setHorizontalAlignment(1, 1, HasHorizontalAlignment.ALIGN_LEFT);
+		cellFormatter.setColSpan(1, 1, 2);
 		
-		flexTable.setWidget(0, 0, new Label("HEADER"));
-		flexTable.setWidget(0, 2, new Label("Login: Ich"));
+		
+		Label headerLabel = new Label("HEADER");
+		headerLabel.setWidth("60em");
+		flexTable.setWidget(0, 0, headerLabel);
+		
+		Label loginLabel = new Label("Login: ich");
+		loginLabel.setWidth("20em");
+		flexTable.setWidget(0, 2, loginLabel);
+		
+		StackPanel menuPanel = new StackPanel();
+		menuPanel.setHeight("30em");
+		flexTable.setWidget(1, 0, menuPanel);
+		
+		Label messagesLabel = new Label("messages");
+		flexTable.setWidget(1, 1, messagesLabel);	
 
 		return flexTable;
 	}
