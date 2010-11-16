@@ -1,6 +1,13 @@
 package de.rowbuddy.business.dtos;
 
-public class BoatOverview {
+import java.io.Serializable;
+
+public class BoatOverview implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6280767844327716451L;
 	
 	private long id;
 	private String name;
