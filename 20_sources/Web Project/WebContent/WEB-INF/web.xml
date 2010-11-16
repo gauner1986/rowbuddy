@@ -5,11 +5,20 @@
 	 version="3.0"> 
         <servlet> 
                 <servlet-name>MessageServiceImpl</servlet-name> 
-                <servlet-class>de.rowbuddy.web.MessageServiceImpl</servlet-class> 
+                <servlet-class>de.rowbuddy.server.web.MessageServiceImpl</servlet-class> 
         </servlet>  
         <servlet-mapping> 
                 <servlet-name>MessageServiceImpl</servlet-name> 
                 <url-pattern>/MessageServiceImpl</url-pattern> 
+        </servlet-mapping>
+        
+        <servlet> 
+                <servlet-name>BoatRemoteServiceImpl</servlet-name> 
+                <servlet-class>BoatRemoteServiceImpl</servlet-class> 
+        </servlet>  
+        <servlet-mapping> 
+                <servlet-name>BoatRemoteServiceImpl</servlet-name> 
+                <url-pattern>/BoatRemoteServiceImpl</url-pattern> 
         </servlet-mapping> 
         </web-app>
          
