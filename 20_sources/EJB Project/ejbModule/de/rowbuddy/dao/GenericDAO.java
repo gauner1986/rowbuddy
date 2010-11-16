@@ -25,14 +25,10 @@ public class GenericDAO<T, ID extends Serializable> {
 		return (List<T>) getEntityManager().createQuery("select e from "+getEntityName() + " as e").getResultList();
 	}
 	
-	public T getById(ID id) {
+	public T getById(ID id) throws EntityNotFoundException {
 		T entity = null;
 		
-		try {
-			entity = getEntityManager().getReference(entityType, id);
-		} catch (EntityNotFoundException e) {
-			// TODO: handle exception
-		}
+		entity = getEntityManager().getReference(entityType, id);
 		return entity;
 	}
 	
