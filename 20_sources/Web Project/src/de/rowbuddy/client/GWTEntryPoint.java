@@ -1,4 +1,4 @@
-package nl.fontys.jee.rowbuddy.client;
+package de.rowbuddy.client;
 
 
 import nl.fontys.jee.rowbuddy.client.ui.trip.LogDamagedBoat;

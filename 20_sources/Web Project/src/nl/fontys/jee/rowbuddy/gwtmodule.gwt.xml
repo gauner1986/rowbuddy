@@ -4,5 +4,5 @@
 	<inherits name="com.google.gwt.user.User" />
 	<source path="client" />
 	    <inherits name="de.chiaradia.messaging.Core" />
-	<entry-point class="nl.fontys.jee.rowbuddy.client.GWTEntryPoint" />
+	<entry-point class="de.rowbuddy.client.GWTEntryPoint" />
 </module>
