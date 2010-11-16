@@ -8,8 +8,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 
-import com.sun.javadoc.ParameterizedType;
-
+/**
+ * Generic DAO Bean
+ * 
+ * @author Jan Nikolai Trzeszkowski <info@j-n-t.de>
+ * @version 1
+ */
 public class GenericDAO<T, ID extends Serializable> {
 	
 	@PersistenceContext
