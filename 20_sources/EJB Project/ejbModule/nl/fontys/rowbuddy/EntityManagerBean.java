@@ -41,8 +41,10 @@ public class EntityManagerBean implements EntityManagerBeanLocal {
 	}
 
 	@Override
-	public void remove(Object entity) {
-		em.remove(entity);
+	public <T> void remove(Class<T> entityClass, Object pk) {
+		
+		T t = (T)em.getReference(entityClass, pk);
+		em.remove(t);
 	}
 
 	@Override

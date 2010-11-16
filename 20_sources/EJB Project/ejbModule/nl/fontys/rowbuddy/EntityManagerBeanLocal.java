@@ -58,7 +58,7 @@ public interface EntityManagerBeanLocal {
 	 *             PersistenceContextType.TRANSACTION and there is no
 	 *             transaction.
 	 */
-	public void remove(Object entity);
+	public <T> void remove(Class<T> entityClass, Object pk);
 
 	/**
 	 * Find by primary key.
