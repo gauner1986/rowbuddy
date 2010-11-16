@@ -1,4 +1,4 @@
-package nl.fontys.rowbuddy.entities;
+package de.rowbuddy.entities;
 
 public enum TripMemberType {
 	Rower,
