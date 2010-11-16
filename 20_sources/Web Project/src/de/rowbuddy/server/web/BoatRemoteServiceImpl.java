@@ -17,6 +17,7 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements BoatR
 	@Override
 	public Collection<BoatOverview> getBoatOverview() {
 		// TODO Auto-generated method stub
+		System.out.println("Call");
 		return null;
 	}
 	

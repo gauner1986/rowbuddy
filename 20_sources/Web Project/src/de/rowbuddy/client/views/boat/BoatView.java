@@ -76,7 +76,7 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 
 	public void initTableHead() {
 		boatTable.setText(0, 0, "Name");
-		boatTable.setText(0, 1, "Bootsplätze");
+		boatTable.setText(0, 1, "Bootspl√§tze");
 		boatTable.setText(0, 2, "Gesteuert");
 		boatTable.setText(0, 3, "Gesperrt");
 
