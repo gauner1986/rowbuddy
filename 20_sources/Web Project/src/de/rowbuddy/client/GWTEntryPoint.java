@@ -23,7 +23,7 @@ public class GWTEntryPoint implements EntryPoint {
 		// SimpleEventBus eventBus = new SimpleEventBus();
 		// AppController controller = new AppController(boatService, eventBus);
 		// controller.start(RootPanel.get());
-		RootPanel.get().add(initalRootFlexTable());
+		RootPanel.get("Main").add(initalRootFlexTable());
 		/*
 		 * 
 		 * 
@@ -37,7 +37,7 @@ public class GWTEntryPoint implements EntryPoint {
 		final FlexTable flexTable = new FlexTable();
 		FlexCellFormatter cellFormatter = flexTable.getFlexCellFormatter();
 		flexTable.addStyleName("flexTable");
-		flexTable.setWidth("80em");
+		flexTable.setWidth("80%");
 		flexTable.setCellSpacing(5);
 		flexTable.setCellPadding(3);
 
@@ -53,28 +53,24 @@ public class GWTEntryPoint implements EntryPoint {
 				HasHorizontalAlignment.ALIGN_LEFT);
 
 		HorizontalPanel hPanel = new HorizontalPanel();
-		hPanel.setWidth("80em");
+		hPanel.setWidth("100%");
 		Label headerLabel = new Label("HEADER");
-		headerLabel.setWidth("60em");
 		Label loginLabel = new Label("Login: ich");
 		loginLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		loginLabel.setWidth("20em");
 		hPanel.add(headerLabel);
 		hPanel.add(loginLabel);
+		hPanel.setCellWidth(headerLabel, "80%");
 		flexTable.setWidget(0, 0, hPanel);
 
 		StackPanel menuPanel = new StackPanel();
-		menuPanel	.setHeight("30em");
 		menuPanel.add(new Label("MENU Panel"));
+		cellFormatter.setWidth(1, 0, "25%");
 		flexTable.setWidget(1, 0, menuPanel);
 
 		Label messagesLabel = new Label("messages");
-		messagesLabel.setHeight("1em");
-		messagesLabel.setWidth("50em");
 		flexTable.setWidget(1, 1, messagesLabel);
 
 		Label mainLabel = new Label("main");
-		mainLabel.setHeight("25em");
 		flexTable.setWidget(2, 0, mainLabel);
 
 		return flexTable;
