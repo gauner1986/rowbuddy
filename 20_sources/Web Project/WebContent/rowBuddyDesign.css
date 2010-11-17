@@ -1,12 +1,8 @@
 @CHARSET "ISO-8859-1";
 
 .flexTable td {
-  border: 1px solid #BBBBBB;
+	border: 1px solid #BBBBBB;
 }
 
 #Main {
-	text-align: center;
-	margin: auto;
-	border-width: 5px;
-	border-color: red;
 }
