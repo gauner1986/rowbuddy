@@ -5,6 +5,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.StackPanel;
@@ -13,14 +14,15 @@ import com.google.gwt.user.client.ui.Widget;
 public class GWTEntryPoint implements EntryPoint {
 
 	public void onModuleLoad() {
-//		BoatRemoteServiceAsync boatService = (BoatRemoteServiceAsync) GWT.create(BoatRemoteService.class);
-//		((ServiceDefTarget) boatService).setServiceEntryPoint( GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
-//		Window.alert(GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
+		// BoatRemoteServiceAsync boatService = (BoatRemoteServiceAsync)
+		// GWT.create(BoatRemoteService.class);
+		// ((ServiceDefTarget) boatService).setServiceEntryPoint(
+		// GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
+		// Window.alert(GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
 
-
-//		SimpleEventBus eventBus = new SimpleEventBus();
-//		AppController controller = new AppController(boatService, eventBus);
-//		controller.start(RootPanel.get());
+		// SimpleEventBus eventBus = new SimpleEventBus();
+		// AppController controller = new AppController(boatService, eventBus);
+		// controller.start(RootPanel.get());
 		RootPanel.get().add(initalRootFlexTable());
 		/*
 		 * 
@@ -38,36 +40,42 @@ public class GWTEntryPoint implements EntryPoint {
 		flexTable.setWidth("80em");
 		flexTable.setCellSpacing(5);
 		flexTable.setCellPadding(3);
-		
-		cellFormatter.setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_LEFT);
+
+		cellFormatter.setHorizontalAlignment(0, 0,
+				HasHorizontalAlignment.ALIGN_LEFT);
 		cellFormatter.setColSpan(0, 0, 2);
-		cellFormatter.setHorizontalAlignment(0, 2, HasHorizontalAlignment.ALIGN_RIGHT);
-		cellFormatter.setVerticalAlignment(1, 0, HasVerticalAlignment.ALIGN_TOP);
+		cellFormatter
+				.setVerticalAlignment(1, 0, HasVerticalAlignment.ALIGN_TOP);
 		cellFormatter.setRowSpan(1, 0, 2);
-		cellFormatter.setHorizontalAlignment(1, 2, HasHorizontalAlignment.ALIGN_LEFT);
-		cellFormatter.setColSpan(1, 1, 2);
-		cellFormatter.setHorizontalAlignment(2, 1, HasHorizontalAlignment.ALIGN_LEFT);
-		cellFormatter.setColSpan(2, 1, 2);
-		
-		
+		cellFormatter.setHorizontalAlignment(1, 1,
+				HasHorizontalAlignment.ALIGN_LEFT);
+		cellFormatter.setHorizontalAlignment(2, 0,
+				HasHorizontalAlignment.ALIGN_LEFT);
+
+		HorizontalPanel hPanel = new HorizontalPanel();
+		hPanel.setWidth("80em");
 		Label headerLabel = new Label("HEADER");
 		headerLabel.setWidth("60em");
-		flexTable.setWidget(0, 0, headerLabel);
-		
 		Label loginLabel = new Label("Login: ich");
+		loginLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		loginLabel.setWidth("20em");
-		flexTable.setWidget(0, 2, loginLabel);
-		
+		hPanel.add(headerLabel);
+		hPanel.add(loginLabel);
+		flexTable.setWidget(0, 0, hPanel);
+
 		StackPanel menuPanel = new StackPanel();
-		menuPanel.setHeight("20em");
+		menuPanel	.setHeight("30em");
+		menuPanel.add(new Label("MENU Panel"));
 		flexTable.setWidget(1, 0, menuPanel);
-		
+
 		Label messagesLabel = new Label("messages");
-		messagesLabel.setHeight("10em");
-		flexTable.setWidget(1, 1, messagesLabel);	
-		
+		messagesLabel.setHeight("1em");
+		messagesLabel.setWidth("50em");
+		flexTable.setWidget(1, 1, messagesLabel);
+
 		Label mainLabel = new Label("main");
-		flexTable.setWidget(2, 1, mainLabel);
+		mainLabel.setHeight("25em");
+		flexTable.setWidget(2, 0, mainLabel);
 
 		return flexTable;
 	}
