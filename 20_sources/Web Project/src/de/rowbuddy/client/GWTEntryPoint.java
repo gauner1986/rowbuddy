@@ -100,12 +100,12 @@ public class GWTEntryPoint implements EntryPoint {
 		DecoratedStackPanel menuPanel = new DecoratedStackPanel();
 		menuPanel.add(createTripsMenu(), "Offene Fahrten");
 		menuPanel.add(createProfilMenu(), "Profil");
-		// menuPanel.add(null, "Fahrtenbuch");
+		menuPanel.add(createViewTripMenu(), "Fahrtenbuch");
 		menuPanel.add(createStatistikMenu(), "Statistiken");
-		// menuPanel.add(null, "Boote");
+		menuPanel.add(createBootMenu(), "Boote");
 		// menuPanel.add(null, "Mitglieder");
 		// menuPanel.add(null, "Routen");
-		// menuPanel.add(null, "Bootssch�den");
+		// menuPanel.add(null, "Bootsschäden");
 		// menuPanel.add(null, "Bootsreservierungen");
 		// menuPanel.add(null, "Mitgliederverwaltung");
 
@@ -116,10 +116,29 @@ public class GWTEntryPoint implements EntryPoint {
 		return verticalPanel;
 	}
 
+	private Widget createBootMenu() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private Widget createViewTripMenu() {
+		VerticalPanel panel = new VerticalPanel();
+		Anchor browseTrips = new Anchor("?");
+		Anchor browseTrip = new Anchor("?");
+		Anchor viewTrip = new Anchor("?");
+		Anchor editTrip = new Anchor("Fahrt editieren");
+		panel.add(browseTrips);
+		panel.add(browseTrip);
+		panel.add(viewTrip);
+		panel.add(editTrip);
+		return panel;
+	}
+
 	private Widget createTripsMenu() {
 		VerticalPanel panel = new VerticalPanel();
 		Anchor browseOpenTrips = new Anchor("Offene Fahrten");
-		Anchor browsePersonalOpenTrips = new Anchor("Persönliche offene Fahrten");
+		Anchor browsePersonalOpenTrips = new Anchor(
+				"Persönliche offene Fahrten");
 		Anchor stoprowing = new Anchor("Fahrten stoppen");
 		panel.add(browseOpenTrips);
 		panel.add(browsePersonalOpenTrips);
