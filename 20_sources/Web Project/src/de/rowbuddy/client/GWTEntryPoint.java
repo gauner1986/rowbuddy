@@ -98,14 +98,14 @@ public class GWTEntryPoint implements EntryPoint {
 	private Widget initialMenuPanel() {
 		VerticalPanel verticalPanel = new VerticalPanel();
 		DecoratedStackPanel menuPanel = new DecoratedStackPanel();
-		// menuPanel.add(null, "Offene Fahrten");
+		menuPanel.add(createTripsMenu(), "Offene Fahrten");
 		menuPanel.add(createProfilMenu(), "Profil");
 		// menuPanel.add(null, "Fahrtenbuch");
-		 menuPanel.add(createStatistikMenu(), "Statistiken");
+		menuPanel.add(createStatistikMenu(), "Statistiken");
 		// menuPanel.add(null, "Boote");
 		// menuPanel.add(null, "Mitglieder");
 		// menuPanel.add(null, "Routen");
-		// menuPanel.add(null, "Bootsschäden");
+		// menuPanel.add(null, "Bootsschï¿½den");
 		// menuPanel.add(null, "Bootsreservierungen");
 		// menuPanel.add(null, "Mitgliederverwaltung");
 
@@ -116,16 +116,27 @@ public class GWTEntryPoint implements EntryPoint {
 		return verticalPanel;
 	}
 
+	private Widget createTripsMenu() {
+		VerticalPanel panel = new VerticalPanel();
+		Anchor browseOpenTrips = new Anchor("Offene Fahrten");
+		Anchor browsePersonalOpenTrips = new Anchor("PersÃ¶nliche offene Fahrten");
+		Anchor stoprowing = new Anchor("Fahrten stoppen");
+		panel.add(browseOpenTrips);
+		panel.add(browsePersonalOpenTrips);
+		panel.add(stoprowing);
+		return panel;
+	}
+
 	private Widget createStatistikMenu() {
 		VerticalPanel panel = new VerticalPanel();
-		Anchor boatdamagesYear = new Anchor("Bootschäden");
-		Anchor clubactivityMonth = new Anchor("Aktivität - Monatsstatistik");
-		Anchor clubactivityWeekday = new Anchor("Aktivität - Tagesstatistik");
+		Anchor boatdamagesYear = new Anchor("BootschÃ¤den");
+		Anchor clubactivityMonth = new Anchor("AktivitÃ¤t - Monatsstatistik");
+		Anchor clubactivityWeekday = new Anchor("AktivitÃ¤t - Tagesstatistik");
 		Anchor highscoreBoats = new Anchor("Boote - Jahresstatistik");
 		Anchor highscoreMonth = new Anchor("Monatsstatistik");
 		Anchor highscoreYear = new Anchor("Jahresstatistik");
-		Anchor personalMonth = new Anchor("Persönliche Monatsstatistik");
-		Anchor personalYear = new Anchor("Persönliche Jahresstatistik");
+		Anchor personalMonth = new Anchor("PersÃ¶nliche Monatsstatistik");
+		Anchor personalYear = new Anchor("PersÃ¶nliche Jahresstatistik");
 		Anchor popularRoutes = new Anchor("Beleibteste Routen");
 		Anchor statisticsMain = new Anchor("Statistiken");
 		panel.add(statisticsMain);
@@ -137,14 +148,14 @@ public class GWTEntryPoint implements EntryPoint {
 		panel.add(highscoreBoats);
 		panel.add(personalYear);
 		panel.add(personalMonth);
-		panel.add(popularRoutes);	
+		panel.add(popularRoutes);
 		return panel;
 	}
 
 	private Widget createProfilMenu() {
 		VerticalPanel panel = new VerticalPanel();
 		Anchor browseRowedRoutes = new Anchor("Meine geruderten Routen");
-		Anchor changePassword = new Anchor("Passwort ändern");
+		Anchor changePassword = new Anchor("Passwort Ã¤ndern");
 		Anchor requestNewPassword = new Anchor("Neues Passwort anfordern");
 		Anchor searchProfile = new Anchor("Profil suchen");
 		Anchor viewProfile = new Anchor("Profil anzeigen");
