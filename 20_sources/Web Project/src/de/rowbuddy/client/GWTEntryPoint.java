@@ -117,8 +117,20 @@ public class GWTEntryPoint implements EntryPoint {
 	}
 
 	private Widget createBootMenu() {
-		// TODO Auto-generated method stub
-		return null;
+		VerticalPanel panel = new VerticalPanel();
+		Anchor browseBoats = new Anchor("Bootsübersicht");
+		Anchor viewBoat = new Anchor("Boot ansehen");
+		Anchor addBoat = new Anchor("Boot hinzufügen");
+		Anchor editBoat = new Anchor("Boot bearbeiten");
+		Anchor deleteBoat = new Anchor("Boot löschen");
+		Anchor lockBoat = new Anchor("?");
+		panel.add(browseBoats);
+		panel.add(viewBoat);
+		panel.add(addBoat);
+		panel.add(editBoat);
+		panel.add(deleteBoat);
+		panel.add(lockBoat);	
+		return panel;
 	}
 
 	private Widget createViewTripMenu() {
