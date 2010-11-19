@@ -1,7 +1,10 @@
 package de.rowbuddy.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
@@ -16,19 +19,22 @@ import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.services.BoatRemoteService;
+import de.rowbuddy.client.services.BoatRemoteServiceAsync;
+
 public class GWTEntryPoint implements EntryPoint {
 
 	public void onModuleLoad() {
-		// BoatRemoteServiceAsync boatService = (BoatRemoteServiceAsync)
-		// GWT.create(BoatRemoteService.class);
-		// ((ServiceDefTarget) boatService).setServiceEntryPoint(
-		// GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
+		 BoatRemoteServiceAsync boatService = (BoatRemoteServiceAsync)
+		 GWT.create(BoatRemoteService.class);
+		 ((ServiceDefTarget) boatService).setServiceEntryPoint(
+		 GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
 		// Window.alert(GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
 
-		// SimpleEventBus eventBus = new SimpleEventBus();
-		// AppController controller = new AppController(boatService, eventBus);
-		// controller.start(RootPanel.get());
-		RootPanel.get("Main").add(initalRootFlexTable());
+		 SimpleEventBus eventBus = new SimpleEventBus();
+		 AppController controller = new AppController(boatService, eventBus);
+		 controller.start(RootPanel.get());
+//		RootPanel.get("Main").add(initalRootFlexTable());
 		/*
 		 * 
 		 * 
@@ -102,7 +108,7 @@ public class GWTEntryPoint implements EntryPoint {
 		menuPanel.add(createProfilMenu(), "Profil");
 		menuPanel.add(createViewTripMenu(), "Fahrtenbuch");
 		menuPanel.add(createStatistikMenu(), "Statistiken");
-		menuPanel.add(createBootMenu(), "Boote");
+		//menuPanel.add(createBootMenu(), "Boote");
 		// menuPanel.add(null, "Mitglieder");
 		// menuPanel.add(null, "Routen");
 		// menuPanel.add(null, "Bootsschäden");

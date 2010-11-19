@@ -8,6 +8,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.rowbuddy.business.dtos.BoatOverview;
 import de.rowbuddy.client.services.BoatRemoteService;
+import de.rowbuddy.entities.Boat;
 
 public class BoatRemoteServiceImpl extends RemoteServiceServlet implements BoatRemoteService{
 
@@ -29,6 +30,12 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements BoatR
 		boats.add(boat1);
 		
 		return boats;
+	}
+
+	@Override
+	public void addBoat(Boat boat) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
