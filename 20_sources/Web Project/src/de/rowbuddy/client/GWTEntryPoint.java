@@ -2,24 +2,27 @@ package de.rowbuddy.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
-import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.presenter.MenuPresenter;
+import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteService;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
+import de.rowbuddy.client.views.MenuView;
 
 public class GWTEntryPoint implements EntryPoint {
 
@@ -33,10 +36,10 @@ public class GWTEntryPoint implements EntryPoint {
 		SimpleEventBus eventBus = new SimpleEventBus();
 		AppController controller = new AppController(boatService, eventBus);
 
-		HasWidgets mainPanel = initialMainPanel();
+		HasWidgets mainPanel = initialMainPanel();	
 		RootPanel.get("Main").add(initalRootFlexTable(mainPanel));
 
-		controller.start(mainPanel);
+		//controller.start(mainPanel);
 		/*
 		 * 
 		 * 
@@ -76,10 +79,14 @@ public class GWTEntryPoint implements EntryPoint {
 		flexTable.setWidget(0, 0, hPanel);
 
 		cellFormatter.setWidth(1, 0, "25%");
-		flexTable.setWidget(1, 0, initialMenuPanel());
+		Presenter presenter = new MenuPresenter(new MenuView());
+		VerticalPanel vetPanel = new VerticalPanel();
+		presenter.start(vetPanel);
+		flexTable.setWidget(1, 0, vetPanel);
 
 		Label messagesLabel = new Label("messages");
 		messagesLabel.setStyleName("messages");
+		messagesLabel.setVisible(false);
 		flexTable.setWidget(1, 1, messagesLabel);
 
 		flexTable.setWidget(2, 0, (Widget) mainPanel);
@@ -89,6 +96,7 @@ public class GWTEntryPoint implements EntryPoint {
 
 	private HasWidgets initialMainPanel() {
 		VerticalPanel panel = new VerticalPanel();
+		panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
 		Label mainLabel = new Label(
 				"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
 						+ "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
@@ -98,113 +106,19 @@ public class GWTEntryPoint implements EntryPoint {
 						+ "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur");
 		mainLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_JUSTIFY);
 
-		// TabLayoutPanel mainPanel = new TabLayoutPanel(1.5, Unit.EM);
-		// mainPanel.add(mainLabel, "Neue Fahrt");
-		// mainPanel.add(new Label("Testen"), "Nachtrag");
-		panel.add(mainLabel);
-		return panel;
+		  // Create a three-item tab panel, with the tab area 1.5em tall.
+	    TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
+	    p.add(new HTML("this"), "[this]");
+	    p.add(new HTML("that"), "[that]");
+	    p.add(new HTML("the other"), "[the other]");
+
+
+//		 TabLayoutPanel mainPanel = new TabLayoutPanel(1.5, Unit.EM);
+//		 mainPanel.add(mainLabel, "Neue Fahrt");
+//		 mainPanel.add(new Label("Testen"), "Nachtrag");
+		panel.add(p);
+		return p;
 	}
 
-	private Widget initialMenuPanel() {
-		VerticalPanel verticalPanel = new VerticalPanel();
-		DecoratedStackPanel menuPanel = new DecoratedStackPanel();
-		menuPanel.add(createTripsMenu(), "Offene Fahrten");
-		menuPanel.add(createProfilMenu(), "Profil");
-		menuPanel.add(createViewTripMenu(), "Fahrtenbuch");
-		menuPanel.add(createStatistikMenu(), "Statistiken");
-		menuPanel.add(createBootMenu(), "Boote");
-		// menuPanel.add(null, "Mitglieder");
-		// menuPanel.add(null, "Routen");
-		// menuPanel.add(null, "Bootsschäden");
-		// menuPanel.add(null, "Bootsreservierungen");
-		// menuPanel.add(null, "Mitgliederverwaltung");
-
-		Button logoutButton = new Button("Logout");
-
-		verticalPanel.add(menuPanel);
-		verticalPanel.add(logoutButton);
-		return verticalPanel;
-	}
-
-	private Widget createBootMenu() {
-		VerticalPanel panel = new VerticalPanel();
-		Anchor browseBoats = new Anchor("Bootsübersicht");
-		Anchor viewBoat = new Anchor("Boot ansehen");
-		Anchor addBoat = new Anchor("Boot hinzufügen");
-		Anchor editBoat = new Anchor("Boot bearbeiten");
-		Anchor deleteBoat = new Anchor("Boot löschen");
-		Anchor lockBoat = new Anchor("?");
-		panel.add(browseBoats);
-		panel.add(viewBoat);
-		panel.add(addBoat);
-		panel.add(editBoat);
-		panel.add(deleteBoat);
-		panel.add(lockBoat);
-		return panel;
-	}
-
-	private Widget createViewTripMenu() {
-		VerticalPanel panel = new VerticalPanel();
-		Anchor browseTrips = new Anchor("?");
-		Anchor browseTrip = new Anchor("?");
-		Anchor viewTrip = new Anchor("?");
-		Anchor editTrip = new Anchor("Fahrt editieren");
-		panel.add(browseTrips);
-		panel.add(browseTrip);
-		panel.add(viewTrip);
-		panel.add(editTrip);
-		return panel;
-	}
-
-	private Widget createTripsMenu() {
-		VerticalPanel panel = new VerticalPanel();
-		Anchor browseOpenTrips = new Anchor("Offene Fahrten");
-		Anchor browsePersonalOpenTrips = new Anchor(
-				"Persönliche offene Fahrten");
-		Anchor stoprowing = new Anchor("Fahrten stoppen");
-		panel.add(browseOpenTrips);
-		panel.add(browsePersonalOpenTrips);
-		panel.add(stoprowing);
-		return panel;
-	}
-
-	private Widget createStatistikMenu() {
-		VerticalPanel panel = new VerticalPanel();
-		Anchor boatdamagesYear = new Anchor("Bootschäden");
-		Anchor clubactivityMonth = new Anchor("Aktivität - Monatsstatistik");
-		Anchor clubactivityWeekday = new Anchor("Aktivität - Tagesstatistik");
-		Anchor highscoreBoats = new Anchor("Boote - Jahresstatistik");
-		Anchor highscoreMonth = new Anchor("Monatsstatistik");
-		Anchor highscoreYear = new Anchor("Jahresstatistik");
-		Anchor personalMonth = new Anchor("Persönliche Monatsstatistik");
-		Anchor personalYear = new Anchor("Persönliche Jahresstatistik");
-		Anchor popularRoutes = new Anchor("Beleibteste Routen");
-		Anchor statisticsMain = new Anchor("Statistiken");
-		panel.add(statisticsMain);
-		panel.add(boatdamagesYear);
-		panel.add(clubactivityMonth);
-		panel.add(clubactivityWeekday);
-		panel.add(highscoreYear);
-		panel.add(highscoreMonth);
-		panel.add(highscoreBoats);
-		panel.add(personalYear);
-		panel.add(personalMonth);
-		panel.add(popularRoutes);
-		return panel;
-	}
-
-	private Widget createProfilMenu() {
-		VerticalPanel panel = new VerticalPanel();
-		Anchor browseRowedRoutes = new Anchor("Meine geruderten Routen");
-		Anchor changePassword = new Anchor("Passwort ändern");
-		Anchor requestNewPassword = new Anchor("Neues Passwort anfordern");
-		Anchor searchProfile = new Anchor("Profil suchen");
-		Anchor viewProfile = new Anchor("Profil anzeigen");
-		panel.add(viewProfile);
-		panel.add(searchProfile);
-		panel.add(browseRowedRoutes);
-		panel.add(changePassword);
-		panel.add(requestNewPassword);
-		return panel;
-	}
+	
 }
