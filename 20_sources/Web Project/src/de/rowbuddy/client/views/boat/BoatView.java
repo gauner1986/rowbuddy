@@ -95,6 +95,14 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 			lockedBox.setEnabled(false);
 			lockedBox.setValue(boat.isLocked());
 			boatTable.setWidget(i, 3, lockedBox);
+
+			HTMLTable.RowFormatter rf = boatTable.getRowFormatter();
+
+			if ((i % 2) != 0) {
+				rf.addStyleName(i, "FlexTable-OddRow");
+			} else {
+				rf.addStyleName(i, "FlexTable-EvenRow");
+			}
 			i++;
 		}
 	}

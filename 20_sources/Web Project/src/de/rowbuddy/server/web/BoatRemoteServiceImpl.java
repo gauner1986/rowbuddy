@@ -28,6 +28,8 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements BoatR
 		boat1.setName("Unsinkbar 3");
 		boat1.setNumberOfSeats(5);
 		boats.add(boat1);
+		boats.add(boat1);
+		boats.add(boat1);
 		
 		return boats;
 	}

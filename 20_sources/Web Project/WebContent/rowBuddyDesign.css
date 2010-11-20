@@ -11,3 +11,11 @@
 #Main {
 	
 }
+
+.FlexTable-OddRow {
+  background-color: #FFFFFF;
+}
+
+.FlexTable-EvenRow {
+  background-color:  #D7DDE8;
+}
