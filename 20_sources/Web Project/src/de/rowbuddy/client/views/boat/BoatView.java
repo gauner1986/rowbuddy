@@ -31,20 +31,15 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 		decorator.add(contentTable);
 
 		HorizontalPanel hPanel = new HorizontalPanel();
-		hPanel.setBorderWidth(0);
-		hPanel.setSpacing(0);
 		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 		addButton = new Button("Add");
 		hPanel.add(addButton);
-		contentTable.getCellFormatter().addStyleName(0, 0, "contacts-ListMenu");
 		contentTable.setWidget(0, 0, hPanel);
 
 		boatTable = new FlexTable();
 		boatTable.setCellSpacing(0);
 		boatTable.setCellPadding(0);
 		boatTable.setWidth("100%");
-		boatTable.addStyleName("contacts-ListContents");
-		boatTable.getColumnFormatter().setWidth(0, "15px");
 		contentTable.setWidget(1, 0, boatTable);
 	}
 
