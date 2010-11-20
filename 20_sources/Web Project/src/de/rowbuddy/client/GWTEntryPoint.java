@@ -2,7 +2,6 @@ package de.rowbuddy.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Anchor;
@@ -12,10 +11,10 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -25,16 +24,19 @@ import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 public class GWTEntryPoint implements EntryPoint {
 
 	public void onModuleLoad() {
-		 BoatRemoteServiceAsync boatService = (BoatRemoteServiceAsync)
-		 GWT.create(BoatRemoteService.class);
-		 ((ServiceDefTarget) boatService).setServiceEntryPoint(
-		 GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
+		BoatRemoteServiceAsync boatService = (BoatRemoteServiceAsync) GWT
+				.create(BoatRemoteService.class);
+		((ServiceDefTarget) boatService).setServiceEntryPoint(GWT
+				.getHostPageBaseURL() + "BoatRemoteServiceImpl");
 		// Window.alert(GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
 
-		 SimpleEventBus eventBus = new SimpleEventBus();
-		 AppController controller = new AppController(boatService, eventBus);
-		 controller.start(RootPanel.get());
-//		RootPanel.get("Main").add(initalRootFlexTable());
+		SimpleEventBus eventBus = new SimpleEventBus();
+		AppController controller = new AppController(boatService, eventBus);
+
+		HasWidgets mainPanel = initialMainPanel();
+		RootPanel.get("Main").add(initalRootFlexTable(mainPanel));
+
+		controller.start(mainPanel);
 		/*
 		 * 
 		 * 
@@ -44,7 +46,7 @@ public class GWTEntryPoint implements EntryPoint {
 		 */
 	}
 
-	private Widget initalRootFlexTable() {
+	private Widget initalRootFlexTable(HasWidgets mainPanel) {
 		final FlexTable flexTable = new FlexTable();
 		FlexCellFormatter cellFormatter = flexTable.getFlexCellFormatter();
 		flexTable.addStyleName("flexTable");
@@ -80,12 +82,13 @@ public class GWTEntryPoint implements EntryPoint {
 		messagesLabel.setStyleName("messages");
 		flexTable.setWidget(1, 1, messagesLabel);
 
-		flexTable.setWidget(2, 0, initialMainPanel());
+		flexTable.setWidget(2, 0, (Widget) mainPanel);
 
 		return flexTable;
 	}
 
-	private Widget initialMainPanel() {
+	private HasWidgets initialMainPanel() {
+		VerticalPanel panel = new VerticalPanel();
 		Label mainLabel = new Label(
 				"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
 						+ "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
@@ -95,10 +98,11 @@ public class GWTEntryPoint implements EntryPoint {
 						+ "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur");
 		mainLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_JUSTIFY);
 
-		TabLayoutPanel mainPanel = new TabLayoutPanel(1.5, Unit.EM);
-		mainPanel.add(mainLabel, "Neue Fahrt");
-		mainPanel.add(new Label("Testen"), "Nachtrag");
-		return mainLabel;
+		// TabLayoutPanel mainPanel = new TabLayoutPanel(1.5, Unit.EM);
+		// mainPanel.add(mainLabel, "Neue Fahrt");
+		// mainPanel.add(new Label("Testen"), "Nachtrag");
+		panel.add(mainLabel);
+		return panel;
 	}
 
 	private Widget initialMenuPanel() {
@@ -108,7 +112,7 @@ public class GWTEntryPoint implements EntryPoint {
 		menuPanel.add(createProfilMenu(), "Profil");
 		menuPanel.add(createViewTripMenu(), "Fahrtenbuch");
 		menuPanel.add(createStatistikMenu(), "Statistiken");
-		//menuPanel.add(createBootMenu(), "Boote");
+		menuPanel.add(createBootMenu(), "Boote");
 		// menuPanel.add(null, "Mitglieder");
 		// menuPanel.add(null, "Routen");
 		// menuPanel.add(null, "Bootsschäden");
@@ -135,7 +139,7 @@ public class GWTEntryPoint implements EntryPoint {
 		panel.add(addBoat);
 		panel.add(editBoat);
 		panel.add(deleteBoat);
-		panel.add(lockBoat);	
+		panel.add(lockBoat);
 		return panel;
 	}
 
