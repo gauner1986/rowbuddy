@@ -31,6 +31,8 @@ public class Member implements Serializable {
 	private String zipCode;
 	@OneToMany
 	private Collection<Trip> publishedTrips;
+	@ManyToMany
+	private Collection<Role> roles;
 	private static final long serialVersionUID = 1L;
 	
 	public Member() {
@@ -146,6 +148,13 @@ public class Member implements Serializable {
 			return false;
 		}
 		return true;
+	}
+	
+	public Collection<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
 	}	
    
 }

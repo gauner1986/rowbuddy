@@ -1,18 +1,18 @@
 package de.rowbuddy.business;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
-import org.apache.tools.ant.ExitStatusException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 
-import de.rowbuddy.business.BoatManagement;
 import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.util.Ejb;
