@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.business.dtos.BoatOverview;
+import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.client.presenter.BoatPresenter;
 
 public class BoatView extends Composite implements BoatPresenter.Display {
@@ -78,11 +78,11 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 	}
 
 	@Override
-	public void setData(Collection<BoatOverview> boats) {
+	public void setData(Collection<BoatDTO> boats) {
 		boatTable.removeAllRows();
 		initTableHead();
 		int i = 1;
-		for (BoatOverview boat : boats) {
+		for (BoatDTO boat : boats) {
 			boatTable.setText(i, 0, boat.getName());
 			boatTable.setText(i, 1, String.valueOf(boat.getNumberOfSeats()));
 

@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.business.dtos.BoatOverview;
+import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.client.events.ListBoatEvent;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.Boat;

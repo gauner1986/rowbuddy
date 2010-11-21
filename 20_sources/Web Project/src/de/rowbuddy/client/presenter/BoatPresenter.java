@@ -11,7 +11,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.business.dtos.BoatOverview;
+import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
@@ -19,14 +19,14 @@ public class BoatPresenter implements Presenter{
 	public interface Display{
 		Widget asWidget();
 		HasClickHandlers getAddButton();
-		void setData(Collection<BoatOverview> boats);
+		void setData(Collection<BoatDTO> boats);
 		int getClickedRow(ClickEvent event);
 	}
 	
 	private Display view;
 	private BoatRemoteServiceAsync boatService;
 	private SimpleEventBus eventBus;
-	private Collection<BoatOverview> fetchedBoats;
+	private Collection<BoatDTO> fetchedBoats;
 	
 	public BoatPresenter(BoatRemoteServiceAsync boatService, Display view, SimpleEventBus eventBus) {
 		this.view = view;
@@ -52,10 +52,10 @@ public class BoatPresenter implements Presenter{
 	}
 	
 	private void fetchBoats(){
-		boatService.getBoatOverview(new AsyncCallback<Collection<BoatOverview>>() {
+		boatService.getBoatOverview(new AsyncCallback<Collection<BoatDTO>>() {
 			
 			@Override
-			public void onSuccess(Collection<BoatOverview> arg0) {
+			public void onSuccess(Collection<BoatDTO> arg0) {
 				fetchedBoats = arg0;
 				view.setData(fetchedBoats);
 			} 

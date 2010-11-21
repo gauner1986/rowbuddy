@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import de.rowbuddy.business.dtos.BoatOverview;
+import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.client.services.BoatRemoteService;
 import de.rowbuddy.entities.Boat;
 
@@ -18,10 +18,10 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements BoatR
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public Collection<BoatOverview> getBoatOverview() {
+	public Collection<BoatDTO> getBoatOverview() {
 		// TODO Auto-generated method stub
-		List<BoatOverview> boats = new LinkedList<BoatOverview>();
-		BoatOverview boat1 = new BoatOverview();
+		List<BoatDTO> boats = new LinkedList<BoatDTO>();
+		BoatDTO boat1 = new BoatDTO();
 		boat1.setId(1);
 		boat1.setLocked(false);
 		boat1.setCoxed(true);
