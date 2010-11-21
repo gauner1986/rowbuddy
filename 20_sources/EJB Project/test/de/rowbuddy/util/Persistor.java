@@ -1,3 +1,4 @@
+package de.rowbuddy.util;
 //package de.rowbuddy.entities;
 //
 //

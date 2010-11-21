@@ -2,7 +2,7 @@ package de.rowbuddy.business.dtos;
 
 import java.io.Serializable;
 
-public class BoatOverview implements Serializable{
+public class BoatDTO implements Serializable{
 	
 	/**
 	 * 

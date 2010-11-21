@@ -1,4 +1,4 @@
-package nl.fontys.rowbuddy.entities;
+package de.rowbuddy.util;
 
 import javax.naming.NamingException;
 

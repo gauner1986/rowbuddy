@@ -1,15 +1,14 @@
-package de.rowbuddy.dao;
+package de.rowbuddy.business.dtos;
 
 import java.util.Collection;
 import java.util.LinkedList;
 
-import de.rowbuddy.business.dtos.BoatOverview;
 import de.rowbuddy.entities.Boat;
 
-public class BoatOverviewConverter {
+public class BoatDTOConverter {
 	
-	public BoatOverview getObject(Boat boat){
-		BoatOverview bo = new BoatOverview();
+	public BoatDTO getObject(Boat boat){
+		BoatDTO bo = new BoatDTO();
 		bo.setId(boat.getId());
 		bo.setName(boat.getName());
 		bo.setCoxed(boat.isCoxed());
@@ -19,8 +18,8 @@ public class BoatOverviewConverter {
 		return bo;
 	}
 	
-	public Collection<BoatOverview> getCollection(Collection<Boat>  boats){
-		Collection<BoatOverview> collection = new LinkedList<BoatOverview>();
+	public Collection<BoatDTO> getCollection(Collection<Boat>  boats){
+		Collection<BoatDTO> collection = new LinkedList<BoatDTO>();
 		for (Boat b : boats){
 			collection.add(getObject(b));
 		}
