@@ -1,5 +1,8 @@
 package de.rowbuddy.business;
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.apache.tools.ant.ExitStatusException;
@@ -10,6 +13,7 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 import de.rowbuddy.business.BoatManagement;
+import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.util.Ejb;
 import de.rowbuddy.util.EjbExceptionHandler;
@@ -175,5 +179,34 @@ public class BoatManagementTest extends EjbTestBase {
 				boatManagement.deleteBoat(deletedBoat.getId());
 			}
 		});
+	}
+	
+	@Test
+	public void canGetBoat(){
+		Boat boat = boatManagement.getBoat(existingBoat.getId());
+		assertNotNull(boat);
+	}
+	
+	@Test
+	public void canGetDeletedBoat(){
+		Boat boat = boatManagement.getBoat(deletedBoat.getId());
+		assertNotNull(boat);
+	}
+	
+	@Test
+	public void canGetOverview(){
+		Collection<BoatDTO> boats = boatManagement.getBoatOverview();
+		boolean containsExistingBoat = false;
+		for (BoatDTO boat : boats){
+			if (boat.getId() == existingBoat.getId()){
+				containsExistingBoat = true;
+			}
+			if (boat.getId() == deletedBoat.getId()){
+				fail("deleted boat found");
+			}
+		}
+		if (!containsExistingBoat){
+			fail("existing boat not found");
+		}
 	}
 }
