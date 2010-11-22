@@ -37,11 +37,12 @@ public class AddBoatView extends Composite implements AddBoatPresenter.Display{
 		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 		addButton = new Button("Boot anlegen");
 		resetButton = new Button("Zurücksetzen");
-		hPanel.add(resetButton);
 		hPanel.add(addButton);
+		hPanel.add(resetButton);
+		
 		
 		contentTable.getCellFormatter().addStyleName(0, 0, "contacts-ListMenu");
-		contentTable.setWidget(1, 0, hPanel);
+		contentTable.setWidget(0, 0, hPanel);
 
 		boatTable = new FlexTable();
 		
@@ -60,7 +61,7 @@ public class AddBoatView extends Composite implements AddBoatPresenter.Display{
 		coxed = new CheckBox();
 		boatTable.setWidget(2, 1, coxed);	
 		
-		contentTable.setWidget(0, 0, boatTable);
+		contentTable.setWidget(1, 0, boatTable);
 	}
 	
 	@Override
