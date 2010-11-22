@@ -1,5 +1,7 @@
 package de.rowbuddy.client;
 
+import java.util.logging.Logger;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
@@ -25,7 +27,9 @@ import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.views.MenuView;
 
 public class GWTEntryPoint implements EntryPoint {
-
+	
+	private static Logger logger = Logger.getLogger(GWTEntryPoint.class.getName());
+    
 	public void onModuleLoad() {
 		BoatRemoteServiceAsync boatService = (BoatRemoteServiceAsync) GWT
 				.create(BoatRemoteService.class);
@@ -40,6 +44,7 @@ public class GWTEntryPoint implements EntryPoint {
 		RootPanel.get("Main").add(initalRootFlexTable(mainPanel));
 
 		controller.start(mainPanel);
+		logger.info("Application started");
 		/*
 		 * 
 		 * 
