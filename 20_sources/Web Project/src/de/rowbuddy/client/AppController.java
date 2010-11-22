@@ -16,14 +16,14 @@ import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.views.boat.AddBoatView;
 import de.rowbuddy.client.views.boat.BoatView;
 
-public class AppController implements Presenter, ValueChangeHandler<String>{
+public class AppController implements Presenter, ValueChangeHandler<String>,HistoryConstants{
 	private SimpleEventBus eventBus;
 	private BoatRemoteServiceAsync boatService;
 	private HasWidgets container;
+	
 	public AppController(BoatRemoteServiceAsync boatService, SimpleEventBus eventBus) {
 		this.boatService = boatService;
 		this.eventBus = eventBus;
-		this.container = container;
 	}  
 	
 	//bind Event handling here
@@ -45,9 +45,9 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 		String token = arg0.getValue();
 		if(token != null) {
 			Presenter presenter = null;
-			if(token.equals("listBoats")) {
+			if(token.equals(LIST_BOATS)) {
 				presenter = new BoatPresenter(boatService, new BoatView(), eventBus);
-			} else if(token.equals("addBoat")){
+			} else if(token.equals("ADD_BOAT")){
 				presenter = new AddBoatPresenter(new AddBoatView(), boatService, eventBus);
 			} else {
 				Window.alert("Action undefined! - " + token);
@@ -65,7 +65,7 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 		bind();
 		this.container = container;
 		if(History.getToken().equals("")) {
-			History.newItem("listBoats");
+			History.newItem(LIST_BOATS);//welcome page
 		} else {
 			History.fireCurrentHistoryState();
 		}
