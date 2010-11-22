@@ -39,7 +39,7 @@ public class GWTEntryPoint implements EntryPoint {
 		HasWidgets mainPanel = initialMainPanel();	
 		RootPanel.get("Main").add(initalRootFlexTable(mainPanel));
 
-		//controller.start(mainPanel);
+		controller.start(mainPanel);
 		/*
 		 * 
 		 * 
@@ -116,8 +116,8 @@ public class GWTEntryPoint implements EntryPoint {
 //		 TabLayoutPanel mainPanel = new TabLayoutPanel(1.5, Unit.EM);
 //		 mainPanel.add(mainLabel, "Neue Fahrt");
 //		 mainPanel.add(new Label("Testen"), "Nachtrag");
-		panel.add(p);
-		return p;
+//		panel.add(p);
+		return panel;
 	}
 
 	

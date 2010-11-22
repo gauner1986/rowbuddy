@@ -1,14 +1,18 @@
 package de.rowbuddy.client.views;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.MenuDisplay;
+import de.rowbuddy.client.events.ListBoatEvent;
 
 public class MenuView extends Composite implements MenuDisplay{
 
@@ -23,7 +27,7 @@ public class MenuView extends Composite implements MenuDisplay{
 		menuPanel.add(createProfilMenu(), "Profil");
 		menuPanel.add(createViewTripMenu(), "Fahrtenbuch");
 		menuPanel.add(createStatistikMenu(), "Statistiken");
-		menuPanel.add(createBootMenu(), "Boote");
+		menuPanel.add(createBoatMenu(), "Boote");
 		// menuPanel.add(null, "Mitglieder");
 		// menuPanel.add(null, "Routen");
 		// menuPanel.add(null, "Bootsschäden");
@@ -35,7 +39,7 @@ public class MenuView extends Composite implements MenuDisplay{
 		initWidget(verticalPanel);
 	}
 
-	private Widget createBootMenu() {
+	private Widget createBoatMenu() {
 		VerticalPanel panel = new VerticalPanel();
 		Anchor browseBoats = new Anchor("Bootsübersicht");
 		Anchor viewBoat = new Anchor("Boot ansehen");
