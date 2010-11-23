@@ -47,7 +47,7 @@ public class AppController implements Presenter, ValueChangeHandler<String>,Hist
 			Presenter presenter = null;
 			if(token.equals(LIST_BOATS)) {
 				presenter = new BoatPresenter(boatService, new BoatView(), eventBus);
-			} else if(token.equals("ADD_BOAT")){
+			} else if(token.equals(ADD_BOAT)){
 				presenter = new AddBoatPresenter(new AddBoatView(), boatService, eventBus);
 			} else {
 				Window.alert("Action undefined! - " + token);

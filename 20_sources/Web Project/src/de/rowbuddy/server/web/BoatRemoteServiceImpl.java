@@ -16,7 +16,7 @@ import de.rowbuddy.entities.Boat;
 public class BoatRemoteServiceImpl extends RemoteServiceServlet implements BoatRemoteService{
 
 	@EJB
-	BoatManagement boatManagement;
+	private BoatManagement boatManagement;
 	
 	/**
 	 * 

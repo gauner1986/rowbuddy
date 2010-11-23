@@ -49,8 +49,12 @@ public class SecuritySalamanderTest extends EjbTestBase {
 		assertTrue(rowBuddyFacade.isLoggedIn());
 	}
 	
+	
 	@Test
-	public void canNotLogIn(){
+	public void cannotLogIn(){
+		// TODO: Aufsplitten in mehrere Tests. 
+		// TODO: Evntl. Verschiedene member anlegen
+				
 		Member falseMember = new Member();
 		falseMember.setEmail("basfa@asfsa.de");
 		falseMember.setPassword("wrongpass");

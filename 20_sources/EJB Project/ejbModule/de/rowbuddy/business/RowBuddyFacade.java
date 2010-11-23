@@ -20,6 +20,8 @@ import de.rowbuddy.entities.Member;
 @LocalBean
 public class RowBuddyFacade {
 
+	//TODO: Refactor to UserSessionBean
+	
 	private Member member;
 	@EJB
 	private BoatManagement boatManagement;
@@ -33,13 +35,17 @@ public class RowBuddyFacade {
 	public RowBuddyFacade() {
 
 	}
+	
+	// TODO: Umstellen von Returnvalues auf Checked Exceptions;
+	// TODO: void als return value
 
 	@ExcludeClassInterceptors
 	public boolean login(Member member) {
-		if(member.getEmail() == null || member.getPassword() == null)
+		if (member.getEmail() == null || member.getPassword() == null)
 			return false;
-		
-		Query q = em.createQuery("SELECT m FROM Member m WHERE m.email = :email");
+
+		Query q = em
+				.createQuery("SELECT m FROM Member m WHERE m.email = :email");
 		q.setParameter("email", member.getEmail());
 		Member m = null;
 		try {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -31,11 +32,12 @@ public class BoatManagement {
 	@EJB
 	BoatDAO boatDAO;
 	BoatDTOConverter boatDTO;
-	EntityUtil entityUtil;
 
 	public BoatManagement() {
+		
+		// TODO: Exceptions auf checked exceptions umstellen
+		// TODO: Security Salamander einbauen
 		boatDTO = new BoatDTOConverter();
-		entityUtil = new EntityUtil(em);
 	}
 
 	public Collection<BoatDTO> getBoatOverview() {
@@ -102,6 +104,8 @@ public class BoatManagement {
 
 	private void checkConsistency(Boat boat) {
 
+		// TODO: Entity bezogene Checks in Entities auslagern
+		
 		if (boat.getName().isEmpty()) {
 			throw new IllegalArgumentException("please specify a name");
 		}

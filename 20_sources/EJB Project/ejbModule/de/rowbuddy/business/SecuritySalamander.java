@@ -21,6 +21,8 @@ public class SecuritySalamander {
 			System.out.println("User '"+member.getEmail()+"' is authenticated.");
 			return ic.proceed();
 		}
+		
+		// TODO: Admin-Methoden; Rollen prüfen beim Member; RequiredRole Annotations
 	}
 
 }
