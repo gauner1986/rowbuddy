@@ -1,6 +1,8 @@
 package de.rowbuddy.client.presenter;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -13,6 +15,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.client.events.AddBoatEvent;
+import de.rowbuddy.client.events.EditBoatEvent;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
 public class BoatPresenter implements Presenter{
@@ -27,8 +30,8 @@ public class BoatPresenter implements Presenter{
 	private Display view;
 	private BoatRemoteServiceAsync boatService;
 	private SimpleEventBus eventBus;
-	private Collection<BoatDTO> fetchedBoats;
-	
+	private List<BoatDTO> fetchedBoats;
+	private static Logger logger = Logger.getLogger(BoatPresenter.class.getName());
 	public BoatPresenter(BoatRemoteServiceAsync boatService, Display view, SimpleEventBus eventBus) {
 		this.view = view;
 		this.boatService = boatService;
@@ -48,8 +51,12 @@ public class BoatPresenter implements Presenter{
 			@Override
 			public void onClick(ClickEvent event) {
 				int selectedRow = view.getClickedRow(event);
+				logger.info("Row " + selectedRow + " selected");
 				if(selectedRow >= 0) {
-				//	eventBus.fireEvent(event)
+					Long id = fetchedBoats.get(selectedRow).getId();
+					
+					logger.info("Fire EditBoatEvent id:" + id);
+					eventBus.fireEvent(new EditBoatEvent(id));
 				}
 			}
 		});
@@ -64,10 +71,10 @@ public class BoatPresenter implements Presenter{
 	}
 	
 	private void fetchBoats(){
-		boatService.getBoatOverview(new AsyncCallback<Collection<BoatDTO>>() {
+		boatService.getBoatOverview(new AsyncCallback<List<BoatDTO>>() {
 			
 			@Override
-			public void onSuccess(Collection<BoatDTO> arg0) {
+			public void onSuccess(List<BoatDTO> arg0) {
 				fetchedBoats = arg0;
 				view.setData(fetchedBoats);
 			} 

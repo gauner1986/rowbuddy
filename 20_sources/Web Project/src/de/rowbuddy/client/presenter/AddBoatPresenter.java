@@ -58,7 +58,7 @@ public class AddBoatPresenter implements Presenter{
 					
 					@Override
 					public void onSuccess(Void arg0) {
-						logger.info("Boat successful added; GoTo ListBoats");
+						logger.info("Boat successful added; GoTo ListBoat");
 						eventBus.fireEvent(new ListBoatEvent());
 					}
 					

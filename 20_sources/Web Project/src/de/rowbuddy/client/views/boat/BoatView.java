@@ -59,12 +59,7 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 		HTMLTable.Cell cell = boatTable.getCellForEvent(event);
 
 		if (cell != null) {
-			// Suppress clicks if the user is actually selecting the
-			// check box
-			//
-			if (cell.getCellIndex() > 0) {
-				selectedRow = cell.getRowIndex();
-			}
+			selectedRow = cell.getRowIndex();
 		}
 		return selectedRow;
 	}
