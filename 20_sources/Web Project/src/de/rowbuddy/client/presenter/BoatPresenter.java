@@ -52,8 +52,8 @@ public class BoatPresenter implements Presenter{
 			public void onClick(ClickEvent event) {
 				int selectedRow = view.getClickedRow(event);
 				logger.info("Row " + selectedRow + " selected");
-				if(selectedRow >= 0) {
-					Long id = fetchedBoats.get(selectedRow).getId();
+				if(selectedRow > 0) {
+					Long id = fetchedBoats.get(selectedRow - 1).getId();
 					
 					logger.info("Fire EditBoatEvent id:" + id);
 					eventBus.fireEvent(new EditBoatEvent(id));

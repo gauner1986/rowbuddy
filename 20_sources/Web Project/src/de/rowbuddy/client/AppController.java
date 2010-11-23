@@ -9,14 +9,18 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.events.AddBoatEventHandler;
+import de.rowbuddy.client.events.EditBoatEvent;
+import de.rowbuddy.client.events.EditBoatEventHandler;
 import de.rowbuddy.client.events.ListBoatEvent;
 import de.rowbuddy.client.events.ListBoatEventHandler;
 import de.rowbuddy.client.presenter.AddBoatPresenter;
 import de.rowbuddy.client.presenter.BoatPresenter;
+import de.rowbuddy.client.presenter.EditBoatPresenter;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.views.boat.AddBoatView;
 import de.rowbuddy.client.views.boat.BoatView;
+import de.rowbuddy.client.views.boat.EditBoatView;
 
 public class AppController implements Presenter, ValueChangeHandler<String>,HistoryConstants{
 	private SimpleEventBus eventBus;
@@ -45,6 +49,20 @@ public class AppController implements Presenter, ValueChangeHandler<String>,Hist
 				doOnListBoatEvent();
 			}
 		});
+		
+		eventBus.addHandler(EditBoatEvent.TYPE, new EditBoatEventHandler() {
+			
+			@Override
+			public void onEditBoatEvent(EditBoatEvent event) {
+				doOnEditBoat(event.getId());
+			}
+		});
+	}
+	
+	private void doOnEditBoat(Long id){
+		History.newItem(EDIT_BOAT, false);
+		Presenter presenter = new EditBoatPresenter(new EditBoatView(), boatService, eventBus, id);
+		presenter.start(container);
 	}
 	
 	private void doOnListBoatEvent(){

@@ -8,25 +8,22 @@ import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.presenter.AddBoatPresenter;
+import de.rowbuddy.client.presenter.EditBoatPresenter;
 
-public class AddBoatView extends Composite implements AddBoatPresenter.Display{
+public class EditBoatView extends Composite implements EditBoatPresenter.Display{
 
-	private Button resetButton = null;
-	private Button addButton = null;
-	private FlexTable contentTable = null;
-	private DecoratorPanel decorator = null;
-	private FlexTable boatTable = null;
-	private TextBox nameText = null;
-	private TextBox numberOfSeats = null;
-	private CheckBox coxed = null;
-	private Button addNextButton = null;
+	private Button submitButton;
+	private Button cancelButton;
+	private FlexTable contentTable;
+	private DecoratorPanel decorator;
+	private FlexTable boatTable;
+	private TextBox nameText;
+	private TextBox numberOfSeats;
+	private CheckBox coxed; 
 	
-	public AddBoatView(){
+	public EditBoatView(){
 		contentTable = new FlexTable();
 		decorator = new DecoratorPanel();
 		initWidget(decorator);
@@ -36,12 +33,10 @@ public class AddBoatView extends Composite implements AddBoatPresenter.Display{
 		hPanel.setBorderWidth(0);
 		hPanel.setSpacing(0);
 		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
-		addButton = new Button("Boot anlegen");
-		resetButton = new Button("Zurücksetzen");
-		addNextButton = new Button("Weiteres Boot hinzufügen");
-		hPanel.add(addButton);
-		hPanel.add(addNextButton);
-		hPanel.add(resetButton);
+		submitButton= new Button("Boot speicher");
+		cancelButton = new Button("Abbrechen");
+		hPanel.add(submitButton);
+		hPanel.add(cancelButton);
 	
 		contentTable.getCellFormatter().addStyleName(0, 0, "contacts-ListMenu");
 		contentTable.setWidget(1, 0, hPanel);
@@ -64,18 +59,13 @@ public class AddBoatView extends Composite implements AddBoatPresenter.Display{
 	}
 	
 	@Override
-	public Widget asWidget() {
-		return this;
-	}
-	
-	@Override
-	public HasClickHandlers getAddButton() {
-		return addButton;
+	public HasClickHandlers getSubmitButton() {
+		return submitButton;
 	}
 
 	@Override
-	public HasClickHandlers getResetButton() {
-		return resetButton;
+	public HasClickHandlers getCancelButton() {
+		return cancelButton;
 	}
 
 	@Override
@@ -91,18 +81,6 @@ public class AddBoatView extends Composite implements AddBoatPresenter.Display{
 	@Override
 	public HasValue<Boolean> isCoxed() {
 		return coxed;
-	}
-
-	@Override
-	public void reset() {
-		nameText.setText("");
-		numberOfSeats.setText("");
-		coxed.setValue(false);
-	}
-
-	@Override
-	public HasClickHandlers getAdditionalBoat() {
-		return addNextButton;
 	}
 
 }

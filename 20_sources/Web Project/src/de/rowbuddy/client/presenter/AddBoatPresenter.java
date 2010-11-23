@@ -27,7 +27,7 @@ public class AddBoatPresenter implements Presenter{
 		HasClickHandlers getAdditionalBoat();
 		HasClickHandlers getResetButton();
 		HasValue<String> getName();
-		String getNumberOfSeats();
+		HasValue<String> getNumberOfSeats();
 		HasValue<Boolean> isCoxed();
 		void reset();
 	}
@@ -103,7 +103,7 @@ public class AddBoatPresenter implements Presenter{
 		Boat boat = new Boat();
 		boat.setCoxed(view.isCoxed().getValue());
 		boat.setName(view.getName().getValue());
-		boat.setNumberOfSeats(Integer.valueOf(view.getNumberOfSeats()));
+		boat.setNumberOfSeats(Integer.valueOf(view.getNumberOfSeats().getValue()));
 		boatService.addBoat(boat, action);
 	}
 
