@@ -19,7 +19,6 @@ public class MenuView extends Composite implements MenuDisplay {
 		// initWidget(stackPanel);
 		VerticalPanel verticalPanel = new VerticalPanel();
 		DecoratedStackPanel menuPanel = new DecoratedStackPanel();
-		menuPanel.setStylePrimaryName("stackPanel");
 		menuPanel.add(createTripsMenu(), "Offene Fahrten");
 		menuPanel.add(createProfilMenu(), "Profil");
 		menuPanel.add(createViewTripMenu(), "Fahrtenbuch");
