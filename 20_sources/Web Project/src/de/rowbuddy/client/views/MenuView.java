@@ -1,28 +1,25 @@
 package de.rowbuddy.client.views;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.MenuDisplay;
-import de.rowbuddy.client.events.ListBoatEvent;
 
-public class MenuView extends Composite implements MenuDisplay{
+public class MenuView extends Composite implements MenuDisplay {
 
 	private Button listBoats = null;
-	
-	public MenuView(){
+
+	public MenuView() {
 		listBoats = new Button();
-		//initWidget(stackPanel);
+		// initWidget(stackPanel);
 		VerticalPanel verticalPanel = new VerticalPanel();
 		DecoratedStackPanel menuPanel = new DecoratedStackPanel();
+		menuPanel.setStylePrimaryName("stackPanel");
 		menuPanel.add(createTripsMenu(), "Offene Fahrten");
 		menuPanel.add(createProfilMenu(), "Profil");
 		menuPanel.add(createViewTripMenu(), "Fahrtenbuch");
@@ -33,7 +30,10 @@ public class MenuView extends Composite implements MenuDisplay{
 		// menuPanel.add(null, "Bootsschäden");
 		// menuPanel.add(null, "Bootsreservierungen");
 		// menuPanel.add(null, "Mitgliederverwaltung");
+
 		Button logoutButton = new Button("Logout");
+		logoutButton.setStylePrimaryName("buttonRegular buttonLogout");
+		
 		verticalPanel.add(menuPanel);
 		verticalPanel.add(logoutButton);
 		initWidget(verticalPanel);
@@ -120,14 +120,14 @@ public class MenuView extends Composite implements MenuDisplay{
 		panel.add(requestNewPassword);
 		return panel;
 	}
-	
+
 	@Override
 	public HasClickHandlers getListBoatButton() {
 		return listBoats;
 	}
-	
-	@Override	
-	public Widget asWidget(){
+
+	@Override
+	public Widget asWidget() {
 		return this;
 	}
 

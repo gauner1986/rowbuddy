@@ -1,11 +1,11 @@
 @CHARSET "ISO-8859-1";
 
 .flexTable td {
-	border: 1px solid #BBBBBB;
+	border: 0px solid #BBBBBB;
 }
 
 .messages {
-	color: red;	
+	color: red;
 }
 
 #Main {
@@ -13,35 +13,83 @@
 }
 
 .FlexTable-OddRow {
-  background-color: #FFFFFF;
+	background-color: #FFFFFF;
 }
 
 .FlexTable-EvenRow {
-  background-color:  #D7DDE8;
+	background-color: #D7DDE8;
 }
 
-.buttonLogout{
-    background: url("icons/quit_blue.png") no-repeat 4px 4px;
+.buttonLogout {
+	background: url("icons/quit_blue.png") no-repeat 4px 4px;
 }
 
-.buttonRegular{
-    color:#336699;
-    -moz-border-radius:30px;
-    -khtml-border-radius:30px;
-    padding:4px 4px 4px 25px;
-    min-width: 100px;
-}
-.buttonRegular:HOVER{
-    background-color:#dff4ff;
-    border:1px solid #c2e1ef;
-    color:#336699;
-}
-.buttonRegular:ACTIVE{
-    background-color:#6299c5;
-    border:1px solid #6299c5;
-    color:#fff;
+.buttonRegular {
+	color: #336699;
+	-moz-border-radius: 30px;
+	-khtml-border-radius: 30px;
+	padding: 4px 4px 4px 25px;
+	min-width: 100px;
 }
 
-.buttonLogout{
-	.buttonRegular;
+.buttonRegular:HOVER {
+	background-color: #dff4ff;
+	border: 1px solid #c2e1ef;
+	color: #336699;
+}
+
+.buttonRegular:ACTIVE {
+	background-color: #6299c5;
+	border: 1px solid #6299c5;
+	color: #fff;
+}
+
+.buttonPositive {
+	color: #529214;
+	-moz-border-radius: 30px;
+	-khtml-border-radius: 30px;
+	padding: 4px 4px 4px 25px;
+	min-width: 100px;
+}
+
+.buttonPositive:HOVER {
+	background-color: #E6EFC2;
+	border: 1px solid #C6D880;
+	color: #529214;
+}
+
+.buttonPositive:ACTIVE {
+	background-color: #529214;
+	border: 1px solid #529214;
+	color: #fff;
+}
+
+.buttonNegative {
+	color: #d12f19;
+	-moz-border-radius: 30px;
+	-khtml-border-radius: 30px;
+	padding: 4px 4px 4px 25px;
+	min-width: 100px;
+}
+
+.buttonNegative:HOVER {
+	background: #fbe3e4;
+	border: 1px solid #fbc2c4;
+	color: #d12f19;
+}
+
+.buttonNegative:ACTIVE {
+	background-color: #d12f19;
+	border: 1px solid #d12f19;
+	color: #fff;
+}
+
+.stackPanel {
+	border-bottom: 1px solid #bbbbbb;
+	border: 1px solid #bbbbbb;
+	border-bottom: 0px;
+	background: white;
+	padding: 2px 2px 10px 5px;
+	cursor: pointer;
+	cursor: hand;
 }
