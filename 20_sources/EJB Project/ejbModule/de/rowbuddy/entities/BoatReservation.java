@@ -19,7 +19,9 @@ public class BoatReservation implements Serializable {
 	private Long id;
 	@ManyToMany
 	private List<Boat> boats;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date from;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date until;
 	@ManyToOne
 	private Member reserver;
