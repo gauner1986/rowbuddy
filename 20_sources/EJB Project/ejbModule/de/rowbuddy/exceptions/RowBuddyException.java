@@ -1,11 +1,9 @@
 package de.rowbuddy.exceptions;
 
-import java.io.Serializable;
-
 import javax.ejb.ApplicationException;
 
 @ApplicationException
-public class RowBuddyException extends Exception implements Serializable{
+public class RowBuddyException extends Exception {
 
 	/**
 	 * 
