@@ -32,4 +32,16 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements BoatR
 		
 		boatManagement.addBoat(boat);
 	}
+
+	@Override
+	public void updateBoat(Boat boat) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Boat getBoat(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
