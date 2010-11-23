@@ -7,8 +7,9 @@ import static org.junit.Assert.fail;
 
 import java.util.Collection;
 
-import javax.persistence.EntityNotFoundException;
-
+import javax.ejb.CreateException;
+import javax.ejb.FinderException;
+import javax.ejb.RemoveException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +28,6 @@ public class BoatManagementTest extends EjbTestBase {
 	private Boat newBoat;
 	private Boat deletedBoat;
 	private BoatManagement boatManagement;
-	private EjbExceptionHandler ejbHandler;
 	private Member loginMember;
 	
 	private RowBuddyFacade rowBuddy;
@@ -36,7 +36,6 @@ public class BoatManagementTest extends EjbTestBase {
 	public void setup() {
 		rowBuddy = Ejb.lookUp(RowBuddyFacade.class, RowBuddyFacade.class);
 		
-		ejbHandler = new EjbExceptionHandler();
 		existingBoat = new Boat();
 		existingBoat.setName("TestBoat 1");
 		existingBoat.setLocked(false);
@@ -73,7 +72,6 @@ public class BoatManagementTest extends EjbTestBase {
 	@After
 	public void tearDown() {
 		newBoat = null;
-		ejbHandler = null;
 		
 		removeEntity(Boat.class, existingBoat.getId());
 		removeEntity(Boat.class, deletedBoat.getId());
@@ -91,65 +89,38 @@ public class BoatManagementTest extends EjbTestBase {
 	}
 
 	@Test
-	public void canAddBoat() {
+	public void canAddBoat() throws CreateException {
 		boatManagement.addBoat(newBoat);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void cannotAddBoatWithoutName() throws Exception {
+	@Test(expected = CreateException.class)
+	public void cannotAddBoatWithoutName() throws CreateException {
 		newBoat.setName("");
 
-		ejbHandler.execute(new Runnable() {
-
-			@Override
-			public void run() {
-				boatManagement.addBoat(newBoat);
-			}
-
-		});
+		boatManagement.addBoat(newBoat);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void cannotAddBoatWithoutNumberOfSeats() throws Exception {
+	@Test(expected = CreateException.class)
+	public void cannotAddBoatWithoutNumberOfSeats() throws CreateException {
 		newBoat.setNumberOfSeats(0);
 
-		ejbHandler.execute(new Runnable() {
-
-			@Override
-			public void run() {
-				boatManagement.addBoat(newBoat);
-			}
-
-		});
+		boatManagement.addBoat(newBoat);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void cannotAddDeletedBoat() throws Exception {
+	@Test(expected = CreateException.class)
+	public void cannotAddDeletedBoat() throws CreateException {
 		newBoat.setDeleted(true);
 
-		ejbHandler.execute(new Runnable() {
-
-			@Override
-			public void run() {
-				boatManagement.addBoat(newBoat);
-			}
-
-		});
+		boatManagement.addBoat(newBoat);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void cannotAddAlreadyExistingBoat() throws Exception {
-
-		ejbHandler.execute(new Runnable() {
-			@Override
-			public void run() {
-				boatManagement.addBoat(existingBoat);
-			}
-		});
+	@Test(expected = CreateException.class)
+	public void cannotAddAlreadyExistingBoat()throws CreateException {
+		boatManagement.addBoat(existingBoat);
 	}
 
 	@Test
-	public void canUpdateBoat() {
+	public void canUpdateBoat() throws FinderException, RowBuddyException {
 		existingBoat.setName("new name");
 		Boat updatedBoat = boatManagement.updateBoat(existingBoat);
 		assertThat(updatedBoat.getName(), is(existingBoat.getName()));
@@ -158,52 +129,37 @@ public class BoatManagementTest extends EjbTestBase {
 		assertThat(updatedBoat.getName(), is(existingBoat.getName()));
 	}
 
-	@Test(expected = EntityNotFoundException.class)
-	public void cannotUpdateNonExistingBoat() throws Exception {
-		ejbHandler.execute(new Runnable() {
-			@Override
-			public void run() {
-				boatManagement.updateBoat(newBoat);
-			}
-		});
+	@Test(expected = FinderException.class)
+	public void cannotUpdateNonExistingBoat() throws FinderException, RowBuddyException  {
+		boatManagement.updateBoat(newBoat);
 	}
 
-	@Test(expected = EntityNotFoundException.class)
-	public void cannotUpdateDeletedBoat() throws Exception {
+	@Test(expected = FinderException.class)
+	public void cannotUpdateDeletedBoat() throws FinderException, RowBuddyException {
 		deletedBoat.setDeleted(false);
-		
-		ejbHandler.execute(new Runnable() {
-			@Override
-			public void run() {
-				boatManagement.updateBoat(deletedBoat);
-			}
-		});
+		boatManagement.updateBoat(deletedBoat);
 	}
 
-	public void canDeleteBoat() {
+	@Test
+	public void canDeleteBoat() throws RemoveException, FinderException {
 		boatManagement.deleteBoat(existingBoat.getId());
 		Boat dbBoat = boatManagement.getBoat(existingBoat.getId());
 		assertThat(dbBoat.isDeleted(), is(true));
 	}
 
-	@Test(expected = EntityNotFoundException.class)
-	public void cannotDeleteAlreadyDeletedBoat() throws Exception {
-		ejbHandler.execute(new Runnable() {
-			@Override
-			public void run() {
-				boatManagement.deleteBoat(deletedBoat.getId());
-			}
-		});
+	@Test(expected = RemoveException.class)
+	public void cannotDeleteAlreadyDeletedBoat() throws RemoveException {
+		boatManagement.deleteBoat(deletedBoat.getId());
 	}
 	
 	@Test
-	public void canGetBoat(){
+	public void canGetBoat() throws FinderException{
 		Boat boat = boatManagement.getBoat(existingBoat.getId());
 		assertNotNull(boat);
 	}
 	
 	@Test
-	public void canGetDeletedBoat(){
+	public void canGetDeletedBoat() throws FinderException{
 		Boat boat = boatManagement.getBoat(deletedBoat.getId());
 		assertNotNull(boat);
 	}

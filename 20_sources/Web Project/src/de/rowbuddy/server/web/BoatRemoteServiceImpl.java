@@ -2,6 +2,7 @@ package de.rowbuddy.server.web;
 
 import java.util.List;
 
+import javax.ejb.CreateException;
 import javax.ejb.EJB;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -27,7 +28,8 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements BoatR
 	}
 
 	@Override
-	public void addBoat(Boat boat) {
+	public void addBoat(Boat boat) throws Exception {
+		
 		boatManagement.addBoat(boat);
 	}
 }
