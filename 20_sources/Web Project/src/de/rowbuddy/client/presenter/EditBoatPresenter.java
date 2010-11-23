@@ -81,7 +81,8 @@ public class EditBoatPresenter implements Presenter {
 		});
 	}
 
-	private void updateBoat() {
+	private boolean updateBoat() {
+		boolean success = false;
 		try {
 			boat.setName(view.getName().getValue());
 			boat.setCoxed(view.isCoxed().getValue());
@@ -90,33 +91,36 @@ public class EditBoatPresenter implements Presenter {
 			boat.setNumberOfSeats(seats);
 			boat.setLocked(view.isLocked().getValue());
 			logger.info("Update boat with id:" + boat.getId());
+			success = true;
 		} catch (NumberFormatException ex) {
 			logger.warning("Seat is not a number");
 		} catch (RowBuddyException ex) {
 			logger.warning(ex.getMessage());
 		}
+		return success;
 	}
 
 	private void bind() {
 		view.getSubmitButton().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent arg0) {
-				updateBoat();
-				boatService.updateBoat(boat, new AsyncCallback<Void>() {
+				if (updateBoat()) {
+					boatService.updateBoat(boat, new AsyncCallback<Void>() {
 
-					@Override
-					public void onSuccess(Void arg0) {
-						logger.info("Submit successful GoTo ListBoats");
-						eventBus.fireEvent(new ListBoatEvent());
-					}
+						@Override
+						public void onSuccess(Void arg0) {
+							logger.info("Submit successful GoTo ListBoats");
+							eventBus.fireEvent(new ListBoatEvent());
+						}
 
-					@Override
-					public void onFailure(Throwable arg0) {
-						logger.warning("Cannout update Boat:"
-								+ arg0.getMessage());
-					}
-				});
+						@Override
+						public void onFailure(Throwable arg0) {
+							logger.warning("Cannout update Boat:"
+									+ arg0.getMessage());
+						}
+					});
 
+				}
 			}
 		});
 
