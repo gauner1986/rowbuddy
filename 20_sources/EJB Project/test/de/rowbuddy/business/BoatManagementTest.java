@@ -12,9 +12,11 @@ import javax.persistence.EntityNotFoundException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.entities.Boat;
+import de.rowbuddy.entities.Member;
 import de.rowbuddy.util.Ejb;
 import de.rowbuddy.util.EjbExceptionHandler;
 import de.rowbuddy.util.EjbTestBase;
@@ -26,9 +28,14 @@ public class BoatManagementTest extends EjbTestBase {
 	private Boat deletedBoat;
 	private BoatManagement boatManagement;
 	private EjbExceptionHandler ejbHandler;
+	private Member loginMember;
+	
+	private RowBuddyFacade rowBuddy;
 
 	@Before
 	public void setup() {
+		rowBuddy = Ejb.lookUp(RowBuddyFacade.class, RowBuddyFacade.class);
+		
 		ejbHandler = new EjbExceptionHandler();
 		existingBoat = new Boat();
 		existingBoat.setName("TestBoat 1");
@@ -53,6 +60,13 @@ public class BoatManagementTest extends EjbTestBase {
 		deletedBoat.setCoxed(true);
 		deletedBoat = (Boat) em.persist(deletedBoat);
 		
+		Member member = new Member();
+		member.setEmail("test@test.de");
+		member.setPassword("pwd");
+		loginMember = (Member)em.persist(member);
+		
+		assertTrue(rowBuddy.login(member));
+		
 		boatManagement = Ejb.lookUp(BoatManagement.class, BoatManagement.class);
 	}
 
@@ -63,6 +77,7 @@ public class BoatManagementTest extends EjbTestBase {
 		
 		removeEntity(Boat.class, existingBoat.getId());
 		removeEntity(Boat.class, deletedBoat.getId());
+		removeEntity(Member.class, loginMember.getId());
 	
 		deletedBoat = null;
 		existingBoat = null;
