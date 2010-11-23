@@ -78,7 +78,7 @@ public class EditBoatPresenter implements Presenter{
 					boat.setCoxed(view.isCoxed().getValue());
 					int seats = Integer.valueOf(view.getNumberOfSeats().getValue());
 					boat.setNumberOfSeats(seats);	
-					
+					logger.info("Update boat with id:" + boat.getId());
 					boatService.updateBoat(boat, new AsyncCallback<Void>() {
 						@Override
 						public void onSuccess(Void arg0) {
@@ -88,7 +88,7 @@ public class EditBoatPresenter implements Presenter{
 						
 						@Override
 						public void onFailure(Throwable arg0) {
-							logger.info("Cannout update Boat:" + arg0.getMessage());
+							logger.warning("Cannout update Boat:" + arg0.getMessage());
 						}
 					});
 					
