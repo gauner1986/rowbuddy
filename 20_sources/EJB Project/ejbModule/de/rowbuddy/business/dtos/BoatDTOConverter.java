@@ -1,6 +1,6 @@
 package de.rowbuddy.business.dtos;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.LinkedList;
 
 import de.rowbuddy.entities.Boat;
@@ -18,8 +18,8 @@ public class BoatDTOConverter {
 		return bo;
 	}
 	
-	public Collection<BoatDTO> getCollection(Collection<Boat>  boats){
-		Collection<BoatDTO> collection = new LinkedList<BoatDTO>();
+	public List<BoatDTO> getList(List<Boat>  boats){
+		List<BoatDTO> collection = new LinkedList<BoatDTO>();
 		for (Boat b : boats){
 			collection.add(getObject(b));
 		}

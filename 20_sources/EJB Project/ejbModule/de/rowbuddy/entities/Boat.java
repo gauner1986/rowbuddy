@@ -2,6 +2,8 @@ package de.rowbuddy.entities;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -17,6 +19,10 @@ public class Boat implements Serializable {
 	private String name = "";
 	private int numberOfSeats = 0;
 	private boolean coxed = false;
+	@OneToMany
+	private List<BoatDamage> boatDamages;
+	@OneToMany
+	private List<BoatReservation> boatReservations;
 	private boolean locked = false;
 	private boolean deleted = false;
 	private static final long serialVersionUID = 1L;
@@ -52,6 +58,18 @@ public class Boat implements Serializable {
 	public void setCoxed(boolean coxed) {
 		this.coxed = coxed;
 	}   
+	public List<BoatDamage> getBoatDamages() {
+		return boatDamages;
+	}
+	public void setBoatDamages(List<BoatDamage> boatDamages) {
+		this.boatDamages = boatDamages;
+	}
+	public List<BoatReservation> getBoatReservations() {
+		return boatReservations;
+	}
+	public void setBoatReservations(List<BoatReservation> boatReservations) {
+		this.boatReservations = boatReservations;
+	}
 	public boolean isLocked() {
 		return this.locked;
 	}
@@ -59,6 +77,7 @@ public class Boat implements Serializable {
 	public void setLocked(boolean locked) {
 		this.locked = locked;
 	}   
+	
 	public boolean isDeleted() {
 		return this.deleted;
 	}

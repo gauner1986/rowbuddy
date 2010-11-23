@@ -12,6 +12,9 @@
 		<class>de.rowbuddy.entities.Boat</class>
 		<class>de.rowbuddy.entities.TripMember</class>
 		<class>de.rowbuddy.entities.Role</class>
+		<class>de.rowbuddy.entities.BoatDamage</class>
+		<class>de.rowbuddy.entities.BoatReservation</class>
+		<class>de.rowbuddy.entities.GpsPoint</class>
 		<properties>
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
 		</properties>

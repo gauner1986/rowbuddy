@@ -1,6 +1,5 @@
 package de.rowbuddy.business;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -40,9 +39,9 @@ public class BoatManagement {
 		boatDTO = new BoatDTOConverter();
 	}
 
-	public Collection<BoatDTO> getBoatOverview() {
+	public List<BoatDTO> getBoatOverview() {
 		TypedQuery<Boat> q = em.createQuery("SELECT b FROM Boat b WHERE b.deleted = false", Boat.class);
-		return boatDTO.getCollection(q.getResultList());
+		return boatDTO.getList(q.getResultList());
 	}
 
 	public Boat getBoat(Long id) {
