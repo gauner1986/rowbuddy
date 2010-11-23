@@ -45,20 +45,15 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public Boat getBoat(Long id) throws Exception {
 		Boat boat = null;
-		try {
-			boat = boatManagement.getBoat(id);			
-			LinkedList<BoatDamage> damages = new LinkedList<BoatDamage>();
-			LinkedList<BoatReservation> reservations = new LinkedList<BoatReservation>();
+		boat = boatManagement.getBoat(id);
+		LinkedList<BoatDamage> damages = new LinkedList<BoatDamage>();
+		LinkedList<BoatReservation> reservations = new LinkedList<BoatReservation>();
 
-			Collections.copy(damages, boat.getBoatDamages());
-			Collections.copy(reservations, boat.getBoatReservations());
+		Collections.copy(damages, boat.getBoatDamages());
+		Collections.copy(reservations, boat.getBoatReservations());
 
-			boat.setBoatDamages(damages);
-			boat.setBoatReservations(reservations);
-		} catch (Exception ex) {
-			
-		}
-
+		boat.setBoatDamages(damages);
+		boat.setBoatReservations(reservations);
 		return boat;
 	}
 
