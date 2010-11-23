@@ -19,6 +19,7 @@ public class BoatPresenter implements Presenter{
 	public interface Display{
 		Widget asWidget();
 		HasClickHandlers getAddButton();
+		HasClickHandlers getTable();
 		void setData(Collection<BoatDTO> boats);
 		int getClickedRow(ClickEvent event);
 	}
@@ -39,6 +40,17 @@ public class BoatPresenter implements Presenter{
 			@Override
 			public void onClick(ClickEvent arg0) {
 				eventBus.fireEvent(new AddBoatEvent());
+			}
+		});
+		
+		view.getTable().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				int selectedRow = view.getClickedRow(event);
+				if(selectedRow >= 0) {
+				//	eventBus.fireEvent(event)
+				}
 			}
 		});
 	}

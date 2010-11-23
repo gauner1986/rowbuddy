@@ -9,6 +9,8 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.events.AddBoatEventHandler;
+import de.rowbuddy.client.events.ListBoatEvent;
+import de.rowbuddy.client.events.ListBoatEventHandler;
 import de.rowbuddy.client.presenter.AddBoatPresenter;
 import de.rowbuddy.client.presenter.BoatPresenter;
 import de.rowbuddy.client.presenter.Presenter;
@@ -35,10 +37,22 @@ public class AppController implements Presenter, ValueChangeHandler<String>,Hist
 				doOnAddBoatEvent();
 			}
 		});
+		
+		eventBus.addHandler(ListBoatEvent.TYPE, new ListBoatEventHandler() {
+			
+			@Override
+			public void onListBoatEvent(ListBoatEvent event) {
+				doOnListBoatEvent();
+			}
+		});
+	}
+	
+	private void doOnListBoatEvent(){
+		History.newItem(LIST_BOATS);
 	}
 	
 	private void doOnAddBoatEvent(){
-		History.newItem("addBoat");
+		History.newItem(ADD_BOAT);
 	}
 	@Override
 	public void onValueChange(ValueChangeEvent<String> arg0) {

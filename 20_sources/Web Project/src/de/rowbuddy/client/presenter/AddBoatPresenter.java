@@ -1,6 +1,7 @@
 package de.rowbuddy.client.presenter;
 
 import java.util.Collection;
+import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -13,6 +14,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.business.dtos.BoatDTO;
+import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.events.ListBoatEvent;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.Boat;
@@ -22,6 +24,7 @@ public class AddBoatPresenter implements Presenter{
 	public interface Display{
 		Widget asWidget();
 		HasClickHandlers getAddButton();
+		HasClickHandlers getAdditionalBoat();
 		HasClickHandlers getResetButton();
 		HasValue<String> getName();
 		String getNumberOfSeats();
@@ -31,6 +34,7 @@ public class AddBoatPresenter implements Presenter{
 	private Display view = null;
 	private BoatRemoteServiceAsync boatService = null;
 	private SimpleEventBus eventBus;
+	private static Logger logger = Logger.getLogger(AddBoatPresenter.class.getName());
 	
 	public AddBoatPresenter(Display view, BoatRemoteServiceAsync boatService, SimpleEventBus eventBus){
 		this.view = view;
@@ -50,7 +54,19 @@ public class AddBoatPresenter implements Presenter{
 			
 			@Override
 			public void onClick(ClickEvent arg0) {
-				addBoat();
+				addBoat(new AsyncCallback<Void>() {
+					
+					@Override
+					public void onSuccess(Void arg0) {
+						logger.info("Boat successful added; GoTo ListBoats");
+						eventBus.fireEvent(new ListBoatEvent());
+					}
+					
+					@Override
+					public void onFailure(Throwable arg0) {
+						Window.alert("Exception in: " + AddBoatPresenter.class.getName());
+					}
+				});
 			}
 		});
 		
@@ -61,25 +77,34 @@ public class AddBoatPresenter implements Presenter{
 				view.reset();
 			}
 		});
+		
+		view.getAdditionalBoat().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				addBoat(new AsyncCallback<Void>() {
+					
+					@Override
+					public void onSuccess(Void arg0) {
+						logger.info("Boat successful added; Reset View");
+						view.reset();
+					}
+					
+					@Override
+					public void onFailure(Throwable arg0) {
+						Window.alert("Exception in: " + AddBoatPresenter.class.getName());
+					}
+				});
+			}
+		});
 	}
 	
-	private void addBoat(){
+	private void addBoat(AsyncCallback<Void> action){
 		Boat boat = new Boat();
 		boat.setCoxed(view.isCoxed().getValue());
 		boat.setName(view.getName().getValue());
 		boat.setNumberOfSeats(Integer.valueOf(view.getNumberOfSeats()));
-		boatService.addBoat(boat, new AsyncCallback<Void>() {
-			
-			@Override
-			public void onSuccess(Void arg0) {
-				eventBus.fireEvent(new ListBoatEvent());
-			}
-			
-			@Override
-			public void onFailure(Throwable arg0) {
-				Window.alert("Exception in: " + AddBoatPresenter.class.getName());
-			}
-		});
+		boatService.addBoat(boat, action);
 	}
 
 }

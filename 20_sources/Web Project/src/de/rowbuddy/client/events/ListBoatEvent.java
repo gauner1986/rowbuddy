@@ -8,7 +8,7 @@ public class ListBoatEvent extends GwtEvent<ListBoatEventHandler>{
 
 	@Override
 	protected void dispatch(ListBoatEventHandler arg0) {
-		arg0.onAddBoatEvent(this);
+		arg0.onListBoatEvent(this);
 	}
 
 	@Override
