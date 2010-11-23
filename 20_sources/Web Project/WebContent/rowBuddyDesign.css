@@ -19,3 +19,29 @@
 .FlexTable-EvenRow {
   background-color:  #D7DDE8;
 }
+
+.buttonLogout{
+    background: url("icons/quit_blue.png") no-repeat 4px 4px;
+}
+
+.buttonRegular{
+    color:#336699;
+    -moz-border-radius:30px;
+    -khtml-border-radius:30px;
+    padding:4px 4px 4px 25px;
+    min-width: 100px;
+}
+.buttonRegular:HOVER{
+    background-color:#dff4ff;
+    border:1px solid #c2e1ef;
+    color:#336699;
+}
+.buttonRegular:ACTIVE{
+    background-color:#6299c5;
+    border:1px solid #6299c5;
+    color:#fff;
+}
+
+.buttonLogout{
+	.buttonRegular;
+}
