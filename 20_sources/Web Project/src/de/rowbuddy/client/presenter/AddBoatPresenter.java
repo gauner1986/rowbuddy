@@ -65,7 +65,7 @@ public class AddBoatPresenter implements Presenter{
 					
 					@Override
 					public void onFailure(Throwable arg0) {
-						Window.alert("Exception in: " + AddBoatPresenter.class.getName());
+						logger.severe("Cannot add boat: " + arg0.getMessage());
 					}
 				});
 			}
@@ -93,7 +93,7 @@ public class AddBoatPresenter implements Presenter{
 					
 					@Override
 					public void onFailure(Throwable arg0) {
-						Window.alert("Exception in: " + AddBoatPresenter.class.getName());
+						logger.severe(arg0.getMessage());
 					}
 				});
 			}
@@ -106,10 +106,11 @@ public class AddBoatPresenter implements Presenter{
 		try {
 			boat.setName(view.getName().getValue());
 			boat.setNumberOfSeats(Integer.valueOf(view.getNumberOfSeats().getValue()));
+			boatService.addBoat(boat, action);
 		} catch (RowBuddyException e) {
-			e.printStackTrace();
+			logger.warning(e.getMessage());
 		}
-		boatService.addBoat(boat, action);
+		
 	}
 
 }

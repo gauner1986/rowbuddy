@@ -56,7 +56,7 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
 			boat.setBoatDamages(damages);
 			boat.setBoatReservations(reservations);
 		} catch (Exception ex) {
-
+			
 		}
 
 		return boat;

@@ -22,6 +22,7 @@ public class EditBoatView extends Composite implements EditBoatPresenter.Display
 	private TextBox nameText;
 	private TextBox numberOfSeats;
 	private CheckBox coxed; 
+	private CheckBox locked;
 	
 	public EditBoatView(){
 		contentTable = new FlexTable();
@@ -53,7 +54,11 @@ public class EditBoatView extends Composite implements EditBoatPresenter.Display
 		
 		boatTable.setText(2, 0, "Gesteuert:");
 		coxed = new CheckBox();
-		boatTable.setWidget(2, 1, coxed);	
+		boatTable.setWidget(2, 1, coxed);
+		
+		boatTable.setText(3, 0, "Gesperrt:");
+		locked = new CheckBox();
+		boatTable.setWidget(3, 1, locked);
 		
 		contentTable.setWidget(0, 0, boatTable);
 	}
@@ -81,6 +86,11 @@ public class EditBoatView extends Composite implements EditBoatPresenter.Display
 	@Override
 	public HasValue<Boolean> isCoxed() {
 		return coxed;
+	}
+
+	@Override
+	public HasValue<Boolean> isLocked() {
+		return locked;
 	}
 
 }
