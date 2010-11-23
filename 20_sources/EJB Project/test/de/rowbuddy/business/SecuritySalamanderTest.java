@@ -204,22 +204,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	public void cannotUpdateBoatAsUser() throws Exception{	
 		rowBuddyFacade.login(userMember);
 		assertTrue(rowBuddyFacade.isLoggedIn());
-		ejbHandler.execute(new Runnable() {
-
-			@Override
-			public void run() {
-				try {
-					rowBuddyFacade.updateBoat(new Boat());
-				} catch (FinderException e) {
-					e.printStackTrace();
-					fail();
-				} catch (RowBuddyException e) {
-					e.printStackTrace();
-					fail();
-				}
-			}
-
-		});
+		rowBuddyFacade.updateBoat(new Boat());
 	}
 	
 	@Test
