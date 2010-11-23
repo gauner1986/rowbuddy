@@ -18,6 +18,7 @@ import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.events.ListBoatEvent;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.Boat;
+import de.rowbuddy.exceptions.RowBuddyException;
 
 public class AddBoatPresenter implements Presenter{
 
@@ -102,8 +103,12 @@ public class AddBoatPresenter implements Presenter{
 	private void addBoat(AsyncCallback<Void> action){
 		Boat boat = new Boat();
 		boat.setCoxed(view.isCoxed().getValue());
-		boat.setName(view.getName().getValue());
-		boat.setNumberOfSeats(Integer.valueOf(view.getNumberOfSeats().getValue()));
+		try {
+			boat.setName(view.getName().getValue());
+			boat.setNumberOfSeats(Integer.valueOf(view.getNumberOfSeats().getValue()));
+		} catch (RowBuddyException e) {
+			e.printStackTrace();
+		}
 		boatService.addBoat(boat, action);
 	}
 

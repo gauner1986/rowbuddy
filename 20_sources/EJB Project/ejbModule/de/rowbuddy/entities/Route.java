@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import de.rowbuddy.exceptions.RowBuddyException;
+
 /**
  * Entity implementation class for Entity: Route
  *
@@ -16,13 +18,13 @@ public class Route implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	private String name;
-	private String shortDescription;
-	private long versionNumber;
+	private String name = "";
+	private String shortDescription = "";
+	private long versionNumber = 1;
 	@OneToMany
 	private List<GpsPoint> wayPoints;
-	private double lengthKM;
-	private boolean mutable;
+	private double lengthKM = 0;
+	private boolean mutable = false;
 	private static final long serialVersionUID = 1L;
 
 	public Route() {
@@ -39,7 +41,10 @@ public class Route implements Serializable {
 		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name) throws RowBuddyException {
+		if(name.length() < 1 || name.equals("") || name == null) {
+			throw new RowBuddyException("name of route has to be set");
+		}
 		this.name = name;
 	}
 	
@@ -47,7 +52,10 @@ public class Route implements Serializable {
 		return this.shortDescription;
 	}
 
-	public void setShortDescription(String shortDescription) {
+	public void setShortDescription(String shortDescription) throws RowBuddyException {
+		if(shortDescription.length() < 1 || shortDescription.equals("") || shortDescription == null) {
+			throw new RowBuddyException("short description of route has to be set");
+		}
 		this.shortDescription = shortDescription;
 	}  
 	
@@ -71,7 +79,10 @@ public class Route implements Serializable {
 		return this.lengthKM;
 	}
 	
-	public void setLengthKM(double lengthKM) {
+	public void setLengthKM(double lengthKM) throws RowBuddyException {
+		if(lengthKM < 0) {
+			throw new RowBuddyException("length of route has to bigger than 0 km");
+		}
 		this.lengthKM = lengthKM;
 	}   
 	

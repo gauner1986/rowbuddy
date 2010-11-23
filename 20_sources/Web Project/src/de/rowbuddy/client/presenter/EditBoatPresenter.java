@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Widget;
 import de.rowbuddy.client.events.ListBoatEvent;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.Boat;
+import de.rowbuddy.exceptions.RowBuddyException;
 
 public class EditBoatPresenter implements Presenter{
 	public interface Display{
@@ -74,10 +75,18 @@ public class EditBoatPresenter implements Presenter{
 			@Override
 			public void onClick(ClickEvent arg0) {
 				try{
-					boat.setName(view.getName().getValue());
+					try {
+						boat.setName(view.getName().getValue());
+					} catch (RowBuddyException e) {
+						e.printStackTrace();
+					}
 					boat.setCoxed(view.isCoxed().getValue());
 					int seats = Integer.valueOf(view.getNumberOfSeats().getValue());
-					boat.setNumberOfSeats(seats);	
+					try {
+						boat.setNumberOfSeats(seats);
+					} catch (RowBuddyException e) {
+						e.printStackTrace();
+					}
 					logger.info("Update boat with id:" + boat.getId());
 					boatService.updateBoat(boat, new AsyncCallback<Void>() {
 						@Override

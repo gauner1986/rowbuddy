@@ -25,7 +25,7 @@ public class BoatReservation implements Serializable {
 	private Date until;
 	@ManyToOne
 	private Member reserver;
-	private String description;
+	private String description = "";
 	private static final long serialVersionUID = 1L;
 
 	public BoatReservation() {

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import de.rowbuddy.exceptions.RowBuddyException;
+
 /**
  * Entity implementation class for Entity: Boat
  *
@@ -41,14 +43,20 @@ public class Boat implements Serializable {
 		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name) throws RowBuddyException {
+		if(name.length() < 1 || name.equals("")) {
+			throw new RowBuddyException("name of boat has to be set");
+		}
 		this.name = name;
 	}   
 	public int getNumberOfSeats() {
 		return this.numberOfSeats;
 	}
 
-	public void setNumberOfSeats(int numberOfSeats) {
+	public void setNumberOfSeats(int numberOfSeats) throws RowBuddyException {
+		if(numberOfSeats < 0) {
+			throw new RowBuddyException("there has to be at least 1 seat");
+		}
 		this.numberOfSeats = numberOfSeats;
 	}   
 	public boolean isCoxed() {
@@ -57,19 +65,24 @@ public class Boat implements Serializable {
 
 	public void setCoxed(boolean coxed) {
 		this.coxed = coxed;
-	}   
+	}
+	
 	public List<BoatDamage> getBoatDamages() {
 		return boatDamages;
 	}
+	
 	public void setBoatDamages(List<BoatDamage> boatDamages) {
 		this.boatDamages = boatDamages;
 	}
+	
 	public List<BoatReservation> getBoatReservations() {
 		return boatReservations;
 	}
+	
 	public void setBoatReservations(List<BoatReservation> boatReservations) {
 		this.boatReservations = boatReservations;
 	}
+	
 	public boolean isLocked() {
 		return this.locked;
 	}

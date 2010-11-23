@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import de.rowbuddy.exceptions.RowBuddyException;
+
 /**
  * Entity implementation class for Entity: BoatDamage
  *
@@ -18,13 +20,13 @@ public class BoatDamage implements Serializable {
 	private Long id;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date logDate;
-	private boolean fixed;
-	private String damageDescription;
+	private boolean fixed = false;
+	private String damageDescription = "";
 	@ManyToOne
 	private Member logger;
 	@ManyToOne
 	private Boat boat;
-	private String additionalInformation;
+	private String additionalInformation = "";
 	private static final long serialVersionUID = 1L;
 
 	public BoatDamage() {
@@ -59,7 +61,10 @@ public class BoatDamage implements Serializable {
 		return damageDescription;
 	}
 
-	public void setDamageDescription(String damageDescription) {
+	public void setDamageDescription(String damageDescription) throws RowBuddyException {
+		if(damageDescription.length() < 1 || damageDescription.equals("") || damageDescription == null) {
+			throw new RowBuddyException("damage description has to be set");
+		}
 		this.damageDescription = damageDescription;
 	}
 

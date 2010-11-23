@@ -6,6 +6,7 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
 import de.rowbuddy.entities.Member;
+import de.rowbuddy.exceptions.NotLoggedInException;
 
 public class SecuritySalamander {
 	

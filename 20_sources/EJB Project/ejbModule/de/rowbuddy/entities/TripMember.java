@@ -29,7 +29,8 @@ public class TripMember implements Serializable {
 
 	public void setMember(Member member) {
 		this.member = member;
-	}   
+	}
+	
 	public TripMemberType getTripMemberType() {
 		return this.tripMemberType;
 	}

@@ -15,6 +15,7 @@ import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.business.dtos.BoatDTOConverter;
 import de.rowbuddy.dao.BoatDAO;
 import de.rowbuddy.entities.Boat;
+import de.rowbuddy.exceptions.RowBuddyException;
 
 @Stateless
 public class BoatManagement {

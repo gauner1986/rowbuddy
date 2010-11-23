@@ -13,8 +13,8 @@ public class GpsPoint implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	private double longitude;
-	private double latitude;
+	private double longitude = 0;
+	private double latitude = 0;
 	private static final long serialVersionUID = 1L;
 
 	public GpsPoint() {

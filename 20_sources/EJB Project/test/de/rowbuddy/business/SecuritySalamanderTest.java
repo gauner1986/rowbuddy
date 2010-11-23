@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.rowbuddy.entities.Member;
+import de.rowbuddy.exceptions.NotLoggedInException;
+import de.rowbuddy.exceptions.RowBuddyException;
 import de.rowbuddy.util.Ejb;
 import de.rowbuddy.util.EjbExceptionHandler;
 import de.rowbuddy.util.EjbTestBase;
@@ -24,7 +26,12 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	public void setup() {
 		ejbHandler = new EjbExceptionHandler();
 		member = new Member();
-		member.setEmail("bla@bla.de");
+		try {
+			member.setEmail("bla@bla.de");
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		member.setPassword("secret");
 		attachedMember = (Member) em.persist(member);
 		rowBuddyFacade = Ejb.lookUp(RowBuddyFacade.class, RowBuddyFacade.class);
@@ -58,7 +65,12 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	@Test
 	public void cannotLoginWithWrongUserAndPass() {
 		Member falseMember = new Member();
-		falseMember.setEmail("basfa@asfsa.de");
+		try {
+			falseMember.setEmail("basfa@asfsa.de");
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		falseMember.setPassword("wrongpass");
 
 		try {
@@ -72,8 +84,13 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	@Test
 	public void cannotLoginWith() {
 		Member falseMember = new Member();
-		falseMember.setEmail("basfa@asfsa.de");
-		falseMember.setEmail("bla@bla.de");
+		try {
+			falseMember.setEmail("basfa@asfsa.de");
+			falseMember.setEmail("bla@bla.de");
+		} catch (RowBuddyException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		try {
 			rowBuddyFacade.login(falseMember);

@@ -18,6 +18,7 @@ import static org.junit.Assert.*;
 import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.Member;
+import de.rowbuddy.exceptions.RowBuddyException;
 import de.rowbuddy.util.Ejb;
 import de.rowbuddy.util.EjbExceptionHandler;
 import de.rowbuddy.util.EjbTestBase;
@@ -34,30 +35,50 @@ public class BoatManagementTest extends EjbTestBase {
 	public void setup() {
 		
 		existingBoat = new Boat();
-		existingBoat.setName("TestBoat 1");
-		existingBoat.setLocked(false);
-		existingBoat.setNumberOfSeats(1);
+		try {
+			existingBoat.setName("TestBoat 1");
+			existingBoat.setLocked(false);
+			existingBoat.setNumberOfSeats(1);
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		existingBoat.setDeleted(false);
 		existingBoat.setCoxed(true);
 		existingBoat = (Boat) em.persist(existingBoat);
 
 		newBoat = new Boat();
-		newBoat.setName("New boat");
-		newBoat.setNumberOfSeats(10);
+		try {
+			newBoat.setName("New boat");
+			newBoat.setNumberOfSeats(10);
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		newBoat.setCoxed(false);
 		newBoat.setDeleted(false);
 		newBoat.setLocked(false);
 
 		deletedBoat = new Boat();
-		deletedBoat.setName("Deleted Boat");
-		deletedBoat.setLocked(false);
-		deletedBoat.setNumberOfSeats(12);
+		try {
+			deletedBoat.setName("Deleted Boat");
+			deletedBoat.setLocked(false);
+			deletedBoat.setNumberOfSeats(12);
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		deletedBoat.setDeleted(true);
 		deletedBoat.setCoxed(true);
 		deletedBoat = (Boat) em.persist(deletedBoat);
 		
 		Member member = new Member();
-		member.setEmail("test@test.de");
+		try {
+			member.setEmail("test@test.de");
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		member.setPassword("pwd");
 		loginMember = (Member)em.persist(member);
 		
@@ -90,14 +111,24 @@ public class BoatManagementTest extends EjbTestBase {
 
 	@Test(expected = CreateException.class)
 	public void cannotAddBoatWithoutName() throws CreateException {
-		newBoat.setName("");
+		try {
+			newBoat.setName("");
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		boatManagement.addBoat(newBoat);
 	}
 
 	@Test(expected = CreateException.class)
 	public void cannotAddBoatWithoutNumberOfSeats() throws CreateException {
-		newBoat.setNumberOfSeats(0);
+		try {
+			newBoat.setNumberOfSeats(0);
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		boatManagement.addBoat(newBoat);
 	}

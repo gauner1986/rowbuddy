@@ -1,4 +1,4 @@
-package de.rowbuddy.business;
+package de.rowbuddy.exceptions;
 
 import javax.ejb.ApplicationException;
 

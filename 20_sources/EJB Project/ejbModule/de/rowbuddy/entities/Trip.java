@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import de.rowbuddy.exceptions.RowBuddyException;
+
 /**
  * Entity implementation class for Entity: Trip
  *
@@ -32,26 +34,32 @@ public class Trip implements Serializable {
 
 	public Trip() {
 		super();
-	}   
+	}
+	
 	public Long getId() {
 		return this.id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}   
+	}
+	
 	public Date getStartDate() {
 		return this.startDate;
 	}
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
-	}   
+	}
+	
 	public Date getEndDate() {
 		return this.endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(Date endDate) throws RowBuddyException {
+		if(endDate.compareTo(startDate) < 0) {
+			throw new RowBuddyException("enddate has to be after the startdate");
+		}
 		this.endDate = endDate;
 	}   
 	public Boat getBoat() {

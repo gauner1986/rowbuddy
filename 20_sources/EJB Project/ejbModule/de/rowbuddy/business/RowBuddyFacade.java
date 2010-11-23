@@ -18,6 +18,8 @@ import javax.persistence.Query;
 import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.Member;
+import de.rowbuddy.exceptions.NotLoggedInException;
+import de.rowbuddy.exceptions.RowBuddyException;
 
 /**
  * Session Bean implementation class RowBuddyFacade
