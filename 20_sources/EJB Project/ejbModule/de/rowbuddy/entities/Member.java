@@ -34,7 +34,7 @@ public class Member implements Serializable {
 	private String zipCode = "";
 	@OneToMany
 	private Collection<Trip> publishedTrips;
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	private Collection<Role> roles;
 	private static final long serialVersionUID = 1L;
 	

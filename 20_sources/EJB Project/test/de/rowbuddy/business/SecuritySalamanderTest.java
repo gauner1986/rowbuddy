@@ -4,11 +4,17 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+
+import javax.ejb.FinderException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.Member;
+import de.rowbuddy.entities.Role;
 import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
 import de.rowbuddy.util.Ejb;
@@ -17,31 +23,49 @@ import de.rowbuddy.util.EjbTestBase;
 
 public class SecuritySalamanderTest extends EjbTestBase {
 
-	private Member attachedMember;
-	private Member member;
+	private Member attachedAdminMember;
+	private Member adminMember;
+	private Member userMember;
+	private Member attachedUserMember;
 	private RowBuddyFacade rowBuddyFacade;
 	private EjbExceptionHandler ejbHandler;
+	private Boat existingBoat;
 
 	@Before
 	public void setup() {
 		ejbHandler = new EjbExceptionHandler();
-		member = new Member();
+		adminMember = createTestMember("bla@bla.de", "secret", new String[] {"admin", "user"});
+		userMember = createTestMember("user@bla.de", "secret", new String[] {"user"});
+		
+		existingBoat = new Boat();
 		try {
-			member.setEmail("bla@bla.de");
+			existingBoat.setName("TestBoat 1");
+			existingBoat.setLocked(false);
+			existingBoat.setNumberOfSeats(1);
 		} catch (RowBuddyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		member.setPassword("secret");
-		attachedMember = (Member) em.persist(member);
+		existingBoat.setDeleted(false);
+		existingBoat.setCoxed(true);
+		existingBoat = (Boat) em.persist(existingBoat);
+		
+		
+		attachedAdminMember = (Member) em.persist(adminMember);
+		attachedUserMember = (Member) em.persist(userMember);
 		rowBuddyFacade = Ejb.lookUp(RowBuddyFacade.class, RowBuddyFacade.class);
 	}
 
 	@After
 	public void tearDown() {
-		removeEntity(Member.class, attachedMember.getId());
-		member = null;
-		attachedMember = null;
+		removeEntity(Member.class, attachedAdminMember.getId());
+		removeEntity(Member.class, attachedUserMember.getId());
+		removeEntity(Member.class, existingBoat.getId());
+		existingBoat = null;
+		adminMember = null;
+		userMember = null;
+		attachedAdminMember = null;
+		attachedUserMember = null;
 		ejbHandler = null;
 	}
 
@@ -51,11 +75,35 @@ public class SecuritySalamanderTest extends EjbTestBase {
 			em.remove(type, key);
 		}
 	}
+	
+	private Member createTestMember(String username, String password, String[] roleNames){
+		Member member = new Member();
+		try {
+			member.setEmail(username);
+		} catch (RowBuddyException e1) {
+			e1.printStackTrace();
+			fail();
+		}
+		member.setPassword(password);
+		ArrayList<Role> roles = new ArrayList<Role>();
+		for(String roleName : roleNames){
+			Role role = new Role();
+			try {
+				role.setName(roleName);
+			} catch (RowBuddyException e) {
+				e.printStackTrace();
+				fail();
+			}
+			roles.add(role);
+		}
+		member.setRoles(roles);
+		return member;
+	}
 
 	@Test
 	public void canLogin() {
 		try {
-			rowBuddyFacade.login(member);
+			rowBuddyFacade.login(adminMember);
 		} catch (NotLoggedInException nlie) {
 			fail("Member can't login");
 		}
@@ -64,15 +112,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 
 	@Test
 	public void cannotLoginWithWrongUserAndPass() {
-		Member falseMember = new Member();
-		try {
-			falseMember.setEmail("basfa@asfsa.de");
-		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		falseMember.setPassword("wrongpass");
-
+		Member falseMember = createTestMember("basfa@asfsa.de", "wrongpass", new String[] {});
 		try {
 			rowBuddyFacade.login(falseMember);
 			fail("Member can login anyway, where he shouldn't.");
@@ -82,16 +122,8 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	}
 
 	@Test
-	public void cannotLoginWith() {
-		Member falseMember = new Member();
-		try {
-			falseMember.setEmail("basfa@asfsa.de");
-			falseMember.setEmail("bla@bla.de");
-		} catch (RowBuddyException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
+	public void cannotLoginWithWrongPass() {
+		Member falseMember = createTestMember("bla@bla.de", "wrongpass", new String[] {});
 		try {
 			rowBuddyFacade.login(falseMember);
 			fail("Member can login anyway, where he shouldn't.");
@@ -124,7 +156,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 
 	@Test(expected = NotLoggedInException.class)
 	public void canLogout() throws Exception {
-		rowBuddyFacade.login(member);
+		rowBuddyFacade.login(adminMember);
 		rowBuddyFacade.logout();
 		assertFalse(rowBuddyFacade.isLoggedIn());
 		ejbHandler.execute(new Runnable() {
@@ -140,7 +172,16 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	}
 
 	@Test
-	public void canUseGetBoatManagement() {
+	public void canUseGetBoatManagementAsUser() {
+		testGetBoatManagementAs(userMember);
+	}
+	
+	@Test
+	public void canUseGetBoatManagementAsAdmin() {
+		testGetBoatManagementAs(adminMember);
+	}
+	
+	private void testGetBoatManagementAs(Member member){
 		try {
 			rowBuddyFacade.login(member);
 		} catch (NotLoggedInException e1) {
@@ -158,4 +199,48 @@ public class SecuritySalamanderTest extends EjbTestBase {
 			}
 		}
 	}
+	
+	@Test(expected = NotLoggedInException.class)
+	public void cannotUpdateBoatAsUser() throws Exception{	
+		rowBuddyFacade.login(userMember);
+		assertTrue(rowBuddyFacade.isLoggedIn());
+		ejbHandler.execute(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					rowBuddyFacade.updateBoat(new Boat());
+				} catch (FinderException e) {
+					e.printStackTrace();
+					fail();
+				} catch (RowBuddyException e) {
+					e.printStackTrace();
+					fail();
+				}
+			}
+
+		});
+	}
+	
+	@Test
+	public void canUpdateBoatAsAdmin(){
+		try {
+			rowBuddyFacade.login(adminMember);
+			assertTrue(rowBuddyFacade.isLoggedIn());
+		} catch (NotLoggedInException e) {
+			e.printStackTrace();
+			fail();
+		}
+		try {
+			rowBuddyFacade.updateBoat(existingBoat);
+		} catch (FinderException e) {
+			e.printStackTrace();
+			fail();
+		} catch (RowBuddyException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+	
+	
 }
