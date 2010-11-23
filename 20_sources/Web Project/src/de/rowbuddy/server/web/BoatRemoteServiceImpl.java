@@ -2,7 +2,6 @@ package de.rowbuddy.server.web;
 
 import java.util.List;
 
-import javax.ejb.CreateException;
 import javax.ejb.EJB;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -12,11 +11,12 @@ import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.client.services.BoatRemoteService;
 import de.rowbuddy.entities.Boat;
 
-public class BoatRemoteServiceImpl extends RemoteServiceServlet implements BoatRemoteService{
+public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
+		BoatRemoteService {
 
 	@EJB
 	private BoatManagement boatManagement;
-	
+
 	/**
 	 * 
 	 */
@@ -29,19 +29,21 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements BoatR
 
 	@Override
 	public void addBoat(Boat boat) throws Exception {
-		
 		boatManagement.addBoat(boat);
 	}
 
 	@Override
-	public void updateBoat(Boat boat) {
-		// TODO Auto-generated method stub
-		
+	public void updateBoat(Boat boat) throws Exception {
+		boatManagement.updateBoat(boat);
 	}
 
 	@Override
-	public Boat getBoat(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boat getBoat(Long id) throws Exception {
+		return boatManagement.getBoat(id);
+	}
+
+	@Override
+	public void deleteBoat(Long id) throws Exception {
+		boatManagement.deleteBoat(id);
 	}
 }

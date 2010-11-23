@@ -37,7 +37,6 @@ public class BoatManagement {
 
 	public BoatManagement() {
 
-		// TODO: Exceptions auf checked exceptions umstellen
 		// TODO: Security Salamander einbauen
 		boatDTO = new BoatDTOConverter();
 	}
