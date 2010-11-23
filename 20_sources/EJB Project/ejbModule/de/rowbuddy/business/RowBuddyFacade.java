@@ -1,7 +1,12 @@
 package de.rowbuddy.business;
 
+import java.util.List;
+
+import javax.ejb.CreateException;
 import javax.ejb.EJB;
+import javax.ejb.FinderException;
 import javax.ejb.LocalBean;
+import javax.ejb.RemoveException;
 import javax.ejb.Stateful;
 import javax.interceptor.ExcludeClassInterceptors;
 import javax.interceptor.Interceptors;
@@ -10,6 +15,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import de.rowbuddy.business.dtos.BoatDTO;
+import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.Member;
 
 /**
@@ -19,15 +26,13 @@ import de.rowbuddy.entities.Member;
 @Stateful
 @LocalBean
 public class RowBuddyFacade {
-
-	//TODO: Refactor to UserSessionBean
 	
 	private Member member;
-	@EJB
-	private BoatManagement boatManagement;
 
 	@PersistenceContext
 	EntityManager em;
+	@EJB
+	private BoatManagement boatManagement;
 
 	/**
 	 * Default constructor.
@@ -35,32 +40,27 @@ public class RowBuddyFacade {
 	public RowBuddyFacade() {
 
 	}
-	
-	// TODO: Umstellen von Returnvalues auf Checked Exceptions;
-	// TODO: void als return value
 
 	@ExcludeClassInterceptors
-	public boolean login(Member member) {
+	public void login(Member member) throws NotLoggedInException {
 		if (member.getEmail() == null || member.getPassword() == null)
-			return false;
+			throw new NotLoggedInException("You didn't specify an E-Mail address and/or a password");
 
-		Query q = em
-				.createQuery("SELECT m FROM Member m WHERE m.email = :email");
+		Query q = em.createQuery("SELECT m FROM Member m WHERE m.email = :email");
 		q.setParameter("email", member.getEmail());
 		Member m = null;
 		try {
 			m = (Member) q.getSingleResult();
 		} catch (NoResultException nre) {
-			return false;
+			throw new NotLoggedInException("This member doesn't exist in our database");
 		}
 		if (m == null)
-			return false;
+			throw new NotLoggedInException("This member doesn't exist in our database");
 
 		if (!m.getPassword().equals(member.getPassword())) {
-			return false;
+			throw new NotLoggedInException("The password you specified is not correct");
 		} else {
 			this.member = m;
-			return true;
 		}
 	}
 
@@ -73,9 +73,26 @@ public class RowBuddyFacade {
 	public boolean isLoggedIn() {
 		return (member != null);
 	}
+	
+	public List<BoatDTO> getBoatOverview() {
+		return boatManagement.getBoatOverview();
+	}
 
-	public BoatManagement getBoatManagement() {
-		return this.boatManagement;
+	public Boat getBoat(Long id) throws FinderException {
+		return boatManagement.getBoat(id);
+	}
+
+	public Boat addBoat(Boat addBoat) throws CreateException {
+		return boatManagement.addBoat(addBoat);
+	}
+
+	public Boat updateBoat(Boat updateBoat) throws FinderException,
+			RowBuddyException {
+		return boatManagement.updateBoat(updateBoat);
+	}
+
+	public void deleteBoat(Long id) throws RemoveException {
+		boatManagement.deleteBoat(id);
 	}
 
 }

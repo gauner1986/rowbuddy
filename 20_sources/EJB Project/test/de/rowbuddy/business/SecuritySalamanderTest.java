@@ -1,6 +1,8 @@
 package de.rowbuddy.business;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,70 +37,108 @@ public class SecuritySalamanderTest extends EjbTestBase {
 		attachedMember = null;
 		ejbHandler = null;
 	}
-	
-	private <T> void removeEntity(Class<T> type, Object key){
+
+	private <T> void removeEntity(Class<T> type, Object key) {
 		T obj = em.find(type, key);
-		if (obj != null){
+		if (obj != null) {
 			em.remove(type, key);
-		}	
+		}
 	}
-	
+
 	@Test
-	public void canLogIn(){
-		assertTrue(rowBuddyFacade.login(member));
+	public void canLogin() {
+		try {
+			rowBuddyFacade.login(member);
+		} catch (NotLoggedInException nlie) {
+			fail("Member can't login");
+		}
 		assertTrue(rowBuddyFacade.isLoggedIn());
 	}
-	
-	
+
 	@Test
-	public void cannotLogIn(){
-		// TODO: Aufsplitten in mehrere Tests. 
-		// TODO: Evntl. Verschiedene member anlegen
-				
+	public void cannotLoginWithWrongUserAndPass() {
 		Member falseMember = new Member();
 		falseMember.setEmail("basfa@asfsa.de");
 		falseMember.setPassword("wrongpass");
-		assertFalse(rowBuddyFacade.login(falseMember));
+
+		try {
+			rowBuddyFacade.login(falseMember);
+			fail("Member can login anyway, where he shouldn't.");
+		} catch (NotLoggedInException nlie) {
+		}
 		assertFalse(rowBuddyFacade.isLoggedIn());
+	}
+
+	@Test
+	public void cannotLoginWith() {
+		Member falseMember = new Member();
+		falseMember.setEmail("basfa@asfsa.de");
 		falseMember.setEmail("bla@bla.de");
-		assertFalse(rowBuddyFacade.login(falseMember));
+
+		try {
+			rowBuddyFacade.login(falseMember);
+			fail("Member can login anyway, where he shouldn't.");
+		} catch (NotLoggedInException e) {
+		}
 		assertFalse(rowBuddyFacade.isLoggedIn());
-		
-		assertFalse(rowBuddyFacade.login(new Member()));
+	}
+
+	@Test
+	public void cannotLoginWithNoCredentials() {
+		try {
+			rowBuddyFacade.login(new Member());
+			fail("Member can login anyway, where he shouldn't.");
+		} catch (NotLoggedInException e) {
+		}
+		assertFalse(rowBuddyFacade.isLoggedIn());
 	}
 
 	@Test(expected = NotLoggedInException.class)
-	public void cannotUseGetBoatManagement() throws Exception {
+	public void cannotUseGetBoatOverview() throws Exception {
 		ejbHandler.execute(new Runnable() {
 
 			@Override
 			public void run() {
-				rowBuddyFacade.getBoatManagement();
+				rowBuddyFacade.getBoatOverview();
 			}
 
 		});
 	}
-	
+
 	@Test(expected = NotLoggedInException.class)
-	public void canLogOut() throws Exception{
-		assertTrue(rowBuddyFacade.login(member));
+	public void canLogout() throws Exception {
+		rowBuddyFacade.login(member);
 		rowBuddyFacade.logout();
 		assertFalse(rowBuddyFacade.isLoggedIn());
-		
-		
 		ejbHandler.execute(new Runnable() {
 
 			@Override
 			public void run() {
-				rowBuddyFacade.getBoatManagement();
+				rowBuddyFacade.getBoatOverview();
 			}
 
 		});
+		fail("Member can use methods anyway, where he shouldn't.");
+		assertFalse(rowBuddyFacade.isLoggedIn());
 	}
-	
+
 	@Test
 	public void canUseGetBoatManagement() {
-		assertTrue(rowBuddyFacade.login(member));
-		assertNotNull(rowBuddyFacade.getBoatManagement());
+		try {
+			rowBuddyFacade.login(member);
+		} catch (NotLoggedInException e1) {
+			fail("Member couldn't log in");
+		}
+		assertTrue(rowBuddyFacade.isLoggedIn());
+		try {
+			rowBuddyFacade.getBoatOverview();
+		} catch (Exception e) {
+			if (!(e instanceof NotLoggedInException)) {
+				e.printStackTrace();
+				fail("Should have thrown NotLoggedInException");
+			} else {
+				fail("Member can not use the method we want.");
+			}
+		}
 	}
 }

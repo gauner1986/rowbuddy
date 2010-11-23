@@ -8,10 +8,14 @@ import javax.interceptor.InvocationContext;
 import de.rowbuddy.entities.Member;
 
 public class SecuritySalamander {
+	
+//	@PersistenceContext
+//	EntityManager em;
 
 	@AroundInvoke
 	public Object checkLogin(InvocationContext ic) throws Exception{
 		RowBuddyFacade rbf = (RowBuddyFacade) ic.getTarget();
+		//UserSessionBean rbf = lookUp(UserSessionBean.class, UserSessionBean.class);
 		Field memberField = RowBuddyFacade.class.getDeclaredField("member");
 		memberField.setAccessible(true);
 		Member member = (Member) memberField.get(rbf);
@@ -24,5 +28,22 @@ public class SecuritySalamander {
 		
 		// TODO: Admin-Methoden; Rollen prüfen beim Member; RequiredRole Annotations
 	}
+	
+//	public static <T, I> I lookUp(Class<T> classType, Class<I> interfaceType) {
+//
+//        StringBuilder lookUpName = new StringBuilder();
+//        lookUpName.append("java:global/classes/");
+//        lookUpName.append(classType.getSimpleName());
+//        lookUpName.append("!");
+//        lookUpName.append(interfaceType.getName());
+//
+//        try {
+//            Context context = new InitialContext();
+//            return (I) context.lookup(lookUpName.toString());
+//        } catch (NamingException ex) {
+//            throw new RuntimeException(ex);
+//        }
+//    }
+	
 
 }

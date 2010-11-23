@@ -29,12 +29,9 @@ public class BoatManagementTest extends EjbTestBase {
 	private Boat deletedBoat;
 	private BoatManagement boatManagement;
 	private Member loginMember;
-	
-	private RowBuddyFacade rowBuddy;
 
 	@Before
 	public void setup() {
-		rowBuddy = Ejb.lookUp(RowBuddyFacade.class, RowBuddyFacade.class);
 		
 		existingBoat = new Boat();
 		existingBoat.setName("TestBoat 1");
@@ -63,8 +60,6 @@ public class BoatManagementTest extends EjbTestBase {
 		member.setEmail("test@test.de");
 		member.setPassword("pwd");
 		loginMember = (Member)em.persist(member);
-		
-		assertTrue(rowBuddy.login(member));
 		
 		boatManagement = Ejb.lookUp(BoatManagement.class, BoatManagement.class);
 	}

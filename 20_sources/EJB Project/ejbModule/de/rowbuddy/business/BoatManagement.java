@@ -7,22 +7,13 @@ import javax.ejb.EJB;
 import javax.ejb.FinderException;
 import javax.ejb.RemoveException;
 import javax.ejb.Stateless;
-import javax.interceptor.Interceptors;
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
 
 import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.business.dtos.BoatDTOConverter;
 import de.rowbuddy.dao.BoatDAO;
-import de.rowbuddy.dao.EntityUtil;
 import de.rowbuddy.entities.Boat;
 
 @Stateless
