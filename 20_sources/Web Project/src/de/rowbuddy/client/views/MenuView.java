@@ -1,10 +1,17 @@
 package de.rowbuddy.client.views;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -12,18 +19,26 @@ import de.rowbuddy.client.MenuDisplay;
 
 public class MenuView extends Composite implements MenuDisplay {
 
+	public interface Images extends Tree.Resources {
+		@Source("icons/boat.png")
+		ImageResource treeLeaf();
+	}
+
 	private Button listBoats = null;
 
 	public MenuView() {
+		Images images = (Images) GWT.create(Images.class);
+
 		listBoats = new Button();
 		// initWidget(stackPanel);
 		VerticalPanel verticalPanel = new VerticalPanel();
 		DecoratedStackPanel menuPanel = new DecoratedStackPanel();
+
 		menuPanel.add(createTripsMenu(), "Offene Fahrten");
 		menuPanel.add(createProfilMenu(), "Profil");
 		menuPanel.add(createViewTripMenu(), "Fahrtenbuch");
 		menuPanel.add(createStatistikMenu(), "Statistiken");
-		menuPanel.add(createBoatMenu(), "Boote");
+		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.treeLeaf()), true);
 		// menuPanel.add(null, "Mitglieder");
 		// menuPanel.add(null, "Routen");
 		// menuPanel.add(null, "Bootsschäden");
@@ -32,11 +47,25 @@ public class MenuView extends Composite implements MenuDisplay {
 
 		Button logoutButton = new Button("Logout");
 		logoutButton.setStylePrimaryName("buttonRegular buttonLogout");
-		
+
 		verticalPanel.add(menuPanel);
 		verticalPanel.add(logoutButton);
 		initWidget(verticalPanel);
 	}
+	
+	private String getHeaderString(String text, ImageResource image) {
+	    // Add the image and text to a horizontal panel
+	    HorizontalPanel hPanel = new HorizontalPanel();
+	    hPanel.setSpacing(0);
+	    hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+	    hPanel.add(new Image(image));
+	    HTML headerText = new HTML(text);
+	    headerText.setStyleName("cw-StackPanelHeader");
+	    hPanel.add(headerText);
+
+	    // Return the HTML string for the panel
+	    return hPanel.getElement().getString();
+	  }
 
 	private Widget createBoatMenu() {
 		VerticalPanel panel = new VerticalPanel();
