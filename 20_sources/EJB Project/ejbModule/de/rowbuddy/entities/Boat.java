@@ -38,23 +38,28 @@ public class Boat implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}   
+	}
+	
 	public String getName() {
 		return this.name;
 	}
 
 	public void setName(String name) throws RowBuddyException {
+		if (name == null){
+			throw new RowBuddyException("name of boat has to be set");
+		}
 		if(name.length() < 1 || name.equals("")) {
 			throw new RowBuddyException("name of boat has to be set");
 		}
 		this.name = name;
-	}   
+	} 
+	
 	public int getNumberOfSeats() {
 		return this.numberOfSeats;
 	}
 
 	public void setNumberOfSeats(int numberOfSeats) throws RowBuddyException {
-		if(numberOfSeats < 0) {
+		if(numberOfSeats <= 0) {
 			throw new RowBuddyException("there has to be at least 1 seat");
 		}
 		this.numberOfSeats = numberOfSeats;
@@ -98,5 +103,31 @@ public class Boat implements Serializable {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Boat other = (Boat) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
+	
    
 }

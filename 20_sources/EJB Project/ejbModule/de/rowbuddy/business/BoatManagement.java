@@ -1,5 +1,6 @@
 package de.rowbuddy.business;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.CreateException;
@@ -10,6 +11,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
+import com.sun.xml.ws.policy.privateutil.PolicyUtils.Collections;
 
 import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.business.dtos.BoatDTOConverter;

@@ -32,76 +32,39 @@ public class BoatManagementTest extends EjbTestBase {
 	private Member loginMember;
 
 	@Before
-	public void setup() {
-		
+	public void setup() throws RowBuddyException {
+
 		existingBoat = new Boat();
-		try {
-			existingBoat.setName("TestBoat 1");
-			existingBoat.setLocked(false);
-			existingBoat.setNumberOfSeats(1);
-		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		existingBoat.setName("TestBoat 1");
+		existingBoat.setLocked(false);
+		existingBoat.setNumberOfSeats(1);
 		existingBoat.setDeleted(false);
 		existingBoat.setCoxed(true);
 		existingBoat = (Boat) em.persist(existingBoat);
 
 		newBoat = new Boat();
-		try {
-			newBoat.setName("New boat");
-			newBoat.setNumberOfSeats(10);
-		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		newBoat.setName("New boat");
+		newBoat.setNumberOfSeats(10);
 		newBoat.setCoxed(false);
 		newBoat.setDeleted(false);
 		newBoat.setLocked(false);
 
 		deletedBoat = new Boat();
-		try {
-			deletedBoat.setName("Deleted Boat");
-			deletedBoat.setLocked(false);
-			deletedBoat.setNumberOfSeats(12);
-		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		deletedBoat.setName("Deleted Boat");
+		deletedBoat.setLocked(false);
+		deletedBoat.setNumberOfSeats(12);
 		deletedBoat.setDeleted(true);
 		deletedBoat.setCoxed(true);
 		deletedBoat = (Boat) em.persist(deletedBoat);
-		
-		Member member = new Member();
-		try {
-			member.setEmail("test@test.de");
-		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		member.setPassword("pwd");
-		loginMember = (Member)em.persist(member);
-		
+
 		boatManagement = Ejb.lookUp(BoatManagement.class, BoatManagement.class);
 	}
 
 	@After
 	public void tearDown() {
 		newBoat = null;
-		
-		removeEntity(Boat.class, existingBoat.getId());
-		removeEntity(Boat.class, deletedBoat.getId());
-		removeEntity(Member.class, loginMember.getId());
-	
 		deletedBoat = null;
 		existingBoat = null;
-	}
-	
-	private <T> void removeEntity(Class<T> type, Object key){
-		T obj = em.find(type, key);
-		if (obj != null){
-			em.remove(type, key);
-		}	
 	}
 
 	@Test
@@ -109,28 +72,14 @@ public class BoatManagementTest extends EjbTestBase {
 		boatManagement.addBoat(newBoat);
 	}
 
-	@Test(expected = CreateException.class)
-	public void cannotAddBoatWithoutName() throws CreateException {
-		try {
-			newBoat.setName("");
-		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		boatManagement.addBoat(newBoat);
+	@Test(expected = RowBuddyException.class)
+	public void cannotAddBoatWithoutName() throws RowBuddyException {
+		newBoat.setName("");
 	}
 
-	@Test(expected = CreateException.class)
-	public void cannotAddBoatWithoutNumberOfSeats() throws CreateException {
-		try {
-			newBoat.setNumberOfSeats(0);
-		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		boatManagement.addBoat(newBoat);
+	@Test(expected = RowBuddyException.class)
+	public void cannotAddBoatWithoutNumberOfSeats() throws RowBuddyException {
+		newBoat.setNumberOfSeats(0);
 	}
 
 	@Test(expected = CreateException.class)
@@ -141,7 +90,7 @@ public class BoatManagementTest extends EjbTestBase {
 	}
 
 	@Test(expected = CreateException.class)
-	public void cannotAddAlreadyExistingBoat()throws CreateException {
+	public void cannotAddAlreadyExistingBoat() throws CreateException {
 		boatManagement.addBoat(existingBoat);
 	}
 
@@ -156,12 +105,14 @@ public class BoatManagementTest extends EjbTestBase {
 	}
 
 	@Test(expected = FinderException.class)
-	public void cannotUpdateNonExistingBoat() throws FinderException, RowBuddyException  {
+	public void cannotUpdateNonExistingBoat() throws FinderException,
+			RowBuddyException {
 		boatManagement.updateBoat(newBoat);
 	}
 
 	@Test(expected = FinderException.class)
-	public void cannotUpdateDeletedBoat() throws FinderException, RowBuddyException {
+	public void cannotUpdateDeletedBoat() throws FinderException,
+			RowBuddyException {
 		deletedBoat.setDeleted(false);
 		boatManagement.updateBoat(deletedBoat);
 	}
@@ -177,32 +128,32 @@ public class BoatManagementTest extends EjbTestBase {
 	public void cannotDeleteAlreadyDeletedBoat() throws RemoveException {
 		boatManagement.deleteBoat(deletedBoat.getId());
 	}
-	
+
 	@Test
-	public void canGetBoat() throws FinderException{
+	public void canGetBoat() throws FinderException {
 		Boat boat = boatManagement.getBoat(existingBoat.getId());
 		assertNotNull(boat);
 	}
-	
+
 	@Test
-	public void canGetDeletedBoat() throws FinderException{
+	public void canGetDeletedBoat() throws FinderException {
 		Boat boat = boatManagement.getBoat(deletedBoat.getId());
 		assertNotNull(boat);
 	}
-	
+
 	@Test
-	public void canGetOverview(){
+	public void canGetOverview() {
 		Collection<BoatDTO> boats = boatManagement.getBoatOverview();
 		boolean containsExistingBoat = false;
-		for (BoatDTO boat : boats){
-			if (boat.getId() == existingBoat.getId()){
+		for (BoatDTO boat : boats) {
+			if (boat.getId() == existingBoat.getId()) {
 				containsExistingBoat = true;
 			}
-			if (boat.getId() == deletedBoat.getId()){
+			if (boat.getId() == deletedBoat.getId()) {
 				fail("deleted boat found");
 			}
 		}
-		if (!containsExistingBoat){
+		if (!containsExistingBoat) {
 			fail("existing boat not found");
 		}
 	}
