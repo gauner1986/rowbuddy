@@ -21,7 +21,19 @@ public class MenuView extends Composite implements MenuDisplay {
 
 	public interface Images extends Tree.Resources {
 		@Source("icons/boat.png")
-		ImageResource treeLeaf();
+		ImageResource boat();
+		
+		@Source("icons/fahrtenbuch.png")
+		ImageResource logBook();
+		
+		@Source("icons/open_blue.png")
+		ImageResource openTrips();
+		
+		@Source("icons/people.png")
+		ImageResource profil();
+		
+		@Source("icons/statistics.png")
+		ImageResource statistics();
 	}
 
 	private Button listBoats = null;
@@ -34,11 +46,11 @@ public class MenuView extends Composite implements MenuDisplay {
 		VerticalPanel verticalPanel = new VerticalPanel();
 		DecoratedStackPanel menuPanel = new DecoratedStackPanel();
 
-		menuPanel.add(createTripsMenu(), "Offene Fahrten");
-		menuPanel.add(createProfilMenu(), "Profil");
-		menuPanel.add(createViewTripMenu(), "Fahrtenbuch");
-		menuPanel.add(createStatistikMenu(), "Statistiken");
-		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.treeLeaf()), true);
+		menuPanel.add(createTripsMenu(), getHeaderString("Offene Fahrten", images.openTrips()), true);
+		menuPanel.add(createProfilMenu(), getHeaderString("Profil", images.profil()), true);
+		menuPanel.add(createViewTripMenu(), getHeaderString("Fahrtenbuch", images.logBook()), true);
+		menuPanel.add(createStatistikMenu(), getHeaderString("Statistiken", images.statistics()), true);
+		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.boat()), true);
 		// menuPanel.add(null, "Mitglieder");
 		// menuPanel.add(null, "Routen");
 		// menuPanel.add(null, "Bootsschäden");

@@ -12,6 +12,16 @@
 	
 }
 
+.cw-StackPanelHeader {
+	padding-left: 17px;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.logoHeader {
+	background: url("images/logo.png") no-repeat 4px 4px;
+}
+
 .FlexTable-OddRow {
 	background-color: #FFFFFF;
 }
@@ -112,6 +122,7 @@
 .gwt-Anchor:LINK {
 	text-decoration: none;
 	color: #336699;
+	padding: 10px;
 }
 
 .gwt-Anchor:HOVER {

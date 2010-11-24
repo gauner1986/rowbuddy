@@ -66,6 +66,7 @@ public class GWTEntryPoint implements EntryPoint {
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setWidth("100%");
 		Label headerLabel = new Label("HEADER");
+		headerLabel.setStylePrimaryName("logoHeader");
 		Label loginLabel = new Label("Login: ich");
 		loginLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		hPanel.add(headerLabel);
