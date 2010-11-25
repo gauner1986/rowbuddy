@@ -40,17 +40,21 @@ public class GWTEntryPoint implements EntryPoint {
 				.getHostPageBaseURL() + "BoatRemoteServiceImpl");
 		// Window.alert(GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
 
-		SimpleEventBus eventBus = new SimpleEventBus();
-		AppController controller = new AppController(boatService, eventBus);
-
 		HasWidgets mainPanel = initialMainPanel();
-		RootPanel.get("Main").add(initalRootFlexTable(mainPanel));
+		FlowPanel messagePanel = new FlowPanel();
+
+
+		RootPanel.get("Main").add(initalRootFlexTable(mainPanel, messagePanel));
+
+		
+		SimpleEventBus eventBus = new SimpleEventBus();
+		AppController controller = new AppController(boatService, eventBus, messagePanel);
 
 		controller.start(mainPanel);
 		logger.info("Application started");
 	}
 
-	private Widget initalRootFlexTable(HasWidgets mainPanel) {
+	private Widget initalRootFlexTable(HasWidgets mainPanel, Widget messagePanel) {
 		Images images = (Images) GWT.create(Images.class);
 
 		final FlexTable flexTable = new FlexTable();
@@ -87,10 +91,8 @@ public class GWTEntryPoint implements EntryPoint {
 		presenter.start(vetPanel);
 		flexTable.setWidget(1, 0, vetPanel);
 
-		Label messagesLabel = new Label("messages");
-		messagesLabel.setStyleName("messages");
-		messagesLabel.setVisible(true);
-		flexTable.setWidget(1, 1, messagesLabel);
+		messagePanel.setStyleName("messages");
+		flexTable.setWidget(1, 1, messagePanel);
 
 		flexTable.setWidget(2, 0, (Widget) mainPanel);
 		flexTable.getRowFormatter().setStylePrimaryName(2, "viewPanel");

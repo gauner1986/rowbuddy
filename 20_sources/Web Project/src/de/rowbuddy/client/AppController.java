@@ -17,7 +17,9 @@ import de.rowbuddy.client.presenter.AddBoatPresenter;
 import de.rowbuddy.client.presenter.BoatPresenter;
 import de.rowbuddy.client.presenter.EditBoatPresenter;
 import de.rowbuddy.client.presenter.Presenter;
+import de.rowbuddy.client.presenter.StatusMessagePresenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
+import de.rowbuddy.client.views.MessageView;
 import de.rowbuddy.client.views.boat.AddBoatView;
 import de.rowbuddy.client.views.boat.BoatView;
 import de.rowbuddy.client.views.boat.EditBoatView;
@@ -26,10 +28,14 @@ public class AppController implements Presenter, ValueChangeHandler<String>,Hist
 	private SimpleEventBus eventBus;
 	private BoatRemoteServiceAsync boatService;
 	private HasWidgets container;
+	private StatusMessagePresenter statusPresenter; 
 	
-	public AppController(BoatRemoteServiceAsync boatService, SimpleEventBus eventBus) {
+	public AppController(BoatRemoteServiceAsync boatService, SimpleEventBus eventBus, HasWidgets messageContainer) {
 		this.boatService = boatService;
 		this.eventBus = eventBus;
+		this.statusPresenter = new StatusMessagePresenter(new MessageView(), eventBus);
+		statusPresenter.start(messageContainer);
+		
 	}  
 	
 	//bind Event handling here
@@ -41,7 +47,6 @@ public class AppController implements Presenter, ValueChangeHandler<String>,Hist
 				doOnAddBoatEvent();
 			}
 		});
-		
 		eventBus.addHandler(ListBoatEvent.TYPE, new ListBoatEventHandler() {
 			
 			@Override
@@ -63,6 +68,7 @@ public class AppController implements Presenter, ValueChangeHandler<String>,Hist
 		History.newItem(EDIT_BOAT, false);
 		Presenter presenter = new EditBoatPresenter(new EditBoatView(), boatService, eventBus, id);
 		presenter.start(container);
+		statusPresenter.clear();
 	}
 	
 	private void doOnListBoatEvent(){
@@ -77,6 +83,7 @@ public class AppController implements Presenter, ValueChangeHandler<String>,Hist
 		String token = arg0.getValue();
 		if(token != null) {
 			Presenter presenter = null;
+			statusPresenter.clear();
 			if(token.equals(LIST_BOATS)) {
 				presenter = new BoatPresenter(boatService, new BoatView(), eventBus);
 			} else if(token.equals(ADD_BOAT)){

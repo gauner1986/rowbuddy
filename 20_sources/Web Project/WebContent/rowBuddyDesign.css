@@ -1,7 +1,7 @@
 @CHARSET "ISO-8859-1";
 
 .flexTable td {
-	border: 0px solid #BBBBBB;
+	border: 1px solid #BBBBBB;
 }
 
 .messages {
@@ -33,6 +33,15 @@
 }
 .FlexTable-EvenRow:HOVER{
 	background-color: E6E6E6;
+}
+
+.messageNegative{
+	font-weight: bold;
+	color: red; 
+}
+.messagePositive{
+	font-weight: bold;
+	color: green; 
 }
 
 .pageHeadLine{

@@ -17,6 +17,9 @@ import com.google.gwt.user.client.ui.Widget;
 import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.events.ListBoatEvent;
+import de.rowbuddy.client.events.StatusMessageEvent;
+import de.rowbuddy.client.model.StatusMessage;
+import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.exceptions.RowBuddyException;
@@ -62,6 +65,11 @@ public class AddBoatPresenter implements Presenter{
 					public void onSuccess(Void arg0) {
 						logger.info("Boat successful added; GoTo ListBoat");
 						eventBus.fireEvent(new ListBoatEvent());
+						StatusMessage message = new StatusMessage();
+						message.setMessage("Boot erfolgreich hinzugefügt");
+						message.setStatus(Status.POSITIVE);
+						message.setAttached(false);
+						eventBus.fireEvent(new StatusMessageEvent(message));
 					}
 					
 					@Override
@@ -89,6 +97,11 @@ public class AddBoatPresenter implements Presenter{
 					@Override
 					public void onSuccess(Void arg0) {
 						logger.info("Boat successful added; Reset View");
+						StatusMessage message = new StatusMessage();
+						message.setMessage("Boot erfolgreich hinzugefügt");
+						message.setStatus(Status.POSITIVE);
+						message.setAttached(false);
+						eventBus.fireEvent(new StatusMessageEvent(message));
 						view.reset();
 					}
 					
@@ -108,7 +121,12 @@ public class AddBoatPresenter implements Presenter{
 			boat.setName(view.getName().getValue());
 			boat.setNumberOfSeats(Integer.valueOf(view.getNumberOfSeats().getValue()));
 			boatService.addBoat(boat, action);
-		} catch (RowBuddyException e) {
+		} catch (Exception e) {
+			StatusMessage message = new StatusMessage();
+			message.setMessage(e.getMessage());
+			message.setStatus(Status.NEGATIVE);
+			message.setAttached(false);
+			eventBus.fireEvent(new StatusMessageEvent(message));
 			logger.warning(e.getMessage());
 		}
 		
