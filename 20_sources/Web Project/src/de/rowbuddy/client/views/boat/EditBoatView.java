@@ -37,7 +37,9 @@ public class EditBoatView extends Composite implements EditBoatPresenter.Display
 		hPanel.setSpacing(0);
 		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 		submitButton= new Button("Boot speichern");
+		submitButton.setStylePrimaryName("buttonPositive");
 		cancelButton = new Button("Abbrechen");
+		cancelButton.setStylePrimaryName("buttonNegative");
 		hPanel.add(submitButton);
 		hPanel.add(cancelButton);
 	

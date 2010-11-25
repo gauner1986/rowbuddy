@@ -5,6 +5,7 @@ import java.util.Collection;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
@@ -35,6 +36,7 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 		addButton = new Button("Boot Hinzufügen");
+		addButton.setStyleName("buttonRegular");
 		hPanel.add(addButton);
 		contentTable.setWidget(2, 0, hPanel);
 		
@@ -100,7 +102,7 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 			boatTable.setWidget(i, 3, lockedBox);
 
 			HTMLTable.RowFormatter rf = boatTable.getRowFormatter();
-
+			
 			if ((i % 2) != 0) {
 				//rf.addStyleName(i, "FlexTable-OddRow");
 				rf.setStylePrimaryName(i, "FlexTable-OddRow");
@@ -111,6 +113,7 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 		}
 	}
 
+	
 	@Override
 	public HasClickHandlers getTable() {
 		return boatTable;
