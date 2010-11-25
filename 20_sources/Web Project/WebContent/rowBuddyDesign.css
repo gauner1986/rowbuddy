@@ -62,7 +62,7 @@
 	color: #336699;
 	-moz-border-radius: 30px;
 	-khtml-border-radius: 30px;
-	padding: 4px 4px 4px 25px;
+	padding: 4px 4px 4px 4px;
 	min-width: 100px;
 	border: 1px solid #c2e1ef;
 	margin: 5px;
@@ -83,7 +83,7 @@
 	color: #529214;
 	-moz-border-radius: 30px;
 	-khtml-border-radius: 30px;
-	padding: 4px 4px 4px 25px;
+	padding: 4px 4px 4px 4px;
 	border: 1px solid #C6D880;
 	min-width: 100px;
 	margin: 5px;
@@ -104,7 +104,7 @@
 	color: #d12f19;
 	-moz-border-radius: 30px;
 	-khtml-border-radius: 30px;
-	padding: 4px 4px 4px 25px;
+	padding: 4px 4px 4px 4px;
 	min-width: 100px;
 	border: 1px solid #fbc2c4;
 	margin: 5px;
