@@ -11,30 +11,13 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.MenuDisplay;
+import de.rowbuddy.client.images.Images;
 
 public class MenuView extends Composite implements MenuDisplay {
-
-	public interface Images extends Tree.Resources {
-		@Source("icons/boat.png")
-		ImageResource boat();
-		
-		@Source("icons/fahrtenbuch.png")
-		ImageResource logBook();
-		
-		@Source("icons/open_blue.png")
-		ImageResource openTrips();
-		
-		@Source("icons/people.png")
-		ImageResource profil();
-		
-		@Source("icons/statistics.png")
-		ImageResource statistics();
-	}
 
 	private Button listBoats = null;
 
@@ -58,7 +41,7 @@ public class MenuView extends Composite implements MenuDisplay {
 		// menuPanel.add(null, "Mitgliederverwaltung");
 
 		Button logoutButton = new Button("Logout");
-		logoutButton.setStylePrimaryName("buttonRegular buttonLogout");
+		logoutButton.setStylePrimaryName("buttonLogout buttonNegative");
 
 		verticalPanel.add(menuPanel);
 		verticalPanel.add(logoutButton);

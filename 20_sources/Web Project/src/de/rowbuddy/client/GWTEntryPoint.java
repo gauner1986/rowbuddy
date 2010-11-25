@@ -12,11 +12,13 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.images.Images;
 import de.rowbuddy.client.presenter.MenuPresenter;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteService;
@@ -25,14 +27,15 @@ import de.rowbuddy.client.views.MenuView;
 
 public class GWTEntryPoint implements EntryPoint {
 
-//	private static Logger logger = Logger.getLogger(GWTEntryPoint.class.getName());
+	// private static Logger logger =
+	// Logger.getLogger(GWTEntryPoint.class.getName());
 
 	public void onModuleLoad() {
 		BoatRemoteServiceAsync boatService = (BoatRemoteServiceAsync) GWT
 				.create(BoatRemoteService.class);
 		((ServiceDefTarget) boatService).setServiceEntryPoint(GWT
 				.getHostPageBaseURL() + "BoatRemoteServiceImpl");
-		// Window.alert(GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");	
+		// Window.alert(GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
 
 		SimpleEventBus eventBus = new SimpleEventBus();
 		AppController controller = new AppController(boatService, eventBus);
@@ -41,10 +44,12 @@ public class GWTEntryPoint implements EntryPoint {
 		RootPanel.get("Main").add(initalRootFlexTable(mainPanel));
 
 		controller.start(mainPanel);
-//		logger.info("Application started");
+		// logger.info("Application started");
 	}
 
 	private Widget initalRootFlexTable(HasWidgets mainPanel) {
+		Images images = (Images) GWT.create(Images.class);
+
 		final FlexTable flexTable = new FlexTable();
 		FlexCellFormatter cellFormatter = flexTable.getFlexCellFormatter();
 		flexTable.addStyleName("flexTable");
@@ -65,13 +70,12 @@ public class GWTEntryPoint implements EntryPoint {
 
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setWidth("100%");
-		Label headerLabel = new Label("HEADER");
-		headerLabel.setStylePrimaryName("logoHeader");
+		hPanel.setStylePrimaryName("logoHeader");
+		hPanel.add(new Image(images.logo()));
 		Label loginLabel = new Label("Login: ich");
 		loginLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		hPanel.add(headerLabel);
 		hPanel.add(loginLabel);
-		hPanel.setCellWidth(headerLabel, "80%");
+		hPanel.setCellWidth(loginLabel, "20%");
 		flexTable.setWidget(0, 0, hPanel);
 
 		cellFormatter.setWidth(1, 0, "20%");
