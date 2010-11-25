@@ -141,15 +141,18 @@
 	border: 1px solid #bbbbbb;
 	padding: 10px;
 }
+.gwt-DecoratedStackPanel .gwt-StackPanelItem-selected{
+	background-color:  #5891C8;
+}
 
 .gwt-Anchor:LINK {
 	text-decoration: none;
 	color: #336699;
-	padding: 10px;
 }
 
 .gwt-Anchor:HOVER {
 	color: blue;
+	background-color: #E6E6E6;
 	text-decoration: inherit;
 }
 
