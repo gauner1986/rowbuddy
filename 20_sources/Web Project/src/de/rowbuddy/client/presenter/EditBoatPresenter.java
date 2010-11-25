@@ -13,6 +13,9 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.events.ListBoatEvent;
+import de.rowbuddy.client.events.StatusMessageEvent;
+import de.rowbuddy.client.model.StatusMessage;
+import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.exceptions.RowBuddyException;
@@ -94,8 +97,14 @@ public class EditBoatPresenter implements Presenter {
 			success = true;
 		} catch (NumberFormatException ex) {
 			logger.warning("Seat is not a number");
+			StatusMessage message = new StatusMessage(false);
+			message.setMessage(ex.getMessage());
+			eventBus.fireEvent(new StatusMessageEvent(message));
 		} catch (RowBuddyException ex) {
 			logger.warning(ex.getMessage());
+			StatusMessage message = new StatusMessage(false);
+			message.setMessage(ex.getMessage());
+			eventBus.fireEvent(new StatusMessageEvent(message));
 		}
 		return success;
 	}
@@ -111,12 +120,20 @@ public class EditBoatPresenter implements Presenter {
 						public void onSuccess(Void arg0) {
 							logger.info("Submit successful GoTo ListBoats");
 							eventBus.fireEvent(new ListBoatEvent());
+							StatusMessage message = new StatusMessage(false);
+							message.setStatus(Status.POSITIVE);	
+							message.setMessage("Boot erfolgreich geändert");
+							eventBus.fireEvent(new StatusMessageEvent(message));
 						}
 
 						@Override
 						public void onFailure(Throwable arg0) {
 							logger.warning("Cannout update Boat:"
 									+ arg0.getMessage());
+							StatusMessage message = new StatusMessage(false);
+							message.setStatus(Status.NEGATIVE);	
+							message.setMessage("Fehler beim Ändern: " + arg0.getMessage());
+							eventBus.fireEvent(new StatusMessageEvent(message));
 						}
 					});
 

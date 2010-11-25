@@ -8,6 +8,12 @@ public class StatusMessage {
 	private Status status;
 	private boolean attached = true;
 	
+	public StatusMessage (){}
+	
+	public StatusMessage(boolean attached) {
+		this.attached = attached;
+	}
+	
 	public String getMessage() {
 		return message;
 	}
