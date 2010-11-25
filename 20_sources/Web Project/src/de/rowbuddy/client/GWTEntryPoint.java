@@ -2,12 +2,14 @@ package de.rowbuddy.client;
 
 //import java.util.logging.Logger;
 
+import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -90,13 +92,12 @@ public class GWTEntryPoint implements EntryPoint {
 		flexTable.setWidget(1, 1, messagesLabel);
 
 		flexTable.setWidget(2, 0, (Widget) mainPanel);
-
+		flexTable.getRowFormatter().setStylePrimaryName(2, "viewPanel");
 		return flexTable;
 	}
 
 	private HasWidgets initialMainPanel() {
-		HorizontalPanel panel = new HorizontalPanel();
-		panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
+		FlowPanel panel = new FlowPanel();
 		return panel;
 	}
 

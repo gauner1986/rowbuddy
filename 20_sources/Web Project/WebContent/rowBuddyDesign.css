@@ -24,10 +24,15 @@
 
 .FlexTable-OddRow {
 	background-color: #FFFFFF;
+	cursor: pointer;
 }
 
 .FlexTable-EvenRow {
 	background-color: #D7DDE8;
+	cursor: pointer;
+}
+.FlexTable-EvenRow:HOVER{
+	background-color: E6E6E6;
 }
 
 .pageHeadLine{
@@ -137,4 +142,17 @@
 
 .gwt-Anchor:ACTIVE {
 	color: blue;
+}
+
+.viewPanel{
+	vertical-align:top; 
+}
+
+.boatTable{
+	width: 100%;
+	height: 100%;
+}
+.boatTableHeader{
+	font-weight: bold;
+	font-size: 16px;
 }

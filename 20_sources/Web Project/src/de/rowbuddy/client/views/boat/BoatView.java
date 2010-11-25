@@ -37,11 +37,13 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 		addButton = new Button("Boot Hinzufügen");
 		hPanel.add(addButton);
 		contentTable.setWidget(2, 0, hPanel);
-
+		
+		
 		boatTable = new FlexTable();
-		boatTable.setCellSpacing(0);
-		boatTable.setCellPadding(0);
 		boatTable.setWidth("100%");
+		boatTable.setStyleName("boatTable");
+		
+		
 		contentTable.setWidget(1, 0, boatTable);
 		contentTable.setText(0, 0, PageTitles.BOAT_OVERVIEW);
 		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
@@ -74,6 +76,7 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 		boatTable.setText(0, 1, "Bootsplätze");
 		boatTable.setText(0, 2, "Gesteuert");
 		boatTable.setText(0, 3, "Gesperrt");
+		boatTable.getRowFormatter().setStyleName(0, "boatTableHeader");
 
 	}
 
