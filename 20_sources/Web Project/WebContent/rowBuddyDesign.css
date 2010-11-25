@@ -148,8 +148,11 @@
 .gwt-Anchor:LINK {
 	text-decoration: none;
 	color: #336699;
+	padding-left: 10px;
 }
-
+.menuItem{
+	height: 25px;
+}
 .gwt-Anchor:HOVER {
 	color: blue;
 	background-color: #E6E6E6;
