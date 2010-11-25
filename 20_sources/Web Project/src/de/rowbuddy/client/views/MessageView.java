@@ -12,6 +12,7 @@ public class MessageView extends Composite implements StatusMessagePresenter.Dis
 	private int index = 0;
 	public MessageView(){
 		messages = new FlexTable();
+		messages.setStyleName("statusMessages");
 		initWidget(messages);
 	}
 	
