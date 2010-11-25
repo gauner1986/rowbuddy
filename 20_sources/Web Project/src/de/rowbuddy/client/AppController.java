@@ -24,7 +24,7 @@ import de.rowbuddy.client.views.boat.AddBoatView;
 import de.rowbuddy.client.views.boat.BoatView;
 import de.rowbuddy.client.views.boat.EditBoatView;
 
-public class AppController implements Presenter, ValueChangeHandler<String>,HistoryConstants{
+public class AppController implements Presenter, ValueChangeHandler<String>{
 	private SimpleEventBus eventBus;
 	private BoatRemoteServiceAsync boatService;
 	private HasWidgets container;
@@ -65,18 +65,18 @@ public class AppController implements Presenter, ValueChangeHandler<String>,Hist
 	}
 	
 	private void doOnEditBoat(Long id){
-		History.newItem(EDIT_BOAT, false);
+		History.newItem(HistoryConstants.EDIT_BOAT, false);
 		Presenter presenter = new EditBoatPresenter(new EditBoatView(), boatService, eventBus, id);
 		presenter.start(container);
 		statusPresenter.clear();
 	}
 	
 	private void doOnListBoatEvent(){
-		History.newItem(LIST_BOATS);
+		History.newItem(HistoryConstants.LIST_BOATS);
 	}
 	
 	private void doOnAddBoatEvent(){
-		History.newItem(ADD_BOAT);
+		History.newItem(HistoryConstants.ADD_BOAT);
 	}
 	@Override
 	public void onValueChange(ValueChangeEvent<String> arg0) {
@@ -84,9 +84,9 @@ public class AppController implements Presenter, ValueChangeHandler<String>,Hist
 		if(token != null) {
 			Presenter presenter = null;
 			statusPresenter.clear();
-			if(token.equals(LIST_BOATS)) {
+			if(token.equals(HistoryConstants.LIST_BOATS)) {
 				presenter = new BoatPresenter(boatService, new BoatView(), eventBus);
-			} else if(token.equals(ADD_BOAT)){
+			} else if(token.equals(HistoryConstants.ADD_BOAT)){
 				presenter = new AddBoatPresenter(new AddBoatView(), boatService, eventBus);
 			} else {
 				Window.alert("Action undefined! - " + token);
@@ -104,7 +104,7 @@ public class AppController implements Presenter, ValueChangeHandler<String>,Hist
 		bind();
 		this.container = container;
 		if(History.getToken().equals("")) {
-			History.newItem(LIST_BOATS);//welcome page
+			History.newItem(HistoryConstants.LIST_BOATS);//welcome page
 		} else {
 			History.fireCurrentHistoryState();
 		}
