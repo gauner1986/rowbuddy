@@ -6,10 +6,12 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
+import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.EditBoatPresenter;
 
 public class EditBoatView extends Composite implements EditBoatPresenter.Display{
@@ -40,7 +42,7 @@ public class EditBoatView extends Composite implements EditBoatPresenter.Display
 		hPanel.add(cancelButton);
 	
 		contentTable.getCellFormatter().addStyleName(0, 0, "contacts-ListMenu");
-		contentTable.setWidget(1, 0, hPanel);
+		contentTable.setWidget(2, 0, hPanel);
 
 		boatTable = new FlexTable();
 		
@@ -60,7 +62,10 @@ public class EditBoatView extends Composite implements EditBoatPresenter.Display
 		locked = new CheckBox();
 		boatTable.setWidget(3, 1, locked);
 		
-		contentTable.setWidget(0, 0, boatTable);
+		contentTable.setWidget(1, 0, boatTable);
+		contentTable.setText(0, 0, PageTitles.BOAT_EDIT);
+		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
+		rf.setStylePrimaryName(0, "pageHeadLine");
 	}
 	
 	@Override

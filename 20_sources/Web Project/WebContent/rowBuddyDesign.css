@@ -30,6 +30,11 @@
 	background-color: #D7DDE8;
 }
 
+.pageHeadLine{
+	font-size: 18px;
+	font-weight: bold;
+}
+
 .buttonLogout {
 	background: url("icons/quit_blue.png") no-repeat 4px 4px;
 	min-width: 200px;

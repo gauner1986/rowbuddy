@@ -95,7 +95,7 @@ public class GWTEntryPoint implements EntryPoint {
 	}
 
 	private HasWidgets initialMainPanel() {
-		VerticalPanel panel = new VerticalPanel();
+		HorizontalPanel panel = new HorizontalPanel();
 		panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
 		return panel;
 	}

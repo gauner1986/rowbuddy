@@ -6,12 +6,14 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.AddBoatPresenter;
 
 public class AddBoatView extends Composite implements AddBoatPresenter.Display{
@@ -44,7 +46,7 @@ public class AddBoatView extends Composite implements AddBoatPresenter.Display{
 		hPanel.add(resetButton);
 	
 		contentTable.getCellFormatter().addStyleName(0, 0, "contacts-ListMenu");
-		contentTable.setWidget(1, 0, hPanel);
+		contentTable.setWidget(2, 0, hPanel);
 
 		boatTable = new FlexTable();
 		
@@ -60,7 +62,11 @@ public class AddBoatView extends Composite implements AddBoatPresenter.Display{
 		coxed = new CheckBox();
 		boatTable.setWidget(2, 1, coxed);	
 		
-		contentTable.setWidget(0, 0, boatTable);
+		contentTable.setWidget(1, 0, boatTable);
+		
+		contentTable.setText(0, 0, PageTitles.BOAT_ADD);
+		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
+		rf.setStylePrimaryName(0, "pageHeadLine");
 	}
 	
 	@Override

@@ -2,6 +2,7 @@ package de.rowbuddy.client.views.boat;
 
 import java.util.Collection;
 
+import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Button;
@@ -14,6 +15,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.business.dtos.BoatDTO;
+import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.BoatPresenter;
 
 public class BoatView extends Composite implements BoatPresenter.Display {
@@ -34,13 +36,16 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 		addButton = new Button("Boot Hinzufügen");
 		hPanel.add(addButton);
-		contentTable.setWidget(1, 0, hPanel);
+		contentTable.setWidget(2, 0, hPanel);
 
 		boatTable = new FlexTable();
 		boatTable.setCellSpacing(0);
 		boatTable.setCellPadding(0);
 		boatTable.setWidth("100%");
-		contentTable.setWidget(0, 0, boatTable);
+		contentTable.setWidget(1, 0, boatTable);
+		contentTable.setText(0, 0, PageTitles.BOAT_OVERVIEW);
+		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
+		rf.setStylePrimaryName(0, "pageHeadLine");
 	}
 
 	@Override
@@ -94,7 +99,8 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 			HTMLTable.RowFormatter rf = boatTable.getRowFormatter();
 
 			if ((i % 2) != 0) {
-				rf.addStyleName(i, "FlexTable-OddRow");
+				//rf.addStyleName(i, "FlexTable-OddRow");
+				rf.setStylePrimaryName(i, "FlexTable-OddRow");
 			} else {
 				rf.addStyleName(i, "FlexTable-EvenRow");
 			}
