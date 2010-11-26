@@ -19,7 +19,7 @@
 	color: #336699;
 }
 
-.logoHeader{
+.logoHeader {
 	padding-bottom: 30px;
 	padding-left: 30px;
 }
@@ -28,7 +28,8 @@
 	background-color: #FFFFFF;
 	cursor: pointer;
 }
-.FlexTable-OddRow:HOVER{
+
+.FlexTable-OddRow:HOVER {
 	background-color: #E6E6E6;
 }
 
@@ -36,35 +37,48 @@
 	background-color: #F3F7FB;
 	cursor: pointer;
 }
-.FlexTable-EvenRow:HOVER{
+
+.FlexTable-EvenRow:HOVER {
 	background-color: #E6E6E6;
 }
 
-.messageNegative{
+.messageNegative {
 	font-weight: bold;
-	color: red; 
-}
-.messagePositive{
-	font-weight: bold;
-	color: green; 
+	color: red;
 }
 
-.pageHeadLine{
+.messagePositive {
+	font-weight: bold;
+	color: green;
+}
+
+.pageHeadLine {
 	font-size: 22px;
 	font-weight: bold;
-	height: 50px;	
+	height: 50px;
 }
 
 .buttonLogout {
 	background: url("icons/exit.png") no-repeat 4px 4px;
-	min-width: 200px;
+}
+
+.buttonAdd {
+	background: url("icons/add.png") no-repeat 4px 4px;
+}
+
+.buttonCancel {
+	background: url("icons/cancel.png") no-repeat 4px 4px;
+}
+
+.buttonSave{
+	background: url("icons/save.png") no-repeat 4px 4px;
 }
 
 .buttonRegular {
 	color: #336699;
 	-moz-border-radius: 30px;
 	-khtml-border-radius: 30px;
-	padding: 4px 4px 4px 4px;
+	padding: 4px 4px 4px 25px;
 	min-width: 100px;
 	border: 1px solid #c2e1ef;
 	margin: 5px;
@@ -85,9 +99,9 @@
 	color: #529214;
 	-moz-border-radius: 30px;
 	-khtml-border-radius: 30px;
-	padding: 4px 4px 4px 4px;
-	border: 1px solid #C6D880;
+	padding: 4px 4px 4px 25px;
 	min-width: 100px;
+	border: 1px solid #C6D880;
 	margin: 5px;
 }
 
@@ -106,14 +120,14 @@
 	color: #d12f19;
 	-moz-border-radius: 30px;
 	-khtml-border-radius: 30px;
-	padding: 4px 4px 4px 4px;
+	padding: 4px 4px 4px 25px;
 	min-width: 100px;
 	border: 1px solid #fbc2c4;
 	margin: 5px;
 }
 
 .buttonNegative:HOVER {
-	background: #fbe3e4;
+	background-color: #fbe3e4;
 	color: #d12f19;
 }
 
@@ -143,8 +157,9 @@
 	border: 1px solid #bbbbbb;
 	padding: 10px;
 }
-.gwt-DecoratedStackPanel .gwt-StackPanelItem-selected{
-	background-color:  #5891C8;
+
+.gwt-DecoratedStackPanel .gwt-StackPanelItem-selected {
+	background-color: #5891C8;
 }
 
 .gwt-Anchor:LINK {
@@ -152,9 +167,11 @@
 	color: #336699;
 	padding-left: 10px;
 }
-.menuItem{
+
+.menuItem {
 	height: 25px;
 }
+
 .gwt-Anchor:HOVER {
 	color: blue;
 	background-color: #E6E6E6;
@@ -165,16 +182,17 @@
 	color: blue;
 }
 
-.viewPanel{
-	vertical-align:top; 
+.viewPanel {
+	vertical-align: top;
 }
 
-.boatTable{
+.boatTable {
 	width: 100%;
 	height: 100%;
 	border-collapse: collapse;
 }
-.boatTableHeader{
+
+.boatTableHeader {
 	font-weight: bold;
 	font-size: 16px;
 	border-bottom: 1px solid #000000;
