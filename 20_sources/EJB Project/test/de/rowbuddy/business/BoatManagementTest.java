@@ -29,7 +29,6 @@ public class BoatManagementTest extends EjbTestBase {
 	private Boat newBoat;
 	private Boat deletedBoat;
 	private BoatManagement boatManagement;
-	private Member loginMember;
 
 	@Before
 	public void setup() throws RowBuddyException {
@@ -40,6 +39,7 @@ public class BoatManagementTest extends EjbTestBase {
 		existingBoat.setNumberOfSeats(1);
 		existingBoat.setDeleted(false);
 		existingBoat.setCoxed(true);
+		existingBoat.validate();
 		existingBoat = (Boat) em.persist(existingBoat);
 
 		newBoat = new Boat();
@@ -48,6 +48,7 @@ public class BoatManagementTest extends EjbTestBase {
 		newBoat.setCoxed(false);
 		newBoat.setDeleted(false);
 		newBoat.setLocked(false);
+		newBoat.validate();
 
 		deletedBoat = new Boat();
 		deletedBoat.setName("Deleted Boat");
@@ -55,6 +56,7 @@ public class BoatManagementTest extends EjbTestBase {
 		deletedBoat.setNumberOfSeats(12);
 		deletedBoat.setDeleted(true);
 		deletedBoat.setCoxed(true);
+		deletedBoat.validate();
 		deletedBoat = (Boat) em.persist(deletedBoat);
 
 		boatManagement = Ejb.lookUp(BoatManagement.class, BoatManagement.class);
@@ -68,29 +70,25 @@ public class BoatManagementTest extends EjbTestBase {
 	}
 
 	@Test
-	public void canAddBoat() throws CreateException {
+	public void canAddBoat() throws RowBuddyException {
 		boatManagement.addBoat(newBoat);
 	}
 
 	@Test(expected = RowBuddyException.class)
-	public void cannotAddBoatWithoutName() throws RowBuddyException {
-		newBoat.setName("");
-	}
-
-	@Test(expected = RowBuddyException.class)
-	public void cannotAddBoatWithoutNumberOfSeats() throws RowBuddyException {
-		newBoat.setNumberOfSeats(0);
-	}
-
-	@Test(expected = CreateException.class)
-	public void cannotAddDeletedBoat() throws CreateException {
+	public void cannotAddDeletedBoat() throws RowBuddyException {
 		newBoat.setDeleted(true);
 
 		boatManagement.addBoat(newBoat);
 	}
+	
+	@Test(expected = RowBuddyException.class)
+	public void cannotAddInvalidBoat() throws RowBuddyException{
+		Boat b1 = new Boat();
+		boatManagement.addBoat(b1);
+	}
 
-	@Test(expected = CreateException.class)
-	public void cannotAddAlreadyExistingBoat() throws CreateException {
+	@Test(expected = RowBuddyException.class)
+	public void cannotAddAlreadyExistingBoat() throws RowBuddyException {
 		boatManagement.addBoat(existingBoat);
 	}
 
@@ -104,39 +102,39 @@ public class BoatManagementTest extends EjbTestBase {
 		assertThat(updatedBoat.getName(), is(existingBoat.getName()));
 	}
 
-	@Test(expected = FinderException.class)
-	public void cannotUpdateNonExistingBoat() throws FinderException,
+	@Test(expected = RowBuddyException.class)
+	public void cannotUpdateNonExistingBoat() throws RowBuddyException,
 			RowBuddyException {
 		boatManagement.updateBoat(newBoat);
 	}
 
-	@Test(expected = FinderException.class)
-	public void cannotUpdateDeletedBoat() throws FinderException,
+	@Test(expected = RowBuddyException.class)
+	public void cannotUpdateDeletedBoat() throws RowBuddyException,
 			RowBuddyException {
 		deletedBoat.setDeleted(false);
 		boatManagement.updateBoat(deletedBoat);
 	}
 
 	@Test
-	public void canDeleteBoat() throws RemoveException, FinderException {
+	public void canDeleteBoat() throws RowBuddyException {
 		boatManagement.deleteBoat(existingBoat.getId());
 		Boat dbBoat = boatManagement.getBoat(existingBoat.getId());
 		assertThat(dbBoat.isDeleted(), is(true));
 	}
 
-	@Test(expected = RemoveException.class)
-	public void cannotDeleteAlreadyDeletedBoat() throws RemoveException {
+	@Test(expected = RowBuddyException.class)
+	public void cannotDeleteAlreadyDeletedBoat() throws RowBuddyException {
 		boatManagement.deleteBoat(deletedBoat.getId());
 	}
 
 	@Test
-	public void canGetBoat() throws FinderException {
+	public void canGetBoat() throws RowBuddyException {
 		Boat boat = boatManagement.getBoat(existingBoat.getId());
 		assertNotNull(boat);
 	}
 
 	@Test
-	public void canGetDeletedBoat() throws FinderException {
+	public void canGetDeletedBoat() throws RowBuddyException {
 		Boat boat = boatManagement.getBoat(deletedBoat.getId());
 		assertNotNull(boat);
 	}

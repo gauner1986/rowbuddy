@@ -34,9 +34,11 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	@Before
 	public void setup() {
 		ejbHandler = new EjbExceptionHandler();
-		adminMember = createTestMember("bla@bla.de", "secret", new String[] {"admin", "user"});
-		userMember = createTestMember("user@bla.de", "secret", new String[] {"user"});
-		
+		adminMember = createTestMember("bla@bla.de", "secret", new String[] {
+				"admin", "user" });
+		userMember = createTestMember("user@bla.de", "secret",
+				new String[] { "user" });
+
 		existingBoat = new Boat();
 		try {
 			existingBoat.setName("TestBoat 1");
@@ -49,8 +51,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 		existingBoat.setDeleted(false);
 		existingBoat.setCoxed(true);
 		existingBoat = (Boat) em.persist(existingBoat);
-		
-		
+
 		attachedAdminMember = (Member) em.persist(adminMember);
 		attachedUserMember = (Member) em.persist(userMember);
 		rowBuddyFacade = Ejb.lookUp(RowBuddyFacade.class, RowBuddyFacade.class);
@@ -75,8 +76,9 @@ public class SecuritySalamanderTest extends EjbTestBase {
 			em.remove(type, key);
 		}
 	}
-	
-	private Member createTestMember(String username, String password, String[] roleNames){
+
+	private Member createTestMember(String username, String password,
+			String[] roleNames) {
 		Member member = new Member();
 		try {
 			member.setEmail(username);
@@ -86,7 +88,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 		}
 		member.setPassword(password);
 		ArrayList<Role> roles = new ArrayList<Role>();
-		for(String roleName : roleNames){
+		for (String roleName : roleNames) {
 			Role role = new Role();
 			try {
 				role.setName(roleName);
@@ -112,7 +114,8 @@ public class SecuritySalamanderTest extends EjbTestBase {
 
 	@Test
 	public void cannotLoginWithWrongUserAndPass() {
-		Member falseMember = createTestMember("basfa@asfsa.de", "wrongpass", new String[] {});
+		Member falseMember = createTestMember("basfa@asfsa.de", "wrongpass",
+				new String[] {});
 		try {
 			rowBuddyFacade.login(falseMember);
 			fail("Member can login anyway, where he shouldn't.");
@@ -123,7 +126,8 @@ public class SecuritySalamanderTest extends EjbTestBase {
 
 	@Test
 	public void cannotLoginWithWrongPass() {
-		Member falseMember = createTestMember("bla@bla.de", "wrongpass", new String[] {});
+		Member falseMember = createTestMember("bla@bla.de", "wrongpass",
+				new String[] {});
 		try {
 			rowBuddyFacade.login(falseMember);
 			fail("Member can login anyway, where he shouldn't.");
@@ -175,13 +179,13 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	public void canUseGetBoatManagementAsUser() {
 		testGetBoatManagementAs(userMember);
 	}
-	
+
 	@Test
 	public void canUseGetBoatManagementAsAdmin() {
 		testGetBoatManagementAs(adminMember);
 	}
-	
-	private void testGetBoatManagementAs(Member member){
+
+	private void testGetBoatManagementAs(Member member) {
 		try {
 			rowBuddyFacade.login(member);
 		} catch (NotLoggedInException e1) {
@@ -199,16 +203,16 @@ public class SecuritySalamanderTest extends EjbTestBase {
 			}
 		}
 	}
-	
+
 	@Test(expected = NotLoggedInException.class)
-	public void cannotUpdateBoatAsUser() throws Exception{	
+	public void cannotUpdateBoatAsUser() throws Exception {
 		rowBuddyFacade.login(userMember);
 		assertTrue(rowBuddyFacade.isLoggedIn());
 		rowBuddyFacade.updateBoat(new Boat());
 	}
-	
+
 	@Test
-	public void canUpdateBoatAsAdmin(){
+	public void canUpdateBoatAsAdmin() {
 		try {
 			rowBuddyFacade.login(adminMember);
 			assertTrue(rowBuddyFacade.isLoggedIn());
@@ -218,14 +222,9 @@ public class SecuritySalamanderTest extends EjbTestBase {
 		}
 		try {
 			rowBuddyFacade.updateBoat(existingBoat);
-		} catch (FinderException e) {
-			e.printStackTrace();
-			fail();
 		} catch (RowBuddyException e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
-	
-	
 }

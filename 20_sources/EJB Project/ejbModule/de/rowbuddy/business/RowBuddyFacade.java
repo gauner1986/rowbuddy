@@ -80,23 +80,23 @@ public class RowBuddyFacade {
 		return boatManagement.getBoatOverview();
 	}
 
-	public Boat getBoat(Long id) throws FinderException {
+	public Boat getBoat(Long id) throws RowBuddyException {
 		return boatManagement.getBoat(id);
 	}
 	
 	@AllowedRoles(values = {"admin"})
-	public Boat addBoat(Boat addBoat) throws CreateException {
+	public Boat addBoat(Boat addBoat) throws RowBuddyException {
 		return boatManagement.addBoat(addBoat);
 	}
 
 	@AllowedRoles(values = {"admin"})
-	public Boat updateBoat(Boat updateBoat) throws FinderException,
+	public Boat updateBoat(Boat updateBoat) throws RowBuddyException,
 			RowBuddyException {
 		return boatManagement.updateBoat(updateBoat);
 	}
 	
 	@AllowedRoles(values = {"admin"})
-	public void deleteBoat(Long id) throws RemoveException {
+	public void deleteBoat(Long id) throws RowBuddyException {
 		boatManagement.deleteBoat(id);
 	}
 
