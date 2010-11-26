@@ -7,17 +7,16 @@ import de.rowbuddy.exceptions.RowBuddyException;
 
 /**
  * Entity implementation class for Entity: Role
- *
+ * 
  */
 @Entity
-
 public class Role implements Serializable {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id = null;
 	private String name = "";
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public Role() {
@@ -33,10 +32,12 @@ public class Role implements Serializable {
 	}
 
 	public void setName(String name) throws RowBuddyException {
-		if(name.length() < 1 || name.equals("") || name == null) {
-			throw new RowBuddyException("name of role has to be set");
+		if (name == null) {
+			throw new NullPointerException("Name of role must not be null");
+		}
+		if (name.isEmpty()) {
+			throw new RowBuddyException("Name of role has to be set");
 		}
 		this.name = name;
 	}
-   
 }
