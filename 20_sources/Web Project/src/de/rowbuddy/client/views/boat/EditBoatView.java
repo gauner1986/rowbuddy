@@ -52,7 +52,7 @@ public class EditBoatView extends Composite implements EditBoatPresenter.Display
 		nameText = new TextBox();
 		boatTable.setWidget(0, 1, nameText);
 		
-		boatTable.setText(1, 0, "Bootsplätze:");
+		boatTable.setText(1, 0, "Bootsplätze (ohne Steuermann):");
 		numberOfSeats = new TextBox();
 		boatTable.setWidget(1, 1, numberOfSeats);
 		
