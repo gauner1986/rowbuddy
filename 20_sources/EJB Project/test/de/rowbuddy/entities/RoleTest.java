@@ -24,7 +24,7 @@ public class RoleTest {
 		assertThat(role1.getName(), is(""));
 	}
 	
-	@Test(expected=RowBuddyException.class)
+	@Test(expected=NullPointerException.class)
 	public void cannotSetNullName() throws RowBuddyException{
 		role1.setName(null);
 	}
