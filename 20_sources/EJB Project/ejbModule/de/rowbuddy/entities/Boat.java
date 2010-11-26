@@ -37,10 +37,7 @@ public class Boat implements Serializable {
 		return this.id;
 	}
 
-	public void setId(Long id) throws RowBuddyException {
-		if (id == null){
-			throw new NullPointerException("Id cannot be null");
-		}
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
