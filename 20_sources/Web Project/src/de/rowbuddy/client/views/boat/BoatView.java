@@ -2,10 +2,8 @@ package de.rowbuddy.client.views.boat;
 
 import java.util.Collection;
 
-import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
@@ -36,7 +34,7 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 		addButton = new Button("Boot Hinzufügen");
-		addButton.setStyleName("buttonRegular");
+		addButton.setStyleName("buttonAdd buttonRegular");
 		hPanel.add(addButton);
 		contentTable.setWidget(2, 0, hPanel);
 		

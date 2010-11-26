@@ -41,7 +41,7 @@ public class MenuView extends Composite implements MenuDisplay {
 		// menuPanel.add(null, "Bootsreservierungen");
 		// menuPanel.add(null, "Mitgliederverwaltung");
 
-		Button logoutButton = new Button("Logout");
+		Button logoutButton = new Button("Logout");	
 		logoutButton.setStylePrimaryName("buttonLogout buttonNegative");
 
 		verticalPanel.add(menuPanel);

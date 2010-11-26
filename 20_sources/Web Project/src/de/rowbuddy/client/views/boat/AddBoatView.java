@@ -9,7 +9,6 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -39,11 +38,11 @@ public class AddBoatView extends Composite implements AddBoatPresenter.Display{
 		hPanel.setSpacing(0);
 		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 		addButton = new Button("Boot anlegen");
-		addButton.setStylePrimaryName("buttonPositive");
+		addButton.setStylePrimaryName("buttonAdd buttonPositive");
 		resetButton = new Button("Abbrechen");
-		resetButton.setStylePrimaryName("buttonNegative");
+		resetButton.setStylePrimaryName("buttonCancel buttonNegative");
 		addNextButton = new Button("Weiteres Boot hinzufügen");
-		addNextButton.setStylePrimaryName("buttonPositive");
+		addNextButton.setStylePrimaryName("buttonAdd buttonPositive");
 		hPanel.add(addButton);
 		hPanel.add(addNextButton);
 		hPanel.add(resetButton);
