@@ -18,19 +18,20 @@ public class Trip implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Long id = null;
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date startDate = new Date();
+	private Date startDate = null;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date endDate = null;
 	@ManyToOne
 	private Boat boat = null;
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private Collection<TripMember> tripMembers = new LinkedList<TripMember>();
 	@ManyToOne
 	private Member lastEditor = null;
 	@ManyToOne
 	private Route route = null;
+	private boolean finished = false;
 	private static final long serialVersionUID = 1L;
 
 	public Trip() {
@@ -41,70 +42,111 @@ public class Trip implements Serializable {
 		return this.id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(Long newId) {
+		this.id = newId;
 	}
 
 	public Date getStartDate() {
 		return this.startDate;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setStartDate(Date newStartDate) {
+		if (newStartDate == null){
+			throw new NullPointerException("Start date must not be null");
+		}
+		this.startDate = newStartDate;
+	}
+	
+	public void startNow(){
+		setStartDate(new Date());
+	}
+	
+	public void start(){
+		this.finished = false;
+	}
+	
+	public void finish(){
+		this.finished = true;
 	}
 
 	public Date getEndDate() {
 		return this.endDate;
 	}
 
-	public void setEndDate(Date endDate) throws RowBuddyException {
-		if (endDate.before(startDate)) {
-			throw new RowBuddyException("enddate has to be after the startdate");
+	public void setEndDate(Date newEndDate) {
+		if (newEndDate == null){
+			throw new NullPointerException("End date must not be null");
 		}
-		this.endDate = endDate;
+		this.endDate = newEndDate;
 	}
 
 	public Boat getBoat() {
 		return this.boat;
 	}
 
-	public void setBoat(Boat boat) {
-		this.boat = boat;
+	public void setBoat(Boat newBoat) {
+		if (newBoat == null) {
+			throw new NullPointerException("Boat must not be null");
+		}
+		this.boat = newBoat;
+	}
+
+	public void removeBoat() {
+		if (boat == null) {
+			throw new IllegalStateException("Boat is not set");
+		}
+		this.boat = null;
 	}
 
 	public Collection<TripMember> getTripMembers() {
 		return tripMembers;
 	}
 
-	public void setTripMembers(Collection<TripMember> tripMembers)
-			throws RowBuddyException {
-		if (tripMembers == null) {
-			throw new RowBuddyException("tripmembers must not be null");
+	public void setTripMembers(Collection<TripMember> newTripMembers) {
+		if (newTripMembers == null) {
+			throw new NullPointerException("Tripmembers must not be null");
 		}
-		this.tripMembers = tripMembers;
+		this.tripMembers = newTripMembers;
 	}
 
-	public void addTripMember(TripMember member) throws RowBuddyException {
-		if (member == null) {
-			throw new RowBuddyException("tripmember must not be null");
+	public void addTripMember(TripMember newMember) {
+		if (newMember == null) {
+			throw new NullPointerException("Tripmember must not be null");
 		}
-		tripMembers.add(member);
+		tripMembers.add(newMember);
 	}
 
 	public Member getLastEditor() {
 		return lastEditor;
 	}
 
-	public void setLastEditor(Member lastEditor) {
-		this.lastEditor = lastEditor;
+	public void setLastEditor(Member newLastEditor) {
+		if (newLastEditor == null) {
+			throw new NullPointerException("Last editor must not be null");
+		}
+		this.lastEditor = newLastEditor;
 	}
 
 	public Route getRoute() {
 		return route;
 	}
 
-	public void setRoute(Route route) {
-		this.route = route;
+	public void setRoute(Route newRoute) {
+		if (newRoute == null) {
+			throw new NullPointerException("Route must not be null");
+		}
+		this.route = newRoute;
+	}
+
+	public void removeRoute() {
+		if (this.route == null) {
+			throw new IllegalStateException("Route is not set");
+		}
+		this.route = null;
+	}
+
+	public boolean isFinished() {
+		return finished;
 	}
 
 	@Override
@@ -114,7 +156,7 @@ public class Trip implements Serializable {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -132,24 +174,38 @@ public class Trip implements Serializable {
 		}
 		return true;
 	}
+	
+	public void validateStartedTrip() throws RowBuddyException{
+		
+		if (startDate == null){
+			throw new RowBuddyException("Start date must be set");
+		}
+	}
+	
+	public void validateFinishedTrip() throws RowBuddyException {
 
-	public void validate() throws RowBuddyException {
+		validateStartedTrip();
+		
+		if (endDate == null){
+			throw new RowBuddyException("End date must be set");
+		}
+		
+		if (startDate.after(endDate)) {
+			throw new RowBuddyException(
+					"End date must be before start date");
+		}
+		
 		if (route == null) {
-			throw new RowBuddyException("Route must be set");
+			throw new RowBuddyException("A Route must be set");
+		}
+
+		if (boat == null) {
+			throw new RowBuddyException("A boat must be set");
+		}
+
+		if (tripMembers.size() == 0) {
+			throw new RowBuddyException("Please add tripmembers");
 		}
 		
-		if (boat == null){
-			throw new RowBuddyException("A boat must be selected");
-		}
-		
-		if (tripMembers.size() == 0){
-			throw new RowBuddyException("Please select tripmembers");
-		}
-		
-		if (endDate != null){
-			if (startDate.after(endDate)){
-				throw new RowBuddyException("End date must be before start date");
-			}
-		}
 	}
 }
