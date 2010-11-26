@@ -27,7 +27,8 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 	public BoatView() {
 		decorator = new DecoratorPanel();
 		contentTable = new FlexTable();
-
+		contentTable.setStylePrimaryName("contentTable");
+		
 		initWidget(decorator);
 		decorator.add(contentTable);
 

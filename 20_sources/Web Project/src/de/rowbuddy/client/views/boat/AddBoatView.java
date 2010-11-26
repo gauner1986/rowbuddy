@@ -32,7 +32,6 @@ public class AddBoatView extends Composite implements AddBoatPresenter.Display{
 		decorator = new DecoratorPanel();
 		initWidget(decorator);
 		decorator.add(contentTable);
-
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setBorderWidth(0);
 		hPanel.setSpacing(0);

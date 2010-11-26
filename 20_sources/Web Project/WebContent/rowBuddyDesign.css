@@ -162,6 +162,14 @@
 	background-color: #5891C8;
 }
 
+.contentTable{
+	width: 100%;	
+}
+
+.gwt-DecoratorPanel{
+	width: 100%;
+}
+
 .gwt-Anchor:LINK {
 	text-decoration: none;
 	color: #336699;
