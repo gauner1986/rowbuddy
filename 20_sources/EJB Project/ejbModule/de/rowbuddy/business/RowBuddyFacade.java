@@ -18,6 +18,7 @@ import javax.persistence.Query;
 import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.Member;
+import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
 
@@ -35,6 +36,8 @@ public class RowBuddyFacade {
 	EntityManager em;
 	@EJB
 	private BoatManagement boatManagement;
+	@EJB
+	private Logbook logbook;
 
 	/**
 	 * Default constructor.
@@ -100,4 +103,19 @@ public class RowBuddyFacade {
 		boatManagement.deleteBoat(id);
 	}
 
+	public void logRowedTrip(Trip rowedTrip) throws RowBuddyException{
+		logbook.logRowedTrip(rowedTrip, this.member);
+	}
+
+	public void startTrip(Trip startedTrip) throws RowBuddyException{
+		logbook.startTrip(startedTrip, this.member);
+	}
+
+	public List<Trip> getOpenTrips(){
+		return logbook.getOpenTrips();
+	}
+
+	public void finishTrip(Trip openTrip) throws RowBuddyException{
+		logbook.finishTrip(openTrip, this.member);
+	}
 }
