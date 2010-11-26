@@ -148,6 +148,7 @@
 	-khtml-border-radius-topleft: 20px;
 	-moz-border-radius-topright: 20px;
 	-khtml-border-radius-topright: 20px;
+	border-radius: 9px 9px 0px 0px;
 	padding: 10px 10px 10px 10px;
 }
 
