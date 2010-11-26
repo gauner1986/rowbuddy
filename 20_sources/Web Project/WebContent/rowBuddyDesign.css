@@ -15,11 +15,13 @@
 .cw-StackPanelHeader {
 	padding-left: 17px;
 	font-weight: bold;
-	font-size: 1.2em;
+	font-size: 1.0em;
+	color: #336699;
 }
 
-.logoHeader {
-	background: url("images/logo.png") no-repeat 4px 4px;
+.logoHeader{
+	padding-bottom: 30px;
+	padding-left: 30px;
 }
 
 .FlexTable-OddRow {
@@ -54,7 +56,7 @@
 }
 
 .buttonLogout {
-	background: url("icons/quit_blue.png") no-repeat 4px 4px;
+	background: url("icons/exit.png") no-repeat 4px 4px;
 	min-width: 200px;
 }
 
