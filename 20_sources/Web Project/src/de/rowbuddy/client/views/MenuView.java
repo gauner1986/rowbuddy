@@ -35,11 +35,10 @@ public class MenuView extends Composite implements MenuDisplay {
 		menuPanel.add(createViewTripMenu(), getHeaderString("Fahrtenbuch", images.logBook()), true);
 		menuPanel.add(createStatistikMenu(), getHeaderString("Statistiken", images.statistics()), true);
 		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.boat()), true);
-		// menuPanel.add(null, "Mitglieder");
-		// menuPanel.add(null, "Routen");
-		// menuPanel.add(null, "Bootsschäden");
-		// menuPanel.add(null, "Bootsreservierungen");
-		// menuPanel.add(null, "Mitgliederverwaltung");
+		menuPanel.add(createRouteMenu(), getHeaderString("Routen", images.map()), true);
+		menuPanel.add(createDamageMenu(), getHeaderString("Bootsschäden", images.sick()), true);
+		menuPanel.add(createReserveMenu(), getHeaderString("Bootsreservierungen", images.lock()), true);
+		menuPanel.add(createMemberControl(), getHeaderString("Mitgliederverwaltung", images.member()), true);
 
 		Button logoutButton = new Button("Logout");	
 		logoutButton.setStylePrimaryName("buttonExit buttonNegative");
@@ -49,6 +48,98 @@ public class MenuView extends Composite implements MenuDisplay {
 		initWidget(verticalPanel);
 	}
 	
+	private Widget createReserveMenu() {
+		FlexTable tb = new FlexTable();
+		Anchor browseReservations = new Anchor("Reservierungen anzeigen");
+		Anchor addReservation = new Anchor("Reservierung hinzufügen");
+		Anchor viewReservaton = new Anchor("Reservierung anzeigen");
+		Anchor deleteReservaton = new Anchor("Reservierung löschen");
+		Anchor editReservation = new Anchor("Reservierungeditieren");
+		
+		tb.setWidget(0, 0, browseReservations);
+		tb.setWidget(1, 0, addReservation);
+		tb.setWidget(2, 0, viewReservaton);
+		tb.setWidget(3, 0, deleteReservaton);
+		tb.setWidget(4, 0, editReservation);
+		
+		tb.getRowFormatter().setStyleName(0, "menuItem");
+		tb.getRowFormatter().setStyleName(1, "menuItem");
+		tb.getRowFormatter().setStyleName(2, "menuItem");
+		tb.getRowFormatter().setStyleName(3, "menuItem");
+		tb.getRowFormatter().setStyleName(4, "menuItem");
+		
+		return tb;
+	}
+
+	private Widget createDamageMenu() {
+		FlexTable tb = new FlexTable();
+		Anchor browseDamages = new Anchor("Schäden anzeigen");
+		Anchor logDamageBoat = new Anchor("Schaden registrieren");
+		Anchor viewDamage = new Anchor("Schaden anzeigen");
+		Anchor editDamage = new Anchor("Schaden editieren");
+		
+		tb.setWidget(0, 0, browseDamages);
+		tb.setWidget(1, 0, logDamageBoat);
+		tb.setWidget(2, 0, viewDamage);
+		tb.setWidget(3, 0, editDamage);
+		
+		tb.getRowFormatter().setStyleName(0, "menuItem");
+		tb.getRowFormatter().setStyleName(1, "menuItem");
+		tb.getRowFormatter().setStyleName(2, "menuItem");
+		tb.getRowFormatter().setStyleName(3, "menuItem");
+		
+		return tb;
+	}
+
+	private Widget createRouteMenu() {
+		FlexTable tb = new FlexTable();
+		Anchor browseRoutes = new Anchor("Routen anzeigen");
+		Anchor viewRoute = new Anchor("Route anzeigen");
+		Anchor addRoute = new Anchor("Route hinzufügen");
+		Anchor editRoute = new Anchor("(offene) Route editieren");
+		Anchor deleteRoute = new Anchor("Route löschen");
+		
+		tb.setWidget(0, 0, browseRoutes);
+		tb.setWidget(1, 0, viewRoute);
+		tb.setWidget(2, 0, addRoute);
+		tb.setWidget(3, 0, editRoute);
+		tb.setWidget(4, 0, deleteRoute);
+		
+		tb.getRowFormatter().setStyleName(0, "menuItem");
+		tb.getRowFormatter().setStyleName(1, "menuItem");
+		tb.getRowFormatter().setStyleName(2, "menuItem");
+		tb.getRowFormatter().setStyleName(3, "menuItem");
+		tb.getRowFormatter().setStyleName(4, "menuItem");
+		
+		return tb;
+	}
+
+	private Widget createMemberControl() {
+		FlexTable tb = new FlexTable();
+		Anchor browseMembers = new Anchor("Mitglieder anzeigen");
+		Anchor importMembers = new Anchor("Mitglieder importieren");
+		Anchor addMember = new Anchor("Mitglied hinzufügen");
+		Anchor editMember = new Anchor("Mitglied editieren");
+		Anchor activateMember = new Anchor("Mitglied (de)aktivieren");
+		Anchor deleteMember = new Anchor("Mitglied löschen");
+		
+		tb.setWidget(0, 0, browseMembers);
+		tb.setWidget(1, 0, importMembers);
+		tb.setWidget(2, 0, addMember);
+		tb.setWidget(3, 0, editMember);
+		tb.setWidget(4, 0, activateMember);
+		tb.setWidget(5, 0, deleteMember);
+		
+		tb.getRowFormatter().setStyleName(0, "menuItem");
+		tb.getRowFormatter().setStyleName(1, "menuItem");
+		tb.getRowFormatter().setStyleName(2, "menuItem");
+		tb.getRowFormatter().setStyleName(3, "menuItem");
+		tb.getRowFormatter().setStyleName(4, "menuItem");
+		tb.getRowFormatter().setStyleName(5, "menuItem");
+		
+		return tb;
+	}
+
 	private String getHeaderString(String text, ImageResource image) {
 	    // Add the image and text to a horizontal panel
 	    HorizontalPanel hPanel = new HorizontalPanel();

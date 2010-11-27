@@ -22,4 +22,16 @@ public interface Images extends Tree.Resources{
 	
 	@Source("statistics.png")
 	ImageResource statistics();
+	
+	@Source("member.png")
+	ImageResource member();
+	
+	@Source("sick.png")
+	ImageResource sick();
+	
+	@Source("map.png")
+	ImageResource map();
+	
+	@Source("lock.png")
+	ImageResource lock();
 }
