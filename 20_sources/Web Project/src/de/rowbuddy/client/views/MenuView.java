@@ -20,12 +20,12 @@ import de.rowbuddy.client.images.Images;
 
 public class MenuView extends Composite implements MenuDisplay {
 
-	private Button listBoats = null;
-
+	private Anchor browseBoats = new Anchor("Bootsübersicht");
+	private Anchor addBoat = new Anchor("Boot hinzufügen");
 	public MenuView() {
 		Images images = (Images) GWT.create(Images.class);
 
-		listBoats = new Button();
+		
 		// initWidget(stackPanel);
 		VerticalPanel verticalPanel = new VerticalPanel();
 		DecoratedStackPanel menuPanel = new DecoratedStackPanel();
@@ -65,22 +65,11 @@ public class MenuView extends Composite implements MenuDisplay {
 
 	private Widget createBoatMenu() {
 		FlexTable tb1 = new FlexTable();
-		
-		Anchor browseBoats = new Anchor("Bootsübersicht");
-		Anchor viewBoat = new Anchor("Boot ansehen");
-		Anchor addBoat = new Anchor("Boot hinzufügen");
-		Anchor lockBoat = new Anchor("?");
 		tb1.setWidget(0, 0, browseBoats);
-		tb1.setWidget(1, 0, viewBoat);
-		tb1.setWidget(2, 0, addBoat);
-		tb1.setWidget(5, 0, lockBoat);
+		tb1.setWidget(1, 0, addBoat);	
 		
 		tb1.getRowFormatter().setStyleName(0, "menuItem");
 		tb1.getRowFormatter().setStyleName(1, "menuItem");
-		tb1.getRowFormatter().setStyleName(2, "menuItem");
-		tb1.getRowFormatter().setStyleName(3, "menuItem");
-		tb1.getRowFormatter().setStyleName(4, "menuItem");
-		tb1.getRowFormatter().setStyleName(5, "menuItem");
 		
 		
 		return tb1;
@@ -184,12 +173,17 @@ public class MenuView extends Composite implements MenuDisplay {
 
 	@Override
 	public HasClickHandlers getListBoatButton() {
-		return listBoats;
+		return browseBoats;
 	}
 
 	@Override
 	public Widget asWidget() {
 		return this;
+	}
+
+	@Override
+	public HasClickHandlers getAddBoat() {
+		return addBoat;
 	}
 
 }

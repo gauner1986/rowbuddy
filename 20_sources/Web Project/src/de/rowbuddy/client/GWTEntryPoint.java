@@ -43,19 +43,21 @@ public class GWTEntryPoint implements EntryPoint {
 
 		HasWidgets mainPanel = initialMainPanel();
 		FlowPanel messagePanel = new FlowPanel();
-
-
-		RootPanel.get("Main").add(initalRootFlexTable(mainPanel, messagePanel));
+		SimpleEventBus eventBus = new SimpleEventBus();
+		
+		VerticalPanel vPanel = new VerticalPanel();
+		
+		RootPanel.get("Main").add(initalRootFlexTable(mainPanel, messagePanel, vPanel));
 
 		
-		SimpleEventBus eventBus = new SimpleEventBus();
-		AppController controller = new AppController(boatService, eventBus, messagePanel);
+		
+		AppController controller = new AppController(boatService, eventBus, messagePanel, vPanel);
 
 		controller.start(mainPanel);
 		logger.info("Application started");
 	}
 
-	private Widget initalRootFlexTable(HasWidgets mainPanel, Widget messagePanel) {
+	private Widget initalRootFlexTable(HasWidgets mainPanel, Widget messagePanel, VerticalPanel vPanel) {
 		Images images = (Images) GWT.create(Images.class);
 
 		final FlexTable flexTable = new FlexTable();
@@ -87,10 +89,10 @@ public class GWTEntryPoint implements EntryPoint {
 		flexTable.setWidget(0, 0, hPanel);
 
 		cellFormatter.setWidth(1, 0, "20%");
-		Presenter presenter = new MenuPresenter(new MenuView());
-		VerticalPanel vetPanel = new VerticalPanel();
-		presenter.start(vetPanel);
-		flexTable.setWidget(1, 0, vetPanel);
+		
+		
+		
+		flexTable.setWidget(1, 0, vPanel);
 
 		//messagePanel.setStyleName("messages");
 		DecoratorPanel panel = new DecoratorPanel();

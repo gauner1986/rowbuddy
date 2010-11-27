@@ -16,9 +16,11 @@ import de.rowbuddy.client.events.ListBoatEventHandler;
 import de.rowbuddy.client.presenter.AddBoatPresenter;
 import de.rowbuddy.client.presenter.BoatPresenter;
 import de.rowbuddy.client.presenter.EditBoatPresenter;
+import de.rowbuddy.client.presenter.MenuPresenter;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.StatusMessagePresenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
+import de.rowbuddy.client.views.MenuView;
 import de.rowbuddy.client.views.MessageView;
 import de.rowbuddy.client.views.boat.AddBoatView;
 import de.rowbuddy.client.views.boat.BoatView;
@@ -29,13 +31,15 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 	private BoatRemoteServiceAsync boatService;
 	private HasWidgets container;
 	private StatusMessagePresenter statusPresenter; 
+	private Presenter menuPresenter;
 	
-	public AppController(BoatRemoteServiceAsync boatService, SimpleEventBus eventBus, HasWidgets messageContainer) {
+	public AppController(BoatRemoteServiceAsync boatService, SimpleEventBus eventBus, HasWidgets messageContainer, HasWidgets menuPanel) {
 		this.boatService = boatService;
 		this.eventBus = eventBus;
 		this.statusPresenter = new StatusMessagePresenter(new MessageView(), eventBus);
 		statusPresenter.start(messageContainer);
-		
+		menuPresenter = new MenuPresenter(new MenuView(), eventBus);
+		menuPresenter.start(menuPanel);
 	}  
 	
 	//bind Event handling here
