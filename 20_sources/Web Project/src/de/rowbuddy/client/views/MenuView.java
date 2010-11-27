@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.MenuDisplay;
+import de.rowbuddy.client.presenter.MenuPresenter.MenuDisplay;
 import de.rowbuddy.client.images.Images;
 
 public class MenuView extends Composite implements MenuDisplay {

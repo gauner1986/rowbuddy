@@ -2,14 +2,19 @@ package de.rowbuddy.client.presenter;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.HistoryConstants;
-import de.rowbuddy.client.MenuDisplay;
 
 public class MenuPresenter implements Presenter, HistoryConstants{
-
+	
+	public interface MenuDisplay {
+		public HasClickHandlers getListBoatButton();
+		public Widget asWidget();
+	}
 	private MenuDisplay view;
 	private HasWidgets container;
 	
