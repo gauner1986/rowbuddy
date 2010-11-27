@@ -98,7 +98,7 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 
 			if(presenter != null) {
 				FadeAnimation fade = new FadeAnimation(container, presenter);
-				fade.run(2000);
+				fade.run(800);
 			}
 		}	
 	}

@@ -1,6 +1,11 @@
 @CHARSET "ISO-8859-1";
 
 
+body{
+	font-family: sans-serif;
+	font-variant: small-caps;
+}
+
 .flexTable{
    	border-spacing: 3 0;
 }
@@ -67,14 +72,6 @@
 	font-size: 22px;
 	font-weight: bold;
 	height: 50px;
-}
-
-.buttonLogout {
-	background: url("icons/exit.png") no-repeat 4px 4px;
-	height: 42px;
-	background-color: #dff4ff;
-	border: 1px solid #bbbbbb;
-	padding: 10px;
 }
 
 .buttonAdd {
@@ -197,6 +194,7 @@
 }
 
 .gwt-Anchor:LINK {
+	font-size:small;
 	text-decoration: none;
 	color: #336699;
 	padding-left: 10px;
@@ -214,6 +212,10 @@
 
 .gwt-Anchor:ACTIVE {
 	color: blue;
+}
+
+.buttonApply{
+	background: url("icons/apply.png") no-repeat 4px 4px;
 }
 
 .viewPanel {
