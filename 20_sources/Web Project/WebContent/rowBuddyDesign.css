@@ -1,19 +1,15 @@
 @CHARSET "ISO-8859-1";
 
-
-body{
+body {
 	font-family: sans-serif;
 	font-variant: small-caps;
 }
 
-.flexTable{
-   	border-spacing: 3 0;
-}
-.statusMessages {
-	
+.flexTable {
+	border-spacing: 3 0;
 }
 
-.messages{
+.messages {
 	border: 3px solid #bbbbbb;
 	border-bottom: 0px;
 	-moz-border-radius-topleft: 20px;
@@ -22,10 +18,6 @@ body{
 	-khtml-border-radius-topright: 20px;
 	border-radius: 20px 20px 0px 0px;
 	width: 100%;
-}
-
-#Main {
-	
 }
 
 .cw-StackPanelHeader {
@@ -82,8 +74,16 @@ body{
 	background: url("icons/cancel.png") no-repeat 4px 4px;
 }
 
-.buttonSave{
+.buttonSave {
 	background: url("icons/save.png") no-repeat 4px 4px;
+}
+
+.buttonExit {
+	background: url("icons/exit.png") no-repeat 4px 4px;
+}
+
+.buttonApply {
+	background: url("icons/apply.png") no-repeat 4px 4px;
 }
 
 .buttonRegular {
@@ -149,7 +149,7 @@ body{
 	color: #fff;
 }
 
-.menuPanel{
+.menuPanel {
 	border: 3px solid #bbbbbb;
 	border-bottom: 1px solid #bbbbbb;
 	-moz-border-radius-topleft: 20px;
@@ -165,9 +165,9 @@ body{
 	min-width: 200px;
 	padding: 10px 10px 10px 10px;
 }
-.contentPanel{
+
+.contentPanel {
 	border: 3px solid #bbbbbb;
-	
 }
 
 .gwt-DecoratedStackPanel .gwt-StackPanelItem {
@@ -175,26 +175,27 @@ body{
 	background-color: #dff4ff;
 	border: 1px solid #bbbbbb;
 	padding: 10px;
+	color: blue;
 }
 
 .gwt-DecoratedStackPanel .gwt-StackPanelItem-selected {
 	background-color: #5891C8;
 }
 
-.contentTable{
-	width: 80%;	
+.contentTable {
+	width: 80%;
 }
-.messageDecorator{
+
+.messageDecorator {
 	min-height: 50px;
 }
 
-
-.gwt-DecoratorPanel{
+.gwt-DecoratorPanel {
 	width: 100%;
 }
 
 .gwt-Anchor:LINK {
-	font-size:small;
+	font-size: small;
 	text-decoration: none;
 	color: #336699;
 	padding-left: 10px;
@@ -214,14 +215,12 @@ body{
 	color: blue;
 }
 
-.buttonApply{
-	background: url("icons/apply.png") no-repeat 4px 4px;
-}
-
 .viewPanel {
 	border: 3px solid #bbbbbb;
 	vertical-align: top;
 	border-top: none;
+	border-bottom: 1px solid #bbbbbb;
+	padding: 20px;
 }
 
 .boatTable {

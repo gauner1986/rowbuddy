@@ -4,7 +4,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -15,8 +14,8 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.presenter.MenuPresenter.MenuDisplay;
 import de.rowbuddy.client.images.Images;
+import de.rowbuddy.client.presenter.MenuPresenter.MenuDisplay;
 
 public class MenuView extends Composite implements MenuDisplay {
 
@@ -34,17 +33,13 @@ public class MenuView extends Composite implements MenuDisplay {
 		menuPanel.add(createProfilMenu(), getHeaderString("Profil", images.profil()), true);
 		menuPanel.add(createViewTripMenu(), getHeaderString("Fahrtenbuch", images.logBook()), true);
 		menuPanel.add(createStatistikMenu(), getHeaderString("Statistiken", images.statistics()), true);
+		menuPanel.add(createRouteMenu(),getHeaderString("Route", images.map()), true);
 		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.boat()), true);
 		menuPanel.add(createDamageMenu(), getHeaderString("Bootsschäden", images.sick()), true);
 		menuPanel.add(createReserveMenu(), getHeaderString("Bootsreservierungen", images.lock()), true);
 		menuPanel.add(createMemberControl(), getHeaderString("Mitgliederverwaltung", images.member()), true);
 		
-
-		Button logoutButton = new Button("Logout");	
-		logoutButton.setStylePrimaryName("buttonExit buttonNegative");
-
 		verticalPanel.add(menuPanel);
-		verticalPanel.add(logoutButton);
 		initWidget(verticalPanel);
 	}
 	

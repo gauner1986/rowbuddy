@@ -8,6 +8,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
@@ -23,11 +24,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.images.Images;
-import de.rowbuddy.client.presenter.MenuPresenter;
-import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteService;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
-import de.rowbuddy.client.views.MenuView;
 
 public class GWTEntryPoint implements EntryPoint {
 
@@ -82,10 +80,21 @@ public class GWTEntryPoint implements EntryPoint {
 		hPanel.setWidth("100%");
 		hPanel.setStylePrimaryName("logoHeader");
 		hPanel.add(new Image(images.logo()));
+		
 		Label loginLabel = new Label("Login: ich");
 		loginLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		hPanel.add(loginLabel);
-		hPanel.setCellWidth(loginLabel, "20%");
+		Button logoutButton = new Button("Logout");	
+		logoutButton.setStylePrimaryName("buttonExit buttonNegative");
+		
+		VerticalPanel verticalPanel = new VerticalPanel();
+		verticalPanel.add(loginLabel);
+		verticalPanel.add(logoutButton);
+			
+		hPanel.add(verticalPanel);
+		
+		hPanel.setCellWidth(verticalPanel, "20%");
+		
+		
 		flexTable.setWidget(0, 0, hPanel);
 
 		cellFormatter.setWidth(1, 0, "20%");
