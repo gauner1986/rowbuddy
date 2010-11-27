@@ -37,7 +37,7 @@ public class AddBoatView extends Composite implements AddBoatPresenter.Display{
 		hPanel.setSpacing(0);
 		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 		addButton = new Button("Boot anlegen");
-		addButton.setStylePrimaryName("buttonAdd buttonPositive");
+		addButton.setStylePrimaryName("buttonApply buttonPositive");
 		resetButton = new Button("Abbrechen");
 		resetButton.setStylePrimaryName("buttonCancel buttonNegative");
 		addNextButton = new Button("Weiteres Boot hinzufügen");

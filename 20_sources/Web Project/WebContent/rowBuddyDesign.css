@@ -1,15 +1,12 @@
 @CHARSET "ISO-8859-1";
 
+body{
+	font-family: sans-serif;
+	font-variant: small-caps;
+}
+
 .flexTable td {
 	border: 0px solid #BBBBBB;
-}
-
-.statusMessages {
-	
-}
-
-#Main {
-	
 }
 
 .cw-StackPanelHeader {
@@ -58,7 +55,7 @@
 	height: 50px;
 }
 
-.buttonLogout {
+.buttonExit {
 	background: url("icons/exit.png") no-repeat 4px 4px;
 }
 
@@ -72,6 +69,10 @@
 
 .buttonSave{
 	background: url("icons/save.png") no-repeat 4px 4px;
+}
+
+.buttonApply{
+	background: url("icons/apply.png") no-repeat 4px 4px;
 }
 
 .buttonRegular {
@@ -156,7 +157,7 @@
 	height: 42px;
 	background-color: #dff4ff;
 	border: 1px solid #bbbbbb;
-	padding: 10px;
+	padding: 4px;
 }
 
 .gwt-DecoratedStackPanel .gwt-StackPanelItem-selected {
@@ -172,6 +173,7 @@
 }
 
 .gwt-Anchor:LINK {
+	font-size:small;
 	text-decoration: none;
 	color: #336699;
 	padding-left: 10px;
