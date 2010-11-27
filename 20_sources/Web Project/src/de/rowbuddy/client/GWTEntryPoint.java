@@ -8,6 +8,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -91,16 +92,25 @@ public class GWTEntryPoint implements EntryPoint {
 		presenter.start(vetPanel);
 		flexTable.setWidget(1, 0, vetPanel);
 
-		messagePanel.setStyleName("messages");
-		flexTable.setWidget(1, 1, messagePanel);
+		//messagePanel.setStyleName("messages");
+		DecoratorPanel panel = new DecoratorPanel();
+		
+		panel.setWidget(messagePanel);
+		flexTable.setWidget(1, 1, panel);
+		//panel.setStylePrimaryName("messages");
+		flexTable.getCellFormatter().setStylePrimaryName(1, 0, "menuPanel");
+		flexTable.getCellFormatter().setStylePrimaryName(1, 1, "messages");
 
 		flexTable.setWidget(2, 0, (Widget) mainPanel);
-		flexTable.getRowFormatter().setStylePrimaryName(2, "viewPanel");
+		
+		flexTable.getCellFormatter().setStylePrimaryName(2, 0, "viewPanel");
+		
 		return flexTable;
 	}
 
 	private HasWidgets initialMainPanel() {
 		FlowPanel panel = new FlowPanel();
+		
 		return panel;
 	}
 
