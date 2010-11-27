@@ -37,7 +37,7 @@ public class GWTEntryPoint implements EntryPoint {
 				.create(BoatRemoteService.class);
 		((ServiceDefTarget) boatService).setServiceEntryPoint(GWT
 				.getHostPageBaseURL() + "BoatRemoteServiceImpl");
-		// Window.alert(GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
+		logger.info("Service registerd: " + GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
 
 		HasWidgets mainPanel = initialMainPanel();
 		FlowPanel messagePanel = new FlowPanel();

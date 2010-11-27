@@ -1,5 +1,7 @@
 package de.rowbuddy.client;
 
+import java.util.logging.Logger;
+
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -32,6 +34,7 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 	private HasWidgets container;
 	private StatusMessagePresenter statusPresenter; 
 	private Presenter menuPresenter;
+	private Logger logger = Logger.getLogger(AppController.class.getName());
 	
 	public AppController(BoatRemoteServiceAsync boatService, SimpleEventBus eventBus, HasWidgets messageContainer, HasWidgets menuPanel) {
 		this.boatService = boatService;
@@ -85,6 +88,7 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 	@Override
 	public void onValueChange(ValueChangeEvent<String> arg0) {
 		String token = arg0.getValue();
+		logger.info("History token changed: " + arg0.getValue());
 		if(token != null) {
 			Presenter presenter = null;
 			statusPresenter.clear();
