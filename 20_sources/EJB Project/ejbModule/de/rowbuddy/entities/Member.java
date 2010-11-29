@@ -4,23 +4,22 @@ import java.io.Serializable;
 import java.lang.String;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 
 import javax.persistence.*;
 
 import de.rowbuddy.exceptions.RowBuddyException;
 
-
 /**
  * Entity implementation class for Entity: Member
- *
+ * 
  */
 @Entity
 public class Member implements Serializable {
 
-	   
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id = null;
 	private String memberId = "";
 	private String givenname = "";
 	private String surname = "";
@@ -33,71 +32,87 @@ public class Member implements Serializable {
 	private String city = "";
 	private String zipCode = "";
 	@OneToMany
-	private Collection<Trip> publishedTrips;
-	@ManyToMany(cascade=CascadeType.ALL)
-	private Collection<Role> roles;
+	private Collection<Trip> publishedTrips = new LinkedList<Trip>();
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Collection<Role> roles = new LinkedList<Role>();
 	private static final long serialVersionUID = 1L;
-	
-	public Member() {
-		super();
-	}   
+
 	public Long getId() {
 		return this.id;
 	}
 
 	public void setId(Long id) {
+		if (id == null){
+			throw new NullPointerException("Id must not be null");
+		}
 		this.id = id;
-	}   
+	}
+
 	public String getMemberId() {
 		return this.memberId;
 	}
 
 	public void setMemberId(String memberId) throws RowBuddyException {
-		if(memberId.length() < 1 || memberId.equals("") || memberId == null) {
-			throw new RowBuddyException("member ID has to be set");
+		if (memberId == null){
+			throw new NullPointerException("Member ID must not be null");
+		}
+		if (memberId.isEmpty()) {
+			throw new RowBuddyException("Member ID has to be set");
 		}
 		this.memberId = memberId;
-	}   
+	}
+
 	public String getGivenname() {
 		return this.givenname;
 	}
 
 	public void setGivenname(String givenname) throws RowBuddyException {
-		if(givenname.length() < 1 || givenname.equals("") || givenname == null) {
-			throw new RowBuddyException("givenname has to be set");
+		if (givenname == null){
+			throw new NullPointerException("Givenname must not be null");
+		}
+		if (givenname.isEmpty()) {
+			throw new RowBuddyException("Givenname has to be set");
 		}
 		this.givenname = givenname;
-	}   
+	}
+
 	public String getSurname() {
 		return this.surname;
 	}
 
 	public void setSurname(String surname) throws RowBuddyException {
-		if(surname.length() < 1 || surname.equals("") || surname == null) {
-			throw new RowBuddyException("surname has to be set");
+		if (surname == null){
+			throw new NullPointerException("Surname must not be null");
+		}
+		if (surname.isEmpty()) {
+			throw new RowBuddyException("Surname has to be set");
 		}
 		this.surname = surname;
-	}   
+	}
+
 	public Date getBirthdate() {
 		return this.birthdate;
 	}
 
 	public void setBirthdate(Date birthdate) throws RowBuddyException {
-		if(birthdate.compareTo(new Date()) > 0) {
-			throw new RowBuddyException("birthday of the memeber has to be in the past");
+		if (birthdate.compareTo(new Date()) > 0) {
+			throw new RowBuddyException(
+					"birthday of the memeber has to be in the past");
 		}
 		this.birthdate = birthdate;
-	}   
+	}
+
 	public String getEmail() {
 		return this.email;
 	}
 
 	public void setEmail(String email) throws RowBuddyException {
-		if(email == "a") {
+		if (email == "a") {
 			throw new RowBuddyException("email is not valid");
 		}
 		this.email = email;
-	}   
+	}
+
 	public String getPassword() {
 		return this.password;
 	}
@@ -105,28 +120,32 @@ public class Member implements Serializable {
 	public void setPassword(String password) {
 		// TODO encryption of password
 		this.password = password;
-	}   
+	}
+
 	public boolean getDeleted() {
 		return this.deleted;
 	}
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
-	}   
+	}
+
 	public String getStreet() {
 		return this.street;
 	}
 
 	public void setStreet(String street) {
 		this.street = street;
-	}   
+	}
+
 	public String getCity() {
 		return this.city;
 	}
 
 	public void setCity(String city) {
 		this.city = city;
-	}   
+	}
+
 	public String getZipCode() {
 		return this.zipCode;
 	}
@@ -134,15 +153,38 @@ public class Member implements Serializable {
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
-	
+
 	public Collection<Trip> getPublishedTrips() {
 		return publishedTrips;
 	}
-	
+
 	public void setPublishedTrips(Collection<Trip> publishedTrips) {
+		if (publishedTrips == null){
+			throw new NullPointerException("Published trips must not be null");
+		}
 		this.publishedTrips = publishedTrips;
 	}
-	
+
+	public Collection<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Collection<Role> roles) {
+		if (roles == null) {
+			throw new NullPointerException("Roles must not be null");
+		}
+		this.roles = roles;
+	}
+
+	public boolean isInRole(String roleName) {
+		for (Role r : roles) {
+			if (r.getName().equals(roleName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -150,7 +192,7 @@ public class Member implements Serializable {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -168,12 +210,4 @@ public class Member implements Serializable {
 		}
 		return true;
 	}
-	
-	public Collection<Role> getRoles() {
-		return roles;
-	}
-	public void setRoles(Collection<Role> roles) {
-		this.roles = roles;
-	}	
-   
 }

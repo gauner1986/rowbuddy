@@ -8,8 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
+import de.rowbuddy.business.dtos.TripDTO;
+import de.rowbuddy.business.dtos.TripDTOConverter;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.RowBuddyException;
@@ -20,6 +20,7 @@ public class Logbook {
 
 	@PersistenceContext
 	EntityManager em;
+	TripDTOConverter tripConverter = new TripDTOConverter();
 
 	/**
 	 * Add a finished trip to the logbook. A trip contains information about the
@@ -43,7 +44,6 @@ public class Logbook {
 		rowedTrip.validateFinishedTrip();
 
 		rowedTrip.setLastEditor(editor);
-		rowedTrip.finish();
 
 		em.persist(rowedTrip);
 	}
@@ -68,7 +68,6 @@ public class Logbook {
 		startedTrip.validateStartedTrip();
 
 		startedTrip.setLastEditor(editor);
-		startedTrip.start();
 
 		em.persist(startedTrip);
 	}
@@ -76,20 +75,25 @@ public class Logbook {
 	/**
 	 * @return List of trips that are not finished yet.
 	 */
-	public List<Trip> getOpenTrips() {
+	public List<TripDTO> getOpenTrips(Member currentUser) {
 		TypedQuery<Trip> q = em.createQuery(
 				"SELECT t FROM Trip t WHERE t.finished=false", Trip.class);
-		return q.getResultList();
+		List<Trip> trips =q.getResultList();
+		List<TripDTO> dtoList = tripConverter.getList(trips);
+		for (TripDTO dto : dtoList){
+			dto.canEditTrip = canEditTrip(dto.trip, currentUser);
+		}
+		return dtoList; 
 	}
 
 	/**
 	 * stops
 	 * 
 	 * @param openTrip
-	 * @param editor
+	 * @param currentUser
 	 * @throws RowBuddyException
 	 */
-	public void finishTrip(Trip openTrip, Member editor)
+	public void finishTrip(Trip openTrip, Member currentUser)
 			throws RowBuddyException {
 
 		if (openTrip.getId() == null) {
@@ -101,13 +105,38 @@ public class Logbook {
 			throw new RowBuddyException("Trip does not exist");
 		}
 
-		// todo: check permissions (last editor, trip members, admin)
+		if (!canEditTrip(dbTrip, currentUser)) {
+			throw new RowBuddyException("You are not allowed to edit this trip");
+		}
 
 		openTrip.validateFinishedTrip();
 
-		openTrip.setLastEditor(editor);
-		openTrip.finish();
+		openTrip.setLastEditor(currentUser);
 
 		em.merge(openTrip);
+	}
+
+	public boolean canEditTrip(Trip trip, Member currentUser) {
+		Trip persistedTrip = trip;
+		if (!em.contains(trip)) {
+			persistedTrip = em.getReference(Trip.class, trip.getId());
+		}
+
+		Member persistedMember = currentUser;
+		if (!em.contains(currentUser)) {
+			persistedMember = em
+					.getReference(Member.class, currentUser.getId());
+		}
+
+		if (persistedTrip.getLastEditor().equals(persistedMember)) {
+			return true;
+		}
+		if (persistedTrip.getTripMembers().contains(persistedMember)) {
+			return true;
+		}
+		if (persistedMember.isInRole("admin")) {
+			return true;
+		}
+		return false;
 	}
 }

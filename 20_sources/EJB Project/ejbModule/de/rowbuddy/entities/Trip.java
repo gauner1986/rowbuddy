@@ -61,14 +61,6 @@ public class Trip implements Serializable {
 		setStartDate(new Date());
 	}
 	
-	public void start(){
-		this.finished = false;
-	}
-	
-	public void finish(){
-		this.finished = true;
-	}
-
 	public Date getEndDate() {
 		return this.endDate;
 	}
@@ -78,6 +70,7 @@ public class Trip implements Serializable {
 			throw new NullPointerException("End date must not be null");
 		}
 		this.endDate = newEndDate;
+		this.finished = true;
 	}
 
 	public Boat getBoat() {

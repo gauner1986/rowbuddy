@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import de.rowbuddy.business.dtos.BoatDTO;
+import de.rowbuddy.business.dtos.TripDTO;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Trip;
@@ -111,8 +112,8 @@ public class RowBuddyFacade {
 		logbook.startTrip(startedTrip, this.member);
 	}
 
-	public List<Trip> getOpenTrips(){
-		return logbook.getOpenTrips();
+	public List<TripDTO> getOpenTrips(){
+		return logbook.getOpenTrips(this.member);
 	}
 
 	public void finishTrip(Trip openTrip) throws RowBuddyException{

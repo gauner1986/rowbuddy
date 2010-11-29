@@ -2,6 +2,7 @@ package de.rowbuddy.client.services;
 
 import java.util.List;
 
+import de.rowbuddy.business.dtos.TripDTO;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.RowBuddyException;
 
@@ -11,7 +12,7 @@ public interface LogbookRemoteService {
 
 	public void startTrip(Trip startedTrip) throws RowBuddyException;
 
-	public List<Trip> getOpenTrips();
+	public List<TripDTO> getOpenTrips();
 
 	public void finishTrip(Trip openTrip) throws RowBuddyException;
 

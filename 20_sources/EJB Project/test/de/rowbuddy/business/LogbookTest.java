@@ -15,6 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.rowbuddy.business.dtos.TripDTO;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.entities.TripMember;
 import de.rowbuddy.entities.TripMemberType;
@@ -119,7 +120,7 @@ public class LogbookTest extends EjbTestBase {
 		logbook.startTrip(startedTrip3, db.getMembers().get(0));
 
 		// when
-		List<Trip> startedTrips = logbook.getOpenTrips();
+		List<TripDTO> startedTrips = logbook.getOpenTrips(db.getMembers().get(0));
 		
 		// then
 		assertNotNull(startedTrips);
@@ -130,11 +131,12 @@ public class LogbookTest extends EjbTestBase {
 	public void canStopRowing() throws RowBuddyException, ParseException {
 		// given
 		logbook.startTrip(startedTrip1, db.getMembers().get(0));
-		List<Trip> openTrips = logbook.getOpenTrips();
+		List<TripDTO> openTrips = logbook.getOpenTrips(db.getMembers().get(0));
 		assertNotNull(openTrips);
 		assertThat(openTrips.size(), is(1));
+		assertNotNull(openTrips.get(0).trip);
 
-		Trip openTrip = openTrips.get(0);
+		Trip openTrip = openTrips.get(0).trip;
 		openTrip.setBoat(db.getBoats().get(1));
 		openTrip.addTripMember(tripMember1);
 		openTrip.addTripMember(tripMember2);
@@ -149,7 +151,7 @@ public class LogbookTest extends EjbTestBase {
 		Trip dbTrip = em.getReference(Trip.class, openTrip.getId());
 		assertThat(dbTrip.isFinished(), is(true));
 		
-		openTrips = logbook.getOpenTrips();
+		openTrips = logbook.getOpenTrips(db.getMembers().get(0));
 		assertThat(openTrips.size(), is(0));
 	}
 }
