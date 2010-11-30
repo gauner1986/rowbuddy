@@ -5,6 +5,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -31,6 +32,7 @@ public class BoatDetail extends Composite implements Display{
 	private TabBar bar;
 	private int damageIndex = 1;
 	private int reservationIndex = 1;
+	
 	public BoatDetail(){
 		contentTable = new FlexTable();
 		decorator = new DecoratorPanel();
@@ -45,6 +47,7 @@ public class BoatDetail extends Composite implements Display{
 		editButton.setStylePrimaryName("buttonEdit buttonRegular");
 		cancelButton = new Button("Abbrechen");
 		cancelButton.setStylePrimaryName("buttonCancel buttonNegative");
+
 		hPanel.add(editButton);
 		hPanel.add(cancelButton);
 	
@@ -90,6 +93,8 @@ public class BoatDetail extends Composite implements Display{
 	    reservationTable.getRowFormatter().setStyleName(0, "boatTableHeader");
 	    damagesTable.setStylePrimaryName("boatTable");
 	    damagesTable.getRowFormatter().setStyleName(0, "boatTableHeader");
+	    
+	    
 	    
 		contentTable.setWidget(1, 0, bar);
 		contentTable.setWidget(2, 0, detailTable);
@@ -165,6 +170,5 @@ public class BoatDetail extends Composite implements Display{
 		damagesTable.setText(reservationIndex, 2, logger);
 		reservationIndex++;
 	}
-	
 
 }

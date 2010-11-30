@@ -35,6 +35,14 @@ public class EditBoatPresenter implements Presenter {
 		HasValue<Boolean> isLocked();
 
 		Widget asWidget();
+
+		HasClickHandlers getPopUpButton();
+
+		void showPopUp();
+
+		HasClickHandlers getDeleteButton();
+
+		void closeDialog();
 	}
 
 	private Display view;
@@ -121,7 +129,7 @@ public class EditBoatPresenter implements Presenter {
 							logger.info("Submit successful GoTo ListBoats");
 							eventBus.fireEvent(new ListBoatEvent());
 							StatusMessage message = new StatusMessage(false);
-							message.setStatus(Status.POSITIVE);	
+							message.setStatus(Status.POSITIVE);
 							message.setMessage("Boot erfolgreich geändert");
 							eventBus.fireEvent(new StatusMessageEvent(message));
 						}
@@ -131,8 +139,9 @@ public class EditBoatPresenter implements Presenter {
 							logger.warning("Cannout update Boat:"
 									+ arg0.getMessage());
 							StatusMessage message = new StatusMessage(false);
-							message.setStatus(Status.NEGATIVE);	
-							message.setMessage("Fehler beim Ändern: " + arg0.getMessage());
+							message.setStatus(Status.NEGATIVE);
+							message.setMessage("Fehler beim Ändern: "
+									+ arg0.getMessage());
 							eventBus.fireEvent(new StatusMessageEvent(message));
 						}
 					});
@@ -146,6 +155,43 @@ public class EditBoatPresenter implements Presenter {
 			@Override
 			public void onClick(ClickEvent arg0) {
 				eventBus.fireEvent(new ListBoatEvent());
+			}
+		});
+
+		view.getPopUpButton().addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent arg0) {
+				view.showPopUp();
+			}
+		});
+
+		view.getDeleteButton().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				view.closeDialog();
+				boatService.deleteBoat(id, new AsyncCallback<Void>() {
+
+					@Override
+					public void onFailure(Throwable arg0) {
+						logger.severe("Cannot delete boat: "
+								+ arg0.getMessage());
+						StatusMessage msg = new StatusMessage(false);
+						msg.setMessage(arg0.getMessage());
+						msg.setStatus(Status.NEGATIVE);
+						eventBus.fireEvent(new StatusMessageEvent(msg));
+					}
+
+					@Override
+					public void onSuccess(Void arg0) {
+						eventBus.fireEvent(new ListBoatEvent());
+						StatusMessage msg = new StatusMessage(false);
+						msg.setMessage("Boat deleted");
+						msg.setStatus(Status.POSITIVE);
+						eventBus.fireEvent(new StatusMessageEvent(msg));
+					}
+				});
 			}
 		});
 	}

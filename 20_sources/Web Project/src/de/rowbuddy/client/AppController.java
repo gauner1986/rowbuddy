@@ -88,7 +88,7 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 		Presenter presenter = new BoatDetailPresenter(new BoatDetail(), boatService, eventBus, id);
 		statusPresenter.clear();
 		FadeAnimation fade = new FadeAnimation(container, presenter);
-		fade.run(800);		
+		fade.run(400);		
 	}
 	
 	private void doOnEditBoat(Long id){
@@ -96,7 +96,7 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 		Presenter presenter = new EditBoatPresenter(new EditBoatView(), boatService, eventBus, id);
 		statusPresenter.clear();
 		FadeAnimation fade = new FadeAnimation(container, presenter);
-		fade.run(800);
+		fade.run(400);
 	}
 	
 	private void doOnListBoatEvent(){
@@ -124,7 +124,7 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 
 			if(presenter != null) {
 				FadeAnimation fade = new FadeAnimation(container, presenter);
-				fade.run(800);
+				fade.run(400);
 			}
 		}	
 	}

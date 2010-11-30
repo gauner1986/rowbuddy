@@ -1,15 +1,19 @@
 package de.rowbuddy.client.views.boat;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.EditBoatPresenter;
@@ -25,6 +29,9 @@ public class EditBoatView extends Composite implements EditBoatPresenter.Display
 	private TextBox numberOfSeats;
 	private CheckBox coxed; 
 	private CheckBox locked;
+	private DialogBox box;
+	private Button deleteButton;
+	private Button dialogButton;
 	
 	public EditBoatView(){
 		contentTable = new FlexTable();
@@ -40,7 +47,11 @@ public class EditBoatView extends Composite implements EditBoatPresenter.Display
 		submitButton.setStylePrimaryName("buttonSave buttonPositive");
 		cancelButton = new Button("Abbrechen");
 		cancelButton.setStylePrimaryName("buttonCancel buttonNegative");
+		dialogButton = new Button("Löschen");
+		dialogButton.setStylePrimaryName("buttonDelete buttonNegative");
+		
 		hPanel.add(submitButton);
+		hPanel.add(dialogButton);
 		hPanel.add(cancelButton);
 	
 		contentTable.getCellFormatter().addStyleName(0, 0, "contacts-ListMenu");
@@ -64,6 +75,28 @@ public class EditBoatView extends Composite implements EditBoatPresenter.Display
 		locked = new CheckBox();
 		boatTable.setWidget(3, 1, locked);
 		
+		box = new DialogBox(false, true);
+	    box.setGlassEnabled(true);
+	    box.setAnimationEnabled(true);
+	    deleteButton = new Button("Ja");
+
+	    HorizontalPanel dialogContent = new HorizontalPanel();
+	    
+	    box.setText("Möchten Sie wirklich löschen?");
+	    box.setWidget(dialogContent);
+	    dialogContent.add(deleteButton);
+	    Button dialogClose = new Button("Nein");
+	    dialogClose.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				// TODO Auto-generated method stub
+				closeDialog();
+			}
+		});
+	    
+	    dialogContent.add(dialogClose);
+	    
 		contentTable.setWidget(1, 0, boatTable);
 		contentTable.setText(0, 0, PageTitles.BOAT_EDIT);
 		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
@@ -98,6 +131,26 @@ public class EditBoatView extends Composite implements EditBoatPresenter.Display
 	@Override
 	public HasValue<Boolean> isLocked() {
 		return locked;
+	}
+	
+	@Override
+	public HasClickHandlers getPopUpButton(){
+		return dialogButton;
+	}
+	
+	@Override
+	public void showPopUp(){
+		box.center();
+	}
+	
+	@Override
+	public HasClickHandlers getDeleteButton() {
+		return deleteButton;
+	}
+	
+	@Override
+	public void closeDialog() {
+		box.hide();
 	}
 
 }

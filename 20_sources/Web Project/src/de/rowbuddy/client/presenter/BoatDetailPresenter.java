@@ -15,6 +15,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.events.EditBoatEvent;
 import de.rowbuddy.client.events.ListBoatEvent;
+import de.rowbuddy.client.events.StatusMessageEvent;
+import de.rowbuddy.client.model.StatusMessage;
+import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
