@@ -1,5 +1,6 @@
 package de.rowbuddy.client.views.boat;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
@@ -8,6 +9,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TabBar;
 
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.BoatDetailPresenter.Display;
@@ -17,13 +19,16 @@ public class BoatDetail extends Composite implements Display{
 
 	private FlexTable contentTable;
 	private DecoratorPanel decorator;
-	private FlexTable boatTable;
+	private FlexTable detailTable;
+	private FlexTable damagesTable;
+	private FlexTable reservationTable;
 	private Label nameText;
 	private Label numberOfSeats;
 	private CheckBox coxed; 
 	private CheckBox locked;
 	private Button editButton;
 	private Button cancelButton;
+	private TabBar bar;
 	
 	public BoatDetail(){
 		contentTable = new FlexTable();
@@ -43,29 +48,38 @@ public class BoatDetail extends Composite implements Display{
 		hPanel.add(cancelButton);
 	
 		contentTable.getCellFormatter().addStyleName(0, 0, "contacts-ListMenu");
-		contentTable.setWidget(2, 0, hPanel);
+		contentTable.setWidget(4, 0, hPanel);
 
-		boatTable = new FlexTable();
+		detailTable = new FlexTable();
 		
-		boatTable.setText(0, 0, "Name:");
+		detailTable.setText(0, 0, "Name:");
 		nameText = new Label();
-		boatTable.setWidget(0, 1, nameText);
+		detailTable.setWidget(0, 1, nameText);
 		
-		boatTable.setText(1, 0, "Bootsplätze (ohne Steuermann):");
+		detailTable.setText(1, 0, "Bootsplätze (ohne Steuermann):");
 		numberOfSeats = new Label();
-		boatTable.setWidget(1, 1, numberOfSeats);
+		detailTable.setWidget(1, 1, numberOfSeats);
 		
-		boatTable.setText(2, 0, "Gesteuert:");
+		detailTable.setText(2, 0, "Gesteuert:");
 		coxed = new CheckBox();
 		coxed.setEnabled(false);
-		boatTable.setWidget(2, 1, coxed);
+		detailTable.setWidget(2, 1, coxed);
 		
-		boatTable.setText(3, 0, "Gesperrt:");
+		detailTable.setText(3, 0, "Gesperrt:");
 		locked = new CheckBox();
 		locked.setEnabled(false);
-		boatTable.setWidget(3, 1, locked);
+		detailTable.setWidget(3, 1, locked);
 		
-		contentTable.setWidget(1, 0, boatTable);
+		bar = new TabBar();
+	    bar.addTab("Details");
+	    bar.addTab("Schäden");
+	    bar.addTab("Reservierung");
+	    	    
+	    damagesTable = new FlexTable();
+	    reservationTable = new FlexTable();
+	    
+		contentTable.setWidget(1, 0, bar);
+		contentTable.setWidget(2, 0, detailTable);
 		contentTable.setText(0, 0, PageTitles.BOAT_DETAIL);
 		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
 		rf.setStylePrimaryName(0, "pageHeadLine");
@@ -99,6 +113,26 @@ public class BoatDetail extends Composite implements Display{
 	@Override
 	public HasClickHandlers getCancelButton() {
 		return cancelButton;
+	}
+
+	@Override
+	public HasSelectionHandlers<Integer> getTabBar() {
+		return bar;
+	}
+
+	@Override
+	public void setSelection(int value) {
+		switch(value){
+		case 0:
+			contentTable.setWidget(2, 0, detailTable);
+			break;
+		case 1:
+			contentTable.setWidget(2, 0, damagesTable);
+			break;
+		case 2:
+			contentTable.setWidget(2, 0, reservationTable);
+			break;
+		}
 	}
 	
 

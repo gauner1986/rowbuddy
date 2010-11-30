@@ -5,6 +5,9 @@ import java.util.logging.Logger;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.logical.shared.HasSelectionHandlers;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -24,6 +27,8 @@ public class BoatDetailPresenter implements Presenter{
 		void setLocked(boolean value);
 		HasClickHandlers getEditButton();
 		HasClickHandlers getCancelButton();
+		HasSelectionHandlers<Integer> getTabBar();
+		void setSelection(int value);
 		Widget asWidget();
 	}
 	
@@ -80,6 +85,14 @@ public class BoatDetailPresenter implements Presenter{
 			@Override
 			public void onClick(ClickEvent arg0) {
 				eventBus.fireEvent(new ListBoatEvent());
+			}
+		});
+		
+		view.getTabBar().addSelectionHandler(new SelectionHandler<Integer>() {
+
+			@Override
+			public void onSelection(SelectionEvent<Integer> arg0) {
+				view.setSelection(arg0.getSelectedItem());
 			}
 		});
 	}
