@@ -29,7 +29,7 @@ public class MessageServiceImpl extends RemoteServiceServlet implements MessageS
 	@Override
 	public List<MessageEntity> getMessages() {
 		System.out.println("Request!");
-		getThreadLocalRequest().getParameter("rbf");
+		//getThreadLocalRequest().getParameter("rbf");
 		return messageService.getEntites();
 	}
 	

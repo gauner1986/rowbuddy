@@ -3,10 +3,6 @@ package de.rowbuddy.server.servlets;
 import java.io.IOException;
 
 import javax.ejb.EJB;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.rowbuddy.business.BoatManagement;
+import de.rowbuddy.business.MemberManagement;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.exceptions.RowBuddyException;
@@ -26,6 +23,9 @@ public class DataInitialization extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private BoatManagement boatManagement;
+	
+	@EJB
+	private MemberManagement memberManagement;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -70,14 +70,15 @@ public class DataInitialization extends HttpServlet {
     }
     
     private void createTestMember(){
-		Member testMember = new Member();
 		try {
+			Member testMember = new Member();
+			testMember.setPassword("bla");
 			testMember.setEmail("bla@bla.de");
+			memberManagement.addMember(testMember);
 		} catch (RowBuddyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		testMember.setPassword("bla");
 	}
     
     
