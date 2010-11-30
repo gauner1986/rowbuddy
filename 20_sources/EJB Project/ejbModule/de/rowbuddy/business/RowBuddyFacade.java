@@ -15,6 +15,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import de.rowbuddy.boundary.LogbookBoundary;
 import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.business.dtos.TripDTO;
 import de.rowbuddy.entities.Boat;
@@ -39,6 +40,8 @@ public class RowBuddyFacade {
 	private BoatManagement boatManagement;
 	@EJB
 	private Logbook logbook;
+	@EJB
+	private LogbookBoundary logbookBoundary;
 
 	/**
 	 * Default constructor.
@@ -111,9 +114,13 @@ public class RowBuddyFacade {
 	public void startTrip(Trip startedTrip) throws RowBuddyException{
 		logbook.startTrip(startedTrip, this.member);
 	}
+	
+	public Trip getTrip(Long id) throws RowBuddyException{
+		return logbook.getTrip(id);
+	}
 
 	public List<TripDTO> getOpenTrips(){
-		return logbook.getOpenTrips(this.member);
+		return logbookBoundary.getOpenTrips(this.member);
 	}
 
 	public void finishTrip(Trip openTrip) throws RowBuddyException{

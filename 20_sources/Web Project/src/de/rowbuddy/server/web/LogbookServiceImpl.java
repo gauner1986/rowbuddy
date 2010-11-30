@@ -37,4 +37,9 @@ public class LogbookServiceImpl extends RemoteServiceServlet implements
 	public void finishTrip(Trip openTrip) throws RowBuddyException {
 		rowbuddy.finishTrip(openTrip);
 	}
+	
+	@Override
+	public Trip getTrip(Long id) throws RowBuddyException {
+		return rowbuddy.getTrip(id);
+	}
 }

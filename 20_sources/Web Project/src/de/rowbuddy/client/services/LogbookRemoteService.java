@@ -16,4 +16,5 @@ public interface LogbookRemoteService {
 
 	public void finishTrip(Trip openTrip) throws RowBuddyException;
 
+	public Trip getTrip(Long id) throws RowBuddyException;
 }

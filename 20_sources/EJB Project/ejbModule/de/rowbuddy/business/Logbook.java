@@ -2,6 +2,7 @@ package de.rowbuddy.business;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,7 +22,6 @@ public class Logbook {
 
 	@PersistenceContext
 	EntityManager em;
-	TripDTOConverter tripConverter = new TripDTOConverter();
 
 	/**
 	 * Add a finished trip to the logbook. A trip contains information about the
@@ -76,31 +76,6 @@ public class Logbook {
 	}
 
 	/**
-	 * @return List of trips that are not finished yet.
-	 */
-	public List<TripDTO> getOpenTrips(Member currentUser) {
-		TypedQuery<Trip> q = em.createQuery(
-				"SELECT t FROM Trip t WHERE t.finished=false", Trip.class);
-		List<Trip> trips =q.getResultList();
-		List<TripDTO> dtoList = tripConverter.getList(trips);
-		return addEditInformation(dtoList, trips, currentUser);
-	}
-	
-	private List<TripDTO> addEditInformation(List<TripDTO> tripDtos, List<Trip> trips, Member currentUser){
-		if (tripDtos.size() != trips.size()){
-			throw new IllegalArgumentException("Collections must have same size");
-		}
-		for (int i = 0; i<tripDtos.size(); i++){
-			Trip trip = trips.get(i);
-			TripDTO dto = tripDtos.get(i);
-			boolean canEdit = canEditTrip(trip, currentUser);
-			
-			dto.setCanEditTrip(canEdit);
-		}
-		return tripDtos;
-	}
-
-	/**
 	 * stops
 	 * 
 	 * @param openTrip
@@ -131,6 +106,12 @@ public class Logbook {
 		em.merge(openTrip);
 	}
 
+	/**
+	 * checks if a user has the permission to edit a trip
+	 * @param trip the trip that should be edited
+	 * @param currentUser the current user
+	 * @return true if the user can edit the trip, otherwise false
+	 */
 	public boolean canEditTrip(Trip trip, Member currentUser) {
 		Trip persistedTrip = trip;
 		if (!em.contains(trip)) {
@@ -153,5 +134,34 @@ public class Logbook {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * assembles trips that have not ended yet
+	 * @param currentUser the current user
+	 * @return a list with trips
+	 */
+	public List<Trip> getOpenTrips(Member currentUser) {
+		TypedQuery<Trip> q = em.createQuery(
+				"SELECT t FROM Trip t WHERE t.finished=false", Trip.class);
+		return q.getResultList();
+	}
+
+	/**
+	 * Finds a trip for a given id
+	 * @param id id of the trip
+	 * @return the trip
+	 * @throws RowBuddyException if id is null or if the trip is not found
+	 */
+	public Trip getTrip(Long id) throws RowBuddyException{
+		if (id == null){
+			throw new RowBuddyException("You must specify an id");
+		}
+		
+		Trip trip = em.find(Trip.class, id);
+		if (trip == null){
+			throw new RowBuddyException("Trip does not exist");
+		}
+		return trip;
 	}
 }
