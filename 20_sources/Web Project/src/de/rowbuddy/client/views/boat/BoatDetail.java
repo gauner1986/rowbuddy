@@ -78,9 +78,9 @@ public class BoatDetail extends Composite implements Display{
 	    damagesTable = new FlexTable();
 	    reservationTable = new FlexTable();
 	    
-		contentTable.setWidget(0, 0, bar);
+		contentTable.setWidget(1, 0, bar);
 		contentTable.setWidget(2, 0, detailTable);
-		contentTable.setText(1, 0, PageTitles.BOAT_DETAIL);
+		contentTable.setText(0, 0, PageTitles.BOAT_DETAIL);
 		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
 		rf.setStylePrimaryName(0, "pageHeadLine");
 	}
