@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.client.events.AddBoatEvent;
-import de.rowbuddy.client.events.EditBoatEvent;
+import de.rowbuddy.client.events.BoatDetailEvent;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
 public class BoatPresenter implements Presenter{
@@ -56,7 +56,7 @@ public class BoatPresenter implements Presenter{
 					Long id = fetchedBoats.get(selectedRow - 1).getId();
 					
 					logger.info("Fire EditBoatEvent id:" + id);
-					eventBus.fireEvent(new EditBoatEvent(id));
+					eventBus.fireEvent(new BoatDetailEvent(id));
 				}
 			}
 		});

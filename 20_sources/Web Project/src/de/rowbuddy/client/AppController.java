@@ -11,11 +11,14 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.events.AddBoatEventHandler;
+import de.rowbuddy.client.events.BoatDetailEvent;
+import de.rowbuddy.client.events.BoatDetailEventHandler;
 import de.rowbuddy.client.events.EditBoatEvent;
 import de.rowbuddy.client.events.EditBoatEventHandler;
 import de.rowbuddy.client.events.ListBoatEvent;
 import de.rowbuddy.client.events.ListBoatEventHandler;
 import de.rowbuddy.client.presenter.AddBoatPresenter;
+import de.rowbuddy.client.presenter.BoatDetailPresenter;
 import de.rowbuddy.client.presenter.BoatPresenter;
 import de.rowbuddy.client.presenter.EditBoatPresenter;
 import de.rowbuddy.client.presenter.MenuPresenter;
@@ -25,6 +28,7 @@ import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.views.MenuView;
 import de.rowbuddy.client.views.MessageView;
 import de.rowbuddy.client.views.boat.AddBoatView;
+import de.rowbuddy.client.views.boat.BoatDetail;
 import de.rowbuddy.client.views.boat.BoatView;
 import de.rowbuddy.client.views.boat.EditBoatView;
 
@@ -69,17 +73,35 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 				doOnEditBoat(event.getId());
 			}
 		});
+		
+		eventBus.addHandler(BoatDetailEvent.TYPE, new BoatDetailEventHandler() {
+			
+			@Override
+			public void onBoatDetailEvent(BoatDetailEvent event) {
+				doOnViewBoat(event.getId());
+			}
+		});
+	}
+	
+	private void doOnViewBoat(Long id){
+		History.newItem(HistoryConstants.VIEW_BOAT, false);
+		Presenter presenter = new BoatDetailPresenter(new BoatDetail(), boatService, eventBus, id);
+		statusPresenter.clear();
+		FadeAnimation fade = new FadeAnimation(container, presenter);
+		fade.run(800);		
 	}
 	
 	private void doOnEditBoat(Long id){
 		History.newItem(HistoryConstants.EDIT_BOAT, false);
 		Presenter presenter = new EditBoatPresenter(new EditBoatView(), boatService, eventBus, id);
-		presenter.start(container);
 		statusPresenter.clear();
+		FadeAnimation fade = new FadeAnimation(container, presenter);
+		fade.run(800);
 	}
 	
 	private void doOnListBoatEvent(){
 		History.newItem(HistoryConstants.LIST_BOATS);
+		logger.info("ListBoatEvent fired!");
 	}
 	
 	private void doOnAddBoatEvent(){
@@ -97,7 +119,7 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 			} else if(token.equals(HistoryConstants.ADD_BOAT)){
 				presenter = new AddBoatPresenter(new AddBoatView(), boatService, eventBus);
 			} else {
-				Window.alert("Action undefined! - " + token);
+				logger.info("Action undefined " + token);
 			}
 
 			if(presenter != null) {
