@@ -1,7 +1,7 @@
 @CHARSET "ISO-8859-1";
 
 body {
-	/*font-family: sans-serif;*/
+	font-family: sans-serif;
 	/*font-variant: small-caps;*/
 	height: 101;
 }
@@ -85,6 +85,10 @@ body {
 
 .buttonApply {
 	background: url("icons/apply.png") no-repeat 4px 4px;
+}
+
+.buttonDelete{
+	background: url("icons/delete.png") no-repeat 4px 4px;
 }
 
 .buttonRegular {
