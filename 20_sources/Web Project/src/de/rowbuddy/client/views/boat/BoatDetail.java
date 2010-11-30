@@ -86,6 +86,11 @@ public class BoatDetail extends Composite implements Display{
 	    reservationTable.setText(0, 1, "Bis");
 	    reservationTable.setText(0, 2, "Reserviert von");
 	    
+	    reservationTable.setStylePrimaryName("boatTable");
+	    reservationTable.getRowFormatter().setStyleName(0, "boatTableHeader");
+	    damagesTable.setStylePrimaryName("boatTable");
+	    damagesTable.getRowFormatter().setStyleName(0, "boatTableHeader");
+	    
 		contentTable.setWidget(1, 0, bar);
 		contentTable.setWidget(2, 0, detailTable);
 		contentTable.setText(0, 0, PageTitles.BOAT_DETAIL);
