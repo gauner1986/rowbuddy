@@ -164,4 +164,19 @@ public class Logbook {
 		}
 		return trip;
 	}
+
+	/**
+	 * determines all trips that member has participated in 
+	 * @param member
+	 * @return a list of trips
+	 */
+	public List<Trip> getPersonalTrips(Member member) {
+		if (member == null){
+			throw new NullPointerException("You must specify a member");
+		}
+
+		TypedQuery<Trip> q = em.createQuery("SELECT t FROM Trip t WHERE EXISTS (SELECT x FROM t.tripMembers x WHERE x.member = :member)", Trip.class);
+		q.setParameter("member", member);
+		return q.getResultList();
+	}
 }

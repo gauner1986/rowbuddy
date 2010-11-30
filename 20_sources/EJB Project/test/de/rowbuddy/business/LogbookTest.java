@@ -157,16 +157,26 @@ public class LogbookTest extends EjbTestBase {
 	}
 	
 	@Test
-	public void canGetPersonalTrips(){
+	public void canGetPersonalTrips() throws RowBuddyException{
 		// given
+		logbook.logRowedTrip(rowedTrip, db.getMembers().get(0));
+		logbook.startTrip(startedTrip1, db.getMembers().get(0));
+		logbook.startTrip(startedTrip2, db.getMembers().get(0));
+		logbook.startTrip(startedTrip3, db.getMembers().get(0));
 		
 		// when
+		List<Trip> personalTrips =  logbook.getPersonalTrips(db.getMembers().get(0));
 		
-		// 
+		// then
 	}
 	
-	@Test
-	public void canGetPersonalOpenTrips(){
-		
-	}
+//	@Test
+//	public void canGetPersonalOpenTrips(){
+//		// given
+//		
+//		// when
+//		List<Trip> personalOpenTrips =  logbook.getPersonalOpenTrips(db.getMembers().get(0));
+//
+//		// then 
+//	}
 }
