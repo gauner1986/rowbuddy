@@ -62,8 +62,11 @@ public class BoatDamage implements Serializable {
 	}
 
 	public void setDamageDescription(String damageDescription) throws RowBuddyException {
-		if(damageDescription.length() < 1 || damageDescription.equals("") || damageDescription == null) {
-			throw new RowBuddyException("damage description has to be set");
+		if (damageDescription == null){
+			throw new NullPointerException("Damage description cannot be null");
+		}
+		if(damageDescription.isEmpty()) {
+			throw new RowBuddyException("Damage description has to be set");
 		}
 		this.damageDescription = damageDescription;
 	}

@@ -42,8 +42,11 @@ public class Route implements Serializable {
 	}
 
 	public void setName(String name) throws RowBuddyException {
-		if(name.length() < 1 || name.equals("") || name == null) {
-			throw new RowBuddyException("name of route has to be set");
+		if (name == null){
+			throw new NullPointerException("Name cannot be null");
+		}
+		if(name.isEmpty()) {
+			throw new RowBuddyException("Name has to be set");
 		}
 		this.name = name;
 	}
@@ -53,8 +56,11 @@ public class Route implements Serializable {
 	}
 
 	public void setShortDescription(String shortDescription) throws RowBuddyException {
-		if(shortDescription.length() < 1 || shortDescription.equals("") || shortDescription == null) {
-			throw new RowBuddyException("short description of route has to be set");
+		if (shortDescription == null){
+			throw new NullPointerException("Short description cannot be null");
+		}
+		if(shortDescription.isEmpty()) {
+			throw new RowBuddyException("Short Description has to be set");
 		}
 		this.shortDescription = shortDescription;
 	}  
