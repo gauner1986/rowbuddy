@@ -111,22 +111,7 @@ public class LogbookTest extends EjbTestBase {
 		assertEquals(0, trip.getTripMembers().size());
 	}
 
-	@Test
-	public void canGetOpenTrips() throws RowBuddyException{
-		// given
-		logbook.logRowedTrip(rowedTrip, db.getMembers().get(0));
-		logbook.startTrip(startedTrip1, db.getMembers().get(0));
-		logbook.startTrip(startedTrip2, db.getMembers().get(0));
-		logbook.startTrip(startedTrip3, db.getMembers().get(0));
 
-		// when
-		List<Trip> startedTrips = logbook.getOpenTrips(db.getMembers().get(0));
-		
-		// then
-		assertNotNull(startedTrips);
-		assertThat(startedTrips.size(), is(3));
-	}
-	
 	@Test
 	public void canStopRowing() throws RowBuddyException, ParseException {
 		// given
@@ -153,5 +138,35 @@ public class LogbookTest extends EjbTestBase {
 		
 		openTrips = logbook.getOpenTrips(db.getMembers().get(0));
 		assertThat(openTrips.size(), is(0));
+	}
+	
+	@Test
+	public void canGetOpenTrips() throws RowBuddyException{
+		// given
+		logbook.logRowedTrip(rowedTrip, db.getMembers().get(0));
+		logbook.startTrip(startedTrip1, db.getMembers().get(0));
+		logbook.startTrip(startedTrip2, db.getMembers().get(0));
+		logbook.startTrip(startedTrip3, db.getMembers().get(0));
+
+		// when
+		List<Trip> startedTrips = logbook.getOpenTrips(db.getMembers().get(0));
+		
+		// then
+		assertNotNull(startedTrips);
+		assertThat(startedTrips.size(), is(3));
+	}
+	
+	@Test
+	public void canGetPersonalTrips(){
+		// given
+		
+		// when
+		
+		// 
+	}
+	
+	@Test
+	public void canGetPersonalOpenTrips(){
+		
 	}
 }

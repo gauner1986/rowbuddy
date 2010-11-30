@@ -1,5 +1,5 @@
 <module rename-to="de.rowbuddy.Core">
     <source path="entities"/>
-    <source path="business/dtos"/>
+    <source path="boundary/dtos"/>
     <source path="exceptions"/>
 </module>
