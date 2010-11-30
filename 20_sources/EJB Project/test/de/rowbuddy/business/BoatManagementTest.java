@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import de.rowbuddy.business.dtos.BoatDTO;
+import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.exceptions.RowBuddyException;

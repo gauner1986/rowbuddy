@@ -8,8 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import de.rowbuddy.business.dtos.BoatDTO;
-import de.rowbuddy.business.dtos.BoatDTOConverter;
+import de.rowbuddy.boundary.dtos.BoatDTO;
+import de.rowbuddy.boundary.dtos.BoatDTOConverter;
 import de.rowbuddy.dao.BoatDAO;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.exceptions.RowBuddyException;

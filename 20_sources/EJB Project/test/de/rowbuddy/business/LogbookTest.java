@@ -15,7 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.rowbuddy.business.dtos.TripDTO;
+import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.entities.TripMember;
 import de.rowbuddy.entities.TripMemberType;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import de.rowbuddy.business.dtos.BoatDTO;
+import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.entities.Boat;
 
 public interface BoatRemoteServiceAsync {

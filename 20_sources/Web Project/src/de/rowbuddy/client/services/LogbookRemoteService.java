@@ -2,7 +2,7 @@ package de.rowbuddy.client.services;
 
 import java.util.List;
 
-import de.rowbuddy.business.dtos.TripDTO;
+import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.RowBuddyException;
 

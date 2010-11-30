@@ -6,8 +6,8 @@ import javax.ejb.EJB;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.business.RowBuddyFacade;
-import de.rowbuddy.business.dtos.TripDTO;
 import de.rowbuddy.client.services.LogbookRemoteService;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.RowBuddyException;

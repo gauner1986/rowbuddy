@@ -17,8 +17,8 @@ import javax.persistence.Query;
 
 import de.rowbuddy.boundary.BoatBoundary;
 import de.rowbuddy.boundary.LogbookBoundary;
-import de.rowbuddy.business.dtos.BoatDTO;
-import de.rowbuddy.business.dtos.TripDTO;
+import de.rowbuddy.boundary.dtos.BoatDTO;
+import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Trip;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import de.rowbuddy.business.dtos.TripDTO;
+import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.RowBuddyException;
 

@@ -10,8 +10,8 @@ import javax.persistence.OneToMany;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.rowbuddy.boundary.BoatBoundary;
+import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.business.BoatManagement;
-import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.client.services.BoatRemoteService;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;

@@ -1,4 +1,4 @@
-package de.rowbuddy.business.dtos;
+package de.rowbuddy.boundary.dtos;
 
 import de.rowbuddy.entities.Trip;
 

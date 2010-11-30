@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.business.dtos.BoatDTO;
+import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.BoatDetailPresenter.Display;
 import de.rowbuddy.client.presenter.BoatPresenter;

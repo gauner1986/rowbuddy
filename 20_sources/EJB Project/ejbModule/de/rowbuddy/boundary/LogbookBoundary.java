@@ -9,9 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import de.rowbuddy.boundary.dtos.TripDTO;
+import de.rowbuddy.boundary.dtos.TripDTOConverter;
 import de.rowbuddy.business.Logbook;
-import de.rowbuddy.business.dtos.TripDTO;
-import de.rowbuddy.business.dtos.TripDTOConverter;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Trip;
 
