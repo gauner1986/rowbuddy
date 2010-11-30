@@ -15,6 +15,7 @@ import org.junit.Test;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Role;
+import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
 import de.rowbuddy.util.Ejb;
@@ -34,10 +35,8 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	@Before
 	public void setup() {
 		ejbHandler = new EjbExceptionHandler();
-		adminMember = createTestMember("bla@bla.de", "secret", new String[] {
-				"admin", "user" });
-		userMember = createTestMember("user@bla.de", "secret",
-				new String[] { "user" });
+		adminMember = createTestMember("bla@bla.de", "secret", new RoleName[] {RoleName.ADMIN, RoleName.MEMBER});
+		userMember = createTestMember("user@bla.de", "secret",new RoleName[] {RoleName.MEMBER});
 
 		existingBoat = new Boat();
 		try {
@@ -78,7 +77,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	}
 
 	private Member createTestMember(String username, String password,
-			String[] roleNames) {
+			RoleName[] roleNames) {
 		Member member = new Member();
 		try {
 			member.setEmail(username);
@@ -88,7 +87,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 		}
 		member.setPassword(password);
 		ArrayList<Role> roles = new ArrayList<Role>();
-		for (String roleName : roleNames) {
+		for (RoleName roleName : roleNames) {
 			Role role = new Role();
 			try {
 				role.setName(roleName);
@@ -115,7 +114,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	@Test
 	public void cannotLoginWithWrongUserAndPass() {
 		Member falseMember = createTestMember("basfa@asfsa.de", "wrongpass",
-				new String[] {});
+				new RoleName[] {});
 		try {
 			rowBuddyFacade.login(falseMember);
 			fail("Member can login anyway, where he shouldn't.");
@@ -127,7 +126,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	@Test
 	public void cannotLoginWithWrongPass() {
 		Member falseMember = createTestMember("bla@bla.de", "wrongpass",
-				new String[] {});
+				new RoleName[] {});
 		try {
 			rowBuddyFacade.login(falseMember);
 			fail("Member can login anyway, where he shouldn't.");

@@ -20,11 +20,16 @@ public class MessageServiceImpl extends RemoteServiceServlet implements MessageS
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	private MessageAdmin messageService; 
+	private MessageAdmin messageService;
+	
+	public MessageServiceImpl(){
+		
+	}
 	
 	@Override
 	public List<MessageEntity> getMessages() {
 		System.out.println("Request!");
+		getThreadLocalRequest().getParameter("rbf");
 		return messageService.getEntites();
 	}
 	

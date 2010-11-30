@@ -7,6 +7,7 @@ import javax.interceptor.InvocationContext;
 
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Role;
+import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.exceptions.NotLoggedInException;
 
 public class SecuritySalamander {
@@ -23,7 +24,7 @@ public class SecuritySalamander {
 			// check roles
 			AllowedRoles allowed = ic.getMethod().getAnnotation(AllowedRoles.class);
 			if(allowed!=null){
-				for(String role : allowed.values()){
+				for(RoleName role : allowed.values()){
 					for(Role mrole : member.getRoles()){
 						if(mrole.getName().equals(role)){
 							System.out.println("User '"+member.getEmail()+"' is authenticated with role '"+role+"'");
@@ -33,7 +34,7 @@ public class SecuritySalamander {
 				}
 				throw new NotLoggedInException("You're not allowed to use this method"); // we did not return before, so we are not allowed to use the method.
 			} else { // allow everyone by default
-				System.out.println("User '"+member.getEmail()+"' is authenticated with role 'user' (default)");
+				System.out.println("User '"+member.getEmail()+"' is authenticated with the default role");
 				return ic.proceed();
 			}
 		}	

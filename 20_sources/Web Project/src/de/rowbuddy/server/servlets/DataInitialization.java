@@ -2,8 +2,11 @@ package de.rowbuddy.server.servlets;
 
 import java.io.IOException;
 
-import javax.ejb.CreateException;
 import javax.ejb.EJB;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.rowbuddy.business.BoatManagement;
 import de.rowbuddy.entities.Boat;
+import de.rowbuddy.entities.Member;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 /**
@@ -61,7 +65,22 @@ public class DataInitialization extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		createTestMember();
+		
     }
+    
+    private void createTestMember(){
+		Member testMember = new Member();
+		try {
+			testMember.setEmail("bla@bla.de");
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		testMember.setPassword("bla");
+	}
+    
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

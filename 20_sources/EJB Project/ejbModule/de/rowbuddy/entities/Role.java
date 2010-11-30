@@ -11,11 +11,13 @@ import de.rowbuddy.exceptions.RowBuddyException;
  */
 @Entity
 public class Role implements Serializable {
+	
+	public enum RoleName {ADMIN,MEMBER}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id = null;
-	private String name = "";
+	private RoleName roleName = RoleName.MEMBER;
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,17 +29,14 @@ public class Role implements Serializable {
 		return id;
 	}
 
-	public String getName() {
-		return name;
+	public RoleName getName() {
+		return roleName;
 	}
 
-	public void setName(String name) throws RowBuddyException {
+	public void setName(RoleName name) throws RowBuddyException {
 		if (name == null) {
 			throw new NullPointerException("Name of role must not be null");
 		}
-		if (name.isEmpty()) {
-			throw new RowBuddyException("Name of role has to be set");
-		}
-		this.name = name;
+		this.roleName = name;
 	}
 }

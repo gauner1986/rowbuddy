@@ -2,11 +2,8 @@ package de.rowbuddy.business;
 
 import java.util.List;
 
-import javax.ejb.CreateException;
 import javax.ejb.EJB;
-import javax.ejb.FinderException;
 import javax.ejb.LocalBean;
-import javax.ejb.RemoveException;
 import javax.ejb.Stateful;
 import javax.interceptor.ExcludeClassInterceptors;
 import javax.interceptor.Interceptors;
@@ -21,6 +18,7 @@ import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.Member;
+import de.rowbuddy.entities.Role;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
@@ -50,7 +48,7 @@ public class RowBuddyFacade {
 	 * Default constructor.
 	 */
 	public RowBuddyFacade() {
-
+		
 	}
 
 	@ExcludeClassInterceptors
@@ -75,6 +73,11 @@ public class RowBuddyFacade {
 			this.member = m;
 		}
 	}
+	
+	public Member getMember(){
+		return this.member;
+	}
+	
 
 	@ExcludeClassInterceptors
 	public void logout() {
@@ -94,18 +97,18 @@ public class RowBuddyFacade {
 		return boatManagement.getBoat(id);
 	}
 	
-	@AllowedRoles(values = {"admin"})
+	@AllowedRoles(values = {Role.RoleName.ADMIN})
 	public Boat addBoat(Boat addBoat) throws RowBuddyException {
 		return boatManagement.addBoat(addBoat);
 	}
 
-	@AllowedRoles(values = {"admin"})
+	@AllowedRoles(values = {Role.RoleName.ADMIN})
 	public Boat updateBoat(Boat updateBoat) throws RowBuddyException,
 			RowBuddyException {
 		return boatManagement.updateBoat(updateBoat);
 	}
 	
-	@AllowedRoles(values = {"admin"})
+	@AllowedRoles(values = {Role.RoleName.ADMIN})
 	public void deleteBoat(Long id) throws RowBuddyException {
 		boatManagement.deleteBoat(id);
 	}
