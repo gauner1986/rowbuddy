@@ -141,9 +141,9 @@ public class BoatManagementTest extends EjbTestBase {
 
 	@Test
 	public void canGetOverview() {
-		Collection<BoatDTO> boats = boatManagement.getBoatOverview();
+		Collection<Boat> boats = boatManagement.getBoatOverview();
 		boolean containsExistingBoat = false;
-		for (BoatDTO boat : boats) {
+		for (Boat boat : boats) {
 			if (boat.getId() == existingBoat.getId()) {
 				containsExistingBoat = true;
 			}

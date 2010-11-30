@@ -30,10 +30,10 @@ public class BoatManagement {
 		boatDTO = new BoatDTOConverter();
 	}
 
-	public List<BoatDTO> getBoatOverview() {
+	public List<Boat> getBoatOverview() {
 		TypedQuery<Boat> q = em.createQuery(
 				"SELECT b FROM Boat b WHERE b.deleted = false", Boat.class);
-		return boatDTO.getList(q.getResultList());
+		return q.getResultList();
 	}
 
 	public Boat getBoat(Long id) throws RowBuddyException {

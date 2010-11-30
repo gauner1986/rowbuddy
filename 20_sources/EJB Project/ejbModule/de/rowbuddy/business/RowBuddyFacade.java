@@ -15,6 +15,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import de.rowbuddy.boundary.BoatBoundary;
 import de.rowbuddy.boundary.LogbookBoundary;
 import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.business.dtos.TripDTO;
@@ -38,6 +39,8 @@ public class RowBuddyFacade {
 	EntityManager em;
 	@EJB
 	private BoatManagement boatManagement;
+	@EJB
+	private BoatBoundary boatBoundary;
 	@EJB
 	private Logbook logbook;
 	@EJB
@@ -84,7 +87,7 @@ public class RowBuddyFacade {
 	}
 	
 	public List<BoatDTO> getBoatOverview() {
-		return boatManagement.getBoatOverview();
+		return boatBoundary.getBoatOverview();
 	}
 
 	public Boat getBoat(Long id) throws RowBuddyException {

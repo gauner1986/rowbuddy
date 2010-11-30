@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import de.rowbuddy.boundary.BoatBoundary;
 import de.rowbuddy.business.BoatManagement;
 import de.rowbuddy.business.dtos.BoatDTO;
 import de.rowbuddy.client.services.BoatRemoteService;
@@ -21,6 +22,9 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
 
 	@EJB
 	private BoatManagement boatManagement;
+	
+	@EJB
+	private BoatBoundary boatBoundary;
 
 	/**
 	 * 
@@ -29,7 +33,7 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public List<BoatDTO> getBoatOverview() {
-		return boatManagement.getBoatOverview();
+		return boatBoundary.getBoatOverview();
 	}
 
 	@Override
