@@ -42,7 +42,7 @@ public class BoatDetail extends Composite implements Display{
 		hPanel.setSpacing(0);
 		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 		editButton= new Button("Boot bearbeiten");
-		editButton.setStylePrimaryName("buttonRegular");
+		editButton.setStylePrimaryName("buttonEdit buttonRegular");
 		cancelButton = new Button("Abbrechen");
 		cancelButton.setStylePrimaryName("buttonCancel buttonNegative");
 		hPanel.add(editButton);
