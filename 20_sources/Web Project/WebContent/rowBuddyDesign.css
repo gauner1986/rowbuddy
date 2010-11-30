@@ -91,6 +91,10 @@ body {
 	background: url("icons/delete.png") no-repeat 4px 4px;
 }
 
+.buttonEdit{
+	background: url("icons/edit.png") no-repeat 4px 4px;
+}
+
 .buttonRegular {
 	color: #336699;
 	-moz-border-radius: 30px;
