@@ -18,9 +18,11 @@ import de.rowbuddy.client.images.Images;
 import de.rowbuddy.client.presenter.MenuPresenter.MenuDisplay;
 
 public class MenuView extends Composite implements MenuDisplay {
+	
+	//TODO: Neue Fahrt, Nachtrag
 
 	private Anchor browseBoats = new Anchor("Bootsübersicht");
-	private Anchor addBoat = new Anchor("Boot hinzufügen");
+	
 	public MenuView() {
 		Images images = (Images) GWT.create(Images.class);
 
@@ -35,9 +37,7 @@ public class MenuView extends Composite implements MenuDisplay {
 		menuPanel.add(createStatistikMenu(), getHeaderString("Statistiken", images.statistics()), true);
 		menuPanel.add(createRouteMenu(),getHeaderString("Route", images.map()), true);
 		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.boat()), true);
-		menuPanel.add(createDamageMenu(), getHeaderString("Bootsschäden", images.sick()), true);
-		menuPanel.add(createReserveMenu(), getHeaderString("Bootsreservierungen", images.lock()), true);
-		menuPanel.add(createMemberControl(), getHeaderString("Mitgliederverwaltung", images.member()), true);
+		menuPanel.add(createMemberControl(), getHeaderString("Mitgliederverwaltung(admin)", images.member()), true);
 		
 		verticalPanel.add(menuPanel);
 		initWidget(verticalPanel);
@@ -58,12 +58,20 @@ public class MenuView extends Composite implements MenuDisplay {
 	  }
 
 	private Widget createBoatMenu() {
+		Anchor browseReservations = new Anchor("Reservierungen anzeigen");
+		Anchor browseDamages = new Anchor("Schäden anzeigen(admin)");
+		Anchor logDamageBoat = new Anchor("Schaden registrieren");		
+
 		FlexTable tb1 = new FlexTable();
 		tb1.setWidget(0, 0, browseBoats);
-		tb1.setWidget(1, 0, addBoat);	
+		tb1.setWidget(1, 0, browseReservations);
+		tb1.setWidget(2, 0, browseDamages);
+		tb1.setWidget(3, 0, logDamageBoat);
 		
-		tb1.getRowFormatter().setStyleName(0, "menuItem");
+		tb1.getRowFormatter().setStyleName(0, "menuItem");	
 		tb1.getRowFormatter().setStyleName(1, "menuItem");
+		tb1.getRowFormatter().setStyleName(2, "menuItem");
+		tb1.getRowFormatter().setStyleName(3, "menuItem");
 		
 		
 		return tb1;
@@ -71,20 +79,11 @@ public class MenuView extends Composite implements MenuDisplay {
 
 	private Widget createViewTripMenu() {
 		FlexTable tb = new FlexTable();
-		Anchor browseTrips = new Anchor("?");
-		Anchor browseTrip = new Anchor("?");
-		Anchor viewTrip = new Anchor("?");
-		Anchor editTrip = new Anchor("Fahrt editieren");
+		Anchor browseTrips = new Anchor("Fahrtenübersicht");
 		
-		tb.setWidget(0, 0, browseTrip);
-		tb.setWidget(1, 0, browseTrips);
-		tb.setWidget(2, 0, viewTrip);
-		tb.setWidget(3, 0, editTrip);
+		tb.setWidget(0, 0, browseTrips);
 		
 		tb.getRowFormatter().setStyleName(0, "menuItem");
-		tb.getRowFormatter().setStyleName(1, "menuItem");
-		tb.getRowFormatter().setStyleName(2, "menuItem");
-		tb.getRowFormatter().setStyleName(3, "menuItem");
 		
 		return tb;
 	}
@@ -93,42 +92,32 @@ public class MenuView extends Composite implements MenuDisplay {
 		FlexTable tb = new FlexTable();
 		
 		Anchor browseOpenTrips = new Anchor("Offene Fahrten");
-		Anchor browsePersonalOpenTrips = new Anchor(
-				"Persönliche offene Fahrten");
-		Anchor stoprowing = new Anchor("Fahrten stoppen");
+		Anchor browsePersonalOpenTrips = new Anchor("Persönliche offene Fahrten");
 		tb.setWidget(0, 0, browseOpenTrips);
 		tb.setWidget(1, 0, browsePersonalOpenTrips);
-		tb.setWidget(2, 0, stoprowing);
 
 		tb.getRowFormatter().setStyleName(0, "menuItem");
 		tb.getRowFormatter().setStyleName(1, "menuItem");
-		tb.getRowFormatter().setStyleName(2, "menuItem");
 		return tb;
 	}
 
 	private Widget createStatistikMenu() {
 		FlexTable tb = new FlexTable();
 		
-		Anchor boatdamagesYear = new Anchor("Bootschäden");
+		Anchor boatdamagesYear = new Anchor("Bootsschäden(admin)");
 		Anchor clubactivityMonth = new Anchor("Aktivität - Monatsstatistik");
 		Anchor clubactivityWeekday = new Anchor("Aktivität - Tagesstatistik");
 		Anchor highscoreBoats = new Anchor("Boote - Jahresstatistik");
 		Anchor highscoreMonth = new Anchor("Monatsstatistik");
 		Anchor highscoreYear = new Anchor("Jahresstatistik");
-		Anchor personalMonth = new Anchor("Persönliche Monatsstatistik");
-		Anchor personalYear = new Anchor("Persönliche Jahresstatistik");
 		Anchor popularRoutes = new Anchor("Beleibteste Routen");
-		Anchor statisticsMain = new Anchor("Statistiken");
-		tb.setWidget(0, 0, statisticsMain);
-		tb.setWidget(1, 0, boatdamagesYear);
-		tb.setWidget(2, 0, clubactivityMonth);
-		tb.setWidget(3, 0, clubactivityWeekday);
-		tb.setWidget(4, 0, highscoreYear);
-		tb.setWidget(5, 0, highscoreMonth);
-		tb.setWidget(6, 0, highscoreBoats);
-		tb.setWidget(7, 0, personalYear);
-		tb.setWidget(8, 0, personalMonth);
-		tb.setWidget(9, 0, popularRoutes);
+		tb.setWidget(0, 0, boatdamagesYear);
+		tb.setWidget(1, 0, clubactivityMonth);
+		tb.setWidget(2, 0, clubactivityWeekday);
+		tb.setWidget(3, 0, highscoreYear);
+		tb.setWidget(4, 0, highscoreMonth);
+		tb.setWidget(5, 0, highscoreBoats);
+		tb.setWidget(6, 0, popularRoutes);
 		
 		tb.getRowFormatter().setStyleName(0, "menuItem");
 		tb.getRowFormatter().setStyleName(1, "menuItem");
@@ -137,9 +126,6 @@ public class MenuView extends Composite implements MenuDisplay {
 		tb.getRowFormatter().setStyleName(4, "menuItem");
 		tb.getRowFormatter().setStyleName(5, "menuItem");
 		tb.getRowFormatter().setStyleName(6, "menuItem");
-		tb.getRowFormatter().setStyleName(7, "menuItem");
-		tb.getRowFormatter().setStyleName(8, "menuItem");
-		tb.getRowFormatter().setStyleName(9, "menuItem");
 
 		return tb;
 	}
@@ -148,85 +134,27 @@ public class MenuView extends Composite implements MenuDisplay {
 		FlexTable tb = new FlexTable();
 		Anchor browseRowedRoutes = new Anchor("Meine geruderten Routen");
 		Anchor changePassword = new Anchor("Passwort ändern");
-		Anchor requestNewPassword = new Anchor("Neues Passwort anfordern");
 		Anchor searchProfile = new Anchor("Profil suchen");
 		Anchor viewProfile = new Anchor("Profil anzeigen");
 		tb.setWidget(0, 0, viewProfile);
 		tb.setWidget(1, 0, searchProfile);
 		tb.setWidget(2, 0, browseRowedRoutes);
 		tb.setWidget(3, 0, changePassword);
-		tb.setWidget(4, 0, requestNewPassword);
 		
 		tb.getRowFormatter().setStyleName(0, "menuItem");
 		tb.getRowFormatter().setStyleName(1, "menuItem");
 		tb.getRowFormatter().setStyleName(2, "menuItem");
 		tb.getRowFormatter().setStyleName(3, "menuItem");
-		tb.getRowFormatter().setStyleName(4, "menuItem");
-		return tb;
-	}
-	
-	private Widget createReserveMenu() {
-		FlexTable tb = new FlexTable();
-		Anchor browseReservations = new Anchor("Reservierungen anzeigen");
-		Anchor addReservation = new Anchor("Reservierung hinzufügen");
-		Anchor viewReservaton = new Anchor("Reservierung anzeigen");
-		Anchor deleteReservaton = new Anchor("Reservierung löschen");
-		Anchor editReservation = new Anchor("Reservierungeditieren");
-		
-		tb.setWidget(0, 0, browseReservations);
-		tb.setWidget(1, 0, addReservation);
-		tb.setWidget(2, 0, viewReservaton);
-		tb.setWidget(3, 0, deleteReservaton);
-		tb.setWidget(4, 0, editReservation);
-		
-		tb.getRowFormatter().setStyleName(0, "menuItem");
-		tb.getRowFormatter().setStyleName(1, "menuItem");
-		tb.getRowFormatter().setStyleName(2, "menuItem");
-		tb.getRowFormatter().setStyleName(3, "menuItem");
-		tb.getRowFormatter().setStyleName(4, "menuItem");
-		
-		return tb;
-	}
-
-	private Widget createDamageMenu() {
-		FlexTable tb = new FlexTable();
-		Anchor browseDamages = new Anchor("Schäden anzeigen");
-		Anchor logDamageBoat = new Anchor("Schaden registrieren");
-		Anchor viewDamage = new Anchor("Schaden anzeigen");
-		Anchor editDamage = new Anchor("Schaden editieren");
-		
-		tb.setWidget(0, 0, browseDamages);
-		tb.setWidget(1, 0, logDamageBoat);
-		tb.setWidget(2, 0, viewDamage);
-		tb.setWidget(3, 0, editDamage);
-		
-		tb.getRowFormatter().setStyleName(0, "menuItem");
-		tb.getRowFormatter().setStyleName(1, "menuItem");
-		tb.getRowFormatter().setStyleName(2, "menuItem");
-		tb.getRowFormatter().setStyleName(3, "menuItem");
-		
 		return tb;
 	}
 
 	private Widget createRouteMenu() {
 		FlexTable tb = new FlexTable();
 		Anchor browseRoutes = new Anchor("Routen anzeigen");
-		Anchor viewRoute = new Anchor("Route anzeigen");
-		Anchor addRoute = new Anchor("Route hinzufügen");
-		Anchor editRoute = new Anchor("(offene) Route editieren");
-		Anchor deleteRoute = new Anchor("Route löschen");
 		
 		tb.setWidget(0, 0, browseRoutes);
-		tb.setWidget(1, 0, viewRoute);
-		tb.setWidget(2, 0, addRoute);
-		tb.setWidget(3, 0, editRoute);
-		tb.setWidget(4, 0, deleteRoute);
 		
 		tb.getRowFormatter().setStyleName(0, "menuItem");
-		tb.getRowFormatter().setStyleName(1, "menuItem");
-		tb.getRowFormatter().setStyleName(2, "menuItem");
-		tb.getRowFormatter().setStyleName(3, "menuItem");
-		tb.getRowFormatter().setStyleName(4, "menuItem");
 		
 		return tb;
 	}
@@ -235,24 +163,12 @@ public class MenuView extends Composite implements MenuDisplay {
 		FlexTable tb = new FlexTable();
 		Anchor browseMembers = new Anchor("Mitglieder anzeigen");
 		Anchor importMembers = new Anchor("Mitglieder importieren");
-		Anchor addMember = new Anchor("Mitglied hinzufügen");
-		Anchor editMember = new Anchor("Mitglied editieren");
-		Anchor activateMember = new Anchor("Mitglied (de)aktivieren");
-		Anchor deleteMember = new Anchor("Mitglied löschen");
 		
 		tb.setWidget(0, 0, browseMembers);
 		tb.setWidget(1, 0, importMembers);
-		tb.setWidget(2, 0, addMember);
-		tb.setWidget(3, 0, editMember);
-		tb.setWidget(4, 0, activateMember);
-		tb.setWidget(5, 0, deleteMember);
 		
 		tb.getRowFormatter().setStyleName(0, "menuItem");
 		tb.getRowFormatter().setStyleName(1, "menuItem");
-		tb.getRowFormatter().setStyleName(2, "menuItem");
-		tb.getRowFormatter().setStyleName(3, "menuItem");
-		tb.getRowFormatter().setStyleName(4, "menuItem");
-		tb.getRowFormatter().setStyleName(5, "menuItem");
 		
 		return tb;
 	}
@@ -266,10 +182,4 @@ public class MenuView extends Composite implements MenuDisplay {
 	public Widget asWidget() {
 		return this;
 	}
-
-	@Override
-	public HasClickHandlers getAddBoat() {
-		return addBoat;
-	}
-
 }
