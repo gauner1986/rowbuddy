@@ -31,9 +31,8 @@ public class MenuView extends Composite implements MenuDisplay {
 		VerticalPanel verticalPanel = new VerticalPanel();
 		DecoratedStackPanel menuPanel = new DecoratedStackPanel();
 
-		menuPanel.add(createTripsMenu(), getHeaderString("Offene Fahrten", images.openTrips()), true);
-		menuPanel.add(createProfilMenu(), getHeaderString("Profil", images.profil()), true);
 		menuPanel.add(createViewTripMenu(), getHeaderString("Fahrtenbuch", images.logBook()), true);
+		menuPanel.add(createProfilMenu(), getHeaderString("Profil", images.profil()), true);
 		menuPanel.add(createStatistikMenu(), getHeaderString("Statistiken", images.statistics()), true);
 		menuPanel.add(createRouteMenu(),getHeaderString("Route", images.map()), true);
 		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.boat()), true);
@@ -80,24 +79,17 @@ public class MenuView extends Composite implements MenuDisplay {
 	private Widget createViewTripMenu() {
 		FlexTable tb = new FlexTable();
 		Anchor browseTrips = new Anchor("Fahrtenübersicht");
-		
-		tb.setWidget(0, 0, browseTrips);
-		
-		tb.getRowFormatter().setStyleName(0, "menuItem");
-		
-		return tb;
-	}
-
-	private Widget createTripsMenu() {
-		FlexTable tb = new FlexTable();
-		
 		Anchor browseOpenTrips = new Anchor("Offene Fahrten");
 		Anchor browsePersonalOpenTrips = new Anchor("Persönliche offene Fahrten");
-		tb.setWidget(0, 0, browseOpenTrips);
-		tb.setWidget(1, 0, browsePersonalOpenTrips);
-
+			
+		tb.setWidget(0, 0, browseTrips);
+		tb.setWidget(1, 0, browseOpenTrips);
+		tb.setWidget(2, 0, browsePersonalOpenTrips);
+		
 		tb.getRowFormatter().setStyleName(0, "menuItem");
 		tb.getRowFormatter().setStyleName(1, "menuItem");
+		tb.getRowFormatter().setStyleName(2, "menuItem");
+		
 		return tb;
 	}
 
@@ -110,7 +102,7 @@ public class MenuView extends Composite implements MenuDisplay {
 		Anchor highscoreBoats = new Anchor("Boote - Jahresstatistik");
 		Anchor highscoreMonth = new Anchor("Monatsstatistik");
 		Anchor highscoreYear = new Anchor("Jahresstatistik");
-		Anchor popularRoutes = new Anchor("Beleibteste Routen");
+		Anchor popularRoutes = new Anchor("Beliebteste Routen");
 		tb.setWidget(0, 0, boatdamagesYear);
 		tb.setWidget(1, 0, clubactivityMonth);
 		tb.setWidget(2, 0, clubactivityWeekday);
