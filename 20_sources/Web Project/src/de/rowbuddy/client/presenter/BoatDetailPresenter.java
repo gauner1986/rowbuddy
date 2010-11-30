@@ -17,6 +17,8 @@ import de.rowbuddy.client.events.EditBoatEvent;
 import de.rowbuddy.client.events.ListBoatEvent;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.Boat;
+import de.rowbuddy.entities.BoatDamage;
+import de.rowbuddy.entities.BoatReservation;
 
 public class BoatDetailPresenter implements Presenter{
 
@@ -29,6 +31,8 @@ public class BoatDetailPresenter implements Presenter{
 		HasClickHandlers getCancelButton();
 		HasSelectionHandlers<Integer> getTabBar();
 		void setSelection(int value);
+		void addDamageRow(String date, String member, boolean resolved);
+		void addReservationRow(String date, String member, String logger);
 		Widget asWidget();
 	}
 	
@@ -62,6 +66,14 @@ public class BoatDetailPresenter implements Presenter{
 				view.setNumberOfSeats(arg0.getNumberOfSeats());
 				view.setCoxed(arg0.isCoxed());
 				view.setLocked(arg0.isLocked());
+				
+				for(BoatDamage damage : arg0.getBoatDamages()) {
+					view.addDamageRow(damage.getLogDate().toString(), damage.getLogger().getFullName(), damage.isFixed());
+				}
+				
+				for(BoatReservation reservation : arg0.getBoatReservations()){
+					view.addReservationRow(reservation.getFrom().toString(), reservation.getUntil().toString(), reservation.getReserver().getFullName());
+				}
 			}
 			
 			@Override

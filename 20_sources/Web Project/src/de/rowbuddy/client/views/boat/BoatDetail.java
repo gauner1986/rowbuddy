@@ -29,7 +29,8 @@ public class BoatDetail extends Composite implements Display{
 	private Button editButton;
 	private Button cancelButton;
 	private TabBar bar;
-	
+	private int damageIndex = 1;
+	private int reservationIndex = 1;
 	public BoatDetail(){
 		contentTable = new FlexTable();
 		decorator = new DecoratorPanel();
@@ -76,7 +77,14 @@ public class BoatDetail extends Composite implements Display{
 	    bar.addTab("Reservierung");
 	    	    
 	    damagesTable = new FlexTable();
+	    damagesTable.setText(0, 0, "Bootschäden");
+	    damagesTable.setText(0, 1, "Gemeldet von");
+	    damagesTable.setText(0, 2, "Behoben");
 	    reservationTable = new FlexTable();
+	    
+	    reservationTable.setText(0, 0, "Von");
+	    reservationTable.setText(0, 1, "Bis");
+	    reservationTable.setText(0, 2, "Reserviert von");
 	    
 		contentTable.setWidget(1, 0, bar);
 		contentTable.setWidget(2, 0, detailTable);
@@ -133,6 +141,24 @@ public class BoatDetail extends Composite implements Display{
 			contentTable.setWidget(2, 0, reservationTable);
 			break;
 		}
+	}
+
+	@Override
+	public void addDamageRow(String date, String member, boolean resolved) {
+		damagesTable.setText(damageIndex, 0, date);
+		damagesTable.setText(damageIndex, 1, member);
+		CheckBox box = new CheckBox();
+		box.setValue(resolved);
+		damagesTable.setWidget(damageIndex, 2, box);
+		damageIndex++;
+	}
+
+	@Override
+	public void addReservationRow(String date, String member, String logger) {
+		damagesTable.setText(reservationIndex, 0, date);
+		damagesTable.setText(reservationIndex, 1, member);
+		damagesTable.setText(reservationIndex, 2, logger);
+		reservationIndex++;
 	}
 	
 

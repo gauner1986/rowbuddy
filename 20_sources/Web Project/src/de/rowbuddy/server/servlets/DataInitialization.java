@@ -1,6 +1,7 @@
 package de.rowbuddy.server.servlets;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import de.rowbuddy.business.BoatManagement;
 import de.rowbuddy.business.MemberManagement;
 import de.rowbuddy.entities.Boat;
+import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.exceptions.RowBuddyException;
 
@@ -37,6 +39,7 @@ public class DataInitialization extends HttpServlet {
     @Override
     public void init(){
     	Boat b1 = new Boat();
+    	createTestMember();
     	try {
 			b1.setName("Test Boot");
 			b1.setCoxed(false);
@@ -65,13 +68,14 @@ public class DataInitialization extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		createTestMember();
+		
 		
     }
     
-    private void createTestMember(){
+    private Member createTestMember(){
+    	Member testMember = null;
 		try {
-			Member testMember = new Member();
+			testMember = new Member();
 			testMember.setPassword("bla");
 			testMember.setEmail("bla@bla.de");
 			memberManagement.addMember(testMember);
@@ -79,6 +83,7 @@ public class DataInitialization extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return testMember;
 	}
     
     
