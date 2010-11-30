@@ -168,9 +168,9 @@ public class MenuView extends Composite implements MenuDisplay {
 	private Widget createReserveMenu() {
 		FlexTable tb = new FlexTable();
 		Anchor browseReservations = new Anchor("Reservierungen anzeigen");
-		Anchor addReservation = new Anchor("Reservierung hinzuf√ºgen");
+		Anchor addReservation = new Anchor("Reservierung hinzufügen");
 		Anchor viewReservaton = new Anchor("Reservierung anzeigen");
-		Anchor deleteReservaton = new Anchor("Reservierung l√∂schen");
+		Anchor deleteReservaton = new Anchor("Reservierung löschen");
 		Anchor editReservation = new Anchor("Reservierungeditieren");
 		
 		tb.setWidget(0, 0, browseReservations);
@@ -190,7 +190,7 @@ public class MenuView extends Composite implements MenuDisplay {
 
 	private Widget createDamageMenu() {
 		FlexTable tb = new FlexTable();
-		Anchor browseDamages = new Anchor("Sch√§den anzeigen");
+		Anchor browseDamages = new Anchor("Schäden anzeigen");
 		Anchor logDamageBoat = new Anchor("Schaden registrieren");
 		Anchor viewDamage = new Anchor("Schaden anzeigen");
 		Anchor editDamage = new Anchor("Schaden editieren");
