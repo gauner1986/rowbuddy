@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import de.rowbuddy.business.dtos.DtoConverter;
 import de.rowbuddy.business.dtos.TripDTO;
 import de.rowbuddy.business.dtos.TripDTOConverter;
 import de.rowbuddy.entities.Member;
@@ -44,6 +45,7 @@ public class Logbook {
 		rowedTrip.validateFinishedTrip();
 
 		rowedTrip.setLastEditor(editor);
+		rowedTrip.setFinished(true);
 
 		em.persist(rowedTrip);
 	}
@@ -53,12 +55,12 @@ public class Logbook {
 	 * 
 	 * @param startedTrip
 	 *            the trip
-	 * @param editor
+	 * @param currentUser
 	 *            the person who is editing the trip
 	 * @throws RowBuddyException
 	 *             Thrown if validation of trip failed
 	 */
-	public void startTrip(Trip startedTrip, Member editor)
+	public void startTrip(Trip startedTrip, Member currentUser)
 			throws RowBuddyException {
 
 		if (startedTrip.getId() != null) {
@@ -66,8 +68,9 @@ public class Logbook {
 		}
 
 		startedTrip.validateStartedTrip();
-
-		startedTrip.setLastEditor(editor);
+		
+		startedTrip.setLastEditor(currentUser);
+		startedTrip.setFinished(false);
 
 		em.persist(startedTrip);
 	}
@@ -80,10 +83,21 @@ public class Logbook {
 				"SELECT t FROM Trip t WHERE t.finished=false", Trip.class);
 		List<Trip> trips =q.getResultList();
 		List<TripDTO> dtoList = tripConverter.getList(trips);
-		for (TripDTO dto : dtoList){
-			dto.canEditTrip = canEditTrip(dto.trip, currentUser);
+		return addEditInformation(dtoList, trips, currentUser);
+	}
+	
+	private List<TripDTO> addEditInformation(List<TripDTO> tripDtos, List<Trip> trips, Member currentUser){
+		if (tripDtos.size() != trips.size()){
+			throw new IllegalArgumentException("Collections must have same size");
 		}
-		return dtoList; 
+		for (int i = 0; i<tripDtos.size(); i++){
+			Trip trip = trips.get(i);
+			TripDTO dto = tripDtos.get(i);
+			boolean canEdit = canEditTrip(trip, currentUser);
+			
+			dto.setCanEditTrip(canEdit);
+		}
+		return tripDtos;
 	}
 
 	/**
@@ -112,6 +126,7 @@ public class Logbook {
 		openTrip.validateFinishedTrip();
 
 		openTrip.setLastEditor(currentUser);
+		openTrip.setFinished(true);
 
 		em.merge(openTrip);
 	}

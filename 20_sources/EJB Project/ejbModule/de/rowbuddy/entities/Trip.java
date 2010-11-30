@@ -70,7 +70,6 @@ public class Trip implements Serializable {
 			throw new NullPointerException("End date must not be null");
 		}
 		this.endDate = newEndDate;
-		this.finished = true;
 	}
 
 	public Boat getBoat() {
@@ -141,6 +140,10 @@ public class Trip implements Serializable {
 	public boolean isFinished() {
 		return finished;
 	}
+	
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
 
 	@Override
 	public int hashCode() {
@@ -185,7 +188,7 @@ public class Trip implements Serializable {
 		
 		if (startDate.after(endDate)) {
 			throw new RowBuddyException(
-					"End date must be before start date");
+					"End date must be after start date");
 		}
 		
 		if (route == null) {
