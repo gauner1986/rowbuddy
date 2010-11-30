@@ -145,7 +145,7 @@ public class EditBoatPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				History.back();
+				eventBus.fireEvent(new ListBoatEvent());
 			}
 		});
 	}
