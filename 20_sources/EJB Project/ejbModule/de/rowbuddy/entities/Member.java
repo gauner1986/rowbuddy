@@ -184,7 +184,11 @@ public class Member implements Serializable {
 		}
 		return false;
 	}
-
+	
+	public String getFullName(){
+		return givenname + ", " + surname;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
