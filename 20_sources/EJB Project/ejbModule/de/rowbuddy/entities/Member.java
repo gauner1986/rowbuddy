@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 import javax.persistence.*;
 
+import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 /**
@@ -35,7 +36,18 @@ public class Member implements Serializable {
 	private Collection<Trip> publishedTrips = new LinkedList<Trip>();
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Collection<Role> roles = new LinkedList<Role>();
+	private Role defaultRole = new Role();
 	private static final long serialVersionUID = 1L;
+	
+	public Member(){
+		try {
+			defaultRole.setName(RoleName.MEMBER);
+			roles.add(defaultRole);
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public Long getId() {
 		return this.id;
