@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -20,29 +21,30 @@ import de.rowbuddy.client.presenter.MenuPresenter.MenuDisplay;
 public class MenuView extends Composite implements MenuDisplay {
 	
 	//TODO: Neue Fahrt, Nachtrag
-
+	
+	private Images images = (Images) GWT.create(Images.class);
 	private Anchor browseBoats = new Anchor("Bootsübersicht");
+	private DecoratedStackPanel menuPanel = new DecoratedStackPanel();
+	private HorizontalPanel route = getHeaderString("Route", images.map());
 	
 	public MenuView() {
-		Images images = (Images) GWT.create(Images.class);
 
 		
 		// initWidget(stackPanel);
 		VerticalPanel verticalPanel = new VerticalPanel();
-		DecoratedStackPanel menuPanel = new DecoratedStackPanel();
-
-		menuPanel.add(createViewTripMenu(), getHeaderString("Fahrtenbuch", images.logBook()), true);
-		menuPanel.add(createProfilMenu(), getHeaderString("Profil", images.profil()), true);
-		menuPanel.add(createStatistikMenu(), getHeaderString("Statistiken", images.statistics()), true);
-		menuPanel.add(createRouteMenu(),getHeaderString("Route", images.map()), true);
-		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.boat()), true);
-		menuPanel.add(createMemberControl(), getHeaderString("Mitgliederverwaltung(admin)", images.member()), true);
+		
+		menuPanel.add(createViewTripMenu(), getHeaderString("Fahrtenbuch", images.logBook()).getElement().getString(), true);
+		menuPanel.add(createProfilMenu(), getHeaderString("Profil", images.profil()).getElement().getString(), true);
+		menuPanel.add(createStatistikMenu(), getHeaderString("Statistiken", images.statistics()).getElement().getString(), true);
+		menuPanel.add(createRouteMenu(),route.getElement().getString(), true);
+		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.boat()).getElement().getString(), true);
+		menuPanel.add(createMemberControl(), getHeaderString("Mitgliederverwaltung(admin)", images.member()).getElement().getString(), true);
 		
 		verticalPanel.add(menuPanel);
 		initWidget(verticalPanel);
 	}
 	
-	private String getHeaderString(String text, ImageResource image) {
+	private HorizontalPanel getHeaderString(String text, ImageResource image) {
 	    // Add the image and text to a horizontal panel
 	    HorizontalPanel hPanel = new HorizontalPanel();
 	    hPanel.setSpacing(0);
@@ -53,7 +55,7 @@ public class MenuView extends Composite implements MenuDisplay {
 	    hPanel.add(headerText);
 
 	    // Return the HTML string for the panel
-	    return hPanel.getElement().getString();
+	    return hPanel;
 	  }
 
 	private Widget createBoatMenu() {
@@ -142,11 +144,11 @@ public class MenuView extends Composite implements MenuDisplay {
 
 	private Widget createRouteMenu() {
 		FlexTable tb = new FlexTable();
-		Anchor browseRoutes = new Anchor("Routen anzeigen");
-		
-		tb.setWidget(0, 0, browseRoutes);
-		
-		tb.getRowFormatter().setStyleName(0, "menuItem");
+//		Anchor browseRoutes = new Anchor("Routen anzeigen");
+//		
+//		tb.setWidget(0, 0, browseRoutes);
+//		
+//		tb.getRowFormatter().setStyleName(0, "menuItem");
 		
 		return tb;
 	}
@@ -173,5 +175,10 @@ public class MenuView extends Composite implements MenuDisplay {
 	@Override
 	public Widget asWidget() {
 		return this;
+	}
+	
+	@Override
+	public Panel getRoutes(){
+		return route;
 	}
 }
