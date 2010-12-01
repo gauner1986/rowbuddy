@@ -15,7 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.rowbuddy.boundary.dtos.TripDTO;
+import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.entities.TripMember;
 import de.rowbuddy.entities.TripMemberType;
@@ -165,7 +165,7 @@ public class LogbookTest extends EjbTestBase {
 		logbook.startTrip(startedTrip3, db.getMembers().get(0));
 		
 		// when
-		List<Trip> personalTrips =  logbook.getPersonalTrips(db.getMembers().get(0));
+		List<PersonalTripDTO> personalTrips =  logbook.getPersonalTrips(db.getMembers().get(0));
 		
 		// then
 	}

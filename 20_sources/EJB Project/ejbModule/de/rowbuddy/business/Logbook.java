@@ -2,16 +2,13 @@ package de.rowbuddy.business;
 
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import de.rowbuddy.boundary.dtos.DtoConverter;
-import de.rowbuddy.boundary.dtos.TripDTO;
-import de.rowbuddy.boundary.dtos.TripDTOConverter;
+import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.RowBuddyException;
@@ -168,14 +165,23 @@ public class Logbook {
 	/**
 	 * determines all trips that member has participated in 
 	 * @param member
-	 * @return a list of trips
+	 * @return a list of PersonalTripDTO
 	 */
-	public List<Trip> getPersonalTrips(Member member) {
+	public List<PersonalTripDTO> getPersonalTrips(Member member) {
 		if (member == null){
 			throw new NullPointerException("You must specify a member");
 		}
 
-		TypedQuery<Trip> q = em.createQuery("SELECT t FROM Trip t WHERE EXISTS (SELECT x FROM t.tripMembers x WHERE x.member = :member)", Trip.class);
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT ");
+		sb.append("new ");
+		sb.append(PersonalTripDTO.class.getName());
+		sb.append("(trip.id, trip.startDate, trip.endDate, trip.boat, memberRole, trip.lastEditor, trip.route, trip.finished)");
+		sb.append("FROM Trip trip INNER JOIN trip.tripMembers memberRole ");
+		sb.append("WHERE memberRole.member = :member");
+		System.out.println(sb.toString());
+		
+		TypedQuery<PersonalTripDTO> q = em.createQuery(sb.toString(), PersonalTripDTO.class);
 		q.setParameter("member", member);
 		return q.getResultList();
 	}
