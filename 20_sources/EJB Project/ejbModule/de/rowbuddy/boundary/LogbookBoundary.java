@@ -5,11 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
-import de.rowbuddy.boundary.dtos.PersonalTripDTOConverter;
 import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.boundary.dtos.TripDTOConverter;
 import de.rowbuddy.business.Logbook;
@@ -23,7 +19,6 @@ public class LogbookBoundary {
 	@EJB
 	Logbook logbook;
 	TripDTOConverter tripDtoConv = new TripDTOConverter();
-	PersonalTripDTOConverter personalTripDtoConv = new PersonalTripDTOConverter();
 	
 	/**
 	 * @return List of trips that are not finished yet.
@@ -46,10 +41,5 @@ public class LogbookBoundary {
 			dto.setCanEditTrip(canEdit);
 		}
 		return tripDtos;
-	}
-	
-//	public List<PersonalTrip> getPersonalOpenTrips(Member currentUser){
-//		List<Trip> trips = logbook.getPersonalTrips()(member)(currentUser);
-//	}
-	
+	}	
 }

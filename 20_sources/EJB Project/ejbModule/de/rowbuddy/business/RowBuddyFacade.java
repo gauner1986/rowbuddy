@@ -15,7 +15,9 @@ import javax.persistence.Query;
 import de.rowbuddy.boundary.BoatBoundary;
 import de.rowbuddy.boundary.LogbookBoundary;
 import de.rowbuddy.boundary.dtos.BoatDTO;
+import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
+import de.rowbuddy.business.Logbook.ListType;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Role;
@@ -131,5 +133,13 @@ public class RowBuddyFacade {
 
 	public void finishTrip(Trip openTrip) throws RowBuddyException{
 		logbook.finishTrip(openTrip, this.member);
+	}
+	
+	public List<PersonalTripDTO> getPersonalTrips(){
+		return logbook.getPersonalTrips(this.member, ListType.All);
+	}
+
+	public List<PersonalTripDTO> getPersonalOpenTrips(){
+		return logbook.getPersonalTrips(this.member, ListType.OpenOnly);
 	}
 }

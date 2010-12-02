@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
+import de.rowbuddy.business.Logbook.ListType;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.entities.TripMember;
 import de.rowbuddy.entities.TripMemberType;
@@ -111,7 +112,6 @@ public class LogbookTest extends EjbTestBase {
 		assertEquals(0, trip.getTripMembers().size());
 	}
 
-
 	@Test
 	public void canStopRowing() throws RowBuddyException, ParseException {
 		// given
@@ -121,27 +121,27 @@ public class LogbookTest extends EjbTestBase {
 		assertThat(openTrips.size(), is(1));
 
 		Trip openTrip = openTrips.get(0);
-		
+
 		openTrip.setBoat(db.getBoats().get(1));
 		openTrip.addTripMember(tripMember1);
 		openTrip.addTripMember(tripMember2);
 		openTrip.setRoute(db.getRoutes().get(0));
 		openTrip.setEndDate(DateFormat.getInstance().parse(
 				"15.03.2012 13:12:00"));
-		
+
 		// when
 		logbook.finishTrip(openTrip, db.getMembers().get(0));
-		
+
 		// then
 		Trip dbTrip = em.getReference(Trip.class, openTrip.getId());
 		assertThat(dbTrip.isFinished(), is(true));
-		
+
 		openTrips = logbook.getOpenTrips(db.getMembers().get(0));
 		assertThat(openTrips.size(), is(0));
 	}
-	
+
 	@Test
-	public void canGetOpenTrips() throws RowBuddyException{
+	public void canGetOpenTrips() throws RowBuddyException {
 		// given
 		logbook.logRowedTrip(rowedTrip, db.getMembers().get(0));
 		logbook.startTrip(startedTrip1, db.getMembers().get(0));
@@ -150,33 +150,40 @@ public class LogbookTest extends EjbTestBase {
 
 		// when
 		List<Trip> startedTrips = logbook.getOpenTrips(db.getMembers().get(0));
-		
+
 		// then
 		assertNotNull(startedTrips);
 		assertThat(startedTrips.size(), is(3));
 	}
-	
+
 	@Test
-	public void canGetPersonalTrips() throws RowBuddyException{
+	public void canGetPersonalTrips() throws RowBuddyException {
 		// given
 		logbook.logRowedTrip(rowedTrip, db.getMembers().get(0));
 		logbook.startTrip(startedTrip1, db.getMembers().get(0));
 		logbook.startTrip(startedTrip2, db.getMembers().get(0));
 		logbook.startTrip(startedTrip3, db.getMembers().get(0));
-		
+
 		// when
-		List<PersonalTripDTO> personalTrips =  logbook.getPersonalTrips(db.getMembers().get(0));
-		
+		List<PersonalTripDTO> personalTrips = logbook.getPersonalTrips(db
+				.getMembers().get(0), ListType.All);
+
 		// then
 	}
-	
-//	@Test
-//	public void canGetPersonalOpenTrips(){
-//		// given
-//		
-//		// when
-//		List<Trip> personalOpenTrips =  logbook.getPersonalOpenTrips(db.getMembers().get(0));
-//
-//		// then 
-//	}
+
+	@Test
+	public void canGetPersonalOpenTrips() throws RowBuddyException {
+		// given
+		logbook.logRowedTrip(rowedTrip, db.getMembers().get(0));
+		logbook.startTrip(startedTrip1, db.getMembers().get(0));
+		logbook.startTrip(startedTrip2, db.getMembers().get(0));
+		logbook.startTrip(startedTrip3, db.getMembers().get(0));
+
+		// when
+		List<PersonalTripDTO> personalOpenTrips = logbook.getPersonalTrips(db
+				.getMembers().get(0), ListType.OpenOnly);
+
+		// then
+	}
+
 }

@@ -19,6 +19,11 @@ public class Logbook {
 
 	@PersistenceContext
 	EntityManager em;
+	
+	public enum ListType{
+		All,
+		OpenOnly
+	}
 
 	/**
 	 * Add a finished trip to the logbook. A trip contains information about the
@@ -165,9 +170,10 @@ public class Logbook {
 	/**
 	 * determines all trips that member has participated in 
 	 * @param member
+	 * @param listType 
 	 * @return a list of PersonalTripDTO
 	 */
-	public List<PersonalTripDTO> getPersonalTrips(Member member) {
+	public List<PersonalTripDTO> getPersonalTrips(Member member, ListType listType) {
 		if (member == null){
 			throw new NullPointerException("You must specify a member");
 		}
@@ -178,8 +184,10 @@ public class Logbook {
 		sb.append(PersonalTripDTO.class.getName());
 		sb.append("(trip.id, trip.startDate, trip.endDate, trip.boat, memberRole, trip.lastEditor, trip.route, trip.finished)");
 		sb.append("FROM Trip trip INNER JOIN trip.tripMembers memberRole ");
-		sb.append("WHERE memberRole.member = :member");
-		System.out.println(sb.toString());
+		sb.append("WHERE memberRole.member = :member ");
+		if (listType == ListType.OpenOnly){
+			sb.append("AND trip.finished=false");
+		}
 		
 		TypedQuery<PersonalTripDTO> q = em.createQuery(sb.toString(), PersonalTripDTO.class);
 		q.setParameter("member", member);

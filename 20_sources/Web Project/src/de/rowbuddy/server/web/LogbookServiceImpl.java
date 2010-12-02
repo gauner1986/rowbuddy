@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.business.RowBuddyFacade;
 import de.rowbuddy.client.services.LogbookRemoteService;
@@ -41,5 +42,15 @@ public class LogbookServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public Trip getTrip(Long id) throws RowBuddyException {
 		return rowbuddy.getTrip(id);
+	}
+
+	@Override
+	public List<PersonalTripDTO> getPersonalTrips() {
+		return rowbuddy.getPersonalTrips();
+	}
+
+	@Override
+	public List<PersonalTripDTO> getPersonalOpenTrips() {
+		return rowbuddy.getPersonalOpenTrips();
 	}
 }
