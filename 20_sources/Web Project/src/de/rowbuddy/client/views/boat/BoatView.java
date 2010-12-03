@@ -15,7 +15,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.presenter.BoatDetailPresenter.Display;
 import de.rowbuddy.client.presenter.BoatPresenter;
 
 public class BoatView extends Composite implements BoatPresenter.Display {
@@ -29,7 +28,7 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 		decorator = new DecoratorPanel();
 		contentTable = new FlexTable();
 		contentTable.setStylePrimaryName("contentTable");
-		
+
 		initWidget(decorator);
 		decorator.add(contentTable);
 
@@ -39,13 +38,11 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 		addButton.setStyleName("buttonAdd buttonRegular");
 		hPanel.add(addButton);
 		contentTable.setWidget(2, 0, hPanel);
-		
-		
+
 		boatTable = new FlexTable();
 		boatTable.setWidth("100%");
 		boatTable.setStyleName("boatTable");
-		
-		
+
 		contentTable.setWidget(1, 0, boatTable);
 		contentTable.setText(0, 0, PageTitles.BOAT_OVERVIEW);
 		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
@@ -102,9 +99,9 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 			boatTable.setWidget(i, 3, lockedBox);
 
 			HTMLTable.RowFormatter rf = boatTable.getRowFormatter();
-			
+
 			if ((i % 2) != 0) {
-				//rf.addStyleName(i, "FlexTable-OddRow");
+				// rf.addStyleName(i, "FlexTable-OddRow");
 				rf.setStylePrimaryName(i, "FlexTable-OddRow");
 			} else {
 				rf.addStyleName(i, "FlexTable-EvenRow");
@@ -113,7 +110,6 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 		}
 	}
 
-	
 	@Override
 	public HasClickHandlers getTable() {
 		return boatTable;

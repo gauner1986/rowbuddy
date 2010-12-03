@@ -9,8 +9,16 @@
     <servlet-name>BoatRemoteServiceImpl</servlet-name>
     <servlet-class>de.rowbuddy.server.web.BoatRemoteServiceImpl</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>LogbookRemoteServiceImpl</servlet-name>
+    <servlet-class>de.rowbuddy.server.web.LogbookRemoteServiceImpl</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>BoatRemoteServiceImpl</servlet-name>
     <url-pattern>/BoatRemoteServiceImpl</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LogbookRemoteServiceImpl</servlet-name>
+    <url-pattern>/LogbookRemoteServiceImpl</url-pattern>
   </servlet-mapping>
 </web-app>

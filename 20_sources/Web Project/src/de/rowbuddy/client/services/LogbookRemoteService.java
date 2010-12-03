@@ -2,13 +2,15 @@ package de.rowbuddy.client.services;
 
 import java.util.List;
 
+import com.google.gwt.user.client.rpc.RemoteService;
+
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.business.Logbook.ListType;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.RowBuddyException;
 
-public interface LogbookRemoteService {
+public interface LogbookRemoteService extends RemoteService {
 
 	public void logRowedTrip(Trip rowedTrip) throws RowBuddyException;
 

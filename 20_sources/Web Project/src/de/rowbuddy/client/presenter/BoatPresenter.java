@@ -18,43 +18,50 @@ import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.events.BoatDetailEvent;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
-public class BoatPresenter implements Presenter{
-	public interface Display{
+public class BoatPresenter implements Presenter {
+	public interface Display {
 		Widget asWidget();
+
 		HasClickHandlers getAddButton();
+
 		HasClickHandlers getTable();
+
 		void setData(Collection<BoatDTO> boats);
+
 		int getClickedRow(ClickEvent event);
 	}
-	
+
 	private Display view;
 	private BoatRemoteServiceAsync boatService;
 	private SimpleEventBus eventBus;
 	private List<BoatDTO> fetchedBoats;
-	private static Logger logger = Logger.getLogger(BoatPresenter.class.getName());
-	public BoatPresenter(BoatRemoteServiceAsync boatService, Display view, SimpleEventBus eventBus) {
+	private static Logger logger = Logger.getLogger(BoatPresenter.class
+			.getName());
+
+	public BoatPresenter(BoatRemoteServiceAsync boatService, Display view,
+			SimpleEventBus eventBus) {
 		this.view = view;
 		this.boatService = boatService;
 		this.eventBus = eventBus;
 	}
-	
-	private void bind(){
+
+	private void bind() {
 		view.getAddButton().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent arg0) {
 				eventBus.fireEvent(new AddBoatEvent());
 			}
 		});
-		
+
 		view.getTable().addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				int selectedRow = view.getClickedRow(event);
 				logger.info("Row " + selectedRow + " selected");
-				if(selectedRow > 0) {
+				if (selectedRow > 0) {
 					Long id = fetchedBoats.get(selectedRow - 1).getId();
-					
+
 					logger.info("Fire EditBoatEvent id:" + id);
 					eventBus.fireEvent(new BoatDetailEvent(id));
 				}
@@ -69,21 +76,21 @@ public class BoatPresenter implements Presenter{
 		container.add(view.asWidget());
 		fetchBoats();
 	}
-	
-	private void fetchBoats(){
+
+	private void fetchBoats() {
 		boatService.getBoatOverview(new AsyncCallback<List<BoatDTO>>() {
-			
+
 			@Override
 			public void onSuccess(List<BoatDTO> arg0) {
 				fetchedBoats = arg0;
 				view.setData(fetchedBoats);
-			} 
-			
+			}
+
 			@Override
 			public void onFailure(Throwable arg0) {
 				Window.alert("error");
 			}
 		});
 	}
-	
+
 }

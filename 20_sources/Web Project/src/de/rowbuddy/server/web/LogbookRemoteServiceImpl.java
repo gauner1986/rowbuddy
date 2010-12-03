@@ -13,9 +13,9 @@ import de.rowbuddy.client.services.LogbookRemoteService;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.RowBuddyException;
 
-public class LogbookServiceImpl extends RemoteServiceServlet implements
+public class LogbookRemoteServiceImpl extends RemoteServiceServlet implements
 		LogbookRemoteService {
-
+	
 	@EJB
 	RowBuddyFacade rowbuddy;
 	

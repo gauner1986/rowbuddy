@@ -26,6 +26,8 @@ import com.google.gwt.user.client.ui.Widget;
 import de.rowbuddy.client.images.Images;
 import de.rowbuddy.client.services.BoatRemoteService;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
+import de.rowbuddy.client.services.LogbookRemoteService;
+import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 
 public class GWTEntryPoint implements EntryPoint {
 
@@ -37,25 +39,34 @@ public class GWTEntryPoint implements EntryPoint {
 				.create(BoatRemoteService.class);
 		((ServiceDefTarget) boatService).setServiceEntryPoint(GWT
 				.getHostPageBaseURL() + "BoatRemoteServiceImpl");
-		logger.info("Service registerd: " + GWT.getHostPageBaseURL() +"BoatRemoteServiceImpl");
+		logger.info("Service registerd: " + GWT.getHostPageBaseURL()
+				+ "BoatRemoteServiceImpl");
+
+		LogbookRemoteServiceAsync logbookService = (LogbookRemoteServiceAsync) GWT
+				.create(LogbookRemoteService.class);
+		((ServiceDefTarget) logbookService).setServiceEntryPoint(GWT
+				.getHostPageBaseURL() + "LogbookRemoteServiceImpl");
+		logger.info("Service registerd: " + GWT.getHostPageBaseURL()
+				+ "LogbookRemoteServiceImpl");
 
 		HasWidgets mainPanel = initialMainPanel();
 		FlowPanel messagePanel = new FlowPanel();
 		SimpleEventBus eventBus = new SimpleEventBus();
-		
-		VerticalPanel vPanel = new VerticalPanel();
-		
-		RootPanel.get("Main").add(initalRootFlexTable(mainPanel, messagePanel, vPanel));
 
-		
-		
-		AppController controller = new AppController(boatService, eventBus, messagePanel, vPanel);
+		VerticalPanel vPanel = new VerticalPanel();
+
+		RootPanel.get("Main").add(
+				initalRootFlexTable(mainPanel, messagePanel, vPanel));
+
+		AppController controller = new AppController(boatService,
+				logbookService, eventBus, messagePanel, vPanel);
 
 		controller.start(mainPanel);
 		logger.info("Application started");
 	}
 
-	private Widget initalRootFlexTable(HasWidgets mainPanel, Widget messagePanel, VerticalPanel vPanel) {
+	private Widget initalRootFlexTable(HasWidgets mainPanel,
+			Widget messagePanel, VerticalPanel vPanel) {
 		Images images = (Images) GWT.create(Images.class);
 
 		final FlexTable flexTable = new FlexTable();
@@ -80,48 +91,45 @@ public class GWTEntryPoint implements EntryPoint {
 		hPanel.setWidth("100%");
 		hPanel.setStylePrimaryName("logoHeader");
 		hPanel.add(new Image(images.logo()));
-		
+
 		Label loginLabel = new Label("Login: ich");
 		loginLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		Button logoutButton = new Button("Logout");	
+		Button logoutButton = new Button("Logout");
 		logoutButton.setStylePrimaryName("buttonExit buttonNegative");
-		
+
 		VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.add(loginLabel);
 		verticalPanel.add(logoutButton);
-			
+
 		hPanel.add(verticalPanel);
-		
+
 		hPanel.setCellWidth(verticalPanel, "20%");
-		
-		
+
 		flexTable.setWidget(0, 0, hPanel);
 
 		cellFormatter.setWidth(1, 0, "20%");
-		
-		
-		
+
 		flexTable.setWidget(1, 0, vPanel);
 
-		//messagePanel.setStyleName("messages");
+		// messagePanel.setStyleName("messages");
 		DecoratorPanel panel = new DecoratorPanel();
-		
+
 		panel.setWidget(messagePanel);
 		flexTable.setWidget(1, 1, panel);
-		//panel.setStylePrimaryName("messages");
+		// panel.setStylePrimaryName("messages");
 		flexTable.getCellFormatter().setStylePrimaryName(1, 0, "menuPanel");
 		flexTable.getCellFormatter().setStylePrimaryName(1, 1, "messages");
 
 		flexTable.setWidget(2, 0, (Widget) mainPanel);
-		
+
 		flexTable.getCellFormatter().setStylePrimaryName(2, 0, "viewPanel");
-		
+
 		return flexTable;
 	}
 
 	private HasWidgets initialMainPanel() {
 		FlowPanel panel = new FlowPanel();
-		
+
 		return panel;
 	}
 

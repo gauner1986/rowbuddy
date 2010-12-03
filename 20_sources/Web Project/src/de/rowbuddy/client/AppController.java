@@ -17,40 +17,50 @@ import de.rowbuddy.client.events.EditBoatEvent;
 import de.rowbuddy.client.events.EditBoatEventHandler;
 import de.rowbuddy.client.events.ListBoatEvent;
 import de.rowbuddy.client.events.ListBoatEventHandler;
+import de.rowbuddy.client.events.ListPersonalTripsEvent;
+import de.rowbuddy.client.events.ListPersonalTripsEventHandler;
 import de.rowbuddy.client.presenter.AddBoatPresenter;
 import de.rowbuddy.client.presenter.BoatDetailPresenter;
 import de.rowbuddy.client.presenter.BoatPresenter;
 import de.rowbuddy.client.presenter.EditBoatPresenter;
+import de.rowbuddy.client.presenter.ListPersonalTripsPresenter;
 import de.rowbuddy.client.presenter.MenuPresenter;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.StatusMessagePresenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
+import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 import de.rowbuddy.client.views.MenuView;
 import de.rowbuddy.client.views.MessageView;
 import de.rowbuddy.client.views.boat.AddBoatView;
 import de.rowbuddy.client.views.boat.BoatDetail;
 import de.rowbuddy.client.views.boat.BoatView;
 import de.rowbuddy.client.views.boat.EditBoatView;
+import de.rowbuddy.client.views.logbook.ListPersonalTripsView;
 
-public class AppController implements Presenter, ValueChangeHandler<String>{
+public class AppController implements Presenter, ValueChangeHandler<String> {
 	private SimpleEventBus eventBus;
 	private BoatRemoteServiceAsync boatService;
+	private LogbookRemoteServiceAsync logbookService;
 	private HasWidgets container;
-	private StatusMessagePresenter statusPresenter; 
+	private StatusMessagePresenter statusPresenter;
 	private Presenter menuPresenter;
 	private Logger logger = Logger.getLogger(AppController.class.getName());
-	
-	public AppController(BoatRemoteServiceAsync boatService, SimpleEventBus eventBus, HasWidgets messageContainer, HasWidgets menuPanel) {
+
+	public AppController(BoatRemoteServiceAsync boatService,
+			LogbookRemoteServiceAsync logbookService, SimpleEventBus eventBus,
+			HasWidgets messageContainer, HasWidgets menuPanel) {
 		this.boatService = boatService;
+		this.logbookService = logbookService;
 		this.eventBus = eventBus;
-		this.statusPresenter = new StatusMessagePresenter(new MessageView(), eventBus);
+		this.statusPresenter = new StatusMessagePresenter(new MessageView(),
+				eventBus);
 		statusPresenter.start(messageContainer);
 		menuPresenter = new MenuPresenter(new MenuView(), eventBus);
 		menuPresenter.start(menuPanel);
-	}  
-	
-	//bind Event handling here
-	private void bind(){
+	}
+
+	// bind Event handling here
+	private void bind() {
 		History.addValueChangeHandler(this);
 		eventBus.addHandler(AddBoatEvent.TYPE, new AddBoatEventHandler() {
 			@Override
@@ -59,74 +69,92 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 			}
 		});
 		eventBus.addHandler(ListBoatEvent.TYPE, new ListBoatEventHandler() {
-			
+
 			@Override
 			public void onListBoatEvent(ListBoatEvent event) {
 				doOnListBoatEvent();
 			}
 		});
-		
+
 		eventBus.addHandler(EditBoatEvent.TYPE, new EditBoatEventHandler() {
-			
+
 			@Override
 			public void onEditBoatEvent(EditBoatEvent event) {
 				doOnEditBoat(event.getId());
 			}
 		});
-		
+
 		eventBus.addHandler(BoatDetailEvent.TYPE, new BoatDetailEventHandler() {
-			
+
 			@Override
 			public void onBoatDetailEvent(BoatDetailEvent event) {
 				doOnViewBoat(event.getId());
 			}
 		});
+		eventBus.addHandler(ListPersonalTripsEvent.TYPE,
+				new ListPersonalTripsEventHandler() {
+					@Override
+					public void onListPersonalTripsEvent(
+							ListPersonalTripsEvent event) {
+						History.newItem(HistoryConstants.LIST_PERSONAL_TRIPS);
+						logger.info("ListPersonalTripsEvent fired!");
+					}
+				});
 	}
-	
-	private void doOnViewBoat(Long id){
+
+	private void doOnViewBoat(Long id) {
 		History.newItem(HistoryConstants.VIEW_BOAT, false);
-		Presenter presenter = new BoatDetailPresenter(new BoatDetail(), boatService, eventBus, id);
-		statusPresenter.clear();
-		FadeAnimation fade = new FadeAnimation(container, presenter);
-		fade.run(400);		
-	}
-	
-	private void doOnEditBoat(Long id){
-		History.newItem(HistoryConstants.EDIT_BOAT, false);
-		Presenter presenter = new EditBoatPresenter(new EditBoatView(), boatService, eventBus, id);
+		Presenter presenter = new BoatDetailPresenter(new BoatDetail(),
+				boatService, eventBus, id);
 		statusPresenter.clear();
 		FadeAnimation fade = new FadeAnimation(container, presenter);
 		fade.run(400);
 	}
-	
-	private void doOnListBoatEvent(){
+
+	private void doOnEditBoat(Long id) {
+		History.newItem(HistoryConstants.EDIT_BOAT, false);
+		Presenter presenter = new EditBoatPresenter(new EditBoatView(),
+				boatService, eventBus, id);
+		statusPresenter.clear();
+		FadeAnimation fade = new FadeAnimation(container, presenter);
+		fade.run(400);
+	}
+
+	private void doOnListBoatEvent() {
 		History.newItem(HistoryConstants.LIST_BOATS);
 		logger.info("ListBoatEvent fired!");
 	}
-	
-	private void doOnAddBoatEvent(){
+
+	private void doOnAddBoatEvent() {
 		History.newItem(HistoryConstants.ADD_BOAT);
 	}
+
 	@Override
 	public void onValueChange(ValueChangeEvent<String> arg0) {
 		String token = arg0.getValue();
 		logger.info("History token changed: " + arg0.getValue());
-		if(token != null) {
+		if (token != null) {
 			Presenter presenter = null;
 			statusPresenter.clear();
-			if(token.equals(HistoryConstants.LIST_BOATS)) {
-				presenter = new BoatPresenter(boatService, new BoatView(), eventBus);
-			} else if(token.equals(HistoryConstants.ADD_BOAT)){
-				presenter = new AddBoatPresenter(new AddBoatView(), boatService, eventBus);
+			if (token.equals(HistoryConstants.LIST_BOATS)) {
+				presenter = new BoatPresenter(boatService, new BoatView(),
+						eventBus);
+			} else if (token.equals(HistoryConstants.ADD_BOAT)) {
+				presenter = new AddBoatPresenter(new AddBoatView(),
+						boatService, eventBus);
+			} else if (token.equals(HistoryConstants.LIST_PERSONAL_TRIPS)) {
+				presenter = new ListPersonalTripsPresenter(logbookService,
+						new ListPersonalTripsView(
+								PageTitles.LOGBOOK_PERSONAL_TRIPS), eventBus);
 			} else {
 				logger.info("Action undefined " + token);
 			}
 
-			if(presenter != null) {
+			if (presenter != null) {
 				FadeAnimation fade = new FadeAnimation(container, presenter);
 				fade.run(400);
 			}
-		}	
+		}
 	}
 
 	@Override
@@ -134,8 +162,8 @@ public class AppController implements Presenter, ValueChangeHandler<String>{
 		// TODO Auto-generated method stub
 		bind();
 		this.container = container;
-		if(History.getToken().equals("")) {
-			History.newItem(HistoryConstants.LIST_BOATS);//welcome page
+		if (History.getToken().equals("")) {
+			History.newItem(HistoryConstants.LIST_BOATS);// welcome page
 		} else {
 			History.fireCurrentHistoryState();
 		}

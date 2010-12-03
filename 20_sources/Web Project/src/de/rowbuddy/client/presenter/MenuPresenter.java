@@ -13,11 +13,13 @@ import com.google.gwt.user.client.ui.Widget;
 import de.rowbuddy.client.GWTEntryPoint;
 import de.rowbuddy.client.HistoryConstants;
 import de.rowbuddy.client.events.ListBoatEvent;
+import de.rowbuddy.client.events.ListPersonalTripsEvent;
 
 public class MenuPresenter implements Presenter, HistoryConstants{
 	
 	public interface MenuDisplay {
 		public HasClickHandlers getListBoatButton();
+		public HasClickHandlers getListPersonalTripsButton();
 		public Panel getRoutes();
 		public Widget asWidget();
 	}
@@ -55,6 +57,13 @@ public class MenuPresenter implements Presenter, HistoryConstants{
 				eventBus.fireEvent(new ListBoatEvent());
 			}
 		}, ClickEvent.getType());		
+		
+		view.getListPersonalTripsButton().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				eventBus.fireEvent(new ListPersonalTripsEvent());
+			}
+		});
 	}
-
 }
