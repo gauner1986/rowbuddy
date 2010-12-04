@@ -1,14 +1,20 @@
 package de.rowbuddy.entities;
 
 import java.io.Serializable;
-import java.lang.String;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 /**
@@ -36,17 +42,10 @@ public class Member implements Serializable {
 	private Collection<Trip> publishedTrips = new LinkedList<Trip>();
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Collection<Role> roles = new LinkedList<Role>();
-	private Role defaultRole = new Role();
 	private static final long serialVersionUID = 1L;
 	
 	public Member(){
-		try {
-			defaultRole.setName(RoleName.MEMBER);
-			roles.add(defaultRole);
-		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			roles.add(new Role()); // default role
 	}
 
 	public Long getId() {
