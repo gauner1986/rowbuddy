@@ -99,7 +99,7 @@ public class BoatView extends Composite implements BoatPresenter.Display {
 			boatTable.setWidget(i, 3, lockedBox);
 
 			HTMLTable.RowFormatter rf = boatTable.getRowFormatter();
-
+			boatTable.setCellPadding(5);
 			if ((i % 2) != 0) {
 				// rf.addStyleName(i, "FlexTable-OddRow");
 				rf.setStylePrimaryName(i, "FlexTable-OddRow");
