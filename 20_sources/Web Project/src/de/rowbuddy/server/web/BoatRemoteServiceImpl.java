@@ -1,11 +1,11 @@
 package de.rowbuddy.server.web;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.persistence.OneToMany;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -48,14 +48,16 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public Boat getBoat(Long id) throws Exception {
+		
 		Boat boat = null;
 		boat = boatManagement.getBoat(id);
-		LinkedList<BoatDamage> damages = new LinkedList<BoatDamage>();
-		LinkedList<BoatReservation> reservations = new LinkedList<BoatReservation>();
+		
+		List<BoatDamage> damages = new ArrayList<BoatDamage>();
+		List<BoatReservation> reservations = new ArrayList<BoatReservation>();
 
-		Collections.copy(damages, boat.getBoatDamages());
-		Collections.copy(reservations, boat.getBoatReservations());
-
+		damages.addAll(boat.getBoatDamages());
+		reservations.addAll(boat.getBoatReservations());
+				
 		boat.setBoatDamages(damages);
 		boat.setBoatReservations(reservations);
 		return boat;
