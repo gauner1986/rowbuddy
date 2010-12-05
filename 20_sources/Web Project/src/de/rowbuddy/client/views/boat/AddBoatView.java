@@ -14,67 +14,55 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.boat.AddBoatPresenter;
+import de.rowbuddy.client.views.HeaderButtonView;
 
-public class AddBoatView extends Composite implements AddBoatPresenter.Display{
+public class AddBoatView extends HeaderButtonView implements
+		AddBoatPresenter.Display {
 
 	private Button resetButton = null;
 	private Button addButton = null;
-	private FlexTable contentTable = null;
-	private DecoratorPanel decorator = null;
 	private FlexTable boatTable = null;
 	private TextBox nameText = null;
 	private TextBox numberOfSeats = null;
 	private CheckBox coxed = null;
 	private Button addNextButton = null;
-	
-	public AddBoatView(){
-		contentTable = new FlexTable();
-		decorator = new DecoratorPanel();
-		initWidget(decorator);
-		decorator.add(contentTable);
-		HorizontalPanel hPanel = new HorizontalPanel();
-		hPanel.setBorderWidth(0);
-		hPanel.setSpacing(0);
-		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
+
+	public AddBoatView() {
+		super(PageTitles.BOAT_ADD);
 		addButton = new Button("Boot anlegen");
 		addButton.setStylePrimaryName("buttonApply buttonPositive");
-		resetButton = new Button("Abbrechen");
-		resetButton.setStylePrimaryName("buttonCancel buttonNegative");
+		addButton(addButton);
+
 		addNextButton = new Button("Weiteres Boot hinzufügen");
 		addNextButton.setStylePrimaryName("buttonAdd buttonPositive");
-		hPanel.add(addButton);
-		hPanel.add(addNextButton);
-		hPanel.add(resetButton);
-	
-		contentTable.getCellFormatter().addStyleName(0, 0, "contacts-ListMenu");
-		contentTable.setWidget(2, 0, hPanel);
+		addButton(addNextButton);
+
+		resetButton = new Button("Abbrechen");
+		resetButton.setStylePrimaryName("buttonCancel buttonNegative");
+		addButton(resetButton);
 
 		boatTable = new FlexTable();
-		
+
 		boatTable.setText(0, 0, "Name:");
 		nameText = new TextBox();
 		boatTable.setWidget(0, 1, nameText);
-		
+
 		boatTable.setText(1, 0, "Bootsplätze (ohne Steuermann):");
 		numberOfSeats = new TextBox();
 		boatTable.setWidget(1, 1, numberOfSeats);
-		
+
 		boatTable.setText(2, 0, "Gesteuert:");
 		coxed = new CheckBox();
-		boatTable.setWidget(2, 1, coxed);	
-		
-		contentTable.setWidget(1, 0, boatTable);
-		
-		contentTable.setText(0, 0, PageTitles.BOAT_ADD);
-		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
-		rf.setStylePrimaryName(0, "pageHeadLine");
+		boatTable.setWidget(2, 1, coxed);
+
+		setContent(boatTable);
 	}
-	
+
 	@Override
 	public Widget asWidget() {
 		return this;
 	}
-	
+
 	@Override
 	public HasClickHandlers getAddButton() {
 		return addButton;
