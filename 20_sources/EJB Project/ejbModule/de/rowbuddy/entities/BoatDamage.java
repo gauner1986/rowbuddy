@@ -17,15 +17,15 @@ public class BoatDamage implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private Long id = null;
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date logDate;
+	private Date logDate = new Date();
 	private boolean fixed = false;
 	private String damageDescription = "";
 	@ManyToOne
-	private Member logger;
+	private Member logger = null;
 	@ManyToOne
-	private Boat boat;
+	private Boat boat = null;
 	private String additionalInformation = "";
 	private static final long serialVersionUID = 1L;
 
@@ -46,6 +46,9 @@ public class BoatDamage implements Serializable {
 	}
 
 	public void setLogDate(Date logDate) {
+		if (logDate == null){
+			throw new NullPointerException("LogDate must not be null");
+		}
 		this.logDate = logDate;
 	}
 
@@ -76,6 +79,9 @@ public class BoatDamage implements Serializable {
 	}
 
 	public void setLogger(Member logger) {
+		if (logger == null){
+			throw new NullPointerException("Logger must not be null");
+		}
 		this.logger = logger;
 	}
 
@@ -84,7 +90,14 @@ public class BoatDamage implements Serializable {
 	}
 
 	public void setBoat(Boat boat) {
+		if (boat == null){
+			throw new NullPointerException("Boat must not be null");
+		}
 		this.boat = boat;
+	}
+	
+	public void removeBoat(){
+		this.boat = null;
 	}
 
 	public String getAdditionalInformation() {
@@ -92,7 +105,21 @@ public class BoatDamage implements Serializable {
 	}
 
 	public void setAdditionalInformation(String additionalInformation) {
+		if (additionalInformation == null){
+			throw new NullPointerException("Additional information must not be null");
+		}
 		this.additionalInformation = additionalInformation;
 	}
 	
+	public void validate() throws RowBuddyException{
+		if (damageDescription.isEmpty()){
+			throw new RowBuddyException("Description must be specified");
+		}
+		if (logger == null){
+			throw new NullPointerException("Logger must be specified");
+		}
+		if (boat == null){
+			throw new NullPointerException("Boat must be specified");
+		}
+	}
 }

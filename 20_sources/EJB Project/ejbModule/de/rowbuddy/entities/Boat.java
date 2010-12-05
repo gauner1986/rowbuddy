@@ -85,11 +85,26 @@ public class Boat implements Serializable {
 		this.boatDamages = boatDamages;
 	}
 	
-	public void addBoatDamage(BoatDamage boatDamage){
+	public void addBoatDamage(BoatDamage boatDamage) throws RowBuddyException{
 		if (boatDamage == null){
 			throw new NullPointerException("Damage must contain a value");
 		}
+		if (boatDamages.contains(boatDamage)){
+			throw new RowBuddyException("Damage is already belonging to this boat");
+		}
 		boatDamages.add(boatDamage);
+		boatDamage.setBoat(this);
+	}
+	
+	public void removeBoatDamage(BoatDamage boatDamage) throws RowBuddyException{
+		if (boatDamage == null){
+			throw new NullPointerException("Damage must contain a value");
+		}
+		if (!boatDamages.contains(boatDamage)){
+			throw new RowBuddyException("Damage does not belong to this boat");
+		}
+		boatDamages.remove(boatDamage);
+		boatDamage.removeBoat();
 	}
 	
 	public List<BoatReservation> getBoatReservations() {

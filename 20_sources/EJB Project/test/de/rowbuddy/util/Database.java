@@ -39,8 +39,7 @@ public class Database {
 		
 		List<BoatDamage> damages = em.getAllEntities(BoatDamage.class);
 		for(BoatDamage damage : damages){
-			damage.setBoat(null);
-			damage.setLogger(null);
+			damage.removeBoat();
 			em.merge(damage);
 		}
 		List<Boat> boats = em.getAllEntities(Boat.class);

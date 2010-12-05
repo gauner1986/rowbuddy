@@ -1,5 +1,6 @@
 package de.rowbuddy.business;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,6 +10,7 @@ import javax.persistence.TypedQuery;
 
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
+import de.rowbuddy.entities.Member;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 @Stateless
@@ -32,7 +34,11 @@ public class BoatManagement {
 			throw new RowBuddyException("Id must be specified");
 		}
 
-		return em.getReference(Boat.class, id);
+		Boat boat = em.find(Boat.class, id);
+		if (boat == null) {
+			throw new RowBuddyException("Boat does not exist");
+		}
+		return boat;
 	}
 
 	public Boat addBoat(Boat addBoat) throws RowBuddyException {
@@ -62,10 +68,7 @@ public class BoatManagement {
 			throw new RowBuddyException("Cannot save deleted boat");
 		}
 
-		Boat dbBoat = em.find(Boat.class, updateBoat.getId());
-		if (dbBoat == null) {
-			throw new RowBuddyException("Boat does not exist");
-		}
+		Boat dbBoat = getBoat(updateBoat.getId());
 
 		if (dbBoat.isDeleted()) {
 			throw new RowBuddyException(
@@ -93,22 +96,22 @@ public class BoatManagement {
 		return q.getResultList();
 	}
 
-	public void addDamage(BoatDamage damage) throws RowBuddyException {
+	public void addDamage(BoatDamage damage, Member logger) throws RowBuddyException {
 		if (damage.getId() != null) {
 			throw new RowBuddyException("Id must be null");
 		}
 
-		// if(damage.getLogger() == null){
-		// throw new RowBuddyException("You must specify a member");
-		// }
-
-		if (damage.getBoat() == null) {
-			throw new RowBuddyException("You must specify a boat");
+		damage.setLogDate(new Date());
+		damage.setLogger(logger);
+		damage.validate();
+		
+		if (damage.getBoat().getId() == null){
+			throw new RowBuddyException("Id of boat must not be null");
 		}
 
-		Boat boat = getBoat(damage.getBoat().getId());
+		Boat persistedBoat = getBoat(damage.getBoat().getId());
 		em.persist(damage);
-		boat.addBoatDamage(damage);
+		persistedBoat.addBoatDamage(damage);
 	}
 
 	public void deleteBoat(Long id) throws RowBuddyException {
@@ -116,10 +119,7 @@ public class BoatManagement {
 			throw new RowBuddyException("You must specify an id");
 		}
 
-		Boat boat = em.find(Boat.class, id);
-		if (boat == null) {
-			throw new RowBuddyException("Boat does not exist");
-		}
+		Boat boat = getBoat(id);
 
 		if (boat.isDeleted()) {
 			throw new RowBuddyException("Boat is already deleted");
