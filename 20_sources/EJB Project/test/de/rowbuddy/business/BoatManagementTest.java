@@ -165,7 +165,6 @@ public class BoatManagementTest extends EjbTestBase {
 		damage.setDamageDescription("Left side broken");
 		damage.setLogDate(new Date(System.currentTimeMillis()));
 		boatManagement.addDamage(damage);
-		assertEquals(1, existingBoat.getBoatDamages().size());
-		
+		assertEquals(1, boatManagement.getBoat(existingBoat.getId()).getBoatDamages().size());
 	}
 }
