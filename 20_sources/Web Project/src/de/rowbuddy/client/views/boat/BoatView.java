@@ -16,37 +16,25 @@ import com.google.gwt.user.client.ui.Widget;
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.boat.BoatPresenter;
+import de.rowbuddy.client.views.HeaderButtonView;
 
-public class BoatView extends Composite implements BoatPresenter.Display {
+public class BoatView extends HeaderButtonView implements BoatPresenter.Display {
 
-	private DecoratorPanel decorator;
-	private FlexTable contentTable;
 	private Button addButton;
 	private FlexTable boatTable;
 
 	public BoatView() {
-		decorator = new DecoratorPanel();
-		contentTable = new FlexTable();
-		contentTable.setStylePrimaryName("contentTable");
+		super(PageTitles.BOAT_OVERVIEW);
 
-		initWidget(decorator);
-		decorator.add(contentTable);
-
-		HorizontalPanel hPanel = new HorizontalPanel();
-		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 		addButton = new Button("Boot Hinzufügen");
 		addButton.setStyleName("buttonAdd buttonRegular");
-		hPanel.add(addButton);
-		contentTable.setWidget(2, 0, hPanel);
+		addButton(addButton);
 
 		boatTable = new FlexTable();
 		boatTable.setWidth("100%");
 		boatTable.setStyleName("boatTable");
 
-		contentTable.setWidget(1, 0, boatTable);
-		contentTable.setText(0, 0, PageTitles.BOAT_OVERVIEW);
-		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
-		rf.setStylePrimaryName(0, "pageHeadLine");
+		setContent(boatTable);
 	}
 
 	@Override
