@@ -182,8 +182,7 @@ public class BoatManagementTest extends EjbTestBase {
 				found = true;
 			}
 		}
-		assertEquals(true, found);
-		//TODO:clear database
+		assertEquals(false, found);
 	}
 	
 	@Test

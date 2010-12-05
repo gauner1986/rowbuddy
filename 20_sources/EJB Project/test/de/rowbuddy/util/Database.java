@@ -1,5 +1,6 @@
 package de.rowbuddy.util;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import nl.fontys.rowbuddy.EntityManagerBean;
@@ -42,7 +43,13 @@ public class Database {
 			damage.setLogger(null);
 			em.merge(damage);
 		}
+		List<Boat> boats = em.getAllEntities(Boat.class);
+		for (Boat boat : boats){
+			boat.setBoatDamages(new LinkedList<BoatDamage>());
+			em.merge(boat);
+		}
 		
+		clearAllEntities(BoatDamage.class);
 		clearAllEntities(Boat.class);
 		clearAllEntities(Route.class);
 		clearAllEntities(Member.class);
