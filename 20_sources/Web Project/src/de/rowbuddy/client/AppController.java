@@ -16,7 +16,9 @@ import de.rowbuddy.client.events.BoatDetailEventHandler;
 import de.rowbuddy.client.events.EditBoatEvent;
 import de.rowbuddy.client.events.EditBoatEventHandler;
 import de.rowbuddy.client.events.ListBoatEvent;
+import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.ListBoatEventHandler;
+import de.rowbuddy.client.events.ListDamageEventHandler;
 import de.rowbuddy.client.events.ListPersonalTripsEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEventHandler;
 import de.rowbuddy.client.presenter.AddBoatPresenter;
@@ -102,6 +104,13 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 						logger.info("ListPersonalTripsEvent fired!");
 					}
 				});
+		eventBus.addHandler(ListDamageEvent.TYPE, new ListDamageEventHandler() {
+			
+			@Override
+			public void onListDamageEvent(ListDamageEvent event) {
+				History.newItem(HistoryConstants.LIST_DAMAGES);
+			}
+		});
 	}
 
 	private void doOnViewBoat(Long id) {
