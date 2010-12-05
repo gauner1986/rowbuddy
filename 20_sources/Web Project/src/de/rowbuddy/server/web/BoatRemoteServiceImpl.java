@@ -11,6 +11,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.rowbuddy.boundary.BoatBoundary;
 import de.rowbuddy.boundary.dtos.BoatDTO;
+import de.rowbuddy.boundary.dtos.DamageDTO;
 import de.rowbuddy.business.BoatManagement;
 import de.rowbuddy.client.services.BoatRemoteService;
 import de.rowbuddy.entities.Boat;
@@ -87,9 +88,7 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public List<BoatDamage> getDamages() {
-		List<BoatDamage> damages = boatManagement.getDamages();
-		
-		return damages;
+	public List<DamageDTO> getDamages() {
+		return boatBoundary.getDamages();
 	}
 }
