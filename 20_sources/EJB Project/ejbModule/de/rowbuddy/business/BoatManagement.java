@@ -83,7 +83,7 @@ public class BoatManagement {
 		TypedQuery<BoatDamage> q = null;
 		if (type == ListType.ALL) {
 			q = em.createQuery(
-					"SELECT b FROM BoatDamage",
+					"SELECT b FROM BoatDamage b",
 					BoatDamage.class);
 		} else {
 			q = em.createQuery(
