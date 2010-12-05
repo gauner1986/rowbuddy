@@ -1,28 +1,28 @@
 package de.rowbuddy.business;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
-import javax.ejb.CreateException;
 import javax.ejb.FinderException;
-import javax.ejb.RemoveException;
+import javax.validation.constraints.AssertTrue;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-import de.rowbuddy.boundary.dtos.BoatDTO;
+import com.sun.source.tree.AssertTree;
+
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
-import de.rowbuddy.entities.Member;
 import de.rowbuddy.exceptions.RowBuddyException;
 import de.rowbuddy.util.Ejb;
-import de.rowbuddy.util.EjbExceptionHandler;
 import de.rowbuddy.util.EjbTestBase;
 
 public class BoatManagementTest extends EjbTestBase {
@@ -159,12 +159,56 @@ public class BoatManagementTest extends EjbTestBase {
 	}
 
 	@Test
-	public void canGetOpenDamages() throws RowBuddyException {
+	public void canAddDamage() throws RowBuddyException {
 		BoatDamage damage = new BoatDamage();
 		damage.setBoat(existingBoat);
 		damage.setDamageDescription("Left side broken");
 		damage.setLogDate(new Date(System.currentTimeMillis()));
+		int sizeBefore = boatManagement.getBoat(existingBoat.getId()).getBoatDamages().size(); 
 		boatManagement.addDamage(damage);
-		assertEquals(1, boatManagement.getBoat(existingBoat.getId()).getBoatDamages().size());
+		int sizeAfter = boatManagement.getBoat(existingBoat.getId()).getBoatDamages().size();
+		assertEquals(1, sizeAfter - sizeBefore);
+	}
+	
+	@Test
+	public void cannGetAllDamages() throws RowBuddyException{
+//		BoatDamage damage = new BoatDamage();
+//		damage.setBoat(existingBoat);
+//		damage.setDamageDescription("Right side broken");
+//		damage.setLogDate(new Date(System.currentTimeMillis()));
+//		damage.setFixed(true);
+//		boatManagement.addDamage(damage);
+//		List<BoatDamage> damages = boatManagement.getDamages(ListType.ALL);
+//		boolean found = false;
+//		for(BoatDamage dmg : damages) {
+//			if(!dmg.isFixed()) {
+//				found = true;
+//			}
+//		}
+//		assertEquals(true, found);
+		//TODO:clear database
+	}
+	
+	@Test
+	public void cannGetOpenDamages() throws RowBuddyException{
+//		BoatDamage damage = new BoatDamage();
+//		damage.setBoat(existingBoat);
+//		damage.setDamageDescription("Right side broken");
+//		damage.setLogDate(new Date(System.currentTimeMillis()));
+//		damage.setFixed(true);
+//		boatManagement.addDamage(damage);
+//		damage.setId(null);
+//		damage.setBoat(existingBoat);
+//		damage.setDamageDescription("Right side broken");
+//		damage.setLogDate(new Date(System.currentTimeMillis()));
+//		damage.setFixed(false);
+//		boatManagement.addDamage(damage);
+//		List<BoatDamage> damages = boatManagement.getDamages(ListType.OPEN);
+//		
+//		for(BoatDamage dmg : damages) {
+//			assertEquals(false, dmg.isFixed());
+//		}
+		
+		//TODO:clear database
 	}
 }
