@@ -155,4 +155,9 @@ public class BoatManagementTest extends EjbTestBase {
 			fail("existing boat not found");
 		}
 	}
+	
+	@Test
+	public void canGetOpenDamages(){
+		//TODO:Add Damagetest required
+	}
 }

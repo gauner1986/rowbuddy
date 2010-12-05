@@ -12,6 +12,7 @@ import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.BoatDTOConverter;
 import de.rowbuddy.dao.BoatDAO;
 import de.rowbuddy.entities.Boat;
+import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 @Stateless
@@ -86,6 +87,12 @@ public class BoatManagement {
 		em.merge(updateBoat);
 
 		return updateBoat;
+	}
+	
+	public List<BoatDamage> getDamages(){
+		TypedQuery<BoatDamage> q = em.createQuery(
+				"SELECT b FROM BoatDamage b WHERE b.fixed = false", BoatDamage.class);
+		return q.getResultList();
 	}
 
 	public void deleteBoat(Long id) throws RowBuddyException {
