@@ -11,6 +11,7 @@ import de.rowbuddy.boundary.dtos.BoatDTOConverter;
 import de.rowbuddy.boundary.dtos.DamageDTO;
 import de.rowbuddy.boundary.dtos.DamageDTOConverter;
 import de.rowbuddy.business.BoatManagement;
+import de.rowbuddy.business.ListType;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
 
@@ -29,7 +30,7 @@ public class BoatBoundary {
 	}
 	
 	public List<DamageDTO> getDamages(){
-		List<BoatDamage> damages = boatManagement.getDamages();
+		List<BoatDamage> damages = boatManagement.getDamages(ListType.ALL);
 		return damageConverter.getList(damages);
 	}
 }

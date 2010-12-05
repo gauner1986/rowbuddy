@@ -2,15 +2,11 @@ package de.rowbuddy.business;
 
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import de.rowbuddy.boundary.dtos.BoatDTO;
-import de.rowbuddy.boundary.dtos.BoatDTOConverter;
-import de.rowbuddy.dao.BoatDAO;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.exceptions.RowBuddyException;
@@ -19,16 +15,10 @@ import de.rowbuddy.exceptions.RowBuddyException;
 public class BoatManagement {
 
 	@PersistenceContext
-	EntityManager em;
-
-	@EJB
-	BoatDAO boatDAO;
-	BoatDTOConverter boatDTO;
+	private EntityManager em;
 
 	public BoatManagement() {
-
 		// TODO: Security Salamander einbauen
-		boatDTO = new BoatDTOConverter();
 	}
 
 	public List<Boat> getBoatOverview() {
@@ -55,7 +45,7 @@ public class BoatManagement {
 		if (addBoat.isDeleted()) {
 			throw new RowBuddyException("Cannot add deleted boat");
 		}
-		
+
 		addBoat.validate();
 
 		em.persist(addBoat);
@@ -81,35 +71,42 @@ public class BoatManagement {
 			throw new RowBuddyException(
 					"Boat was deleted and cannot be updated");
 		}
-		
+
 		updateBoat.validate();
 
 		em.merge(updateBoat);
 
 		return updateBoat;
 	}
-	
-	public List<BoatDamage> getDamages(){
-		TypedQuery<BoatDamage> q = em.createQuery(
-				"SELECT b FROM BoatDamage b WHERE b.fixed = false", BoatDamage.class);
+
+	public List<BoatDamage> getDamages(ListType type) {
+		TypedQuery<BoatDamage> q = null;
+		if (type == ListType.ALL) {
+			q = em.createQuery(
+					"SELECT b FROM BoatDamage",
+					BoatDamage.class);
+		} else {
+			q = em.createQuery(
+					"SELECT b FROM BoatDamage b WHERE b.fixed = false",
+					BoatDamage.class);
+		}
 		return q.getResultList();
 	}
-	
-	public void addDamage(BoatDamage damage) throws RowBuddyException{
-		if(damage.getId() != null){
+
+	public void addDamage(BoatDamage damage) throws RowBuddyException {
+		if (damage.getId() != null) {
 			throw new RowBuddyException("Id must be null");
 		}
-		
-//		if(damage.getLogger() == null){
-//			throw new RowBuddyException("You must specify a member");
-//		}
-		
-		if(damage.getBoat() == null){
+
+		// if(damage.getLogger() == null){
+		// throw new RowBuddyException("You must specify a member");
+		// }
+
+		if (damage.getBoat() == null) {
 			throw new RowBuddyException("You must specify a boat");
 		}
-		
-		
-		Boat boat = getBoat(damage.getBoat().getId());		
+
+		Boat boat = getBoat(damage.getBoat().getId());
 		em.persist(damage);
 		boat.addBoatDamage(damage);
 	}
