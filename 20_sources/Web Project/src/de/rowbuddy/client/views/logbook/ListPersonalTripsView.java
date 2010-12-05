@@ -9,6 +9,7 @@ import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.ListPersonalTripsPresenter;
+import de.rowbuddy.client.views.HeaderButtonView;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -22,44 +23,30 @@ import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class ListPersonalTripsView extends Composite implements
+public class ListPersonalTripsView extends HeaderButtonView implements
 		ListPersonalTripsPresenter.Display {
 
-	private DecoratorPanel decorator;
-	private FlexTable contentTable;
 	private Button startTripButton;
 	private Button logRowedTripButton;
 	private FlexTable tripTable;
 
 	public ListPersonalTripsView(String pageTitle) {
-		decorator = new DecoratorPanel();
-		contentTable = new FlexTable();
-		contentTable.setStylePrimaryName("contentTable");
+		super(pageTitle);
 
-		initWidget(decorator);
-		decorator.add(contentTable);
-
-		HorizontalPanel hPanel = new HorizontalPanel();
-		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 
 		startTripButton = new Button("Trip starten");
 		startTripButton.setStyleName("buttonAdd buttonRegular");
-		hPanel.add(startTripButton);
+		addButton(startTripButton);
 
 		logRowedTripButton = new Button("Geruderten Trip eintragen");
 		logRowedTripButton.setStyleName("buttonAdd buttonRegular");
-		hPanel.add(logRowedTripButton);
-
-		contentTable.setWidget(3, 0, hPanel);
+		addButton(logRowedTripButton);
 
 		tripTable = new FlexTable();
 		tripTable.setWidth("100%");
 		tripTable.setStyleName("boatTable");
 
-		contentTable.setWidget(1, 0, tripTable);
-		contentTable.setText(0, 0, pageTitle);
-		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
-		rf.setStylePrimaryName(0, "pageHeadLine");
+		setContent(tripTable);
 	}
 
 	@Override
