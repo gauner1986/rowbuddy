@@ -46,7 +46,7 @@ public class ListDamagePresenter implements Presenter{
 	}
 	
 	private void fetchDamages(){
-		service.getDamages(new AsyncCallback<List<DamageDTO>>() {
+		service.getOpenDamages(new AsyncCallback<List<DamageDTO>>() {
 			
 			@Override
 			public void onSuccess(List<DamageDTO> arg0) {
