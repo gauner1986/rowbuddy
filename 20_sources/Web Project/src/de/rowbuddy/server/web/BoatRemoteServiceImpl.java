@@ -60,9 +60,15 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
 		boat.setBoatReservations(reservations);
 		return boat;
 	}
+	
 
 	@Override
 	public void deleteBoat(Long id) throws Exception {
 		boatManagement.deleteBoat(id);
+	}
+
+	@Override
+	public List<BoatDamage> getDamages() {
+		return boatManagement.getDamages();
 	}
 }

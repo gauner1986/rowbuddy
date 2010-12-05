@@ -6,6 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.entities.Boat;
+import de.rowbuddy.entities.BoatDamage;
 
 public interface BoatRemoteServiceAsync {
 	void getBoatOverview(AsyncCallback<List<BoatDTO>> callback);
@@ -17,4 +18,6 @@ public interface BoatRemoteServiceAsync {
 	void getBoat(Long id, AsyncCallback<Boat> callback);
 
 	void deleteBoat(Long id, AsyncCallback<Void> callback);
+
+	void getDamages(AsyncCallback<List<BoatDamage>> callback);
 }

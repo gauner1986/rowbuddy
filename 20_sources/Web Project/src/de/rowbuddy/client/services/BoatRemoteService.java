@@ -6,6 +6,7 @@ import com.google.gwt.user.client.rpc.RemoteService;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.entities.Boat;
+import de.rowbuddy.entities.BoatDamage;
 
 public interface BoatRemoteService extends RemoteService {
 	public List<BoatDTO> getBoatOverview();
@@ -17,4 +18,6 @@ public interface BoatRemoteService extends RemoteService {
 	public Boat getBoat(Long id) throws Exception;
 
 	public void deleteBoat(Long id) throws Exception;
+	
+	public List<BoatDamage> getDamages();
 }
