@@ -187,24 +187,28 @@ public class BoatManagementTest extends EjbTestBase {
 	
 	@Test
 	public void cannGetOpenDamages() throws RowBuddyException{
-//		BoatDamage damage = new BoatDamage();
-//		damage.setBoat(existingBoat);
-//		damage.setDamageDescription("Right side broken");
-//		damage.setLogDate(new Date(System.currentTimeMillis()));
-//		damage.setFixed(true);
-//		boatManagement.addDamage(damage);
-//		damage.setId(null);
-//		damage.setBoat(existingBoat);
-//		damage.setDamageDescription("Right side broken");
-//		damage.setLogDate(new Date(System.currentTimeMillis()));
-//		damage.setFixed(false);
-//		boatManagement.addDamage(damage);
-//		List<BoatDamage> damages = boatManagement.getDamages(ListType.OPEN);
-//		
-//		for(BoatDamage dmg : damages) {
-//			assertEquals(false, dmg.isFixed());
-//		}
+		// given
+		BoatDamage damage = new BoatDamage();
+		damage.setBoat(existingBoat);
+		damage.setDamageDescription("Right side broken");
+		damage.setLogDate(new Date(System.currentTimeMillis()));
+		damage.setFixed(true);
+		boatManagement.addDamage(damage);
 		
-		//TODO:clear database
+		BoatDamage damage2 = new BoatDamage();
+		damage2.setId(null);
+		damage2.setBoat(existingBoat);
+		damage2.setDamageDescription("Right side broken");
+		damage2.setLogDate(new Date(System.currentTimeMillis()));
+		damage2.setFixed(false);
+		boatManagement.addDamage(damage2);
+		
+		// when
+		List<BoatDamage> damages = boatManagement.getDamages(ListType.OPEN);
+		
+		// then
+		for(BoatDamage dmg : damages) {
+			assertEquals(false, dmg.isFixed());
+		}
 	}
 }
