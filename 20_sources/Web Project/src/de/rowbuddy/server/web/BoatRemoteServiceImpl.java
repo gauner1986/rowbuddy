@@ -88,7 +88,7 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public List<DamageDTO> getDamages() {
+	public List<DamageDTO> getOpenDamages() {
 		return boatBoundary.getDamages();
 	}
 }
