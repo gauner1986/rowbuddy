@@ -69,8 +69,12 @@ public class DataInitialization extends HttpServlet {
 	    	damage.setBoat(b1);
 	    	damage.setLogDate(new Date(System.currentTimeMillis()));
 	    	damage.setLogger(member);
-//	    	TODO:SetLogger
-//	    	damage.setLogger(logger)
+	    	
+	    	boatManagement.addDamage(damage);
+	    	
+	    	damage.setId(null);
+	    	damage.setLogDate(new Date(System.currentTimeMillis()));
+	    	damage.setFixed(true);
 	    	boatManagement.addDamage(damage);
 		} catch (Exception e) { //is not important on fail
 			// TODO Auto-generated catch block

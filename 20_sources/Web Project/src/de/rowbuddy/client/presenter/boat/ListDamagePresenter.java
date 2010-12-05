@@ -42,15 +42,16 @@ public class ListDamagePresenter implements Presenter{
 		container.clear();
 		container.add(view.asWidget());
 		bind();
-		fetchDamages();
+		fetchDamages(false);
 	}
 	
-	private void fetchDamages(){
-		service.getOpenDamages(new AsyncCallback<List<DamageDTO>>() {
+	private void fetchDamages(boolean allDamages){
+		AsyncCallback<List<DamageDTO>> callback =  new AsyncCallback<List<DamageDTO>>() {
 			
 			@Override
 			public void onSuccess(List<DamageDTO> arg0) {
 				fetchedDamages = arg0;
+				view.clear();
 				for(DamageDTO damage : fetchedDamages){
 					view.addDamageRow(damage.getBootName(), damage.getMember(), damage.getDate().toString(), damage.isFixed());
 				}
@@ -60,7 +61,12 @@ public class ListDamagePresenter implements Presenter{
 			public void onFailure(Throwable arg0) {
 				logger.severe(arg0.getMessage());
 			}
-		});
+		};
+		if(allDamages) {
+			service.getAllDamages(callback);
+		} else {
+			service.getOpenDamages(callback);
+		}
 	}
 	
 	private void bind(){
@@ -68,7 +74,7 @@ public class ListDamagePresenter implements Presenter{
 			
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> arg0) {
-				
+				fetchDamages(arg0.getValue());
 			}
 		});
 	}

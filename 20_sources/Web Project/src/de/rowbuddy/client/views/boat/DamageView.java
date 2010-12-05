@@ -52,7 +52,8 @@ public class DamageView extends Composite implements Display{
 		damageTable.setText(index, 1, reporter);
 		damageTable.setText(index, 2, date);
 		CheckBox box = new CheckBox();
-		box.setEnabled(isOpen);
+		box.setEnabled(false);
+		box.setValue(isOpen);
 		damageTable.setWidget(index, 3, box);
 		index++;
 	}
@@ -67,6 +68,8 @@ public class DamageView extends Composite implements Display{
 	@Override
 	public void clear() {
 		index = 1;
+		damageTable.clear();
+		damageTable.clear(true);
 		initTableHeader();
 	}
 	
