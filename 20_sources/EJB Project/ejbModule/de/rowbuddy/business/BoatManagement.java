@@ -94,6 +94,25 @@ public class BoatManagement {
 				"SELECT b FROM BoatDamage b WHERE b.fixed = false", BoatDamage.class);
 		return q.getResultList();
 	}
+	
+	public void addDamage(BoatDamage damage) throws RowBuddyException{
+		if(damage.getId() != null){
+			throw new RowBuddyException("Id must be null");
+		}
+		
+//		if(damage.getLogger() == null){
+//			throw new RowBuddyException("You must specify a member");
+//		}
+		
+		if(damage.getBoat() == null){
+			throw new RowBuddyException("You must specify a boat");
+		}
+		
+		
+		Boat boat = getBoat(damage.getBoat().getId());		
+		em.persist(damage);
+		boat.addBoatDamage(damage);
+	}
 
 	public void deleteBoat(Long id) throws RowBuddyException {
 		if (id == null) {

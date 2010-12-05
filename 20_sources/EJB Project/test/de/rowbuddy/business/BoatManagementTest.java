@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
@@ -17,6 +18,7 @@ import static org.junit.Assert.*;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.entities.Boat;
+import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.exceptions.RowBuddyException;
 import de.rowbuddy.util.Ejb;
@@ -80,9 +82,9 @@ public class BoatManagementTest extends EjbTestBase {
 
 		boatManagement.addBoat(newBoat);
 	}
-	
+
 	@Test(expected = RowBuddyException.class)
-	public void cannotAddInvalidBoat() throws RowBuddyException{
+	public void cannotAddInvalidBoat() throws RowBuddyException {
 		Boat b1 = new Boat();
 		boatManagement.addBoat(b1);
 	}
@@ -155,9 +157,15 @@ public class BoatManagementTest extends EjbTestBase {
 			fail("existing boat not found");
 		}
 	}
-	
+
 	@Test
-	public void canGetOpenDamages(){
-		//TODO:Add Damagetest required
+	public void canGetOpenDamages() throws RowBuddyException {
+		BoatDamage damage = new BoatDamage();
+		damage.setBoat(existingBoat);
+		damage.setDamageDescription("Left side broken");
+		damage.setLogDate(new Date(System.currentTimeMillis()));
+		boatManagement.addDamage(damage);
+		assertEquals(1, existingBoat.getBoatDamages().size());
+		
 	}
 }
