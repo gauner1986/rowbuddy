@@ -2,14 +2,14 @@ package de.rowbuddy.util;
 
 import java.util.List;
 
+import nl.fontys.rowbuddy.EntityManagerBean;
+import nl.fontys.rowbuddy.EntityManagerBeanLocal;
 import de.rowbuddy.entities.Boat;
+import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Route;
 import de.rowbuddy.entities.Trip;
-import de.rowbuddy.entities.TripMember;
 import de.rowbuddy.exceptions.RowBuddyException;
-import nl.fontys.rowbuddy.EntityManagerBean;
-import nl.fontys.rowbuddy.EntityManagerBeanLocal;
 
 public class Database {
 
@@ -34,6 +34,13 @@ public class Database {
 		List<Trip> trips = em.getAllEntities(Trip.class);
 		for (Trip trip : trips){
 			em.remove(Trip.class, trip.getId());
+		}
+		
+		List<BoatDamage> damages = em.getAllEntities(BoatDamage.class);
+		for(BoatDamage damage : damages){
+			damage.setBoat(null);
+			damage.setLogger(null);
+			em.merge(damage);
 		}
 		
 		clearAllEntities(Boat.class);

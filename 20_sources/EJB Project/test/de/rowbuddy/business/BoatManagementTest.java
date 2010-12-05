@@ -160,32 +160,32 @@ public class BoatManagementTest extends EjbTestBase {
 
 	@Test
 	public void canAddDamage() throws RowBuddyException {
-//		BoatDamage damage = new BoatDamage();
-//		damage.setBoat(existingBoat);
-//		damage.setDamageDescription("Left side broken");
-//		damage.setLogDate(new Date(System.currentTimeMillis()));
-//		int sizeBefore = boatManagement.getBoat(existingBoat.getId()).getBoatDamages().size(); 
-//		boatManagement.addDamage(damage);
-//		int sizeAfter = boatManagement.getBoat(existingBoat.getId()).getBoatDamages().size();
-//		assertEquals(1, sizeAfter - sizeBefore);
+		BoatDamage damage = new BoatDamage();
+		damage.setBoat(existingBoat);
+		damage.setDamageDescription("Left side broken");
+		damage.setLogDate(new Date(System.currentTimeMillis()));
+		int sizeBefore = boatManagement.getBoat(existingBoat.getId()).getBoatDamages().size(); 
+		boatManagement.addDamage(damage);
+		int sizeAfter = boatManagement.getBoat(existingBoat.getId()).getBoatDamages().size();
+		assertEquals(1, sizeAfter - sizeBefore);
 	}
 	
 	@Test
 	public void cannGetAllDamages() throws RowBuddyException{
-//		BoatDamage damage = new BoatDamage();
-//		damage.setBoat(existingBoat);
-//		damage.setDamageDescription("Right side broken");
-//		damage.setLogDate(new Date(System.currentTimeMillis()));
-//		damage.setFixed(true);
-//		boatManagement.addDamage(damage);
-//		List<BoatDamage> damages = boatManagement.getDamages(ListType.ALL);
-//		boolean found = false;
-//		for(BoatDamage dmg : damages) {
-//			if(!dmg.isFixed()) {
-//				found = true;
-//			}
-//		}
-//		assertEquals(true, found);
+		BoatDamage damage = new BoatDamage();
+		damage.setBoat(existingBoat);
+		damage.setDamageDescription("Right side broken");
+		damage.setLogDate(new Date(System.currentTimeMillis()));
+		damage.setFixed(true);
+		boatManagement.addDamage(damage);
+		List<BoatDamage> damages = boatManagement.getDamages(ListType.ALL);
+		boolean found = false;
+		for(BoatDamage dmg : damages) {
+			if(!dmg.isFixed()) {
+				found = true;
+			}
+		}
+		assertEquals(true, found);
 		//TODO:clear database
 	}
 	
