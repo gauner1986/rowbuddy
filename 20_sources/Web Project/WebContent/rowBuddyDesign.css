@@ -10,9 +10,17 @@ body {
 	border-spacing: 3 0;
 }
 
+.gwt-DialogBox .Caption {
+	background: #e3e8f3;
+	padding: 4px 4px 4px 8px;
+	cursor: default;
+	border-bottom: 1px solid #bbbbbb;
+	border-top: 5px solid #d0e4f6;
+}
+
 .gwt-DialogBox .dialogMiddleCenter {
-  padding: 3px;
-  background: #5891C8;
+	padding: 3px;
+	background: #5891C8;
 }
 
 .messages {
@@ -93,11 +101,11 @@ body {
 	background: url("icons/apply.png") no-repeat 4px 4px;
 }
 
-.buttonDelete{
+.buttonDelete {
 	background: url("icons/delete.png") no-repeat 4px 4px;
 }
 
-.buttonEdit{
+.buttonEdit {
 	background: url("icons/edit.png") no-repeat 4px 4px;
 }
 

@@ -13,7 +13,6 @@ import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.boat.EditBoatPresenter;
