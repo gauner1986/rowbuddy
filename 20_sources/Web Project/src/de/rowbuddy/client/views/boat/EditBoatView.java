@@ -16,13 +16,12 @@ import com.google.gwt.user.client.ui.TextBox;
 
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.boat.EditBoatPresenter;
+import de.rowbuddy.client.views.HeaderButtonView;
 
-public class EditBoatView extends Composite implements EditBoatPresenter.Display{
+public class EditBoatView extends HeaderButtonView implements EditBoatPresenter.Display{
 
 	private Button submitButton;
 	private Button cancelButton;
-	private FlexTable contentTable;
-	private DecoratorPanel decorator;
 	private FlexTable boatTable;
 	private TextBox nameText;
 	private TextBox numberOfSeats;
@@ -33,15 +32,8 @@ public class EditBoatView extends Composite implements EditBoatPresenter.Display
 	private Button dialogButton;
 	
 	public EditBoatView(){
-		contentTable = new FlexTable();
-		decorator = new DecoratorPanel();
-		initWidget(decorator);
-		decorator.add(contentTable);
+		super(PageTitles.BOAT_EDIT);
 		
-		HorizontalPanel hPanel = new HorizontalPanel();
-		hPanel.setBorderWidth(0);
-		hPanel.setSpacing(0);
-		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 		submitButton= new Button("Boot speichern");
 		submitButton.setStylePrimaryName("buttonSave buttonPositive");
 		cancelButton = new Button("Abbrechen");
@@ -49,13 +41,10 @@ public class EditBoatView extends Composite implements EditBoatPresenter.Display
 		dialogButton = new Button("Löschen");
 		dialogButton.setStylePrimaryName("buttonDelete buttonNegative");
 		
-		hPanel.add(submitButton);
-		hPanel.add(dialogButton);
-		hPanel.add(cancelButton);
+		addButton(submitButton);
+		addButton(dialogButton);
+		addButton(cancelButton);
 	
-		contentTable.getCellFormatter().addStyleName(0, 0, "contacts-ListMenu");
-		contentTable.setWidget(2, 0, hPanel);
-
 		boatTable = new FlexTable();
 		
 		boatTable.setText(0, 0, "Name:");
@@ -96,10 +85,7 @@ public class EditBoatView extends Composite implements EditBoatPresenter.Display
 	    
 	    dialogContent.add(dialogClose);
 	    
-		contentTable.setWidget(1, 0, boatTable);
-		contentTable.setText(0, 0, PageTitles.BOAT_EDIT);
-		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
-		rf.setStylePrimaryName(0, "pageHeadLine");
+		setContent(boatTable);
 	}
 	
 	@Override
