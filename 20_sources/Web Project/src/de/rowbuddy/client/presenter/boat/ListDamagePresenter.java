@@ -1,10 +1,11 @@
-package de.rowbuddy.client.presenter;
+package de.rowbuddy.client.presenter.boat;
 
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
 public class ListDamagePresenter implements Presenter{

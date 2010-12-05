@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.presenter.EditBoatPresenter;
+import de.rowbuddy.client.presenter.boat.EditBoatPresenter;
 
 public class EditBoatView extends Composite implements EditBoatPresenter.Display{
 

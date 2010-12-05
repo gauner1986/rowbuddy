@@ -1,4 +1,4 @@
-package de.rowbuddy.client.presenter;
+package de.rowbuddy.client.presenter.boat;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.Widget;
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.events.BoatDetailEvent;
+import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
 public class BoatPresenter implements Presenter {

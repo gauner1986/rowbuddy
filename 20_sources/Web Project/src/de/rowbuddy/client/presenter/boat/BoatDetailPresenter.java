@@ -1,4 +1,4 @@
-package de.rowbuddy.client.presenter;
+package de.rowbuddy.client.presenter.boat;
 
 import java.util.logging.Logger;
 
@@ -18,6 +18,7 @@ import de.rowbuddy.client.events.ListBoatEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
 import de.rowbuddy.client.model.StatusMessage.Status;
+import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;

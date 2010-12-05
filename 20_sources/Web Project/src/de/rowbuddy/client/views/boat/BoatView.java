@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.presenter.BoatPresenter;
+import de.rowbuddy.client.presenter.boat.BoatPresenter;
 
 public class BoatView extends Composite implements BoatPresenter.Display {
 

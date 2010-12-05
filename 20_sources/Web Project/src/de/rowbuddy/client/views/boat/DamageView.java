@@ -2,7 +2,7 @@ package de.rowbuddy.client.views.boat;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.presenter.ListDamagePresenter.Display;
+import de.rowbuddy.client.presenter.boat.ListDamagePresenter.Display;
 
 public class DamageView implements Display{
 

@@ -1,9 +1,9 @@
-#Tue Nov 30 13:33:00 CET 2010
+#Sun Dec 05 10:47:47 CET 2010
 eclipse.preferences.version=1
 encoding//src/de/rowbuddy/client/GWTEntryPoint.java=UTF-8
 encoding//src/de/rowbuddy/client/PageTitles.java=UTF-8
-encoding//src/de/rowbuddy/client/presenter/AddBoatPresenter.java=UTF-8
-encoding//src/de/rowbuddy/client/presenter/EditBoatPresenter.java=UTF-8
+encoding//src/de/rowbuddy/client/presenter/boat/AddBoatPresenter.java=UTF-8
+encoding//src/de/rowbuddy/client/presenter/boat/EditBoatPresenter.java=UTF-8
 encoding//src/de/rowbuddy/client/views/MenuView.java=UTF-8
 encoding//src/de/rowbuddy/client/views/boat/AddBoatView.java=UTF-8
 encoding//src/de/rowbuddy/client/views/boat/BoatDetail.java=UTF-8
