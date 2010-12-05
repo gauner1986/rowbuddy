@@ -10,7 +10,8 @@ public class DamageDTOConverter extends DtoConverter<BoatDamage, DamageDTO> {
 		damage.setBootName(entity.getBoat().getName());
 		damage.setDate(entity.getLogDate());
 		damage.setId(entity.getId());
-		damage.setOpen(entity.isFixed());
+		damage.setFixed(entity.isFixed());
+		damage.setMember(entity.getLogger().toString());
 		return damage;
 	}
 

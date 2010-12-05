@@ -12,12 +12,27 @@ public class DamageDTO implements Serializable{
 	private String bootName;
 	private Date date;
 	private boolean fixed;
+	private String member;
 	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	
+	public boolean isFixed() {
+		return fixed;
+	}
+	public void setFixed(boolean fixed) {
+		this.fixed = fixed;
+	}
+	public String getMember() {
+		return member;
+	}
+	public void setMember(String member) {
+		this.member = member;
 	}
 	public String getBootName() {
 		return bootName;
@@ -31,12 +46,4 @@ public class DamageDTO implements Serializable{
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public boolean isOpen() {
-		return fixed;
-	}
-	public void setOpen(boolean open) {
-		this.fixed = open;
-	}
-	
-	
 }
