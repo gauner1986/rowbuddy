@@ -29,7 +29,12 @@ public class BoatBoundary {
 		return dtoConverter.getList(boats);
 	}
 	
-	public List<DamageDTO> getDamages(){
+	public List<DamageDTO> getOpenDamages(){
+		List<BoatDamage> damages = boatManagement.getDamages(ListType.OPEN);
+		return damageConverter.getList(damages);
+	}
+	
+	public List<DamageDTO> getAllDamages(){
 		List<BoatDamage> damages = boatManagement.getDamages(ListType.ALL);
 		return damageConverter.getList(damages);
 	}

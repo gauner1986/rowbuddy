@@ -20,4 +20,6 @@ public interface BoatRemoteService extends RemoteService {
 	public void deleteBoat(Long id) throws Exception;
 	
 	public List<DamageDTO> getOpenDamages();
+
+	List<DamageDTO> getAllDamages();
 }

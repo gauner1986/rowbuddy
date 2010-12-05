@@ -20,4 +20,6 @@ public interface BoatRemoteServiceAsync {
 	void deleteBoat(Long id, AsyncCallback<Void> callback);
 
 	void getOpenDamages(AsyncCallback<List<DamageDTO>> callback);
+	
+	void getAllDamages(AsyncCallback<List<DamageDTO>> callback);
 }
