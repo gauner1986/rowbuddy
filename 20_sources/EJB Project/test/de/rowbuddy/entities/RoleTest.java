@@ -1,10 +1,11 @@
 package de.rowbuddy.entities;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 public class RoleTest {
@@ -19,7 +20,7 @@ public class RoleTest {
 	@Test
 	public void canCreateRole(){
 		assertNull(role1.getId());
-		assertNull(role1.getName());
+		assertEquals(RoleName.MEMBER, role1.getName());
 	}
 	
 	@Test(expected=NullPointerException.class)

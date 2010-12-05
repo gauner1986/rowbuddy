@@ -51,7 +51,7 @@ public class Database {
 	public <T> void clearAllEntities(Class<T> entityType) {
         em.queryExecuteUpdate("delete from " + entityType.getSimpleName());
     }
-	
+		
 	public void setupBoats() throws RowBuddyException{
 		Boat boat1 = new Boat();
 		boat1.setName("Boat 1");

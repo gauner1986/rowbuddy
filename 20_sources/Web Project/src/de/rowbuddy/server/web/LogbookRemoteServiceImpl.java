@@ -4,12 +4,18 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
+import nl.fontys.rowbuddy.EntityManagerBean;
+import nl.fontys.rowbuddy.EntityManagerBeanLocal;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
+import de.rowbuddy.business.Logbook;
 import de.rowbuddy.business.RowBuddyFacade;
+import de.rowbuddy.business.Logbook.ListType;
 import de.rowbuddy.client.services.LogbookRemoteService;
+import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.RowBuddyException;
 
@@ -17,26 +23,28 @@ public class LogbookRemoteServiceImpl extends RemoteServiceServlet implements
 		LogbookRemoteService {
 	
 	@EJB
-	RowBuddyFacade rowbuddy;
+	private Logbook rowbuddy;
+	@EJB
+	private EntityManagerBeanLocal em;
 	
 	@Override
 	public void logRowedTrip(Trip rowedTrip) throws RowBuddyException {
-		rowbuddy.logRowedTrip(rowedTrip);
+		rowbuddy.logRowedTrip(rowedTrip, em.getAllEntities(Member.class).get(0));
 	}
 
 	@Override
 	public void startTrip(Trip startedTrip) throws RowBuddyException {
-		rowbuddy.startTrip(startedTrip);
+		rowbuddy.startTrip(startedTrip, em.getAllEntities(Member.class).get(0));
 	}
 
 	@Override
-	public List<TripDTO> getOpenTrips() {
-		return rowbuddy.getOpenTrips();
+	public List<Trip> getOpenTrips() {
+		return rowbuddy.getOpenTrips(em.getAllEntities(Member.class).get(0));
 	}
 
 	@Override
 	public void finishTrip(Trip openTrip) throws RowBuddyException {
-		rowbuddy.finishTrip(openTrip);
+		rowbuddy.finishTrip(openTrip, em.getAllEntities(Member.class).get(0));
 	}
 	
 	@Override
@@ -46,11 +54,11 @@ public class LogbookRemoteServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public List<PersonalTripDTO> getPersonalTrips() {
-		return rowbuddy.getPersonalTrips();
+		return rowbuddy.getPersonalTrips(em.getAllEntities(Member.class).get(0), ListType.All);
 	}
 
 	@Override
 	public List<PersonalTripDTO> getPersonalOpenTrips() {
-		return rowbuddy.getPersonalOpenTrips();
+		return rowbuddy.getPersonalTrips(em.getAllEntities(Member.class).get(0), ListType.OpenOnly);
 	}
 }

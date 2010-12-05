@@ -21,6 +21,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="DERBY_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="var" path="EMBEDDED_GLASSFISH/glassfish-embedded-static-shell.jar"/>
+	<classpathentry kind="var" path="EMBEDDED_GLASSFISH"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

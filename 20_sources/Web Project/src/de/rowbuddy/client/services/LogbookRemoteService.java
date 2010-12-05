@@ -5,7 +5,6 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.RemoteService;
 
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
-import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.RowBuddyException;
 
@@ -15,7 +14,7 @@ public interface LogbookRemoteService extends RemoteService {
 
 	public void startTrip(Trip startedTrip) throws RowBuddyException;
 
-	public List<TripDTO> getOpenTrips();
+	public List<Trip> getOpenTrips();
 
 	public void finishTrip(Trip openTrip) throws RowBuddyException;
 
