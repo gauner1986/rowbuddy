@@ -39,7 +39,7 @@ public class DataInitialization extends HttpServlet {
     @Override
     public void init(){
     	Boat b1 = new Boat();
-    	createTestMember();
+    	Member member = createTestMember();
     	try {
 			b1.setName("Test Boot");
 			b1.setCoxed(false);
@@ -68,6 +68,7 @@ public class DataInitialization extends HttpServlet {
 	    	BoatDamage damage = new BoatDamage();
 	    	damage.setBoat(b1);
 	    	damage.setLogDate(new Date(System.currentTimeMillis()));
+	    	damage.setLogger(member);
 //	    	TODO:SetLogger
 //	    	damage.setLogger(logger)
 	    	boatManagement.addDamage(damage);
@@ -83,6 +84,8 @@ public class DataInitialization extends HttpServlet {
     	Member testMember = null;
 		try {
 			testMember = new Member();
+			testMember.setGivenname("Jan");
+			testMember.setSurname("Trzeszkowski");
 			testMember.setPassword("bla");
 			testMember.setEmail("bla@bla.de");
 			memberManagement.addMember(testMember);

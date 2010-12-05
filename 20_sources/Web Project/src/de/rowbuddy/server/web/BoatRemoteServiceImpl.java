@@ -16,6 +16,9 @@ import de.rowbuddy.client.services.BoatRemoteService;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.entities.BoatReservation;
+import de.rowbuddy.entities.Member;
+import de.rowbuddy.entities.Role;
+import de.rowbuddy.entities.Trip;
 
 public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
 		BoatRemoteService {
@@ -54,12 +57,26 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
 		
 		List<BoatDamage> damages = new ArrayList<BoatDamage>();
 		List<BoatReservation> reservations = new ArrayList<BoatReservation>();
-
-		damages.addAll(boat.getBoatDamages());
+		
+		for(BoatDamage damage : boat.getBoatDamages()){
+			Member member = damage.getLogger();
+			
+			LinkedList<Role> roles = new LinkedList<Role>();
+			roles.addAll(member.getRoles());
+			member.setRoles(roles);
+			
+			LinkedList<Trip> trips = new LinkedList<Trip>();
+			trips.addAll(member.getPublishedTrips());
+			member.setPublishedTrips(trips);
+			
+			damages.add(damage);
+		}
+		
 		reservations.addAll(boat.getBoatReservations());
 				
 		boat.setBoatDamages(damages);
 		boat.setBoatReservations(reservations);
+		
 		return boat;
 	}
 	
@@ -71,6 +88,8 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public List<BoatDamage> getDamages() {
-		return boatManagement.getDamages();
+		List<BoatDamage> damages = boatManagement.getDamages();
+		
+		return damages;
 	}
 }

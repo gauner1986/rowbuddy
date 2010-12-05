@@ -1,11 +1,12 @@
 package de.rowbuddy.client.views.boat;
+import java.util.logging.Logger;
+
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -32,6 +33,7 @@ public class BoatDetail extends Composite implements Display{
 	private TabBar bar;
 	private int damageIndex = 1;
 	private int reservationIndex = 1;
+	private Logger logger = Logger.getLogger(BoatDetail.class.getName());
 	
 	public BoatDetail(){
 		contentTable = new FlexTable();
@@ -158,8 +160,10 @@ public class BoatDetail extends Composite implements Display{
 		damagesTable.setText(damageIndex, 0, date);
 		damagesTable.setText(damageIndex, 1, member);
 		CheckBox box = new CheckBox();
+		box.setEnabled(false);
 		box.setValue(resolved);
 		damagesTable.setWidget(damageIndex, 2, box);
+		logger.info("Row added: " + damageIndex);
 		damageIndex++;
 	}
 

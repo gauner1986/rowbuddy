@@ -70,8 +70,9 @@ public class BoatDetailPresenter implements Presenter{
 				view.setNumberOfSeats(arg0.getNumberOfSeats());
 				view.setCoxed(arg0.isCoxed());
 				view.setLocked(arg0.isLocked());
-				
+				 
 				for(BoatDamage damage : arg0.getBoatDamages()) {
+					logger.info("Adding damage");
 					view.addDamageRow(damage.getLogDate().toString(), damage.getLogger().getFullName(), damage.isFixed());
 				}
 				
