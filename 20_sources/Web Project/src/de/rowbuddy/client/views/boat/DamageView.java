@@ -30,7 +30,7 @@ public class DamageView extends Composite implements Display{
 
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
-		checkBox = new CheckBox("Alle Schäden");
+		checkBox = new CheckBox("Alle Sch√§den");
 		hPanel.add(checkBox);
 		contentTable.setWidget(2, 0, hPanel);
 
@@ -42,6 +42,7 @@ public class DamageView extends Composite implements Display{
 		contentTable.setText(0, 0, PageTitles.BOAT_DAMAGES);
 		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
 		rf.setStylePrimaryName(0, "pageHeadLine");
+		initTableHeader();
 	}
 
 	@Override
