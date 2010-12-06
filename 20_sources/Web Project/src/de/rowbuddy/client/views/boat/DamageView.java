@@ -82,7 +82,7 @@ public class DamageView extends HeaderButtonView implements Display{
 		damageTable.setText(0, 0, "Name");
 		damageTable.setText(0, 1, "Gemeldet von");
 		damageTable.setText(0, 2, "Erstellt am");
-		damageTable.setText(0, 3, "Offen");
+		damageTable.setText(0, 3, "Behoben");
 		damageTable.getRowFormatter().setStyleName(0, "boatTableHeader");
 	}
 
