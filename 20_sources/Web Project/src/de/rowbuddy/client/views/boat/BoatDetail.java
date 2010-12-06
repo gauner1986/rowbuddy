@@ -82,6 +82,7 @@ public class BoatDetail extends Composite implements Display{
 	    bar.addTab("Details");
 	    bar.addTab("Schäden");
 	    bar.addTab("Reservierung");
+	    bar.selectTab(0);
 	    	    
 	    damagesTable = new FlexTable();
 	    damagesTable.setText(0, 0, "Bootschäden");
