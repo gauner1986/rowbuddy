@@ -38,6 +38,7 @@ public class BoatDetail extends Composite implements Display{
 	
 	public BoatDetail(){
 		contentTable = new FlexTable();
+		contentTable.setWidth("100%");
 		decorator = new DecoratorPanel();
 		initWidget(decorator);
 		decorator.add(contentTable);
