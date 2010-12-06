@@ -1,6 +1,7 @@
 package de.rowbuddy.client.views;
 
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.ButtonBase;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -34,7 +35,7 @@ public abstract class HeaderButtonView extends Composite{
 		rf.setStylePrimaryName(0, "pageHeadLine");
 	}
 	
-	public void addButton(Button button){
+	public void addButton(ButtonBase button){
 		hPanel.add(button);
 	}
 	

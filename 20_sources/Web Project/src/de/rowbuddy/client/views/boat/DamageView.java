@@ -11,37 +11,25 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.boat.ListDamagePresenter.Display;
+import de.rowbuddy.client.views.HeaderButtonView;
 
-public class DamageView extends Composite implements Display{
+public class DamageView extends HeaderButtonView implements Display{
 
-	private DecoratorPanel decorator;
-	private FlexTable contentTable;
 	private CheckBox checkBox;
 	private FlexTable damageTable;
 	int index = 1;
 	
 	public DamageView(){
-		decorator = new DecoratorPanel();
-		contentTable = new FlexTable();
-		contentTable.setStylePrimaryName("contentTable");
+		super(PageTitles.BOAT_DAMAGES);
 
-		initWidget(decorator);
-		decorator.add(contentTable);
-
-		HorizontalPanel hPanel = new HorizontalPanel();
-		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 		checkBox = new CheckBox("Alle Schäden");
-		hPanel.add(checkBox);
-		contentTable.setWidget(2, 0, hPanel);
+		addButton(checkBox);
 
 		damageTable = new FlexTable();
 		damageTable.setWidth("100%");
 		damageTable.setStyleName("boatTable");
 
-		contentTable.setWidget(1, 0, damageTable);
-		contentTable.setText(0, 0, PageTitles.BOAT_DAMAGES);
-		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
-		rf.setStylePrimaryName(0, "pageHeadLine");
+		setContent(damageTable);
 		initTableHeader();
 	}
 
