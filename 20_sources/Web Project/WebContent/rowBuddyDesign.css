@@ -262,3 +262,18 @@ body {
 	border-bottom: 1px solid #000000;
 	padding-bottom: 10px;
 }
+
+.gwt-DecoratedTabBar .tabTopLeftInne{
+	background-color: red;
+}
+
+.gwt-DecoratedTabBar .gwt-TabBarItem {
+	background-color: #dff4ff;
+	color: #336699;
+	padding: 5px;
+}
+
+.gwt-DecoratedTabBar .gwt-TabBarItem-selected{
+	background-color: #5891C8;
+	color: blue;
+}
