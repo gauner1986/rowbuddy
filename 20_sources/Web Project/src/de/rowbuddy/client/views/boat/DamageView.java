@@ -67,9 +67,14 @@ public class DamageView extends HeaderButtonView implements Display{
 
 	@Override
 	public void clear() {
+		for(int i = 1 ; i < index; i++){
+			damageTable.getRowFormatter().removeStyleName(i, "FlexTable-OddRow");
+			damageTable.getRowFormatter().removeStyleName(i, "FlexTable-EvenRow");
+		}
 		index = 1;
 		damageTable.clear();
 		damageTable.clear(true);
+		
 		initTableHeader();
 	}
 	
