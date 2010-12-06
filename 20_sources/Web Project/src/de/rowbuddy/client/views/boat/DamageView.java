@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.HTMLTable.RowFormatter;
 
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.boat.ListDamagePresenter.Display;
@@ -43,6 +44,14 @@ public class DamageView extends HeaderButtonView implements Display{
 		box.setEnabled(false);
 		box.setValue(isOpen);
 		damageTable.setWidget(index, 3, box);
+		
+		RowFormatter rf = damageTable.getRowFormatter();
+		if ((index % 2) != 0) {
+			// rf.addStyleName(i, "FlexTable-OddRow");
+			rf.setStylePrimaryName(index, "FlexTable-OddRow");
+		} else {
+			rf.addStyleName(index, "FlexTable-EvenRow");
+		}
 		index++;
 	}
 	
