@@ -69,7 +69,7 @@ public class BoatView extends HeaderButtonView implements BoatPresenter.Display 
 		boatTable.setText(0, 2, "Gesteuert");
 		boatTable.setText(0, 3, "Gesperrt");
 		boatTable.getRowFormatter().setStyleName(0, "boatTableHeader");
-		
+		boatTable.setCellPadding(5);
 
 	}
 
