@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
@@ -33,8 +34,12 @@ public class BoatView extends HeaderButtonView implements BoatPresenter.Display 
 		boatTable = new FlexTable();
 		boatTable.setWidth("100%");
 		boatTable.setStyleName("boatTable");
-
-		setContent(boatTable);
+		ScrollPanel scrollPanel = new ScrollPanel();
+		boatTable.setWidth("100%");
+	    scrollPanel.add(boatTable);
+	    scrollPanel.setStyleName("scollTable");
+	    
+		setContent(scrollPanel);
 	}
 
 	@Override

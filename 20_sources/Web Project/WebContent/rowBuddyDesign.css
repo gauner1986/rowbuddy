@@ -224,6 +224,10 @@ body {
 	padding-left: 10px;
 }
 
+.scollTable{
+	height: 22em;
+}
+
 .menuItem {
 	height: 25px;
 }
