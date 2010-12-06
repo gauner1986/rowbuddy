@@ -32,8 +32,7 @@ body {
 	-khtml-border-radius-topright: 20px;
 	border-radius: 20px 20px 0px 0px;
 	width: 100%;
-	min-height: 40px;
-	max-height: 20px;
+	height: 20px;
 }
 
 .cw-StackPanelHeader {

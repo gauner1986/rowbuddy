@@ -35,7 +35,7 @@ public class BoatView extends HeaderButtonView implements BoatPresenter.Display 
 		boatTable.setWidth("100%");
 		boatTable.setStyleName("boatTable");
 		ScrollPanel scrollPanel = new ScrollPanel();
-		boatTable.setWidth("100%");
+		scrollPanel.setWidth("100%");
 	    scrollPanel.add(boatTable);
 	    scrollPanel.setStyleName("scollTable");
 	    
@@ -69,6 +69,7 @@ public class BoatView extends HeaderButtonView implements BoatPresenter.Display 
 		boatTable.setText(0, 2, "Gesteuert");
 		boatTable.setText(0, 3, "Gesperrt");
 		boatTable.getRowFormatter().setStyleName(0, "boatTableHeader");
+		boatTable.setCellPadding(5);
 
 	}
 
@@ -92,7 +93,7 @@ public class BoatView extends HeaderButtonView implements BoatPresenter.Display 
 			boatTable.setWidget(i, 3, lockedBox);
 
 			HTMLTable.RowFormatter rf = boatTable.getRowFormatter();
-			boatTable.setCellPadding(5);
+			
 			if ((i % 2) != 0) {
 				// rf.addStyleName(i, "FlexTable-OddRow");
 				rf.setStylePrimaryName(i, "FlexTable-OddRow");
