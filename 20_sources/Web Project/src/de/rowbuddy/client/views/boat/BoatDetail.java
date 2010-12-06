@@ -6,6 +6,7 @@ import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DecoratedTabBar;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable;
@@ -76,7 +77,7 @@ public class BoatDetail extends Composite implements Display{
 		locked.setEnabled(false);
 		detailTable.setWidget(3, 1, locked);
 		
-		bar = new TabBar();
+		bar = new DecoratedTabBar();
 	    bar.addTab("Details");
 	    bar.addTab("Schäden");
 	    bar.addTab("Reservierung");
