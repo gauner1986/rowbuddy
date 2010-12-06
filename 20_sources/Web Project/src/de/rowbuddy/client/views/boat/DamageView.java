@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.HTMLTable.RowFormatter;
 
@@ -29,8 +30,10 @@ public class DamageView extends HeaderButtonView implements Display{
 		damageTable = new FlexTable();
 		damageTable.setWidth("100%");
 		damageTable.setStyleName("boatTable");
-
-		setContent(damageTable);
+		ScrollPanel scrollPanel = new ScrollPanel();
+		scrollPanel.add(damageTable);
+	    scrollPanel.setStyleName("scollTable");
+		setContent(scrollPanel);
 		initTableHeader();
 	}
 
