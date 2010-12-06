@@ -1,6 +1,12 @@
 package de.rowbuddy.client.views;
 
+import java.util.logging.Logger;
+
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Anchor;
@@ -12,6 +18,7 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -28,6 +35,7 @@ public class MenuView extends Composite implements MenuDisplay {
 	private Anchor browseDamages = new Anchor("Schäden anzeigen(admin)");
 	private DecoratedStackPanel menuPanel = new DecoratedStackPanel();
 	private HorizontalPanel route = getHeaderString("Route", images.map());
+	private Logger logger = Logger.getLogger(MenuView.class.getName());
 	
 	public MenuView() {
 
@@ -41,6 +49,17 @@ public class MenuView extends Composite implements MenuDisplay {
 		menuPanel.add(createRouteMenu(),route.getElement().getString(), true);
 		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.boat()).getElement().getString(), true);
 		menuPanel.add(createMemberControl(), getHeaderString("Mitgliederverwaltung(admin)", images.member()).getElement().getString(), true);
+		
+		menuPanel.addHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent arg0) {
+				int index = menuPanel.getSelectedIndex();
+				if(index == 3){
+					NativeEvent event = Document.get().createClickEvent(0, 0, 0, 0, 0, false, false, false, false);
+					ClickEvent.fireNativeEvent(event, route);
+				}
+			}
+		}, ClickEvent.getType());
 		
 		verticalPanel.add(menuPanel);
 		initWidget(verticalPanel);
