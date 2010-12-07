@@ -134,6 +134,14 @@ public class BoatManagement {
 		boat.setDeleted(true);
 	}
 
+	public List<Boat> searchBoat(String search) {
+		TypedQuery<Boat> q = em.createQuery(
+				"SELECT b FROM Boat b WHERE b.name like :searchString",
+				Boat.class);
+		q.setParameter(":searchString", search);
+		return q.getResultList();
+	}
+
 	public BoatDamage getDamage(Long id) throws RowBuddyException {
 		if (id == null) {
 			throw new RowBuddyException("Id must be specified");
