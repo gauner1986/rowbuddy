@@ -6,7 +6,6 @@ import java.util.List;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.DamageDTO;
-import de.rowbuddy.business.RowBuddyFacade;
 import de.rowbuddy.client.services.BoatRemoteService;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
@@ -37,35 +36,34 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 
 	@Override
 	public Boat getBoat(Long id) throws Exception {
-		
+
 		Boat boat = null;
 		boat = getRowBuddyFacade().getBoat(id);
-		
+
 		List<BoatDamage> damages = new ArrayList<BoatDamage>();
 		List<BoatReservation> reservations = new ArrayList<BoatReservation>();
-		
-		for(BoatDamage damage : boat.getBoatDamages()){
+
+		for (BoatDamage damage : boat.getBoatDamages()) {
 			Member member = damage.getLogger();
-			
+
 			LinkedList<Role> roles = new LinkedList<Role>();
 			roles.addAll(member.getRoles());
 			member.setRoles(roles);
-			
+
 			LinkedList<Trip> trips = new LinkedList<Trip>();
 			trips.addAll(member.getPublishedTrips());
 			member.setPublishedTrips(trips);
-			
+
 			damages.add(damage);
 		}
-		
+
 		reservations.addAll(boat.getBoatReservations());
-				
+
 		boat.setBoatDamages(damages);
 		boat.setBoatReservations(reservations);
-		
+
 		return boat;
 	}
-	
 
 	@Override
 	public void deleteBoat(Long id) throws Exception {
@@ -87,8 +85,8 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 		BoatDamage damage = getRowBuddyFacade().getDamage(id);
 		damage.getLogger().setPublishedTrips(new LinkedList<Trip>());
 		damage.getLogger().setRoles(new LinkedList<Role>());
-		damage.getBoat().setBoatReservations(null);
+		damage.getBoat().setBoatReservations(new LinkedList<BoatReservation>());
 		damage.getBoat().setBoatDamages(new LinkedList<BoatDamage>());
-		return damage; 
+		return damage;
 	}
 }

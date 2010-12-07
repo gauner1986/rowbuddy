@@ -16,6 +16,8 @@ import de.rowbuddy.client.events.AddBoatEventHandler;
 import de.rowbuddy.client.events.BoatDetailEvent;
 import de.rowbuddy.client.events.BoatDetailEventHandler;
 import de.rowbuddy.client.events.BoatListHandler;
+import de.rowbuddy.client.events.DetailDamageEvent;
+import de.rowbuddy.client.events.DetailDamageHandler;
 import de.rowbuddy.client.events.EditBoatEvent;
 import de.rowbuddy.client.events.EditBoatEventHandler;
 import de.rowbuddy.client.events.ListDamageEvent;
@@ -28,6 +30,7 @@ import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.StatusMessagePresenter;
 import de.rowbuddy.client.presenter.boat.AddBoatPresenter;
 import de.rowbuddy.client.presenter.boat.BoatDetailPresenter;
+import de.rowbuddy.client.presenter.boat.DamageDetailPresenter;
 import de.rowbuddy.client.presenter.boat.EditBoatPresenter;
 import de.rowbuddy.client.presenter.boat.ListDamagePresenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
@@ -36,6 +39,7 @@ import de.rowbuddy.client.views.MenuView;
 import de.rowbuddy.client.views.MessageView;
 import de.rowbuddy.client.views.boat.AddBoatView;
 import de.rowbuddy.client.views.boat.BoatDetail;
+import de.rowbuddy.client.views.boat.DamageDetailView;
 import de.rowbuddy.client.views.boat.DamageView;
 import de.rowbuddy.client.views.boat.EditBoatView;
 import de.rowbuddy.client.views.logbook.ListPersonalTripsView;
@@ -107,6 +111,20 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 			@Override
 			public void onListDamageEvent(ListDamageEvent event) {
 				History.newItem(HistoryConstants.LIST_DAMAGES);
+			}
+		});
+
+		eventBus.addHandler(DetailDamageEvent.TYPE, new DetailDamageHandler() {
+
+			@Override
+			public void onDetailDamage(DetailDamageEvent event) {
+				History.newItem(HistoryConstants.VIEW_DAMAGE, false);
+				Presenter presenter = new DamageDetailPresenter(event.getId(),
+						new DamageDetailView(), boatService, eventBus);
+
+				statusPresenter.clear();
+				FadeAnimation fade = new FadeAnimation(container, presenter);
+				fade.run(400);
 			}
 		});
 	}
