@@ -32,7 +32,6 @@ public class BoatView extends HeaderButtonView implements BoatPresenter.Display 
 		boatTable.setWidth("100%");
 		boatTable.setStyleName("boatTable");
 		ScrollPanel scrollPanel = new ScrollPanel();
-		scrollPanel.setWidth("100%");
 	    scrollPanel.add(boatTable);
 	    scrollPanel.setStyleName("scollTable");
 	    
@@ -92,7 +91,6 @@ public class BoatView extends HeaderButtonView implements BoatPresenter.Display 
 			HTMLTable.RowFormatter rf = boatTable.getRowFormatter();
 			
 			if ((i % 2) != 0) {
-				// rf.addStyleName(i, "FlexTable-OddRow");
 				rf.setStylePrimaryName(i, "FlexTable-OddRow");
 			} else {
 				rf.addStyleName(i, "FlexTable-EvenRow");

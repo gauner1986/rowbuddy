@@ -40,7 +40,12 @@ body {
 	height: 20px;
 }
 
-.verticalPanel {
+.contentWidget{
+	width: 100%;
+	padding-top: 20px;
+}
+
+.buttonPanel {
 	width: 100%;
 	border: 1px solid #bbbbbb;
 	border-right: 0px;
@@ -207,10 +212,6 @@ body {
 	padding: 10px 10px 10px 10px;
 }
 
-.contentPanel {
-	border: 3px solid #bbbbbb;
-}
-
 .gwt-DecoratedStackPanel .gwt-StackPanelItem {
 	height: 42px;
 	background-color: #dff4ff;
@@ -269,8 +270,6 @@ body {
 }
 
 .boatTable {
-	width: 100%;
-	height: 100%;
 	border-collapse: collapse;
 }
 
@@ -285,6 +284,7 @@ body {
 	width: 100%;
 	background-color: #dff4ff;
 	cursor: pointer;
+	margin-bottom: 20px;
 }
 
 .gwt-DecoratedTabBar .gwt-TabBarItem {
