@@ -24,8 +24,7 @@
 		member.setPassword(password);
 		rbf.login(member);
 		session.setAttribute("rbf",rbf);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/welcomeGWT.html");
-        dispatcher.forward(request, response);
+        response.sendRedirect("welcomeGWT.html");
 %>
 <%
 	} else {
