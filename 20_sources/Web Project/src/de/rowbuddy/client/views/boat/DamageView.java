@@ -1,4 +1,6 @@
 package de.rowbuddy.client.views.boat;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
@@ -91,6 +93,22 @@ public class DamageView extends HeaderButtonView implements Display{
 	@Override
 	public HasValueChangeHandlers<Boolean> historyEnabled() {
 		return checkBox;
+	}
+
+	@Override
+	public int getClickedRow(ClickEvent event) {
+		int selectedRow = -1;
+		HTMLTable.Cell cell = damageTable.getCellForEvent(event);
+
+		if (cell != null) {
+			selectedRow = cell.getRowIndex();
+		}
+		return selectedRow;
+	}
+
+	@Override
+	public HasClickHandlers getTable() {
+		return damageTable;
 	}
 
 }

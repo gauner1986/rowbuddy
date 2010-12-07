@@ -3,6 +3,9 @@ package de.rowbuddy.client.presenter.boat;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -23,6 +26,8 @@ public class ListDamagePresenter implements Presenter{
 		void addDamageRow(String name, String reporter, String date, boolean isOpen);
 		void clear();
 		Widget asWidget();
+		int getClickedRow(ClickEvent event);
+		HasClickHandlers getTable();
 	}
 	
 	private Display view;
@@ -75,6 +80,16 @@ public class ListDamagePresenter implements Presenter{
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> arg0) {
 				fetchDamages(arg0.getValue());
+			}
+		});
+		
+		view.getTable().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				int row = view.getClickedRow(arg0);
+				DamageDTO damage = fetchedDamages.get(row);
+				
 			}
 		});
 	}

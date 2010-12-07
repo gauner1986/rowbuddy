@@ -96,4 +96,14 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
 	public List<DamageDTO> getAllDamages() {
 		return boatBoundary.getAllDamages();
 	}
+
+	@Override
+	public BoatDamage getDamage(Long id) throws Exception {
+		BoatDamage damage = boatManagement.getDamage(id);
+		damage.getLogger().setPublishedTrips(new LinkedList<Trip>());
+		damage.getLogger().setRoles(new LinkedList<Role>());
+		damage.getBoat().setBoatReservations(null);
+		damage.getBoat().setBoatDamages(new LinkedList<BoatDamage>());
+		return damage; 
+	}
 }
