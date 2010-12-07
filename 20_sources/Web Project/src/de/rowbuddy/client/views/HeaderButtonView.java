@@ -1,6 +1,5 @@
 package de.rowbuddy.client.views;
 
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ButtonBase;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
@@ -28,7 +27,7 @@ public abstract class HeaderButtonView extends Composite{
 		hPanel = new HorizontalPanel();
 		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 
-		contentTable.setWidget(2, 0, hPanel);
+		contentTable.setWidget(1, 0, hPanel);
 
 		contentTable.setText(0, 0, PageTitles.BOAT_OVERVIEW);
 		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
@@ -40,7 +39,7 @@ public abstract class HeaderButtonView extends Composite{
 	}
 	
 	public void setContent(Widget contentWidget){
-		contentTable.setWidget(1, 0, contentWidget);
+		contentTable.setWidget(2, 0, contentWidget);
 	}
 
 }
