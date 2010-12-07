@@ -15,6 +15,8 @@ import javax.persistence.Query;
 import de.rowbuddy.boundary.BoatBoundary;
 import de.rowbuddy.boundary.LogbookBoundary;
 import de.rowbuddy.boundary.dtos.BoatDTO;
+import de.rowbuddy.boundary.dtos.MemberDTO;
+import de.rowbuddy.boundary.dtos.MemberDTOConverter;
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.business.Logbook.ListType;
@@ -76,8 +78,8 @@ public class RowBuddyFacade {
 		}
 	}
 	
-	public Member getMember(){
-		return this.member;
+	public MemberDTO getMember(){
+		return new MemberDTOConverter().getDto(member);
 	}
 	
 

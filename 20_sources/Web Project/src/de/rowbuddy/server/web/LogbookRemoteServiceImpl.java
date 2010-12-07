@@ -4,15 +4,12 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
-import nl.fontys.rowbuddy.EntityManagerBean;
 import nl.fontys.rowbuddy.EntityManagerBeanLocal;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
-import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.business.Logbook;
-import de.rowbuddy.business.RowBuddyFacade;
 import de.rowbuddy.business.Logbook.ListType;
 import de.rowbuddy.client.services.LogbookRemoteService;
 import de.rowbuddy.entities.Member;

@@ -23,7 +23,7 @@
 		member.setEmail(email);
 		member.setPassword(password);
 		rbf.login(member);
-		request.setAttribute("rbf",rbf);
+		session.setAttribute("rbf",rbf);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/welcomeGWT.html");
         dispatcher.forward(request, response);
 %>
