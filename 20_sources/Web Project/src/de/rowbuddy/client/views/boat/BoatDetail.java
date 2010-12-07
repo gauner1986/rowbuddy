@@ -37,6 +37,7 @@ public class BoatDetail extends HeaderButtonView implements Display {
 		super(PageTitles.BOAT_DETAIL);
 
 		vPanel = new VerticalPanel();
+		vPanel.setWidth("100%");
 		editButton = new Button("Boot bearbeiten");
 		editButton.setStylePrimaryName("buttonEdit buttonRegular");
 		addButton(editButton);
