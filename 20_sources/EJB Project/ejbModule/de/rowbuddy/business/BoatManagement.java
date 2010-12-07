@@ -138,7 +138,7 @@ public class BoatManagement {
 		TypedQuery<Boat> q = em.createQuery(
 				"SELECT b FROM Boat b WHERE b.name like :searchString",
 				Boat.class);
-		q.setParameter("searchString", search);
+		q.setParameter("searchString", "%" + search + "%");
 		return q.getResultList();
 	}
 

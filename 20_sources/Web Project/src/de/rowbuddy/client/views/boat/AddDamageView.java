@@ -7,6 +7,8 @@ import com.google.gwt.event.dom.client.HasKeyPressHandlers;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.SuggestBox;
+import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 
@@ -22,6 +24,7 @@ public class AddDamageView extends HeaderButtonView implements Display {
 	private TextArea addInformation;
 	private Button addButton;
 	private Button cancelButton;
+	private SuggestBox boat;
 
 	public AddDamageView() {
 		super(PageTitles.BOAT_DAMAGE_ADD);
@@ -79,14 +82,19 @@ public class AddDamageView extends HeaderButtonView implements Display {
 
 	@Override
 	public HasClickHandlers getAddButton() {
-		// TODO Auto-generated method stub
-		return null;
+		return addButton;
 	}
 
 	@Override
 	public HasClickHandlers getCancelButton() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void setOracle(SuggestOracle oracle) {
+		boat = new SuggestBox(oracle, boatName);
+		content.setWidget(0, 1, boat);
 	}
 
 }
