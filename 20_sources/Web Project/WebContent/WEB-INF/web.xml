@@ -13,6 +13,14 @@
     <servlet-name>LogbookRemoteServiceImpl</servlet-name>
     <servlet-class>de.rowbuddy.server.web.LogbookRemoteServiceImpl</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>SessionManagerImpl</servlet-name>
+    <servlet-class>de.rowbuddy.server.web.SessionManagerImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SessionManagerImpl</servlet-name>
+    <url-pattern>/SessionManagerImpl</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>BoatRemoteServiceImpl</servlet-name>
     <url-pattern>/BoatRemoteServiceImpl</url-pattern>
