@@ -23,6 +23,7 @@ public abstract class HeaderButtonView extends Composite {
 		decorator.add(contentTable);
 
 		hPanel = new HorizontalPanel();
+		hPanel.setStylePrimaryName("verticalPanel");
 		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
 
 		contentTable.setWidget(1, 0, hPanel);
