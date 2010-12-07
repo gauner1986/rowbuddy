@@ -19,7 +19,7 @@ public class MessageView extends Composite implements StatusMessagePresenter.Dis
 	@Override
 	public void displayMessages(String message, Status status) {
 		messages.setText(index, 0, message);
-		messages.getRowFormatter().setStyleName(index, (status == Status.POSITIVE ? "messagePositive" : "messageNegative"));
+		messages.getRowFormatter().setStylePrimaryName(index, (status == Status.POSITIVE ? "messagePositive" : "messageNegative"));
 		index++;
 	}
 

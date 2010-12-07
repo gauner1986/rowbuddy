@@ -5,6 +5,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -30,6 +31,7 @@ public abstract class HeaderButtonView extends Composite {
 
 		contentTable.setText(0, 0, pageTitle);
 		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
+		rf.setVerticalAlign(0, HasVerticalAlignment.ALIGN_TOP);
 		rf.setStylePrimaryName(0, "pageHeadLine");
 	}
 
