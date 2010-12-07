@@ -101,4 +101,9 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 	public void updateDamage(BoatDamage damage) {
 		getRowBuddyFacade().updateDamage(damage);
 	}
+
+	@Override
+	public List<BoatDTO> search(String query) {
+		return getRowBuddyFacade().search(query);
+	}
 }

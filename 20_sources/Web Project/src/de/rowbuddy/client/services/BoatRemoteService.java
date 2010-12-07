@@ -27,4 +27,6 @@ public interface BoatRemoteService extends RemoteService {
 	public BoatDamage getDamage(Long id) throws Exception;
 
 	public void updateDamage(BoatDamage damage);
+
+	public List<BoatDTO> search(String query);
 }

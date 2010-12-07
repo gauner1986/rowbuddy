@@ -170,4 +170,8 @@ public class RowBuddyFacade {
 			ex.printStackTrace();
 		}
 	}
+
+	public List<BoatDTO> search(String search) {
+		return boatBoundary.searchBoat(search);
+	}
 }
