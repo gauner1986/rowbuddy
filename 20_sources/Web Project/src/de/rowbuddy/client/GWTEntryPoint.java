@@ -6,7 +6,10 @@ import java.util.logging.Logger;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Button;
@@ -117,16 +120,14 @@ public class GWTEntryPoint implements EntryPoint {
 		hPanel.setStylePrimaryName("logoHeader");
 		hPanel.add(new Image(images.logo()));
 
-		SessionManagerAsync sessionManager = (SessionManagerAsync) GWT
+		final SessionManagerAsync sessionManager = (SessionManagerAsync) GWT
 			.create(SessionManager.class);
 		((ServiceDefTarget) sessionManager).setServiceEntryPoint(GWT
 			.getHostPageBaseURL() + "SessionManagerImpl");
 		logger.info("Service registerd: " + GWT.getHostPageBaseURL()
 				+ "SessionManagerImpl");
 		
-		final MemberDTO member = new MemberDTO();
 		final Label loginLabel = new Label("Login: ");
-		logger.info("getting member");
 		sessionManager.getMember(new AsyncCallback<MemberDTO>() {
 			
 			@Override
@@ -146,6 +147,27 @@ public class GWTEntryPoint implements EntryPoint {
 		loginLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		Button logoutButton = new Button("Logout");
 		logoutButton.setStylePrimaryName("buttonExit buttonNegative");
+		logoutButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				sessionManager.logout(new AsyncCallback<Void>() {
+
+					@Override
+					public void onFailure(Throwable arg0) {
+						logger.info(arg0.getMessage());
+						
+					}
+
+					@Override
+					public void onSuccess(Void arg0) {
+					}
+				});
+				
+				Window.Location.assign(GWT.getHostPageBaseURL()+"Login.jsp");
+			}
+			
+		});
 
 		VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.add(loginLabel);

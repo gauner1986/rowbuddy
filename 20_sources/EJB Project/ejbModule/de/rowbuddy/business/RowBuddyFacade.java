@@ -15,6 +15,7 @@ import javax.persistence.Query;
 import de.rowbuddy.boundary.BoatBoundary;
 import de.rowbuddy.boundary.LogbookBoundary;
 import de.rowbuddy.boundary.dtos.BoatDTO;
+import de.rowbuddy.boundary.dtos.DamageDTO;
 import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.boundary.dtos.MemberDTOConverter;
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
@@ -81,7 +82,6 @@ public class RowBuddyFacade {
 	public MemberDTO getMember(){
 		return new MemberDTOConverter().getDto(member);
 	}
-	
 
 	@ExcludeClassInterceptors
 	public void logout() {
@@ -143,5 +143,13 @@ public class RowBuddyFacade {
 
 	public List<PersonalTripDTO> getPersonalOpenTrips(){
 		return logbook.getPersonalTrips(this.member, ListType.OpenOnly);
+	}
+	
+	public List<DamageDTO> getOpenDamages() {
+		return boatBoundary.getOpenDamages();
+	}
+	
+	public List<DamageDTO> getAllDamages() {
+		return boatBoundary.getAllDamages();
 	}
 }

@@ -17,7 +17,7 @@ public interface LogbookRemoteServiceAsync {
 	public void startTrip(Trip startedTrip, AsyncCallback<Void> callback)
 			throws RowBuddyException;
 
-	public void getOpenTrips(AsyncCallback<List<Trip>> callback);
+	public void getOpenTrips(AsyncCallback<List<TripDTO>> callback);
 
 	public void finishTrip(Trip openTrip, AsyncCallback<Void> callback)
 			throws RowBuddyException;

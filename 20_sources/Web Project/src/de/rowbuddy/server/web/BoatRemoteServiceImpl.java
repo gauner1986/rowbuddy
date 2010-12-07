@@ -1,18 +1,12 @@
 package de.rowbuddy.server.web;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.ejb.EJB;
-
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
-import de.rowbuddy.boundary.BoatBoundary;
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.DamageDTO;
-import de.rowbuddy.business.BoatManagement;
+import de.rowbuddy.business.RowBuddyFacade;
 import de.rowbuddy.client.services.BoatRemoteService;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
@@ -21,40 +15,31 @@ import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Role;
 import de.rowbuddy.entities.Trip;
 
-public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
+public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 		BoatRemoteService {
 
-	@EJB
-	private BoatManagement boatManagement;
-	
-	@EJB
-	private BoatBoundary boatBoundary;
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	public List<BoatDTO> getBoatOverview() {
-		return boatBoundary.getBoatOverview();
+		return getRowBuddyFacade().getBoatOverview();
 	}
 
 	@Override
 	public void addBoat(Boat boat) throws Exception {
-		boatManagement.addBoat(boat);
+		getRowBuddyFacade().addBoat(boat);
 	}
 
 	@Override
 	public void updateBoat(Boat boat) throws Exception {
-		boatManagement.updateBoat(boat);
+		getRowBuddyFacade().updateBoat(boat);
 	}
 
 	@Override
 	public Boat getBoat(Long id) throws Exception {
 		
 		Boat boat = null;
-		boat = boatManagement.getBoat(id);
+		boat = getRowBuddyFacade().getBoat(id);
 		
 		List<BoatDamage> damages = new ArrayList<BoatDamage>();
 		List<BoatReservation> reservations = new ArrayList<BoatReservation>();
@@ -84,17 +69,17 @@ public class BoatRemoteServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void deleteBoat(Long id) throws Exception {
-		boatManagement.deleteBoat(id);
+		getRowBuddyFacade().deleteBoat(id);
 	}
 
 	@Override
 	public List<DamageDTO> getOpenDamages() {
-		return boatBoundary.getOpenDamages();
+		return getRowBuddyFacade().getOpenDamages();
 	}
 
 	@Override
 	public List<DamageDTO> getAllDamages() {
-		return boatBoundary.getAllDamages();
+		return getRowBuddyFacade().getAllDamages();
 	}
 
 	@Override
