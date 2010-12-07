@@ -12,28 +12,33 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.GWTEntryPoint;
 import de.rowbuddy.client.HistoryConstants;
-import de.rowbuddy.client.events.ListBoatEvent;
+import de.rowbuddy.client.events.BoatListHandler;
 import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEvent;
 
-public class MenuPresenter implements Presenter, HistoryConstants{
-	
+public class MenuPresenter implements Presenter, HistoryConstants {
+
 	public interface MenuDisplay {
 		public HasClickHandlers getListBoatButton();
+
 		public HasClickHandlers getListPersonalTripsButton();
+
 		public HasClickHandlers getListDamageButton();
+
 		public Panel getRoutes();
+
 		public Widget asWidget();
 	}
+
 	private MenuDisplay view;
 	private HasWidgets container;
 	private SimpleEventBus eventBus;
-	
+
 	public MenuPresenter(MenuDisplay view, SimpleEventBus eventBus) {
 		this.view = view;
 		this.eventBus = eventBus;
 	}
-	
+
 	@Override
 	public void start(HasWidgets container) {
 		bind();
@@ -41,35 +46,35 @@ public class MenuPresenter implements Presenter, HistoryConstants{
 		this.container.clear();
 		this.container.add(view.asWidget());
 	}
-	
-	private void bind(){
+
+	private void bind() {
 		view.getListBoatButton().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent arg0) {
-				eventBus.fireEvent(new ListBoatEvent());
+				eventBus.fireEvent(BoatListHandler.createEvent());
 			}
 		});
-		
+
 		view.getRoutes().addHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent arg0) {
 				Logger logger = Logger.getLogger(GWTEntryPoint.class.getName());
 				logger.info("Click++++++");
-				eventBus.fireEvent(new ListBoatEvent());
+				eventBus.fireEvent(BoatListHandler.createEvent());
 			}
-		}, ClickEvent.getType());		
-		
+		}, ClickEvent.getType());
+
 		view.getListPersonalTripsButton().addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent arg0) {
 				eventBus.fireEvent(new ListPersonalTripsEvent());
 			}
 		});
-		
+
 		view.getListDamageButton().addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent arg0) {
 				eventBus.fireEvent(new ListDamageEvent());

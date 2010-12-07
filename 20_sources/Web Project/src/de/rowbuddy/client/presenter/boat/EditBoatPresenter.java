@@ -6,13 +6,12 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.events.ListBoatEvent;
+import de.rowbuddy.client.events.BoatListHandler;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
 import de.rowbuddy.client.model.StatusMessage.Status;
@@ -128,7 +127,7 @@ public class EditBoatPresenter implements Presenter {
 						@Override
 						public void onSuccess(Void arg0) {
 							logger.info("Submit successful GoTo ListBoats");
-							eventBus.fireEvent(new ListBoatEvent());
+							eventBus.fireEvent(BoatListHandler.createEvent());
 							StatusMessage message = new StatusMessage(false);
 							message.setStatus(Status.POSITIVE);
 							message.setMessage("Boot erfolgreich geändert");
@@ -155,7 +154,7 @@ public class EditBoatPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				eventBus.fireEvent(new ListBoatEvent());
+				eventBus.fireEvent(BoatListHandler.createEvent());
 			}
 		});
 
@@ -168,7 +167,7 @@ public class EditBoatPresenter implements Presenter {
 		});
 
 		view.getDeleteButton().addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent arg0) {
 				view.closeDialog();
@@ -186,7 +185,7 @@ public class EditBoatPresenter implements Presenter {
 
 					@Override
 					public void onSuccess(Void arg0) {
-						eventBus.fireEvent(new ListBoatEvent());
+						eventBus.fireEvent(BoatListHandler.createEvent());
 						StatusMessage msg = new StatusMessage(false);
 						msg.setMessage("Boat deleted");
 						msg.setStatus(Status.POSITIVE);

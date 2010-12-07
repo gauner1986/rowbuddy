@@ -5,7 +5,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.exceptions.RowBuddyException;
 
@@ -18,11 +17,11 @@ public class MemberManagement {
 
 	@PersistenceContext
 	EntityManager em;
-    
-    public MemberManagement() {
-    }
-    
-    public Member addMember(Member addMember) throws RowBuddyException {
+
+	public MemberManagement() {
+	}
+
+	public Member addMember(Member addMember) throws RowBuddyException {
 
 		if (addMember.getId() != null) {
 			throw new RowBuddyException(
@@ -32,9 +31,9 @@ public class MemberManagement {
 		em.persist(addMember);
 		return addMember;
 	}
-    
-    public Member getMember(Long id){
-    	return em.getReference(Member.class, id);
-    }
+
+	public Member getMember(Long id) {
+		return em.getReference(Member.class, id);
+	}
 
 }

@@ -43,9 +43,9 @@ public class Member implements Serializable {
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Collection<Role> roles = new LinkedList<Role>();
 	private static final long serialVersionUID = 1L;
-	
-	public Member(){
-			roles.add(new Role()); // default role
+
+	public Member() {
+		roles.add(new Role()); // default role
 	}
 
 	public Long getId() {
@@ -53,7 +53,7 @@ public class Member implements Serializable {
 	}
 
 	public void setId(Long id) {
-		if (id == null){
+		if (id == null) {
 			throw new NullPointerException("Id must not be null");
 		}
 		this.id = id;
@@ -64,7 +64,7 @@ public class Member implements Serializable {
 	}
 
 	public void setMemberId(String memberId) throws RowBuddyException {
-		if (memberId == null){
+		if (memberId == null) {
 			throw new NullPointerException("Member ID must not be null");
 		}
 		if (memberId.isEmpty()) {
@@ -78,7 +78,7 @@ public class Member implements Serializable {
 	}
 
 	public void setGivenname(String givenname) throws RowBuddyException {
-		if (givenname == null){
+		if (givenname == null) {
 			throw new NullPointerException("Givenname must not be null");
 		}
 		if (givenname.isEmpty()) {
@@ -92,7 +92,7 @@ public class Member implements Serializable {
 	}
 
 	public void setSurname(String surname) throws RowBuddyException {
-		if (surname == null){
+		if (surname == null) {
 			throw new NullPointerException("Surname must not be null");
 		}
 		if (surname.isEmpty()) {
@@ -170,7 +170,7 @@ public class Member implements Serializable {
 	}
 
 	public void setPublishedTrips(Collection<Trip> publishedTrips) {
-		if (publishedTrips == null){
+		if (publishedTrips == null) {
 			throw new NullPointerException("Published trips must not be null");
 		}
 		this.publishedTrips = publishedTrips;
@@ -195,11 +195,11 @@ public class Member implements Serializable {
 		}
 		return false;
 	}
-	
-	public String getFullName(){
+
+	public String getFullName() {
 		return givenname + ", " + surname;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

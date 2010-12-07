@@ -33,8 +33,10 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	@Before
 	public void setup() {
 		ejbHandler = new EjbExceptionHandler();
-		adminMember = createTestMember("bla@bla.de", "secret", new RoleName[] {RoleName.ADMIN, RoleName.MEMBER});
-		userMember = createTestMember("user@bla.de", "secret",new RoleName[] {RoleName.MEMBER});
+		adminMember = createTestMember("bla@bla.de2", "secret", new RoleName[] {
+				RoleName.ADMIN, RoleName.MEMBER });
+		userMember = createTestMember("user@bla.de", "secret",
+				new RoleName[] { RoleName.MEMBER });
 
 		existingBoat = new Boat();
 		try {
@@ -123,7 +125,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 
 	@Test
 	public void cannotLoginWithWrongPass() {
-		Member falseMember = createTestMember("bla@bla.de", "wrongpass",
+		Member falseMember = createTestMember("bla@bla2.de", "wrongpass",
 				new RoleName[] {});
 		try {
 			rowBuddyFacade.login(falseMember);
