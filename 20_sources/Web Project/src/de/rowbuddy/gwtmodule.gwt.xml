@@ -8,5 +8,5 @@
 	 <inherits name="de.rowbuddy.Core" />
 	    <source path="client"  />
 	<entry-point class="de.rowbuddy.client.GWTEntryPoint" />
-	
+	<inherits name="com.google.gwt.user.AsyncProxy"/>
 </module>
