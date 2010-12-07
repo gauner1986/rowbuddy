@@ -165,7 +165,7 @@ public class RowBuddyFacade {
 
 	public void updateDamage(BoatDamage damage) {
 		try {
-			// boatManagement.updateDamage(damage);
+			boatManagement.updateDamage(damage);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

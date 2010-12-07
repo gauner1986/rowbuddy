@@ -1,22 +1,27 @@
 package de.rowbuddy.entities;
 
 import java.io.Serializable;
-import java.lang.String;
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import de.rowbuddy.exceptions.RowBuddyException;
 
 /**
  * Entity implementation class for Entity: BoatDamage
- *
+ * 
  */
 @Entity
 public class BoatDamage implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id = null;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date logDate = new Date();
@@ -31,8 +36,8 @@ public class BoatDamage implements Serializable {
 
 	public BoatDamage() {
 		super();
-	} 
-	
+	}
+
 	public Long getId() {
 		return this.id;
 	}
@@ -46,7 +51,7 @@ public class BoatDamage implements Serializable {
 	}
 
 	public void setLogDate(Date logDate) {
-		if (logDate == null){
+		if (logDate == null) {
 			throw new NullPointerException("LogDate must not be null");
 		}
 		this.logDate = logDate;
@@ -64,11 +69,12 @@ public class BoatDamage implements Serializable {
 		return damageDescription;
 	}
 
-	public void setDamageDescription(String damageDescription) throws RowBuddyException {
-		if (damageDescription == null){
+	public void setDamageDescription(String damageDescription)
+			throws RowBuddyException {
+		if (damageDescription == null) {
 			throw new NullPointerException("Damage description cannot be null");
 		}
-		if(damageDescription.isEmpty()) {
+		if (damageDescription.isEmpty()) {
 			throw new RowBuddyException("Damage description has to be set");
 		}
 		this.damageDescription = damageDescription;
@@ -79,7 +85,7 @@ public class BoatDamage implements Serializable {
 	}
 
 	public void setLogger(Member logger) {
-		if (logger == null){
+		if (logger == null) {
 			throw new NullPointerException("Logger must not be null");
 		}
 		this.logger = logger;
@@ -90,13 +96,13 @@ public class BoatDamage implements Serializable {
 	}
 
 	public void setBoat(Boat boat) {
-		if (boat == null){
+		if (boat == null) {
 			throw new NullPointerException("Boat must not be null");
 		}
 		this.boat = boat;
 	}
-	
-	public void removeBoat(){
+
+	public void removeBoat() {
 		this.boat = null;
 	}
 
@@ -105,21 +111,19 @@ public class BoatDamage implements Serializable {
 	}
 
 	public void setAdditionalInformation(String additionalInformation) {
-		if (additionalInformation == null){
-			throw new NullPointerException("Additional information must not be null");
+		if (additionalInformation == null) {
+			throw new NullPointerException(
+					"Additional information must not be null");
 		}
 		this.additionalInformation = additionalInformation;
 	}
-	
-	public void validate() throws RowBuddyException{
-		if (damageDescription.isEmpty()){
+
+	public void validate() throws RowBuddyException {
+		if (damageDescription.isEmpty()) {
 			throw new RowBuddyException("Description must be specified");
 		}
-		if (logger == null){
+		if (logger == null) {
 			throw new NullPointerException("Logger must be specified");
-		}
-		if (boat != null){
-			throw new NullPointerException("Boat must be null");
 		}
 	}
 }
