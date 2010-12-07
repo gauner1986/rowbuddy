@@ -23,6 +23,11 @@ body {
 	background: #5891C8;
 }
 
+.glassStyle {
+	background-color: rgba(100, 100, 100, 0.5);
+	filter: Alpha(opacity : 80);
+}
+
 .messages {
 	border: 3px solid #bbbbbb;
 	border-bottom: 0px;
@@ -224,7 +229,7 @@ body {
 	padding-left: 10px;
 }
 
-.scollTable{
+.scollTable {
 	height: 22em;
 }
 
@@ -263,98 +268,92 @@ body {
 	padding-bottom: 10px;
 }
 
-.gwt-DecoratedTabBar .tabTopLeftInne{
-	background-color: red;
+.gwt-DecoratedTabBar {
+	width: 100%;
+	background-color: #dff4ff;
+	cursor: pointer;
 }
 
 .gwt-DecoratedTabBar .gwt-TabBarItem {
 	background-color: #dff4ff;
 	color: #336699;
 	padding: 5px;
+	padding-right: 15px;
+	padding-left: 15px;
 }
 
-.gwt-DecoratedTabBar .gwt-TabBarItem-selected{
+.gwt-DecoratedTabBar .gwt-TabBarItem-selected {
 	background-color: #5891C8;
 	color: blue;
 }
 
 .gwt-DialogBox .Caption {
-  background: #e3e8f3 url(images/hborder.png) repeat-x 0px -2003px;
-  padding: 4px 4px 4px 8px;
-  cursor: default;
-  border-bottom: 1px solid #bbbbbb;
-  border-top: 5px solid #d0e4f6;
+	padding: 10px;
+	cursor: default;
+	border-bottom: 1px solid #bbbbbb;
+	border-top: 5px solid #d0e4f6;
+	color: #336699;
 }
-.gwt-DialogBox .dialogContent {
-}
+
 .gwt-DialogBox .dialogMiddleCenter {
-  padding: 3px;
-  background: white;
+	padding: 3px;
+	background: white;
 }
+
 .gwt-DialogBox .dialogBottomCenter {
-  background: url(images/hborder.png) repeat-x 0px -4px;
-  -background: url(images/hborder_ie6.png) repeat-x 0px -4px;
+	background: url(images/hborder.png) repeat-x 0px -4px;
+	-background: url(images/hborder_ie6.png) repeat-x 0px -4px;
 }
+
 .gwt-DialogBox .dialogMiddleLeft {
-  background: url(images/vborder.png) repeat-y;
+	background: url(images/vborder.png) repeat-y;
 }
+
 .gwt-DialogBox .dialogMiddleRight {
-  background: url(images/vborder.png) repeat-y -4px 0px;
-  -background: url(images/vborder_ie6.png) repeat-y -4px 0px;
+	background: url(images/vborder.png) repeat-y -4px 0px;
+	-background: url(images/vborder_ie6.png) repeat-y -4px 0px;
 }
+
 .gwt-DialogBox .dialogTopLeftInner {
-  width: 5px;
-  zoom: 1;
+	width: 5px;
+	zoom: 1;
 }
+
 .gwt-DialogBox .dialogTopRightInner {
-  width: 8px;
-  zoom: 1;
+	width: 8px;
+	zoom: 1;
 }
+
 .gwt-DialogBox .dialogBottomLeftInner {
-  width: 5px;
-  height: 8px;
-  zoom: 1;
+	width: 5px;
+	height: 8px;
+	zoom: 1;
 }
+
 .gwt-DialogBox .dialogBottomRightInner {
-  width: 5px;
-  height: 8px;
-  zoom: 1;
+	width: 5px;
+	height: 8px;
+	zoom: 1;
 }
-.gwt-DialogBox .dialogTopLeft {
-  background: url(images/corner.png) no-repeat -13px 0px;
-  -background: url(images/corner_ie6.png) no-repeat -13px 0px;
-}
-.gwt-DialogBox .dialogTopRight {
-  background: url(images/corner.png) no-repeat -18px 0px;
-  -background: url(images/corner_ie6.png) no-repeat -18px 0px;
-}
-.gwt-DialogBox .dialogBottomLeft {
-  background: url(images/corner.png) no-repeat 0px -15px;
-  -background: url(images/corner_ie6.png) no-repeat 0px -15px;
-}
-.gwt-DialogBox .dialogBottomRight {
-  background: url(images/corner.png) no-repeat -5px -15px;
-  -background: url(images/corner_ie6.png) no-repeat -5px -15px;
-}
-html>body .gwt-DialogBox {
-}
+
 * html .gwt-DialogBox .dialogTopLeftInner {
-  width: 5px;
-  overflow: hidden;
+	width: 5px;
+	overflow: hidden;
 }
+
 * html .gwt-DialogBox .dialogTopRightInner {
-  width: 8px;
-  overflow: hidden;
+	width: 8px;
+	overflow: hidden;
 }
+
 * html .gwt-DialogBox .dialogBottomLeftInner {
-  width: 5px;
-  height: 8px;
-  overflow: hidden;
+	width: 5px;
+	height: 8px;
+	overflow: hidden;
 }
+
 * html .gwt-DialogBox .dialogBottomRightInner {
-  width: 8px;
-  height: 8px;
-  overflow: hidden;
-}
-.cw-DialogBox {
+	width: 8px;
+	height: 8px;
+	overflow: hidden;
 }
