@@ -118,8 +118,8 @@ public class BoatDamage implements Serializable {
 		if (logger == null){
 			throw new NullPointerException("Logger must be specified");
 		}
-		if (boat == null){
-			throw new NullPointerException("Boat must be specified");
+		if (boat != null){
+			throw new NullPointerException("Boat must be null");
 		}
 	}
 }

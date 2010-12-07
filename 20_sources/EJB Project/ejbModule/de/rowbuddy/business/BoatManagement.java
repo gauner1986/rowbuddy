@@ -96,7 +96,7 @@ public class BoatManagement {
 		return q.getResultList();
 	}
 
-	public void addDamage(BoatDamage damage, Member logger) throws RowBuddyException {
+	public void addDamage(BoatDamage damage, Member logger, Long boatId) throws RowBuddyException {
 		if (damage.getId() != null) {
 			throw new RowBuddyException("Id must be null");
 		}
@@ -105,11 +105,12 @@ public class BoatManagement {
 		damage.setLogger(logger);
 		damage.validate();
 		
-		if (damage.getBoat().getId() == null){
-			throw new RowBuddyException("Id of boat must not be null");
+		if (damage.getBoat() != null){
+			throw new RowBuddyException("Boat must be null");
 		}
 
-		Boat persistedBoat = getBoat(damage.getBoat().getId());
+		Boat persistedBoat = getBoat(boatId);
+		damage.setBoat(persistedBoat);
 		em.persist(damage);
 		persistedBoat.addBoatDamage(damage);
 	}

@@ -161,13 +161,12 @@ public class BoatManagementTest extends EjbTestBase {
 	public void canAddDamage() throws RowBuddyException {
 		// given
 		BoatDamage damage = new BoatDamage();
-		damage.setBoat(existingBoat);
 		damage.setDamageDescription("Left side broken");
 		damage.setLogDate(new Date(System.currentTimeMillis()));
 		int sizeBefore = boatManagement.getBoat(existingBoat.getId()).getBoatDamages().size(); 
 		
 		// when 
-		boatManagement.addDamage(damage, db.getMembers().get(0));
+		boatManagement.addDamage(damage, db.getMembers().get(0), existingBoat.getId());
 		
 		// then
 		int sizeAfter = boatManagement.getBoat(existingBoat.getId()).getBoatDamages().size();
@@ -178,11 +177,10 @@ public class BoatManagementTest extends EjbTestBase {
 	public void canGetAllDamages() throws RowBuddyException{
 		// given
 		BoatDamage damage = new BoatDamage();
-		damage.setBoat(existingBoat);
 		damage.setDamageDescription("Right side broken");
 		damage.setLogDate(new Date(System.currentTimeMillis()));
 		damage.setFixed(true);
-		boatManagement.addDamage(damage, db.getMembers().get(0));
+		boatManagement.addDamage(damage, db.getMembers().get(0), existingBoat.getId());
 		
 		// when
 		List<BoatDamage> damages = boatManagement.getDamages(ListType.ALL);
@@ -201,19 +199,18 @@ public class BoatManagementTest extends EjbTestBase {
 	public void canGetOpenDamages() throws RowBuddyException{
 		// given
 		BoatDamage damage = new BoatDamage();
-		damage.setBoat(existingBoat);
 		damage.setDamageDescription("Right side broken");
 		damage.setLogDate(new Date(System.currentTimeMillis()));
 		damage.setFixed(true);
-		boatManagement.addDamage(damage, db.getMembers().get(0));
+		boatManagement.addDamage(damage, db.getMembers().get(0), existingBoat.getId());
 		
 		BoatDamage damage2 = new BoatDamage();
 		damage2.setId(null);
-		damage2.setBoat(existingBoat);
+		
 		damage2.setDamageDescription("Right side broken");
 		damage2.setLogDate(new Date(System.currentTimeMillis()));
 		damage2.setFixed(false);
-		boatManagement.addDamage(damage2, db.getMembers().get(0));
+		boatManagement.addDamage(damage2, db.getMembers().get(0), existingBoat.getId());
 		
 		// when
 		List<BoatDamage> damages = boatManagement.getDamages(ListType.OPEN);
