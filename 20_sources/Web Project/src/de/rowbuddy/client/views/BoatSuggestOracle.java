@@ -66,7 +66,6 @@ public class BoatSuggestOracle extends SuggestOracle {
 				SuggestOracle.Response resp = new SuggestOracle.Response();
 				suggestions.clear();
 				for (BoatDTO boat : arg0) {
-					logger.info("Add: " + boat.getName());
 					suggestions.add(new ItemSuggestion(boat));
 				}
 				resp.setSuggestions(suggestions);
