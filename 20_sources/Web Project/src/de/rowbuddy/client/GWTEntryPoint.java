@@ -118,7 +118,7 @@ public class GWTEntryPoint implements EntryPoint {
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setWidth("100%");
 		hPanel.setStylePrimaryName("logoHeader");
-		hPanel.add(new Image(images.logo()));
+//		hPanel.add(new Image(images.logo()));
 
 		final SessionManagerAsync sessionManager = (SessionManagerAsync) GWT
 			.create(SessionManager.class);
@@ -127,7 +127,7 @@ public class GWTEntryPoint implements EntryPoint {
 		logger.info("Service registerd: " + GWT.getHostPageBaseURL()
 				+ "SessionManagerImpl");
 		
-		final Label loginLabel = new Label("Login: ");
+		final Label loginLabel = new Label("Logged in: ");
 		sessionManager.getMember(new AsyncCallback<MemberDTO>() {
 			
 			@Override
@@ -143,8 +143,6 @@ public class GWTEntryPoint implements EntryPoint {
 			}
 		});
 
-			
-		loginLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		Button logoutButton = new Button("Logout");
 		logoutButton.setStylePrimaryName("buttonExit buttonNegative");
 		logoutButton.addClickHandler(new ClickHandler() {
@@ -169,13 +167,23 @@ public class GWTEntryPoint implements EntryPoint {
 			
 		});
 
-		VerticalPanel verticalPanel = new VerticalPanel();
-		verticalPanel.add(loginLabel);
-		verticalPanel.add(logoutButton);
+//		HorizontalPanel verticalPanel = new HorizontalPanel();
+//		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+//		verticalPanel.add(loginLabel);
+//		verticalPanel.add(logoutButton);
 
-		hPanel.add(verticalPanel);
+//		hPanel.add(verticalPanel);
 
-		hPanel.setCellWidth(verticalPanel, "20%");
+//		hPanel.setCellWidth(verticalPanel, "20%");
+
+		hPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
+		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		horizontalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		horizontalPanel.setStylePrimaryName("loginLogout");
+		horizontalPanel.add(loginLabel);
+		horizontalPanel.add(logoutButton);
+		hPanel.add(horizontalPanel);
 
 		flexTable.setWidget(0, 0, hPanel);
 

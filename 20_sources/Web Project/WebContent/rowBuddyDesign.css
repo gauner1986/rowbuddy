@@ -80,8 +80,20 @@ body {
 }
 
 .logoHeader {
-	padding-bottom: 30px;
-	padding-left: 30px;
+	background-image: url("icons/logo.png");
+	background-repeat: no-repeat;
+	background-position: 30px;
+	height: 120px;
+	padding-bottom: 13px;
+	padding-right: 30px;
+}
+
+.gwt-Label {
+	font-weight: bold;
+}
+
+.loginLogout {
+	border-top: 2px solid #bbbbbb;
 }
 
 .FlexTable-OddRow {
