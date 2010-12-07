@@ -18,6 +18,8 @@ import de.rowbuddy.client.events.BoatDetailEventHandler;
 import de.rowbuddy.client.events.BoatListHandler;
 import de.rowbuddy.client.events.DetailDamageEvent;
 import de.rowbuddy.client.events.DetailDamageHandler;
+import de.rowbuddy.client.events.EditBoatDamageEvent;
+import de.rowbuddy.client.events.EditBoatDamageHandler;
 import de.rowbuddy.client.events.EditBoatEvent;
 import de.rowbuddy.client.events.EditBoatEventHandler;
 import de.rowbuddy.client.events.ListDamageEvent;
@@ -32,6 +34,7 @@ import de.rowbuddy.client.presenter.boat.AddBoatPresenter;
 import de.rowbuddy.client.presenter.boat.BoatDetailPresenter;
 import de.rowbuddy.client.presenter.boat.DamageDetailPresenter;
 import de.rowbuddy.client.presenter.boat.EditBoatPresenter;
+import de.rowbuddy.client.presenter.boat.EditDamagePresenter;
 import de.rowbuddy.client.presenter.boat.ListDamagePresenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
@@ -42,6 +45,7 @@ import de.rowbuddy.client.views.boat.BoatDetail;
 import de.rowbuddy.client.views.boat.DamageDetailView;
 import de.rowbuddy.client.views.boat.DamageView;
 import de.rowbuddy.client.views.boat.EditBoatView;
+import de.rowbuddy.client.views.boat.EditDamageView;
 import de.rowbuddy.client.views.logbook.ListPersonalTripsView;
 
 public class AppController implements Presenter, ValueChangeHandler<String> {
@@ -127,6 +131,22 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 				fade.run(400);
 			}
 		});
+
+		eventBus.addHandler(EditBoatDamageEvent.TYPE,
+				new EditBoatDamageHandler() {
+
+					@Override
+					public void onEditBoatDamage(EditBoatDamageEvent event) {
+						History.newItem(HistoryConstants.EDIT_DAMAGE, false);
+						Presenter presenter = new EditDamagePresenter(event
+								.getId(), new EditDamageView(), boatService,
+								eventBus);
+						statusPresenter.clear();
+						FadeAnimation fade = new FadeAnimation(container,
+								presenter);
+						fade.run(400);
+					}
+				});
 	}
 
 	private void doOnViewBoat(Long id) {

@@ -13,6 +13,7 @@ import de.rowbuddy.entities.BoatReservation;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Role;
 import de.rowbuddy.entities.Trip;
+import de.rowbuddy.exceptions.RowBuddyException;
 
 public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 		BoatRemoteService {
@@ -81,12 +82,23 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 	}
 
 	@Override
-	public BoatDamage getDamage(Long id) throws Exception {
-		BoatDamage damage = getRowBuddyFacade().getDamage(id);
-		damage.getLogger().setPublishedTrips(new LinkedList<Trip>());
-		damage.getLogger().setRoles(new LinkedList<Role>());
-		damage.getBoat().setBoatReservations(new LinkedList<BoatReservation>());
-		damage.getBoat().setBoatDamages(new LinkedList<BoatDamage>());
+	public BoatDamage getDamage(Long id) {
+		BoatDamage damage = null;
+		try {
+			damage = getRowBuddyFacade().getDamage(id);
+			damage.getLogger().setPublishedTrips(new LinkedList<Trip>());
+			damage.getLogger().setRoles(new LinkedList<Role>());
+			damage.getBoat().setBoatReservations(
+					new LinkedList<BoatReservation>());
+			damage.getBoat().setBoatDamages(new LinkedList<BoatDamage>());
+		} catch (RowBuddyException ex) {
+			ex.printStackTrace();
+		}
 		return damage;
+	}
+
+	@Override
+	public void updateDamage(BoatDamage damage) throws Exception {
+		getRowBuddyFacade().updateDamage(damage);
 	}
 }
