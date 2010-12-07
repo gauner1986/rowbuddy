@@ -391,3 +391,22 @@ body {
 	height: 8px;
 	overflow: hidden;
 }
+.gwt-SuggestBoxPopup .item {
+  padding: 2px 6px;
+  color: #424242;
+  cursor: default;
+}
+
+.gwt-SuggestBoxPopup .item-selected {
+  background: #b7d6f6;
+}
+.gwt-SuggestBox {
+  padding: 2px;
+}
+
+.gwt-SuggestBoxPopup {
+  margin-left: 3px;
+}
+.gwt-SuggestBoxPopup .suggestPopupContent {
+  background: white;
+}
