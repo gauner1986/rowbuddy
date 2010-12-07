@@ -21,6 +21,9 @@ public class DamageDetailView extends HeaderButtonView implements Display {
 		editButton = new Button("Schaden bearbeiten");
 		cancelButton = new Button("Abbrechen");
 
+		editButton.setStylePrimaryName("buttonEdit buttonRegular");
+		cancelButton.setStylePrimaryName("buttonCancel buttonNegative");
+
 		content = new FlexTable();
 		box = new CheckBox();
 		box.setEnabled(false);
