@@ -24,7 +24,7 @@
 		member.setPassword(password);
 		rbf.login(member);
 		session.setAttribute("rbf",rbf);
-        response.sendRedirect("welcomeGWT.html");
+        response.sendRedirect("welcomeGWT.html?gwt.codesvr=127.0.0.1:9997");
 %>
 <%
 	} else {
