@@ -84,7 +84,7 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 
 	@Override
 	public BoatDamage getDamage(Long id) throws Exception {
-		BoatDamage damage = boatManagement.getDamage(id);
+		BoatDamage damage = getRowBuddyFacade().getDamage(id);
 		damage.getLogger().setPublishedTrips(new LinkedList<Trip>());
 		damage.getLogger().setRoles(new LinkedList<Role>());
 		damage.getBoat().setBoatReservations(null);

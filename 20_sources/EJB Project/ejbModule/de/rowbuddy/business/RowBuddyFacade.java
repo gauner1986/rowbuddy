@@ -22,6 +22,7 @@ import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.business.Logbook.ListType;
 import de.rowbuddy.entities.Boat;
+import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Role;
 import de.rowbuddy.entities.Trip;
@@ -151,5 +152,9 @@ public class RowBuddyFacade {
 	
 	public List<DamageDTO> getAllDamages() {
 		return boatBoundary.getAllDamages();
+	}
+
+	public BoatDamage getDamage(Long id) throws RowBuddyException {
+		return boatManagement.getDamage(id);
 	}
 }
