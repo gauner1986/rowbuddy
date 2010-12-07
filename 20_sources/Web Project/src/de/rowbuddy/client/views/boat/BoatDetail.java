@@ -46,6 +46,8 @@ public class BoatDetail extends HeaderButtonView implements Display {
 		addButton(cancelButton);
 
 		detailTable = new FlexTable();
+		detailTable.setStylePrimaryName("detailContent");
+		detailTable.setCellPadding(5);
 
 		detailTable.setText(0, 0, "Name:");
 		nameText = new Label();
@@ -65,8 +67,6 @@ public class BoatDetail extends HeaderButtonView implements Display {
 		locked.setEnabled(false);
 		detailTable.setWidget(3, 1, locked);
 
-		detailTable.setStyleName("boatTable");
-
 		bar = new DecoratedTabBar();
 		bar.addTab("Details");
 		bar.addTab("Schäden");
@@ -74,18 +74,18 @@ public class BoatDetail extends HeaderButtonView implements Display {
 		bar.selectTab(0);
 
 		damagesTable = new FlexTable();
+		damagesTable.setStylePrimaryName("detailContent");
 		damagesTable.setText(0, 0, "Bootschäden");
 		damagesTable.setText(0, 1, "Gemeldet von");
 		damagesTable.setText(0, 2, "Behoben");
+		
 		reservationTable = new FlexTable();
-
+		reservationTable.setStylePrimaryName("detailContent");
 		reservationTable.setText(0, 0, "Von");
 		reservationTable.setText(0, 1, "Bis");
 		reservationTable.setText(0, 2, "Reserviert von");
 
-		reservationTable.setStylePrimaryName("boatTable");
 		reservationTable.getRowFormatter().setStyleName(0, "boatTableHeader");
-		damagesTable.setStylePrimaryName("boatTable");
 		damagesTable.getRowFormatter().setStyleName(0, "boatTableHeader");
 
 		vPanel.add(bar);

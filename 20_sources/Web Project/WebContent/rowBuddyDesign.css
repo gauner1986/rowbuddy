@@ -2,7 +2,6 @@
 
 body {
 	font-family: sans-serif;
-	/*font-variant: small-caps;*/
 	height: 101;
 }
 
@@ -25,7 +24,6 @@ body {
 
 .glassStyle {
 	background-color: rgba(100, 100, 100, 0.5);
-	filter: Alpha(opacity :           80);
 }
 
 .messages {
@@ -40,7 +38,7 @@ body {
 	height: 20px;
 }
 
-.contentWidget{
+.contentWidget {
 	width: 100%;
 	padding-top: 20px;
 }
@@ -53,6 +51,13 @@ body {
 	padding-bottom: 5px;
 	padding-top: 5px;
 	background-color: #f0f0f0;
+}
+
+.detailContent {
+	width: 100%;
+	background-color: #f0f0f0;
+	border-top: 0px;
+	padding: 20px;
 }
 
 .cw-StackPanelHeader {
@@ -226,6 +231,7 @@ body {
 
 .contentTable {
 	width: 100%;
+	border-collapse: collapse;
 }
 
 .messageDecorator {
@@ -282,13 +288,10 @@ body {
 
 .gwt-DecoratedTabBar {
 	width: 100%;
-	background-color: #dff4ff;
 	cursor: pointer;
-	margin-bottom: 20px;
 }
 
 .gwt-DecoratedTabBar .gwt-TabBarItem {
-	background-color: #dff4ff;
 	color: #336699;
 	padding: 5px;
 	padding-right: 15px;
@@ -296,8 +299,8 @@ body {
 }
 
 .gwt-DecoratedTabBar .gwt-TabBarItem-selected {
-	background-color: #5891C8;
-	color: blue;
+	background-color: #f0f0f0;
+	font-weight: bold;
 }
 
 .gwt-DialogBox .Caption {
