@@ -2,6 +2,7 @@ package de.rowbuddy.client.presenter.boat;
 
 import java.util.List;
 
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasKeyPressHandlers;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.HasValue;
@@ -25,6 +26,10 @@ public class AddDamagePresenter implements Presenter {
 		HasValue<String> getBoatName();
 
 		void setAlternatives(List<String> alternatives);
+
+		HasClickHandlers getAddButton();
+
+		HasClickHandlers getCancelButton();
 
 	}
 
