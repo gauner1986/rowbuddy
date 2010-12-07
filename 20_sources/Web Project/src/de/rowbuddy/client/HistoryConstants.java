@@ -8,4 +8,5 @@ public interface HistoryConstants {
 	public final String LIST_DAMAGES = "listBoatDamage";
 	public final String EDIT_DAMAGE = "editBoatDamage";
 	public final String VIEW_DAMAGE = "viewBoatDamage";
+	public final String ADD_DAMAGE = "addBoatDamage";
 }

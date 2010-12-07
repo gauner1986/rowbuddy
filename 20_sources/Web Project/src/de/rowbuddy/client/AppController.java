@@ -13,6 +13,8 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import de.rowbuddy.client.events.AbstractEventHandler;
 import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.events.AddBoatEventHandler;
+import de.rowbuddy.client.events.AddDamageEvent;
+import de.rowbuddy.client.events.AddDamageHandler;
 import de.rowbuddy.client.events.BoatDetailEvent;
 import de.rowbuddy.client.events.BoatDetailEventHandler;
 import de.rowbuddy.client.events.BoatListHandler;
@@ -83,6 +85,14 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 			@Override
 			public void onAddBoatEvent(AddBoatEvent event) {
 				doOnAddBoatEvent();
+			}
+		});
+
+		eventBus.addHandler(AddDamageEvent.type, new AddDamageHandler() {
+
+			@Override
+			public void onAddDamage(AddDamageEvent event) {
+				History.newItem(HistoryConstants.ADD_DAMAGE);
 			}
 		});
 
@@ -188,6 +198,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 			} else if (token.equals(HistoryConstants.LIST_DAMAGES)) {
 				presenter = new ListDamagePresenter(new DamageView(),
 						boatService, eventBus);
+			} else if (token.equals(HistoryConstants.ADD_DAMAGE)) {
+
 			} else {
 				logger.info("Action undefined " + token);
 			}
