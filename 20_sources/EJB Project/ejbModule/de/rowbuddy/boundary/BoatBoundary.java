@@ -23,19 +23,24 @@ public class BoatBoundary {
 	private BoatManagement boatManagement;
 	private BoatDTOConverter dtoConverter = new BoatDTOConverter();
 	private DamageDTOConverter damageConverter = new DamageDTOConverter();
-	
+
 	public List<BoatDTO> getBoatOverview() {
 		List<Boat> boats = boatManagement.getBoatOverview();
 		return dtoConverter.getList(boats);
 	}
-	
-	public List<DamageDTO> getOpenDamages(){
+
+	public List<DamageDTO> getOpenDamages() {
 		List<BoatDamage> damages = boatManagement.getDamages(ListType.OPEN);
 		return damageConverter.getList(damages);
 	}
-	
-	public List<DamageDTO> getAllDamages(){
+
+	public List<DamageDTO> getAllDamages() {
 		List<BoatDamage> damages = boatManagement.getDamages(ListType.ALL);
 		return damageConverter.getList(damages);
+	}
+
+	public List<BoatDTO> searchBoat(String search) {
+		List<Boat> boats = boatManagement.searchBoat(search);
+		return dtoConverter.getList(boats);
 	}
 }
