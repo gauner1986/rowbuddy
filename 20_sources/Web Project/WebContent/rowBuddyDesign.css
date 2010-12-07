@@ -37,6 +37,17 @@ body {
 	border-radius: 20px 20px 0px 0px;
 	width: 100%;
 	height: 20px;
+	padding: 5px 20px 0px 20px;
+}
+
+.messageNegative {
+	font-weight: bold;
+	color: red;
+}
+
+.messagePositive {
+	font-weight: bold;
+	color: green;
 }
 
 .contentWidget {
@@ -89,16 +100,6 @@ body {
 
 .FlexTable-EvenRow:HOVER {
 	background-color: #E6E6E6;
-}
-
-.messageNegative {
-	font-weight: bold;
-	color: red;
-}
-
-.messagePositive {
-	font-weight: bold;
-	color: green;
 }
 
 .pageHeadLine {

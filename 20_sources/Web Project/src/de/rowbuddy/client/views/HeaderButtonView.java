@@ -4,16 +4,16 @@ import com.google.gwt.user.client.ui.ButtonBase;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public abstract class HeaderButtonView extends Composite {
 
 	private DecoratorPanel decorator;
 	private FlexTable contentTable;
-	private HorizontalPanel hPanel;
+	private FlowPanel flowPanel;
 
 	protected HeaderButtonView(String pageTitle) {
 		decorator = new DecoratorPanel();
@@ -23,11 +23,10 @@ public abstract class HeaderButtonView extends Composite {
 		initWidget(decorator);
 		decorator.add(contentTable);
 
-		hPanel = new HorizontalPanel();
-		hPanel.setStylePrimaryName("buttonPanel");
-		hPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
+		flowPanel = new FlowPanel();
+		flowPanel.setStylePrimaryName("buttonPanel");
 
-		contentTable.setWidget(1, 0, hPanel);
+		contentTable.setWidget(1, 0, flowPanel);
 
 		contentTable.setText(0, 0, pageTitle);
 		HTMLTable.RowFormatter rf = contentTable.getRowFormatter();
@@ -36,7 +35,7 @@ public abstract class HeaderButtonView extends Composite {
 	}
 
 	public void addButton(ButtonBase button) {
-		hPanel.add(button);
+		flowPanel.add(button);
 	}
 
 	public void setContent(Widget contentWidget) {
