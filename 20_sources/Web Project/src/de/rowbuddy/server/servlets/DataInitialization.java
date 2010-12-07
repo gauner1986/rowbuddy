@@ -60,7 +60,7 @@ public class DataInitialization extends HttpServlet {
 	    	boatManagement.addBoat(b1);
 	    	b1.setId(null);
 	    	b1.setNumberOfSeats(1);
-	    	b1.setName("Sonderzeichen Boot šŠŸ§");
+	    	b1.setName("Sonderzeichen Boot Ã¶Ã¼Ã¤");
 	    	b1.setLocked(true);
 	    	b1.setCoxed(false);
 	    	boatManagement.addBoat(b1);
