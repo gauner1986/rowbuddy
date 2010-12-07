@@ -127,4 +127,11 @@ public class BoatManagement {
 		}
 		boat.setDeleted(true);
 	}
+	
+	public BoatDamage getDamage(Long id) throws RowBuddyException {
+		if(id == null){
+			throw new RowBuddyException("Id must be specified");
+		}
+		return em.find(BoatDamage.class, id);
+	}
 }
