@@ -32,7 +32,7 @@
 <form action="Login.jsp" method="post">E-Mail: <input type="text"
 	name="email" /><br>
 Passwort: <input type="password" name="password" /><br>
-<input type="submit" value="Submit" /></form>
+<input type="submit" value="Login" class="buttonLogin buttonPositive"/></form>
 <%
 	}
 %>

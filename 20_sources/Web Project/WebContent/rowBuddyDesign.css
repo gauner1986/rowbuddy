@@ -136,6 +136,10 @@ body {
 	background: url("icons/edit.png") no-repeat 4px 4px;
 }
 
+.buttonLogin {
+	background: url("icons/login.png") no-repeat 4px 4px;
+}
+
 .buttonRegular {
 	background-color: white;
 	color: #336699;
