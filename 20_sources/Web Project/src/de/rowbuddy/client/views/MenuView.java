@@ -18,7 +18,6 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -26,9 +25,9 @@ import de.rowbuddy.client.images.Images;
 import de.rowbuddy.client.presenter.MenuPresenter.MenuDisplay;
 
 public class MenuView extends Composite implements MenuDisplay {
-	
-	//TODO: Neue Fahrt, Nachtrag
-	
+
+	// TODO: Neue Fahrt, Nachtrag
+
 	private Images images = (Images) GWT.create(Images.class);
 	private Anchor browseBoats = new Anchor("Bootsübersicht");
 	private Anchor listPersonalTrips = new Anchor("Meine Fahrten");
@@ -36,66 +35,73 @@ public class MenuView extends Composite implements MenuDisplay {
 	private DecoratedStackPanel menuPanel = new DecoratedStackPanel();
 	private HorizontalPanel route = getHeaderString("Route", images.map());
 	private Logger logger = Logger.getLogger(MenuView.class.getName());
-	
+	private Anchor logDamageBoat = new Anchor("Schaden registrieren");
+
 	public MenuView() {
 
-		
 		// initWidget(stackPanel);
 		VerticalPanel verticalPanel = new VerticalPanel();
-		
-		menuPanel.add(createViewTripMenu(), getHeaderString("Fahrtenbuch", images.logBook()).getElement().getString(), true);
-		menuPanel.add(createProfilMenu(), getHeaderString("Profil", images.profil()).getElement().getString(), true);
-		menuPanel.add(createStatistikMenu(), getHeaderString("Statistiken", images.statistics()).getElement().getString(), true);
-		menuPanel.add(createRouteMenu(),route.getElement().getString(), true);
-		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.boat()).getElement().getString(), true);
-		menuPanel.add(createMemberControl(), getHeaderString("Mitgliederverwaltung(admin)", images.member()).getElement().getString(), true);
-		
+
+		menuPanel.add(createViewTripMenu(),
+				getHeaderString("Fahrtenbuch", images.logBook()).getElement()
+						.getString(), true);
+		menuPanel.add(createProfilMenu(),
+				getHeaderString("Profil", images.profil()).getElement()
+						.getString(), true);
+		menuPanel.add(createStatistikMenu(),
+				getHeaderString("Statistiken", images.statistics())
+						.getElement().getString(), true);
+		menuPanel.add(createRouteMenu(), route.getElement().getString(), true);
+		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.boat())
+				.getElement().getString(), true);
+		menuPanel.add(createMemberControl(),
+				getHeaderString("Mitgliederverwaltung(admin)", images.member())
+						.getElement().getString(), true);
+
 		menuPanel.addHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent arg0) {
 				int index = menuPanel.getSelectedIndex();
-				if(index == 3){
-					NativeEvent event = Document.get().createClickEvent(0, 0, 0, 0, 0, false, false, false, false);
+				if (index == 3) {
+					NativeEvent event = Document.get().createClickEvent(0, 0,
+							0, 0, 0, false, false, false, false);
 					ClickEvent.fireNativeEvent(event, route);
 				}
 			}
 		}, ClickEvent.getType());
-		
+
 		verticalPanel.add(menuPanel);
 		initWidget(verticalPanel);
 	}
-	
-	private HorizontalPanel getHeaderString(String text, ImageResource image) {
-	    // Add the image and text to a horizontal panel
-	    HorizontalPanel hPanel = new HorizontalPanel();
-	    hPanel.setSpacing(0);
-	    hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-	    hPanel.add(new Image(image));
-	    HTML headerText = new HTML(text);
-	    headerText.setStyleName("cw-StackPanelHeader");
-	    hPanel.add(headerText);
 
-	    // Return the HTML string for the panel
-	    return hPanel;
-	  }
+	private HorizontalPanel getHeaderString(String text, ImageResource image) {
+		// Add the image and text to a horizontal panel
+		HorizontalPanel hPanel = new HorizontalPanel();
+		hPanel.setSpacing(0);
+		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		hPanel.add(new Image(image));
+		HTML headerText = new HTML(text);
+		headerText.setStyleName("cw-StackPanelHeader");
+		hPanel.add(headerText);
+
+		// Return the HTML string for the panel
+		return hPanel;
+	}
 
 	private Widget createBoatMenu() {
 		Anchor browseReservations = new Anchor("Reservierungen anzeigen");
-		
-		Anchor logDamageBoat = new Anchor("Schaden registrieren");		
 
 		FlexTable tb1 = new FlexTable();
 		tb1.setWidget(0, 0, browseBoats);
 		tb1.setWidget(1, 0, browseReservations);
 		tb1.setWidget(2, 0, browseDamages);
 		tb1.setWidget(3, 0, logDamageBoat);
-		
-		tb1.getRowFormatter().setStyleName(0, "menuItem");	
+
+		tb1.getRowFormatter().setStyleName(0, "menuItem");
 		tb1.getRowFormatter().setStyleName(1, "menuItem");
 		tb1.getRowFormatter().setStyleName(2, "menuItem");
 		tb1.getRowFormatter().setStyleName(3, "menuItem");
-		
-		
+
 		return tb1;
 	}
 
@@ -103,23 +109,24 @@ public class MenuView extends Composite implements MenuDisplay {
 		FlexTable tb = new FlexTable();
 		Anchor browseTrips = new Anchor("Fahrtenübersicht");
 		Anchor browseOpenTrips = new Anchor("Offene Fahrten");
-		Anchor browsePersonalOpenTrips = new Anchor("Persönliche offene Fahrten");
-		
+		Anchor browsePersonalOpenTrips = new Anchor(
+				"Persönliche offene Fahrten");
+
 		tb.setWidget(0, 0, listPersonalTrips);
 		tb.setWidget(1, 0, browseTrips);
 		tb.setWidget(2, 0, browseOpenTrips);
 		tb.setWidget(3, 0, browsePersonalOpenTrips);
-		
+
 		tb.getRowFormatter().setStyleName(0, "menuItem");
 		tb.getRowFormatter().setStyleName(1, "menuItem");
 		tb.getRowFormatter().setStyleName(2, "menuItem");
-		
+
 		return tb;
 	}
 
 	private Widget createStatistikMenu() {
 		FlexTable tb = new FlexTable();
-		
+
 		Anchor boatdamagesYear = new Anchor("Bootsschäden(admin)");
 		Anchor clubactivityMonth = new Anchor("Aktivität - Monatsstatistik");
 		Anchor clubactivityWeekday = new Anchor("Aktivität - Tagesstatistik");
@@ -134,7 +141,7 @@ public class MenuView extends Composite implements MenuDisplay {
 		tb.setWidget(4, 0, highscoreMonth);
 		tb.setWidget(5, 0, highscoreBoats);
 		tb.setWidget(6, 0, popularRoutes);
-		
+
 		tb.getRowFormatter().setStyleName(0, "menuItem");
 		tb.getRowFormatter().setStyleName(1, "menuItem");
 		tb.getRowFormatter().setStyleName(2, "menuItem");
@@ -156,7 +163,7 @@ public class MenuView extends Composite implements MenuDisplay {
 		tb.setWidget(1, 0, searchProfile);
 		tb.setWidget(2, 0, browseRowedRoutes);
 		tb.setWidget(3, 0, changePassword);
-		
+
 		tb.getRowFormatter().setStyleName(0, "menuItem");
 		tb.getRowFormatter().setStyleName(1, "menuItem");
 		tb.getRowFormatter().setStyleName(2, "menuItem");
@@ -166,12 +173,12 @@ public class MenuView extends Composite implements MenuDisplay {
 
 	private Widget createRouteMenu() {
 		FlexTable tb = new FlexTable();
-//		Anchor browseRoutes = new Anchor("Routen anzeigen");
-//		
-//		tb.setWidget(0, 0, browseRoutes);
-//		
-//		tb.getRowFormatter().setStyleName(0, "menuItem");
-		
+		// Anchor browseRoutes = new Anchor("Routen anzeigen");
+		//
+		// tb.setWidget(0, 0, browseRoutes);
+		//
+		// tb.getRowFormatter().setStyleName(0, "menuItem");
+
 		return tb;
 	}
 
@@ -179,13 +186,13 @@ public class MenuView extends Composite implements MenuDisplay {
 		FlexTable tb = new FlexTable();
 		Anchor browseMembers = new Anchor("Mitglieder anzeigen");
 		Anchor importMembers = new Anchor("Mitglieder importieren");
-		
+
 		tb.setWidget(0, 0, browseMembers);
 		tb.setWidget(1, 0, importMembers);
-		
+
 		tb.getRowFormatter().setStyleName(0, "menuItem");
 		tb.getRowFormatter().setStyleName(1, "menuItem");
-		
+
 		return tb;
 	}
 
@@ -198,9 +205,9 @@ public class MenuView extends Composite implements MenuDisplay {
 	public Widget asWidget() {
 		return this;
 	}
-	
+
 	@Override
-	public Panel getRoutes(){
+	public Panel getRoutes() {
 		return route;
 	}
 
@@ -212,5 +219,10 @@ public class MenuView extends Composite implements MenuDisplay {
 	@Override
 	public HasClickHandlers getListDamageButton() {
 		return browseDamages;
+	}
+
+	@Override
+	public HasClickHandlers getAddDamage() {
+		return logDamageBoat;
 	}
 }

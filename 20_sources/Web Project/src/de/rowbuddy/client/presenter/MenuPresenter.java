@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.GWTEntryPoint;
 import de.rowbuddy.client.HistoryConstants;
+import de.rowbuddy.client.events.AddDamageEvent;
 import de.rowbuddy.client.events.BoatListHandler;
 import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEvent;
@@ -24,6 +25,8 @@ public class MenuPresenter implements Presenter, HistoryConstants {
 		public HasClickHandlers getListPersonalTripsButton();
 
 		public HasClickHandlers getListDamageButton();
+
+		public HasClickHandlers getAddDamage();
 
 		public Panel getRoutes();
 
@@ -78,6 +81,15 @@ public class MenuPresenter implements Presenter, HistoryConstants {
 			@Override
 			public void onClick(ClickEvent arg0) {
 				eventBus.fireEvent(new ListDamageEvent());
+			}
+		});
+
+		view.getAddDamage().addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent arg0) {
+				// TODO Auto-generated method stub
+				eventBus.fireEvent(new AddDamageEvent());
 			}
 		});
 	}

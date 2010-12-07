@@ -33,6 +33,7 @@ import de.rowbuddy.client.presenter.MenuPresenter;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.StatusMessagePresenter;
 import de.rowbuddy.client.presenter.boat.AddBoatPresenter;
+import de.rowbuddy.client.presenter.boat.AddDamagePresenter;
 import de.rowbuddy.client.presenter.boat.BoatDetailPresenter;
 import de.rowbuddy.client.presenter.boat.DamageDetailPresenter;
 import de.rowbuddy.client.presenter.boat.EditBoatPresenter;
@@ -43,6 +44,7 @@ import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 import de.rowbuddy.client.views.MenuView;
 import de.rowbuddy.client.views.MessageView;
 import de.rowbuddy.client.views.boat.AddBoatView;
+import de.rowbuddy.client.views.boat.AddDamageView;
 import de.rowbuddy.client.views.boat.BoatDetail;
 import de.rowbuddy.client.views.boat.DamageDetailView;
 import de.rowbuddy.client.views.boat.DamageView;
@@ -199,7 +201,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 				presenter = new ListDamagePresenter(new DamageView(),
 						boatService, eventBus);
 			} else if (token.equals(HistoryConstants.ADD_DAMAGE)) {
-
+				presenter = new AddDamagePresenter(boatService, eventBus,
+						new AddDamageView());
 			} else {
 				logger.info("Action undefined " + token);
 			}
