@@ -5,9 +5,6 @@ import com.google.gwt.user.client.ui.Tree;
 
 public interface Images extends Tree.Resources{
 	
-	@Source("headerLogo.png")
-	ImageResource logo();
-	
 	@Source("boat.png")
 	ImageResource boat();
 	
