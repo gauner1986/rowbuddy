@@ -125,14 +125,14 @@ public class GWTEntryPoint implements EntryPoint {
 				+ "SessionManagerImpl");
 		
 		final MemberDTO member = new MemberDTO();
-		
+		final Label loginLabel = new Label("Login: ");
 		logger.info("getting member");
 		sessionManager.getMember(new AsyncCallback<MemberDTO>() {
 			
 			@Override
 			public void onSuccess(MemberDTO arg0) {
 				logger.info(arg0.getEmail());
-				
+				loginLabel.setText(loginLabel.getText() + arg0.getEmail());
 			}
 			
 			@Override
@@ -142,7 +142,7 @@ public class GWTEntryPoint implements EntryPoint {
 			}
 		});
 
-		Label loginLabel = new Label("Login: "+member.getEmail());
+			
 		loginLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		Button logoutButton = new Button("Logout");
 		logoutButton.setStylePrimaryName("buttonExit buttonNegative");
