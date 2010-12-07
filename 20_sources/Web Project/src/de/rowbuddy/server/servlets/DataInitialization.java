@@ -25,70 +25,72 @@ public class DataInitialization extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private BoatManagement boatManagement;
-	
+
 	@EJB
 	private MemberManagement memberManagement;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DataInitialization() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-    @Override
-    public void init(){
-    	Boat b1 = new Boat();
-    	Member member = createTestMember();
-    	try {
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public DataInitialization() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void init() {
+		Boat b1 = new Boat();
+		Member member = createTestMember();
+		try {
 			b1.setName("Test Boot");
 			b1.setCoxed(false);
-	    	b1.setNumberOfSeats(3);
-	    	boatManagement.addBoat(b1);
-	    	b1.setId(null);
-	    	b1.setName("Unsinkbar");
-	    	boatManagement.addBoat(b1);
-	    	b1.setId(null);
-	    	b1.setName("Unsinkbar 2");
-	    	b1.setCoxed(true);
-	    	b1.setLocked(true);
-	    	boatManagement.addBoat(b1);
-	    	b1.setId(null);
-	    	b1.setNumberOfSeats(10);
-	    	b1.setName("Dicke Berta");
-	    	b1.setLocked(false);
-	    	boatManagement.addBoat(b1);
-	    	b1.setId(null);
-	    	b1.setNumberOfSeats(1);
-	    	b1.setName("Sonderzeichen Boot öüä");
-	    	b1.setLocked(true);
-	    	b1.setCoxed(false);
-	    	boatManagement.addBoat(b1);
-	    	
-	    	BoatDamage damage = new BoatDamage();
-	    	damage.setDamageDescription("Left side broken");
-	    	boatManagement.addDamage(damage, member, b1.getId());
+			b1.setNumberOfSeats(3);
+			boatManagement.addBoat(b1);
+			b1.setId(null);
+			b1.setName("Unsinkbar");
+			boatManagement.addBoat(b1);
+			b1.setId(null);
+			b1.setName("Unsinkbar 2");
+			b1.setCoxed(true);
+			b1.setLocked(true);
+			boatManagement.addBoat(b1);
+			b1.setId(null);
+			b1.setNumberOfSeats(10);
+			b1.setName("Dicke Berta");
+			b1.setLocked(false);
+			boatManagement.addBoat(b1);
+			b1.setId(null);
+			b1.setNumberOfSeats(1);
+			b1.setName("Sonderzeichen Boot öüä");
+			b1.setLocked(true);
+			b1.setCoxed(false);
+			boatManagement.addBoat(b1);
 
-	    	BoatDamage damage2 = new BoatDamage();
-	    	damage2.setFixed(true);
-	    	damage2.setDamageDescription("Right side broken");
-	    	boatManagement.addDamage(damage2, member, b1.getId());
-		} catch (Exception e) { //is not important on fail
+			BoatDamage damage = new BoatDamage();
+			damage.setDamageDescription("Left side broken");
+			boatManagement.addDamage(damage, member, b1.getId());
+
+			BoatDamage damage2 = new BoatDamage();
+			damage2.setFixed(true);
+			damage2.setDamageDescription("Right side broken");
+			boatManagement.addDamage(damage2, member, b1.getId());
+		} catch (Exception e) { // is not important on fail
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-    }
-    
-    private Member createTestMember(){
-    	Member testMember = null;
+
+	}
+
+	private Member createTestMember() {
+		Member testMember = null;
 		try {
 			testMember = new Member();
 			testMember.setGivenname("Jan");
 			testMember.setSurname("Trzeszkowski");
 			testMember.setPassword("bla");
 			testMember.setEmail("bla@bla.de");
+			testMember.setBirthdate(new Date(System.currentTimeMillis()));
+			testMember.setMemberId("XDSADSF-221");
 			memberManagement.addMember(testMember);
 		} catch (RowBuddyException e) {
 			// TODO Auto-generated catch block
@@ -96,19 +98,22 @@ public class DataInitialization extends HttpServlet {
 		}
 		return testMember;
 	}
-    
-    
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 

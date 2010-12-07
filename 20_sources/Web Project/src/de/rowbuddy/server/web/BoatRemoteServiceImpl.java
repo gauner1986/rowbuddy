@@ -98,7 +98,8 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 	}
 
 	@Override
-	public void updateDamage(BoatDamage damage) throws Exception {
-		getRowBuddyFacade().updateDamage(damage);
+	public void updateDamage(BoatDamage damage) {
+		// getRowBuddyFacade().updateDamage(damage);
+		System.out.println("TEst");
 	}
 }

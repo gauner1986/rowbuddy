@@ -74,7 +74,9 @@ public class EditDamagePresenter implements Presenter {
 					damage.setFixed(view.getFixed().getValue());
 					damage.setDamageDescription(view.getDescription()
 							.getValue());
-
+					if (service == null) {
+						logger.info("service null");
+					}
 					service.updateDamage(damage, new AsyncCallback<Void>() {
 
 						@Override
@@ -89,10 +91,12 @@ public class EditDamagePresenter implements Presenter {
 
 						@Override
 						public void onFailure(Throwable arg0) {
+							logger.info("Cannot update");
 							logger.severe(arg0.getMessage());
 							StatusMessage msg = new StatusMessage(false);
 							msg.setStatus(Status.NEGATIVE);
 							msg.setMessage(arg0.getMessage());
+							arg0.printStackTrace();
 							eventBus.fireEvent(new StatusMessageEvent(msg));
 						}
 					});
@@ -100,10 +104,10 @@ public class EditDamagePresenter implements Presenter {
 					StatusMessage msg = new StatusMessage(false);
 					msg.setStatus(Status.NEGATIVE);
 					msg.setMessage(ex.getMessage());
-					ex.printStackTrace();
 					logger.severe(ex.getMessage());
 					eventBus.fireEvent(new StatusMessageEvent(msg));
 				}
+
 			}
 		});
 
