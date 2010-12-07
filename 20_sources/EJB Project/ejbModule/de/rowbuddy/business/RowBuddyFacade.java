@@ -36,7 +36,7 @@ import de.rowbuddy.exceptions.RowBuddyException;
 @Stateful
 @LocalBean
 public class RowBuddyFacade {
-	
+
 	private Member member;
 
 	@PersistenceContext
@@ -54,33 +54,38 @@ public class RowBuddyFacade {
 	 * Default constructor.
 	 */
 	public RowBuddyFacade() {
-		
+
 	}
 
 	@ExcludeClassInterceptors
 	public void login(Member member) throws NotLoggedInException {
 		if (member.getEmail() == null || member.getPassword() == null)
-			throw new NotLoggedInException("You didn't specify an E-Mail address and/or a password");
+			throw new NotLoggedInException(
+					"You didn't specify an E-Mail address and/or a password");
 
-		Query q = em.createQuery("SELECT m FROM Member m WHERE m.email = :email");
+		Query q = em
+				.createQuery("SELECT m FROM Member m WHERE m.email = :email");
 		q.setParameter("email", member.getEmail());
 		Member m = null;
 		try {
 			m = (Member) q.getSingleResult();
 		} catch (NoResultException nre) {
-			throw new NotLoggedInException("This member doesn't exist in our database");
+			throw new NotLoggedInException(
+					"This member doesn't exist in our database");
 		}
 		if (m == null)
-			throw new NotLoggedInException("This member doesn't exist in our database");
+			throw new NotLoggedInException(
+					"This member doesn't exist in our database");
 
 		if (!m.getPassword().equals(member.getPassword())) {
-			throw new NotLoggedInException("The password you specified is not correct");
+			throw new NotLoggedInException(
+					"The password you specified is not correct");
 		} else {
 			this.member = m;
 		}
 	}
-	
-	public MemberDTO getMember(){
+
+	public MemberDTO getMember() {
 		return new MemberDTOConverter().getDto(member);
 	}
 
@@ -93,7 +98,7 @@ public class RowBuddyFacade {
 	public boolean isLoggedIn() {
 		return (member != null);
 	}
-	
+
 	public List<BoatDTO> getBoatOverview() {
 		return boatBoundary.getBoatOverview();
 	}
@@ -101,60 +106,64 @@ public class RowBuddyFacade {
 	public Boat getBoat(Long id) throws RowBuddyException {
 		return boatManagement.getBoat(id);
 	}
-	
-	@AllowedRoles(values = {Role.RoleName.ADMIN})
+
+	@AllowedRoles(values = { Role.RoleName.ADMIN })
 	public Boat addBoat(Boat addBoat) throws RowBuddyException {
 		return boatManagement.addBoat(addBoat);
 	}
 
-	@AllowedRoles(values = {Role.RoleName.ADMIN})
+	@AllowedRoles(values = { Role.RoleName.ADMIN })
 	public Boat updateBoat(Boat updateBoat) throws RowBuddyException,
 			RowBuddyException {
 		return boatManagement.updateBoat(updateBoat);
 	}
-	
-	@AllowedRoles(values = {Role.RoleName.ADMIN})
+
+	@AllowedRoles(values = { Role.RoleName.ADMIN })
 	public void deleteBoat(Long id) throws RowBuddyException {
 		boatManagement.deleteBoat(id);
 	}
 
-	public void logRowedTrip(Trip rowedTrip) throws RowBuddyException{
+	public void logRowedTrip(Trip rowedTrip) throws RowBuddyException {
 		logbook.logRowedTrip(rowedTrip, this.member);
 	}
 
-	public void startTrip(Trip startedTrip) throws RowBuddyException{
+	public void startTrip(Trip startedTrip) throws RowBuddyException {
 		logbook.startTrip(startedTrip, this.member);
 	}
-	
-	public Trip getTrip(Long id) throws RowBuddyException{
+
+	public Trip getTrip(Long id) throws RowBuddyException {
 		return logbook.getTrip(id);
 	}
 
-	public List<TripDTO> getOpenTrips(){
+	public List<TripDTO> getOpenTrips() {
 		return logbookBoundary.getOpenTrips(this.member);
 	}
 
-	public void finishTrip(Trip openTrip) throws RowBuddyException{
+	public void finishTrip(Trip openTrip) throws RowBuddyException {
 		logbook.finishTrip(openTrip, this.member);
 	}
-	
-	public List<PersonalTripDTO> getPersonalTrips(){
+
+	public List<PersonalTripDTO> getPersonalTrips() {
 		return logbook.getPersonalTrips(this.member, ListType.All);
 	}
 
-	public List<PersonalTripDTO> getPersonalOpenTrips(){
+	public List<PersonalTripDTO> getPersonalOpenTrips() {
 		return logbook.getPersonalTrips(this.member, ListType.OpenOnly);
 	}
-	
+
 	public List<DamageDTO> getOpenDamages() {
 		return boatBoundary.getOpenDamages();
 	}
-	
+
 	public List<DamageDTO> getAllDamages() {
 		return boatBoundary.getAllDamages();
 	}
 
 	public BoatDamage getDamage(Long id) throws RowBuddyException {
 		return boatManagement.getDamage(id);
+	}
+
+	public void updateDamage(BoatDamage damage) throws RowBuddyException {
+		boatManagement.updateDamage(damage);
 	}
 }

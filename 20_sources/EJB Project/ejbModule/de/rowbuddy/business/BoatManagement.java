@@ -85,9 +85,7 @@ public class BoatManagement {
 	public List<BoatDamage> getDamages(ListType type) {
 		TypedQuery<BoatDamage> q = null;
 		if (type == ListType.ALL) {
-			q = em.createQuery(
-					"SELECT b FROM BoatDamage b",
-					BoatDamage.class);
+			q = em.createQuery("SELECT b FROM BoatDamage b", BoatDamage.class);
 		} else {
 			q = em.createQuery(
 					"SELECT b FROM BoatDamage b WHERE b.fixed = false",
@@ -96,7 +94,8 @@ public class BoatManagement {
 		return q.getResultList();
 	}
 
-	public void addDamage(BoatDamage damage, Member logger, Long boatId) throws RowBuddyException {
+	public void addDamage(BoatDamage damage, Member logger, Long boatId)
+			throws RowBuddyException {
 		if (damage.getId() != null) {
 			throw new RowBuddyException("Id must be null");
 		}
@@ -104,8 +103,8 @@ public class BoatManagement {
 		damage.setLogDate(new Date());
 		damage.setLogger(logger);
 		damage.validate();
-		
-		if (damage.getBoat() != null){
+
+		if (damage.getBoat() != null) {
 			throw new RowBuddyException("Boat must be null");
 		}
 
@@ -113,6 +112,13 @@ public class BoatManagement {
 		damage.setBoat(persistedBoat);
 		em.persist(damage);
 		persistedBoat.addBoatDamage(damage);
+	}
+
+	public BoatDamage updateDamage(BoatDamage damage) throws RowBuddyException {
+		damage.validate();
+		em.merge(damage);
+
+		return damage;
 	}
 
 	public void deleteBoat(Long id) throws RowBuddyException {
@@ -127,9 +133,9 @@ public class BoatManagement {
 		}
 		boat.setDeleted(true);
 	}
-	
+
 	public BoatDamage getDamage(Long id) throws RowBuddyException {
-		if(id == null){
+		if (id == null) {
 			throw new RowBuddyException("Id must be specified");
 		}
 		return em.find(BoatDamage.class, id);
