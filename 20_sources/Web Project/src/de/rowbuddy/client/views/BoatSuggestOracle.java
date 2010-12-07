@@ -15,13 +15,15 @@ public class BoatSuggestOracle extends SuggestOracle {
 	private BoatRemoteServiceAsync service;
 	private Logger logger = Logger.getLogger(BoatSuggestOracle.class.getName());
 	private List<ItemSuggestion> suggestions;
+	private Request request;
+	private Callback callback;
 
 	public BoatSuggestOracle(BoatRemoteServiceAsync service) {
 		this.service = service;
 		suggestions = new LinkedList<ItemSuggestion>();
 	}
 
-	public class ItemSuggestion implements Suggestion {
+	private class ItemSuggestion implements Suggestion {
 		private BoatDTO boat;
 
 		public ItemSuggestion(BoatDTO boat) {
@@ -54,7 +56,9 @@ public class BoatSuggestOracle extends SuggestOracle {
 	}
 
 	@Override
-	public void requestSuggestions(final Request req, final Callback arg1) {
+	public void requestSuggestions(Request req, Callback arg1) {
+		this.request = req;
+		this.callback = arg1;
 		service.search(req.getQuery(), new AsyncCallback<List<BoatDTO>>() {
 
 			@Override
@@ -66,7 +70,7 @@ public class BoatSuggestOracle extends SuggestOracle {
 					suggestions.add(new ItemSuggestion(boat));
 				}
 				resp.setSuggestions(suggestions);
-				arg1.onSuggestionsReady(req, resp);
+				callback.onSuggestionsReady(request, resp);
 			}
 
 			@Override
