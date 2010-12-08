@@ -1,28 +1,16 @@
 package de.rowbuddy.client.events;
 
-import com.google.gwt.event.shared.GwtEvent;
+public class EditBoatDamageEvent extends IdEvent<EditBoatDamageHandler> {
 
-public class EditBoatDamageEvent extends GwtEvent<EditBoatDamageHandler> {
-
-	public static Type<EditBoatDamageHandler> TYPE = new Type<EditBoatDamageHandler>();
-
-	private Long id;
+	public static final Type<EditBoatDamageHandler> TYPE = new Type<EditBoatDamageHandler>();
+	public static final String HISTORY_IDENTIFIER = "EditBoatDamage";
 
 	public EditBoatDamageEvent(Long id) {
-		this.id = id;
-	}
-
-	@Override
-	protected void dispatch(EditBoatDamageHandler arg0) {
-		arg0.onEditBoatDamage(this);
+		super(HISTORY_IDENTIFIER, id);
 	}
 
 	@Override
 	public Type<EditBoatDamageHandler> getAssociatedType() {
 		return TYPE;
-	}
-
-	public Long getId() {
-		return id;
 	}
 }

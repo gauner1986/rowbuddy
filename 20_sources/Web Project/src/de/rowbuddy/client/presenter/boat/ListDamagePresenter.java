@@ -9,7 +9,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
@@ -38,13 +38,13 @@ public class ListDamagePresenter implements Presenter {
 
 	private Display view;
 	private BoatRemoteServiceAsync service;
-	private SimpleEventBus eventBus;
+	private EventBus eventBus;
 	private Logger logger = Logger.getLogger(ListDamagePresenter.class
 			.getName());
 	private List<DamageDTO> fetchedDamages;
 
 	public ListDamagePresenter(Display view, BoatRemoteServiceAsync service,
-			SimpleEventBus eventBus) {
+			EventBus eventBus) {
 		this.view = view;
 		this.service = service;
 		this.eventBus = eventBus;

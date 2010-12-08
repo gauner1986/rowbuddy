@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -41,13 +41,13 @@ public class EditDamagePresenter implements Presenter {
 	private Display view;
 	private Long id;
 	private BoatRemoteServiceAsync service;
-	private SimpleEventBus eventBus;
+	private EventBus eventBus;
 	private BoatDamage damage;
 	private Logger logger = Logger.getLogger(EditDamagePresenter.class
 			.getName());
 
 	public EditDamagePresenter(Long id, Display view,
-			BoatRemoteServiceAsync service, SimpleEventBus eventBus) {
+			BoatRemoteServiceAsync service, EventBus eventBus) {
 		this.view = view;
 		this.id = id;
 		this.service = service;

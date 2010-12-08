@@ -16,11 +16,8 @@ import de.rowbuddy.client.events.AddDamageHandler;
 import de.rowbuddy.client.events.BoatDetailEventHandler;
 import de.rowbuddy.client.events.BoatListHandler;
 import de.rowbuddy.client.events.DetailDamageHandler;
-import de.rowbuddy.client.events.EditBoatDamageEvent;
 import de.rowbuddy.client.events.EditBoatDamageHandler;
-import de.rowbuddy.client.events.EditBoatEvent;
 import de.rowbuddy.client.events.EditBoatEventHandler;
-import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.ListDamageEventHandler;
 import de.rowbuddy.client.events.ListPersonalTripsEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEventHandler;
@@ -28,16 +25,10 @@ import de.rowbuddy.client.presenter.ListPersonalTripsPresenter;
 import de.rowbuddy.client.presenter.MenuPresenter;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.StatusMessagePresenter;
-import de.rowbuddy.client.presenter.boat.EditBoatPresenter;
-import de.rowbuddy.client.presenter.boat.EditDamagePresenter;
-import de.rowbuddy.client.presenter.boat.ListDamagePresenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 import de.rowbuddy.client.views.MenuView;
 import de.rowbuddy.client.views.MessageView;
-import de.rowbuddy.client.views.boat.DamageView;
-import de.rowbuddy.client.views.boat.EditBoatView;
-import de.rowbuddy.client.views.boat.EditDamageView;
 import de.rowbuddy.client.views.logbook.ListPersonalTripsView;
 
 public class AppController implements Presenter, ValueChangeHandler<String> {
@@ -78,14 +69,14 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 				.add(new AddDamageHandler(container, eventBus, boatService));
 		eventHandlers.add(new DetailDamageHandler(container, eventBus,
 				boatService));
+		eventHandlers.add(new EditBoatDamageHandler(container, eventBus,
+				boatService));
 
-		eventBus.addHandler(EditBoatEvent.TYPE, new EditBoatEventHandler() {
+		eventHandlers.add(new EditBoatEventHandler(container, eventBus,
+				boatService));
 
-			@Override
-			public void onEditBoatEvent(EditBoatEvent event) {
-				doOnEditBoat(event.getId());
-			}
-		});
+		eventHandlers.add(new ListDamageEventHandler(container, eventBus,
+				boatService));
 
 		eventBus.addHandler(ListPersonalTripsEvent.TYPE,
 				new ListPersonalTripsEventHandler() {
@@ -96,38 +87,6 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 						logger.info("ListPersonalTripsEvent fired!");
 					}
 				});
-		eventBus.addHandler(ListDamageEvent.TYPE, new ListDamageEventHandler() {
-
-			@Override
-			public void onListDamageEvent(ListDamageEvent event) {
-				History.newItem(HistoryConstants.LIST_DAMAGES);
-			}
-		});
-
-		eventBus.addHandler(EditBoatDamageEvent.TYPE,
-				new EditBoatDamageHandler() {
-
-					@Override
-					public void onEditBoatDamage(EditBoatDamageEvent event) {
-						History.newItem(HistoryConstants.EDIT_DAMAGE, false);
-						Presenter presenter = new EditDamagePresenter(event
-								.getId(), new EditDamageView(), boatService,
-								eventBus);
-						statusPresenter.clear();
-						FadeAnimation fade = new FadeAnimation(container,
-								presenter);
-						fade.run(400);
-					}
-				});
-	}
-
-	private void doOnEditBoat(Long id) {
-		History.newItem(HistoryConstants.EDIT_BOAT, false);
-		Presenter presenter = new EditBoatPresenter(new EditBoatView(),
-				boatService, eventBus, id);
-		statusPresenter.clear();
-		FadeAnimation fade = new FadeAnimation(container, presenter);
-		fade.run(400);
 	}
 
 	@Override
@@ -141,9 +100,6 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 				presenter = new ListPersonalTripsPresenter(logbookService,
 						new ListPersonalTripsView(
 								PageTitles.LOGBOOK_PERSONAL_TRIPS), eventBus);
-			} else if (token.equals(HistoryConstants.LIST_DAMAGES)) {
-				presenter = new ListDamagePresenter(new DamageView(),
-						boatService, eventBus);
 			} else {
 				logger.info("Action undefined " + token);
 			}

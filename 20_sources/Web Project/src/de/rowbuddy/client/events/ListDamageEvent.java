@@ -1,17 +1,16 @@
 package de.rowbuddy.client.events;
 
-import com.google.gwt.event.shared.GwtEvent;
-
-public class ListDamageEvent extends GwtEvent<ListDamageEventHandler>{
-	public static Type<ListDamageEventHandler> TYPE = new Type<ListDamageEventHandler>();
-
-	@Override
-	protected void dispatch(ListDamageEventHandler arg0) {
-		arg0.onListDamageEvent(this);
-	}
+public class ListDamageEvent extends AbstractEvent<ListDamageEventHandler> {
+	public static final Type<ListDamageEventHandler> TYPE = new Type<ListDamageEventHandler>();
+	public static final String HISTORY_IDENTIFIER = "ListDamages";
 
 	@Override
 	public Type<ListDamageEventHandler> getAssociatedType() {
 		return TYPE;
+	}
+
+	@Override
+	public String toHistoryItem() {
+		return HISTORY_IDENTIFIER;
 	}
 }

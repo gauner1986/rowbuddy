@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -47,13 +47,13 @@ public class EditBoatPresenter implements Presenter {
 
 	private Display view;
 	private BoatRemoteServiceAsync boatService;
-	private SimpleEventBus eventBus;
+	private EventBus eventBus;
 	private Boat boat;
 	private Long id;
 	private Logger logger = Logger.getLogger(EditBoatPresenter.class.getName());
 
 	public EditBoatPresenter(Display view, BoatRemoteServiceAsync boatService,
-			SimpleEventBus eventBus, Long id) {
+			EventBus eventBus, Long id) {
 		this.view = view;
 		this.boatService = boatService;
 		this.eventBus = eventBus;
