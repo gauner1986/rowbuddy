@@ -14,7 +14,7 @@ public abstract class IdEvent<T extends AbstractEventHandler> extends
 
 	@Override
 	public String toHistoryItem() {
-		return historyIdentifier + "#id=" + id;
+		return historyIdentifier + "?id=" + id;
 	}
 
 	public Long getId() {

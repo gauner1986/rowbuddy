@@ -11,7 +11,6 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.client.events.AbstractEventHandler;
-import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.events.AddBoatEventHandler;
 import de.rowbuddy.client.events.AddDamageEvent;
 import de.rowbuddy.client.events.AddDamageHandler;
@@ -31,7 +30,6 @@ import de.rowbuddy.client.presenter.ListPersonalTripsPresenter;
 import de.rowbuddy.client.presenter.MenuPresenter;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.StatusMessagePresenter;
-import de.rowbuddy.client.presenter.boat.AddBoatPresenter;
 import de.rowbuddy.client.presenter.boat.AddDamagePresenter;
 import de.rowbuddy.client.presenter.boat.DamageDetailPresenter;
 import de.rowbuddy.client.presenter.boat.EditBoatPresenter;
@@ -41,7 +39,6 @@ import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 import de.rowbuddy.client.views.MenuView;
 import de.rowbuddy.client.views.MessageView;
-import de.rowbuddy.client.views.boat.AddBoatView;
 import de.rowbuddy.client.views.boat.AddDamageView;
 import de.rowbuddy.client.views.boat.DamageDetailView;
 import de.rowbuddy.client.views.boat.DamageView;
@@ -81,13 +78,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 				.add(new BoatListHandler(eventBus, container, boatService));
 		eventHandlers.add(new BoatDetailEventHandler(eventBus, container,
 				boatService));
-
-		eventBus.addHandler(AddBoatEvent.TYPE, new AddBoatEventHandler() {
-			@Override
-			public void onAddBoatEvent(AddBoatEvent event) {
-				doOnAddBoatEvent();
-			}
-		});
+		eventHandlers.add(new AddBoatEventHandler(container, eventBus,
+				boatService));
 
 		eventBus.addHandler(AddDamageEvent.type, new AddDamageHandler() {
 
@@ -162,10 +154,6 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 		fade.run(400);
 	}
 
-	private void doOnAddBoatEvent() {
-		History.newItem(HistoryConstants.ADD_BOAT);
-	}
-
 	@Override
 	public void onValueChange(ValueChangeEvent<String> arg0) {
 		String token = arg0.getValue();
@@ -173,10 +161,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 		if (token != null) {
 			Presenter presenter = null;
 			statusPresenter.clear();
-			if (token.equals(HistoryConstants.ADD_BOAT)) {
-				presenter = new AddBoatPresenter(new AddBoatView(),
-						boatService, eventBus);
-			} else if (token.equals(HistoryConstants.LIST_PERSONAL_TRIPS)) {
+			if (token.equals(HistoryConstants.LIST_PERSONAL_TRIPS)) {
 				presenter = new ListPersonalTripsPresenter(logbookService,
 						new ListPersonalTripsView(
 								PageTitles.LOGBOOK_PERSONAL_TRIPS), eventBus);
