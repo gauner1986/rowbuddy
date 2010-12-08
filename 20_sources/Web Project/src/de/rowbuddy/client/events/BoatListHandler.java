@@ -20,13 +20,8 @@ public class BoatListHandler extends AbstractEventHandler {
 	}
 
 	@Override
-	public String toHistoryItem(AbstractEvent<?> event) {
-		return "ListBoats";
-	}
-
-	@Override
 	protected String getHistoryIdentifier() {
-		return "ListBoats";
+		return BoatListEvent.HISTORY_IDENTIFIER;
 	}
 
 	@Override

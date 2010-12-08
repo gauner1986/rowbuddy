@@ -15,7 +15,6 @@ import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.events.AddBoatEventHandler;
 import de.rowbuddy.client.events.AddDamageEvent;
 import de.rowbuddy.client.events.AddDamageHandler;
-import de.rowbuddy.client.events.BoatDetailEvent;
 import de.rowbuddy.client.events.BoatDetailEventHandler;
 import de.rowbuddy.client.events.BoatListHandler;
 import de.rowbuddy.client.events.DetailDamageEvent;
@@ -34,7 +33,6 @@ import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.StatusMessagePresenter;
 import de.rowbuddy.client.presenter.boat.AddBoatPresenter;
 import de.rowbuddy.client.presenter.boat.AddDamagePresenter;
-import de.rowbuddy.client.presenter.boat.BoatDetailPresenter;
 import de.rowbuddy.client.presenter.boat.DamageDetailPresenter;
 import de.rowbuddy.client.presenter.boat.EditBoatPresenter;
 import de.rowbuddy.client.presenter.boat.EditDamagePresenter;
@@ -45,7 +43,6 @@ import de.rowbuddy.client.views.MenuView;
 import de.rowbuddy.client.views.MessageView;
 import de.rowbuddy.client.views.boat.AddBoatView;
 import de.rowbuddy.client.views.boat.AddDamageView;
-import de.rowbuddy.client.views.boat.BoatDetail;
 import de.rowbuddy.client.views.boat.DamageDetailView;
 import de.rowbuddy.client.views.boat.DamageView;
 import de.rowbuddy.client.views.boat.EditBoatView;
@@ -82,6 +79,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 
 		eventHandlers
 				.add(new BoatListHandler(eventBus, container, boatService));
+		eventHandlers.add(new BoatDetailEventHandler(eventBus, container,
+				boatService));
 
 		eventBus.addHandler(AddBoatEvent.TYPE, new AddBoatEventHandler() {
 			@Override
@@ -106,13 +105,6 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 			}
 		});
 
-		eventBus.addHandler(BoatDetailEvent.TYPE, new BoatDetailEventHandler() {
-
-			@Override
-			public void onBoatDetailEvent(BoatDetailEvent event) {
-				doOnViewBoat(event.getId());
-			}
-		});
 		eventBus.addHandler(ListPersonalTripsEvent.TYPE,
 				new ListPersonalTripsEventHandler() {
 					@Override
@@ -159,15 +151,6 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 						fade.run(400);
 					}
 				});
-	}
-
-	private void doOnViewBoat(Long id) {
-		History.newItem(HistoryConstants.VIEW_BOAT, false);
-		Presenter presenter = new BoatDetailPresenter(new BoatDetail(),
-				boatService, eventBus, id);
-		statusPresenter.clear();
-		FadeAnimation fade = new FadeAnimation(container, presenter);
-		fade.run(400);
 	}
 
 	private void doOnEditBoat(Long id) {

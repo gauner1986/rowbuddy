@@ -20,9 +20,9 @@ public class BoatReservation implements Serializable {
 	@ManyToMany
 	private List<Boat> boats;
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date from;
+	private Date fromTime;
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date until;
+	private Date untilTime;
 	@ManyToOne
 	private Member reserver;
 	private String description = "";
@@ -49,19 +49,19 @@ public class BoatReservation implements Serializable {
 	}
 
 	public Date getFrom() {
-		return from;
+		return fromTime;
 	}
 
 	public void setFrom(Date from) {
-		this.from = from;
+		this.fromTime = from;
 	}
 
 	public Date getUntil() {
-		return until;
+		return untilTime;
 	}
 
 	public void setUntil(Date until) {
-		this.until = until;
+		this.untilTime = until;
 	}
 
 	public Member getReserver() {

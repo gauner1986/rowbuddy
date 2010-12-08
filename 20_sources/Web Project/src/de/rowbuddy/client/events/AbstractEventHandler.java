@@ -1,5 +1,9 @@
 package de.rowbuddy.client.events;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Logger;
+
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventBus;
@@ -14,7 +18,14 @@ import de.rowbuddy.client.presenter.Presenter;
 public abstract class AbstractEventHandler implements EventHandler,
 		ValueChangeHandler<String> {
 
-	private HasWidgets targetWidget;
+	public interface EventListener {
+		void eventProcessed(AbstractEvent<?> event);
+	}
+
+	private final HasWidgets targetWidget;
+	private final static Logger logger = Logger
+			.getLogger(AbstractEventHandler.class.getName());
+	private final List<EventListener> listeners = new LinkedList<EventListener>();
 	protected final EventBus eventBus;
 
 	public AbstractEventHandler(HasWidgets targetWidget, EventBus eventBus) {
@@ -23,13 +34,14 @@ public abstract class AbstractEventHandler implements EventHandler,
 
 		this.eventBus.addHandler(getType(), this);
 		History.addValueChangeHandler(this);
-
-		// TODO: notify appController for status bar clearing
 	}
 
 	public void processEvent(AbstractEvent<?> event) {
-		History.newItem(toHistoryItem(event));
+		History.newItem(event.toHistoryItem());
 		Presenter presenter = createPresenter(event);
+		for (EventListener listener : listeners) {
+			listener.eventProcessed(event);
+		}
 		FadeAnimation fade = new FadeAnimation(targetWidget, presenter);
 		fade.run(400);
 	}
@@ -37,6 +49,9 @@ public abstract class AbstractEventHandler implements EventHandler,
 	public void processHistoryEntry(String historyEntry) {
 		AbstractEvent<?> event = toEvent(historyEntry);
 		Presenter presenter = createPresenter(event);
+		for (EventListener listener : listeners) {
+			listener.eventProcessed(event);
+		}
 		FadeAnimation fade = new FadeAnimation(targetWidget, presenter);
 		fade.run(200);
 	}
@@ -45,11 +60,14 @@ public abstract class AbstractEventHandler implements EventHandler,
 	public void onValueChange(ValueChangeEvent<String> arg0) {
 		String historyToken = arg0.getValue();
 		if (historyToken.startsWith(getHistoryIdentifier())) {
+			logger.info("History event processed: " + historyToken);
 			processHistoryEntry(historyToken);
 		}
 	}
 
-	public abstract String toHistoryItem(AbstractEvent<?> event);
+	public void addObserver(EventListener observer) {
+		listeners.add(observer);
+	}
 
 	public abstract AbstractEvent<?> toEvent(String historyItem);
 
