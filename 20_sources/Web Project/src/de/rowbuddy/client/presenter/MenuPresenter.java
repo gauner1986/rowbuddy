@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.Widget;
 import de.rowbuddy.client.GWTEntryPoint;
 import de.rowbuddy.client.HistoryConstants;
 import de.rowbuddy.client.events.AddDamageEvent;
-import de.rowbuddy.client.events.BoatListHandler;
+import de.rowbuddy.client.events.BoatListEvent;
 import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEvent;
 
@@ -54,7 +54,7 @@ public class MenuPresenter implements Presenter, HistoryConstants {
 		view.getListBoatButton().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent arg0) {
-				eventBus.fireEvent(BoatListHandler.createEvent());
+				eventBus.fireEvent(new BoatListEvent());
 			}
 		});
 
@@ -64,7 +64,7 @@ public class MenuPresenter implements Presenter, HistoryConstants {
 			public void onClick(ClickEvent arg0) {
 				Logger logger = Logger.getLogger(GWTEntryPoint.class.getName());
 				logger.info("Click++++++");
-				eventBus.fireEvent(BoatListHandler.createEvent());
+				eventBus.fireEvent(new BoatListEvent());
 			}
 		}, ClickEvent.getType());
 

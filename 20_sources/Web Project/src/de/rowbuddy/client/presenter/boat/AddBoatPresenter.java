@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.events.BoatListHandler;
+import de.rowbuddy.client.events.BoatListEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
 import de.rowbuddy.client.model.StatusMessage.Status;
@@ -70,7 +70,7 @@ public class AddBoatPresenter implements Presenter {
 					@Override
 					public void onSuccess(Void arg0) {
 						logger.info("Boat successful added; GoTo ListBoat");
-						eventBus.fireEvent(BoatListHandler.createEvent());
+						eventBus.fireEvent(new BoatListEvent());
 						StatusMessage message = new StatusMessage();
 						message.setMessage("Boot erfolgreich hinzugefügt");
 						message.setStatus(Status.POSITIVE);

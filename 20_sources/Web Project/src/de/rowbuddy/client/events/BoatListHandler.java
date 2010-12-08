@@ -38,9 +38,4 @@ public class BoatListHandler extends AbstractEventHandler {
 	protected <T extends AbstractEventHandler> Type<T> getType() {
 		return (Type<T>) BoatListEvent.TYPE;
 	}
-
-	public static AbstractEvent<BoatListHandler> createEvent() {
-		return new BoatListEvent();
-	}
-
 }

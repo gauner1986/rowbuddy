@@ -2,26 +2,24 @@ package de.rowbuddy.client;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Logger;
 
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+import de.rowbuddy.client.events.AbstractEvent;
 import de.rowbuddy.client.events.AbstractEventHandler;
+import de.rowbuddy.client.events.AbstractEventHandler.EventListener;
 import de.rowbuddy.client.events.AddBoatEventHandler;
 import de.rowbuddy.client.events.AddDamageHandler;
 import de.rowbuddy.client.events.BoatDetailEventHandler;
+import de.rowbuddy.client.events.BoatListEvent;
 import de.rowbuddy.client.events.BoatListHandler;
 import de.rowbuddy.client.events.DetailDamageHandler;
 import de.rowbuddy.client.events.EditBoatDamageHandler;
 import de.rowbuddy.client.events.EditBoatEventHandler;
 import de.rowbuddy.client.events.ListDamageEventHandler;
-import de.rowbuddy.client.events.ListPersonalTripsEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEventHandler;
-import de.rowbuddy.client.presenter.ListPersonalTripsPresenter;
 import de.rowbuddy.client.presenter.MenuPresenter;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.StatusMessagePresenter;
@@ -29,16 +27,14 @@ import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 import de.rowbuddy.client.views.MenuView;
 import de.rowbuddy.client.views.MessageView;
-import de.rowbuddy.client.views.logbook.ListPersonalTripsView;
 
-public class AppController implements Presenter, ValueChangeHandler<String> {
+public class AppController implements Presenter, EventListener {
 	private SimpleEventBus eventBus;
 	private BoatRemoteServiceAsync boatService;
 	private LogbookRemoteServiceAsync logbookService;
 	private HasWidgets container;
 	private StatusMessagePresenter statusPresenter;
 	private Presenter menuPresenter;
-	private Logger logger = Logger.getLogger(AppController.class.getName());
 	private List<AbstractEventHandler> eventHandlers = new LinkedList<AbstractEventHandler>();
 
 	public AppController(BoatRemoteServiceAsync boatService,
@@ -54,11 +50,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 		menuPresenter.start(menuPanel);
 	}
 
-	// bind Event handling here
-	private void bind() {
-
-		History.addValueChangeHandler(this);
-
+	private void bindBoatEventHandlers() {
 		eventHandlers
 				.add(new BoatListHandler(eventBus, container, boatService));
 		eventHandlers.add(new BoatDetailEventHandler(eventBus, container,
@@ -77,50 +69,37 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 
 		eventHandlers.add(new ListDamageEventHandler(container, eventBus,
 				boatService));
-
-		eventBus.addHandler(ListPersonalTripsEvent.TYPE,
-				new ListPersonalTripsEventHandler() {
-					@Override
-					public void onListPersonalTripsEvent(
-							ListPersonalTripsEvent event) {
-						History.newItem(HistoryConstants.LIST_PERSONAL_TRIPS);
-						logger.info("ListPersonalTripsEvent fired!");
-					}
-				});
 	}
 
-	@Override
-	public void onValueChange(ValueChangeEvent<String> arg0) {
-		String token = arg0.getValue();
-		logger.info("History token changed: " + arg0.getValue());
-		if (token != null) {
-			Presenter presenter = null;
-			statusPresenter.clear();
-			if (token.equals(HistoryConstants.LIST_PERSONAL_TRIPS)) {
-				presenter = new ListPersonalTripsPresenter(logbookService,
-						new ListPersonalTripsView(
-								PageTitles.LOGBOOK_PERSONAL_TRIPS), eventBus);
-			} else {
-				logger.info("Action undefined " + token);
-			}
+	private void bindLogbookEventHandlers() {
 
-			if (presenter != null) {
-				FadeAnimation fade = new FadeAnimation(container, presenter);
-				fade.run(400);
-			}
-		}
+		eventHandlers.add(new ListPersonalTripsEventHandler(container,
+				eventBus, logbookService));
+
 	}
 
 	@Override
 	public void start(HasWidgets container) {
-		// TODO Auto-generated method stub
 		this.container = container;
-		bind();
+
+		bindBoatEventHandlers();
+		bindLogbookEventHandlers();
+
+		// register fot presenter changes
+		for (AbstractEventHandler eventHandler : eventHandlers) {
+			eventHandler.addObserver(this);
+		}
+
 		if (History.getToken().equals("")) {
-			eventBus.fireEvent(BoatListHandler.createEvent());// welcome page
+			eventBus.fireEvent(new BoatListEvent());
+			// TODO welcome page
 		} else {
 			History.fireCurrentHistoryState();
 		}
 	}
 
+	@Override
+	public void eventProcessed(AbstractEvent<?> event) {
+		statusPresenter.clear();
+	}
 }

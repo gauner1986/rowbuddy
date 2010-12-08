@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.events.BoatListHandler;
+import de.rowbuddy.client.events.BoatListEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
 import de.rowbuddy.client.model.StatusMessage.Status;
@@ -127,7 +127,7 @@ public class EditBoatPresenter implements Presenter {
 						@Override
 						public void onSuccess(Void arg0) {
 							logger.info("Submit successful GoTo ListBoats");
-							eventBus.fireEvent(BoatListHandler.createEvent());
+							eventBus.fireEvent(new BoatListEvent());
 							StatusMessage message = new StatusMessage(false);
 							message.setStatus(Status.POSITIVE);
 							message.setMessage("Boot erfolgreich geändert");
@@ -154,7 +154,7 @@ public class EditBoatPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				eventBus.fireEvent(BoatListHandler.createEvent());
+				eventBus.fireEvent(new BoatListEvent());
 			}
 		});
 
@@ -185,7 +185,7 @@ public class EditBoatPresenter implements Presenter {
 
 					@Override
 					public void onSuccess(Void arg0) {
-						eventBus.fireEvent(BoatListHandler.createEvent());
+						eventBus.fireEvent(new BoatListEvent());
 						StatusMessage msg = new StatusMessage(false);
 						msg.setMessage("Boat deleted");
 						msg.setStatus(Status.POSITIVE);

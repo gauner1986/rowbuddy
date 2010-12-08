@@ -7,15 +7,13 @@ import java.util.logging.Logger;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
-import de.rowbuddy.client.events.AddBoatEvent;
-import de.rowbuddy.client.events.BoatDetailEvent;
 import de.rowbuddy.client.events.StartTripEvent;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 
@@ -37,13 +35,13 @@ public class ListPersonalTripsPresenter implements Presenter {
 
 	private final Display view;
 	private final LogbookRemoteServiceAsync logbook;
-	private final SimpleEventBus eventBus;
+	private final EventBus eventBus;
 	private List<PersonalTripDTO> fetchedTrips;
 	private static Logger logger = Logger
 			.getLogger(ListPersonalTripsPresenter.class.getName());
 
 	public ListPersonalTripsPresenter(LogbookRemoteServiceAsync logbook,
-			Display view, SimpleEventBus eventBus) {
+			Display view, EventBus eventBus) {
 		this.logbook = logbook;
 		this.view = view;
 		this.eventBus = eventBus;
