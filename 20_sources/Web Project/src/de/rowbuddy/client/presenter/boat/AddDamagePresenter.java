@@ -7,7 +7,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasKeyPressHandlers;
-import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.SuggestOracle;
@@ -42,13 +42,13 @@ public class AddDamagePresenter implements Presenter {
 
 	private Display view;
 	private BoatRemoteServiceAsync service;
-	private SimpleEventBus eventBus;
+	private EventBus eventBus;
 	private BoatSuggestOracle oracle;
 	private Logger logger = Logger
 			.getLogger(AddDamagePresenter.class.getName());
 
 	public AddDamagePresenter(BoatRemoteServiceAsync service,
-			SimpleEventBus eventBus, Display view) {
+			EventBus eventBus, Display view) {
 		this.view = view;
 		this.service = service;
 		this.eventBus = eventBus;

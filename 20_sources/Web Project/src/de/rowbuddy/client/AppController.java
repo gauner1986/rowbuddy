@@ -12,11 +12,9 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.client.events.AbstractEventHandler;
 import de.rowbuddy.client.events.AddBoatEventHandler;
-import de.rowbuddy.client.events.AddDamageEvent;
 import de.rowbuddy.client.events.AddDamageHandler;
 import de.rowbuddy.client.events.BoatDetailEventHandler;
 import de.rowbuddy.client.events.BoatListHandler;
-import de.rowbuddy.client.events.DetailDamageEvent;
 import de.rowbuddy.client.events.DetailDamageHandler;
 import de.rowbuddy.client.events.EditBoatDamageEvent;
 import de.rowbuddy.client.events.EditBoatDamageHandler;
@@ -30,8 +28,6 @@ import de.rowbuddy.client.presenter.ListPersonalTripsPresenter;
 import de.rowbuddy.client.presenter.MenuPresenter;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.StatusMessagePresenter;
-import de.rowbuddy.client.presenter.boat.AddDamagePresenter;
-import de.rowbuddy.client.presenter.boat.DamageDetailPresenter;
 import de.rowbuddy.client.presenter.boat.EditBoatPresenter;
 import de.rowbuddy.client.presenter.boat.EditDamagePresenter;
 import de.rowbuddy.client.presenter.boat.ListDamagePresenter;
@@ -39,8 +35,6 @@ import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 import de.rowbuddy.client.views.MenuView;
 import de.rowbuddy.client.views.MessageView;
-import de.rowbuddy.client.views.boat.AddDamageView;
-import de.rowbuddy.client.views.boat.DamageDetailView;
 import de.rowbuddy.client.views.boat.DamageView;
 import de.rowbuddy.client.views.boat.EditBoatView;
 import de.rowbuddy.client.views.boat.EditDamageView;
@@ -80,14 +74,10 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 				boatService));
 		eventHandlers.add(new AddBoatEventHandler(container, eventBus,
 				boatService));
-
-		eventBus.addHandler(AddDamageEvent.type, new AddDamageHandler() {
-
-			@Override
-			public void onAddDamage(AddDamageEvent event) {
-				History.newItem(HistoryConstants.ADD_DAMAGE);
-			}
-		});
+		eventHandlers
+				.add(new AddDamageHandler(container, eventBus, boatService));
+		eventHandlers.add(new DetailDamageHandler(container, eventBus,
+				boatService));
 
 		eventBus.addHandler(EditBoatEvent.TYPE, new EditBoatEventHandler() {
 
@@ -111,20 +101,6 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 			@Override
 			public void onListDamageEvent(ListDamageEvent event) {
 				History.newItem(HistoryConstants.LIST_DAMAGES);
-			}
-		});
-
-		eventBus.addHandler(DetailDamageEvent.TYPE, new DetailDamageHandler() {
-
-			@Override
-			public void onDetailDamage(DetailDamageEvent event) {
-				History.newItem(HistoryConstants.VIEW_DAMAGE, false);
-				Presenter presenter = new DamageDetailPresenter(event.getId(),
-						new DamageDetailView(), boatService, eventBus);
-
-				statusPresenter.clear();
-				FadeAnimation fade = new FadeAnimation(container, presenter);
-				fade.run(400);
 			}
 		});
 
@@ -168,9 +144,6 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 			} else if (token.equals(HistoryConstants.LIST_DAMAGES)) {
 				presenter = new ListDamagePresenter(new DamageView(),
 						boatService, eventBus);
-			} else if (token.equals(HistoryConstants.ADD_DAMAGE)) {
-				presenter = new AddDamagePresenter(boatService, eventBus,
-						new AddDamageView());
 			} else {
 				logger.info("Action undefined " + token);
 			}

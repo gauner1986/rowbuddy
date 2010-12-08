@@ -1,26 +1,15 @@
 package de.rowbuddy.client.events;
 
-import com.google.gwt.event.shared.GwtEvent;
-
-public class DetailDamageEvent extends GwtEvent<DetailDamageHandler> {
-	public static Type<DetailDamageHandler> TYPE = new Type<DetailDamageHandler>();
-	private Long id;
+public class DetailDamageEvent extends IdEvent<DetailDamageHandler> {
+	public static final Type<DetailDamageHandler> TYPE = new Type<DetailDamageHandler>();
+	public static final String HISTORY_IDENTIFIER = "DamageDetails";
 
 	public DetailDamageEvent(Long id) {
-		this.id = id;
-	}
-
-	@Override
-	protected void dispatch(DetailDamageHandler arg0) {
-		arg0.onDetailDamage(this);
+		super(HISTORY_IDENTIFIER, id);
 	}
 
 	@Override
 	public Type<DetailDamageHandler> getAssociatedType() {
 		return TYPE;
-	}
-
-	public Long getId() {
-		return id;
 	}
 }
