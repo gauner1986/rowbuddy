@@ -5,22 +5,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.SuggestOracle;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
-public class BoatSuggestOracle extends SuggestOracle implements
-		ValueChangeHandler<String> {
+public class BoatSuggestOracle extends SuggestOracle {
 
 	private BoatRemoteServiceAsync service;
 	private Logger logger = Logger.getLogger(BoatSuggestOracle.class.getName());
 	// private List<ItemSuggestion> suggestions;
 	private HashMap<String, BoatDTO> suggestions;
-	private BoatDTO selected = null;
 	private Request request;
 	private Callback callback;
 
@@ -51,8 +47,8 @@ public class BoatSuggestOracle extends SuggestOracle implements
 
 	}
 
-	public BoatDTO getSuggestion() {
-		return selected;
+	public BoatDTO getSuggestion(String value) {
+		return suggestions.get(value);
 	}
 
 	@Override
@@ -64,7 +60,7 @@ public class BoatSuggestOracle extends SuggestOracle implements
 			@Override
 			public void onSuccess(List<BoatDTO> arg0) {
 				SuggestOracle.Response resp = new SuggestOracle.Response();
-				selected = null;
+				logger.info("New suggestions received!");
 				List<Suggestion> suggs = new LinkedList<SuggestOracle.Suggestion>();
 				for (BoatDTO boat : arg0) {
 					suggestions.put(boat.getName(), boat);
@@ -78,10 +74,5 @@ public class BoatSuggestOracle extends SuggestOracle implements
 			public void onFailure(Throwable arg0) {
 			}
 		});
-	}
-
-	@Override
-	public void onValueChange(ValueChangeEvent<String> arg0) {
-		selected = suggestions.get(arg0.getValue());
 	}
 }

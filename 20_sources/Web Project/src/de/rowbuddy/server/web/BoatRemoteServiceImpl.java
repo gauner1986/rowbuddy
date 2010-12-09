@@ -46,15 +46,8 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 
 		for (BoatDamage damage : boat.getBoatDamages()) {
 			Member member = damage.getLogger();
-
-			LinkedList<Role> roles = new LinkedList<Role>();
-			roles.addAll(member.getRoles());
-			member.setRoles(roles);
-
-			LinkedList<Trip> trips = new LinkedList<Trip>();
-			trips.addAll(member.getPublishedTrips());
-			member.setPublishedTrips(trips);
-
+			member.setRoles(new LinkedList<Role>());
+			member.setPublishedTrips(new LinkedList<Trip>());
 			damages.add(damage);
 		}
 
@@ -100,6 +93,12 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 	@Override
 	public void updateDamage(BoatDamage damage) {
 		getRowBuddyFacade().updateDamage(damage);
+	}
+
+	@Override
+	public void addDamage(BoatDamage damage, Long boatId)
+			throws RowBuddyException {
+		getRowBuddyFacade().addDamage(damage, boatId);
 	}
 
 	@Override

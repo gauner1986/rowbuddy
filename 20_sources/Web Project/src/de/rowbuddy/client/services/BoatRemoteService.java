@@ -8,6 +8,7 @@ import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.DamageDTO;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
+import de.rowbuddy.exceptions.RowBuddyException;
 
 public interface BoatRemoteService extends RemoteService {
 	public List<BoatDTO> getBoatOverview();
@@ -29,4 +30,6 @@ public interface BoatRemoteService extends RemoteService {
 	public void updateDamage(BoatDamage damage);
 
 	public List<BoatDTO> search(String query);
+
+	void addDamage(BoatDamage damage, Long boatId) throws RowBuddyException;
 }

@@ -29,4 +29,6 @@ public interface BoatRemoteServiceAsync {
 	void updateDamage(BoatDamage damage, AsyncCallback<Void> callback);
 
 	void search(String query, AsyncCallback<List<BoatDTO>> callback);
+
+	void addDamage(BoatDamage damage, Long boatId, AsyncCallback<Void> callback);
 }

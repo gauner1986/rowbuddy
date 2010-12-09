@@ -174,4 +174,9 @@ public class RowBuddyFacade {
 	public List<BoatDTO> search(String search) {
 		return boatBoundary.searchBoat(search);
 	}
+
+	public void addDamage(BoatDamage damage, Long boatId)
+			throws RowBuddyException {
+		boatManagement.addDamage(damage, member, boatId);
+	}
 }

@@ -1,7 +1,6 @@
 package de.rowbuddy.client.views.boat;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasValue;
@@ -69,14 +68,14 @@ public class AddDamageView extends HeaderButtonView implements Display {
 	}
 
 	@Override
-	public HasValueChangeHandlers<String> getSuggestionBox() {
-		return boat;
-	}
-
-	@Override
 	public void setOracle(SuggestOracle oracle) {
 		boat = new SuggestBox(oracle, boatName);
 		content.setWidget(0, 1, boat);
+	}
+
+	@Override
+	public HasValue<String> getBootName() {
+		return boat;
 	}
 
 }

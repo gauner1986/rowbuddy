@@ -85,9 +85,6 @@ public class BoatDamage implements Serializable {
 	}
 
 	public void setLogger(Member logger) {
-		if (logger == null) {
-			throw new NullPointerException("Logger must not be null");
-		}
 		this.logger = logger;
 	}
 
@@ -96,9 +93,6 @@ public class BoatDamage implements Serializable {
 	}
 
 	public void setBoat(Boat boat) {
-		if (boat == null) {
-			throw new NullPointerException("Boat must not be null");
-		}
 		this.boat = boat;
 	}
 
