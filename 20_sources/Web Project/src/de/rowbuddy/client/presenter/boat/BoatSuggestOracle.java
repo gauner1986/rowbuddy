@@ -1,58 +1,58 @@
 package de.rowbuddy.client.presenter.boat;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.SuggestOracle;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
-public class BoatSuggestOracle extends SuggestOracle {
+public class BoatSuggestOracle extends SuggestOracle implements
+		ValueChangeHandler<String> {
 
 	private BoatRemoteServiceAsync service;
 	private Logger logger = Logger.getLogger(BoatSuggestOracle.class.getName());
-	private List<ItemSuggestion> suggestions;
+	// private List<ItemSuggestion> suggestions;
+	private HashMap<String, BoatDTO> suggestions;
+	private BoatDTO selected = null;
 	private Request request;
 	private Callback callback;
 
 	public BoatSuggestOracle(BoatRemoteServiceAsync service) {
 		this.service = service;
-		suggestions = new LinkedList<ItemSuggestion>();
+		suggestions = new HashMap<String, BoatDTO>();
 	}
 
 	private class ItemSuggestion implements Suggestion {
-		private BoatDTO boat;
 
-		public ItemSuggestion(BoatDTO boat) {
-			this.boat = boat;
+		private String replacement;
+
+		public ItemSuggestion(String replacement) {
+			this.replacement = replacement;
 		}
 
 		@Override
 		public String getDisplayString() {
 			// TODO Auto-generated method stub
-			return boat.getName();
+			return replacement;
 		}
 
 		@Override
 		public String getReplacementString() {
 			// TODO Auto-generated method stub
-			return boat.getName();
-		}
-
-		public BoatDTO getBoat() {
-			return boat;
+			return replacement;
 		}
 
 	}
 
 	public BoatDTO getSuggestion() {
-		if (suggestions.size() > 1 || suggestions.isEmpty()) {
-			throw new IllegalArgumentException("Multiple suggestions available");
-		}
-		return suggestions.get(0).getBoat();
+		return selected;
 	}
 
 	@Override
@@ -64,11 +64,13 @@ public class BoatSuggestOracle extends SuggestOracle {
 			@Override
 			public void onSuccess(List<BoatDTO> arg0) {
 				SuggestOracle.Response resp = new SuggestOracle.Response();
-				suggestions.clear();
+				selected = null;
+				List<Suggestion> suggs = new LinkedList<SuggestOracle.Suggestion>();
 				for (BoatDTO boat : arg0) {
-					suggestions.add(new ItemSuggestion(boat));
+					suggestions.put(boat.getName(), boat);
+					suggs.add(new ItemSuggestion(boat.getName()));
 				}
-				resp.setSuggestions(suggestions);
+				resp.setSuggestions(suggs);
 				callback.onSuggestionsReady(request, resp);
 			}
 
@@ -76,5 +78,10 @@ public class BoatSuggestOracle extends SuggestOracle {
 			public void onFailure(Throwable arg0) {
 			}
 		});
+	}
+
+	@Override
+	public void onValueChange(ValueChangeEvent<String> arg0) {
+		selected = suggestions.get(arg0.getValue());
 	}
 }

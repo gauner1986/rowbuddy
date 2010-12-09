@@ -1,9 +1,7 @@
 package de.rowbuddy.client.views.boat;
 
-import java.util.List;
-
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.dom.client.HasKeyPressHandlers;
+import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasValue;
@@ -52,32 +50,12 @@ public class AddDamageView extends HeaderButtonView implements Display {
 
 	@Override
 	public HasValue<String> getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return description;
 	}
 
 	@Override
 	public HasValue<String> getAddInformation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public HasKeyPressHandlers getBoatField() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public HasValue<String> getBoatName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setAlternatives(List<String> alternatives) {
-		// TODO Auto-generated method stub
-
+		return addInformation;
 	}
 
 	@Override
@@ -87,8 +65,12 @@ public class AddDamageView extends HeaderButtonView implements Display {
 
 	@Override
 	public HasClickHandlers getCancelButton() {
-		// TODO Auto-generated method stub
-		return null;
+		return cancelButton;
+	}
+
+	@Override
+	public HasValueChangeHandlers<String> getSuggestionBox() {
+		return boat;
 	}
 
 	@Override
