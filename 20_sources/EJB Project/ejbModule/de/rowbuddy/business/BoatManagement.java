@@ -135,10 +135,11 @@ public class BoatManagement {
 	}
 
 	public List<Boat> searchBoat(String search) {
-		TypedQuery<Boat> q = em.createQuery(
+		TypedQuery<Boat> q = em
+				.createQuery(
 
-		"SELECT b FROM Boat b WHERE lower(b.name) like :searchString",
-				Boat.class);
+						"SELECT b FROM Boat b WHERE lower(b.name) like :searchString AND b.deleted=false",
+						Boat.class);
 		q.setParameter("searchString", "%" + search.toLowerCase() + "%");
 		return q.getResultList();
 	}
