@@ -15,7 +15,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
-import de.rowbuddy.client.views.BoatSuggestOracle;
 
 public class AddDamagePresenter implements Presenter {
 

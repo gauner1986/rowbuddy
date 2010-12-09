@@ -1,4 +1,4 @@
-package de.rowbuddy.client.views;
+package de.rowbuddy.client.presenter.boat;
 
 import java.util.LinkedList;
 import java.util.List;
