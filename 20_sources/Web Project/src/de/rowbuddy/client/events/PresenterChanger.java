@@ -42,8 +42,8 @@ public abstract class PresenterChanger implements EventHandler,
 		for (EventListener listener : listeners) {
 			listener.eventProcessed(event);
 		}
-		FadeAnimation fade = new FadeAnimation(targetWidget, presenter);
-		fade.run(400);
+		// FadeAnimation fade = new FadeAnimation(targetWidget, presenter);
+		// fade.run(400);
 	}
 
 	public void processHistoryEntry(String historyEntry) {
@@ -53,7 +53,7 @@ public abstract class PresenterChanger implements EventHandler,
 			listener.eventProcessed(event);
 		}
 		FadeAnimation fade = new FadeAnimation(targetWidget, presenter);
-		fade.run(200);
+		fade.run(400);
 	}
 
 	@Override
