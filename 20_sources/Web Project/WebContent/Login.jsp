@@ -15,10 +15,10 @@
 
 	RowBuddyFacade rbf = (RowBuddyFacade) ic.lookup("java:global/Ear_Project/EJB_Project/RowBuddyFacade");
 
-	String password = request.getParameter("password");
-	String email = request.getParameter("email");
+	String password = "bla";//request.getParameter("password");
+	String email = "bla@bla.de";//request.getParameter("email");
 
-	if (!(email == null || password == null)) {
+	//if (!(email == null || password == null)) {
 		Member member = new Member();
 		member.setEmail(email);
 		member.setPassword(password);
@@ -27,14 +27,14 @@
         response.sendRedirect("welcomeGWT.html?gwt.codesvr=127.0.0.1:9997");
 %>
 <%
-	} else {
+	//} else {
 %>
 <form action="Login.jsp" method="post">E-Mail: <input type="text"
 	name="email" /><br>
 Passwort: <input type="password" name="password" /><br>
 <input type="submit" value="Login" class="buttonLogin buttonPositive"/></form>
 <%
-	}
+	//}
 %>
 </body>
 </html>
