@@ -9,11 +9,11 @@ import de.rowbuddy.client.presenter.boat.ListDamagePresenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.views.boat.DamageView;
 
-public class ListBoatDamagePresenterChanger extends PresenterChanger {
+public class ListDamagePresenterChanger extends PresenterChanger {
 
 	private final BoatRemoteServiceAsync boatService;
 
-	public ListBoatDamagePresenterChanger(HasWidgets targetWidget, EventBus eventBus,
+	public ListDamagePresenterChanger(HasWidgets targetWidget, EventBus eventBus,
 			BoatRemoteServiceAsync boatService) {
 		super(targetWidget, eventBus);
 
@@ -22,7 +22,7 @@ public class ListBoatDamagePresenterChanger extends PresenterChanger {
 
 	@Override
 	public AbstractEvent<?> toEvent(String historyItem) {
-		return new ListBoatDamageEvent();
+		return new ListDamageEvent();
 	}
 
 	@Override
@@ -32,11 +32,11 @@ public class ListBoatDamagePresenterChanger extends PresenterChanger {
 
 	@Override
 	protected <T extends PresenterChanger> Type<T> getType() {
-		return (Type<T>) ListBoatDamageEvent.TYPE;
+		return (Type<T>) ListDamageEvent.TYPE;
 	}
 
 	@Override
 	protected String getHistoryIdentifier() {
-		return ListBoatDamageEvent.HISTORY_IDENTIFIER;
+		return ListDamageEvent.HISTORY_IDENTIFIER;
 	}
 }

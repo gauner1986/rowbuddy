@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
-import de.rowbuddy.client.events.ListBoatDamageEvent;
+import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
 import de.rowbuddy.client.model.StatusMessage.Status;
@@ -104,7 +104,7 @@ public class AddDamagePresenter implements Presenter {
 												false);
 										message.setStatus(Status.POSITIVE);
 										message.setMessage("Schaden erfolgreich hinzugefügt");
-										eventBus.fireEvent(new ListBoatDamageEvent());
+										eventBus.fireEvent(new ListDamageEvent());
 										eventBus.fireEvent(new StatusMessageEvent(
 												message));
 									}
@@ -123,7 +123,7 @@ public class AddDamagePresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				eventBus.fireEvent(new ListBoatDamageEvent());
+				eventBus.fireEvent(new ListDamageEvent());
 			}
 		});
 

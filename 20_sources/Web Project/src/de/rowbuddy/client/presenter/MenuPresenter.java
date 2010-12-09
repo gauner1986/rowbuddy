@@ -11,8 +11,8 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.GWTEntryPoint;
-import de.rowbuddy.client.events.AddBoatDamageEvent;
-import de.rowbuddy.client.events.ListBoatDamageEvent;
+import de.rowbuddy.client.events.AddDamageEvent;
+import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEvent;
 
@@ -79,7 +79,7 @@ public class MenuPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				eventBus.fireEvent(new ListBoatDamageEvent());
+				eventBus.fireEvent(new ListDamageEvent());
 			}
 		});
 
@@ -88,7 +88,7 @@ public class MenuPresenter implements Presenter {
 			@Override
 			public void onClick(ClickEvent arg0) {
 				// TODO Auto-generated method stub
-				eventBus.fireEvent(new AddBoatDamageEvent());
+				eventBus.fireEvent(new AddDamageEvent());
 			}
 		});
 	}

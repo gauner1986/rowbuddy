@@ -11,14 +11,14 @@ import de.rowbuddy.client.events.AbstractEvent;
 import de.rowbuddy.client.events.PresenterChanger;
 import de.rowbuddy.client.events.PresenterChanger.EventListener;
 import de.rowbuddy.client.events.AddBoatPresenterChanger;
-import de.rowbuddy.client.events.AddBoatDamagePresenterChanger;
+import de.rowbuddy.client.events.AddDamagePresenterChanger;
 import de.rowbuddy.client.events.DetailsBoatPresenterChanger;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.ListBoatsPresenterChanger;
-import de.rowbuddy.client.events.DetailsBoatDamagePresenterChanger;
-import de.rowbuddy.client.events.EditBoatDamagePresenterChanger;
+import de.rowbuddy.client.events.DetailsDamagePresenterChanger;
+import de.rowbuddy.client.events.EditDamagePresenterChanger;
 import de.rowbuddy.client.events.EditBoatPresenterChanger;
-import de.rowbuddy.client.events.ListBoatDamagePresenterChanger;
+import de.rowbuddy.client.events.ListDamagePresenterChanger;
 import de.rowbuddy.client.events.ListPersonalTripsPresenterChanger;
 import de.rowbuddy.client.presenter.MenuPresenter;
 import de.rowbuddy.client.presenter.Presenter;
@@ -58,16 +58,16 @@ public class AppController implements Presenter, EventListener {
 		eventHandlers.add(new AddBoatPresenterChanger(container, eventBus,
 				boatService));
 		eventHandlers
-				.add(new AddBoatDamagePresenterChanger(container, eventBus, boatService));
-		eventHandlers.add(new DetailsBoatDamagePresenterChanger(container, eventBus,
+				.add(new AddDamagePresenterChanger(container, eventBus, boatService));
+		eventHandlers.add(new DetailsDamagePresenterChanger(container, eventBus,
 				boatService));
-		eventHandlers.add(new EditBoatDamagePresenterChanger(container, eventBus,
+		eventHandlers.add(new EditDamagePresenterChanger(container, eventBus,
 				boatService));
 
 		eventHandlers.add(new EditBoatPresenterChanger(container, eventBus,
 				boatService));
 
-		eventHandlers.add(new ListBoatDamagePresenterChanger(container, eventBus,
+		eventHandlers.add(new ListDamagePresenterChanger(container, eventBus,
 				boatService));
 	}
 

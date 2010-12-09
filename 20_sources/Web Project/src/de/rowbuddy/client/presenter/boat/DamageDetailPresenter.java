@@ -11,8 +11,8 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.events.EditBoatDamageEvent;
-import de.rowbuddy.client.events.ListBoatDamageEvent;
+import de.rowbuddy.client.events.EditDamageEvent;
+import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.BoatDamage;
@@ -65,7 +65,7 @@ public class DamageDetailPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				eventBus.fireEvent(new ListBoatDamageEvent());
+				eventBus.fireEvent(new ListDamageEvent());
 			}
 		});
 
@@ -73,7 +73,7 @@ public class DamageDetailPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				eventBus.fireEvent(new EditBoatDamageEvent(id));
+				eventBus.fireEvent(new EditDamageEvent(id));
 			}
 		});
 	}
