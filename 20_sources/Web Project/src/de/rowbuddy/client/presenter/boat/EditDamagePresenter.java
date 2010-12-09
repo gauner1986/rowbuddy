@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.events.ListDamageEvent;
+import de.rowbuddy.client.events.ListBoatDamageEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
 import de.rowbuddy.client.model.StatusMessage.Status;
@@ -81,12 +81,12 @@ public class EditDamagePresenter implements Presenter {
 
 						@Override
 						public void onSuccess(Void arg0) {
-							eventBus.fireEvent(new ListDamageEvent());
+							eventBus.fireEvent(new ListBoatDamageEvent());
 							StatusMessage msg = new StatusMessage(false);
 							msg.setStatus(Status.POSITIVE);
 							msg.setMessage("Schaden erfolgreich bearbeitet");
 							eventBus.fireEvent(new StatusMessageEvent(msg));
-							eventBus.fireEvent(new ListDamageEvent());
+							eventBus.fireEvent(new ListBoatDamageEvent());
 						}
 
 						@Override
@@ -115,7 +115,7 @@ public class EditDamagePresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				eventBus.fireEvent(new ListDamageEvent());
+				eventBus.fireEvent(new ListBoatDamageEvent());
 			}
 		});
 

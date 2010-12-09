@@ -12,9 +12,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.GWTEntryPoint;
 import de.rowbuddy.client.HistoryConstants;
-import de.rowbuddy.client.events.AddDamageEvent;
-import de.rowbuddy.client.events.BoatListEvent;
-import de.rowbuddy.client.events.ListDamageEvent;
+import de.rowbuddy.client.events.AddBoatDamageEvent;
+import de.rowbuddy.client.events.ListBoatsEvent;
+import de.rowbuddy.client.events.ListBoatDamageEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEvent;
 
 public class MenuPresenter implements Presenter, HistoryConstants {
@@ -54,7 +54,7 @@ public class MenuPresenter implements Presenter, HistoryConstants {
 		view.getListBoatButton().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent arg0) {
-				eventBus.fireEvent(new BoatListEvent());
+				eventBus.fireEvent(new ListBoatsEvent());
 			}
 		});
 
@@ -64,7 +64,7 @@ public class MenuPresenter implements Presenter, HistoryConstants {
 			public void onClick(ClickEvent arg0) {
 				Logger logger = Logger.getLogger(GWTEntryPoint.class.getName());
 				logger.info("Click++++++");
-				eventBus.fireEvent(new BoatListEvent());
+				eventBus.fireEvent(new ListBoatsEvent());
 			}
 		}, ClickEvent.getType());
 
@@ -80,7 +80,7 @@ public class MenuPresenter implements Presenter, HistoryConstants {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				eventBus.fireEvent(new ListDamageEvent());
+				eventBus.fireEvent(new ListBoatDamageEvent());
 			}
 		});
 
@@ -89,7 +89,7 @@ public class MenuPresenter implements Presenter, HistoryConstants {
 			@Override
 			public void onClick(ClickEvent arg0) {
 				// TODO Auto-generated method stub
-				eventBus.fireEvent(new AddDamageEvent());
+				eventBus.fireEvent(new AddBoatDamageEvent());
 			}
 		});
 	}

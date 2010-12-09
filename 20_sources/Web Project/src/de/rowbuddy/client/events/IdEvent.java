@@ -1,6 +1,6 @@
 package de.rowbuddy.client.events;
 
-public abstract class IdEvent<T extends AbstractEventHandler> extends
+public abstract class IdEvent<T extends PresenterChanger> extends
 		AbstractEvent<T> {
 
 	private final Long id;

@@ -5,41 +5,40 @@ import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.client.presenter.Presenter;
-import de.rowbuddy.client.presenter.boat.BoatDetailPresenter;
+import de.rowbuddy.client.presenter.boat.DamageDetailPresenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
-import de.rowbuddy.client.views.boat.BoatDetail;
+import de.rowbuddy.client.views.boat.DamageDetailView;
 
-public class BoatDetailEventHandler extends AbstractEventHandler {
+public class DetailsBoatDamagePresenterChanger extends PresenterChanger {
 
 	private final BoatRemoteServiceAsync boatService;
 
-	public BoatDetailEventHandler(EventBus eventBus, HasWidgets target,
+	public DetailsBoatDamagePresenterChanger(HasWidgets targetWidget, EventBus eventBus,
 			BoatRemoteServiceAsync boatService) {
-		super(target, eventBus);
+		super(targetWidget, eventBus);
 		this.boatService = boatService;
 	}
 
 	@Override
 	public AbstractEvent<?> toEvent(String historyItem) {
 		Long id = IdEvent.getIdFromHistoryItem(historyItem);
-		return new BoatDetailEvent(id);
+		return new DetailsBoatDamageEvent(id);
 	}
 
 	@Override
 	public Presenter createPresenter(AbstractEvent<?> event) {
-		BoatDetailEvent e = (BoatDetailEvent) event;
-		return new BoatDetailPresenter(new BoatDetail(), boatService, eventBus,
-				e.getId());
+		DetailsBoatDamageEvent e = (DetailsBoatDamageEvent) event;
+		return new DamageDetailPresenter(e.getId(), new DamageDetailView(),
+				boatService, eventBus);
 	}
 
 	@Override
-	protected <T extends AbstractEventHandler> Type<T> getType() {
-		return (Type<T>) BoatDetailEvent.TYPE;
+	protected <T extends PresenterChanger> Type<T> getType() {
+		return (Type<T>) DetailsBoatDamageEvent.TYPE;
 	}
 
 	@Override
 	protected String getHistoryIdentifier() {
-		return BoatDetailEvent.HISTORY_IDENTIFIER;
+		return DetailsBoatDamageEvent.HISTORY_IDENTIFIER;
 	}
-
 }

@@ -1,12 +1,12 @@
 package de.rowbuddy.client.events;
 
-public class AddBoatEvent extends AbstractEvent<AddBoatEventHandler> {
+public class AddBoatEvent extends AbstractEvent<AddBoatPresenterChanger> {
 
 	public static final String HISTORY_IDENTIFIER = "AddBoat";
-	public static Type<AddBoatEventHandler> TYPE = new Type<AddBoatEventHandler>();
+	public static Type<AddBoatPresenterChanger> TYPE = new Type<AddBoatPresenterChanger>();
 
 	@Override
-	public Type<AddBoatEventHandler> getAssociatedType() {
+	public Type<AddBoatPresenterChanger> getAssociatedType() {
 		return TYPE;
 	}
 

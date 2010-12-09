@@ -8,18 +8,18 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.client.events.AbstractEvent;
-import de.rowbuddy.client.events.AbstractEventHandler;
-import de.rowbuddy.client.events.AbstractEventHandler.EventListener;
-import de.rowbuddy.client.events.AddBoatEventHandler;
-import de.rowbuddy.client.events.AddDamageHandler;
-import de.rowbuddy.client.events.BoatDetailEventHandler;
-import de.rowbuddy.client.events.BoatListEvent;
-import de.rowbuddy.client.events.BoatListHandler;
-import de.rowbuddy.client.events.DetailDamageHandler;
-import de.rowbuddy.client.events.EditBoatDamageHandler;
-import de.rowbuddy.client.events.EditBoatEventHandler;
-import de.rowbuddy.client.events.ListDamageEventHandler;
-import de.rowbuddy.client.events.ListPersonalTripsEventHandler;
+import de.rowbuddy.client.events.PresenterChanger;
+import de.rowbuddy.client.events.PresenterChanger.EventListener;
+import de.rowbuddy.client.events.AddBoatPresenterChanger;
+import de.rowbuddy.client.events.AddBoatDamagePresenterChanger;
+import de.rowbuddy.client.events.DetailsBoatPresenterChanger;
+import de.rowbuddy.client.events.ListBoatsEvent;
+import de.rowbuddy.client.events.ListBoatsPresenterChanger;
+import de.rowbuddy.client.events.DetailsBoatDamagePresenterChanger;
+import de.rowbuddy.client.events.EditBoatDamagePresenterChanger;
+import de.rowbuddy.client.events.EditBoatPresenterChanger;
+import de.rowbuddy.client.events.ListBoatDamagePresenterChanger;
+import de.rowbuddy.client.events.ListPersonalTripsPresenterChanger;
 import de.rowbuddy.client.presenter.MenuPresenter;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.StatusMessagePresenter;
@@ -35,7 +35,7 @@ public class AppController implements Presenter, EventListener {
 	private HasWidgets container;
 	private StatusMessagePresenter statusPresenter;
 	private Presenter menuPresenter;
-	private List<AbstractEventHandler> eventHandlers = new LinkedList<AbstractEventHandler>();
+	private List<PresenterChanger> eventHandlers = new LinkedList<PresenterChanger>();
 
 	public AppController(BoatRemoteServiceAsync boatService,
 			LogbookRemoteServiceAsync logbookService, SimpleEventBus eventBus,
@@ -52,28 +52,28 @@ public class AppController implements Presenter, EventListener {
 
 	private void bindBoatEventHandlers() {
 		eventHandlers
-				.add(new BoatListHandler(eventBus, container, boatService));
-		eventHandlers.add(new BoatDetailEventHandler(eventBus, container,
+				.add(new ListBoatsPresenterChanger(eventBus, container, boatService));
+		eventHandlers.add(new DetailsBoatPresenterChanger(eventBus, container,
 				boatService));
-		eventHandlers.add(new AddBoatEventHandler(container, eventBus,
+		eventHandlers.add(new AddBoatPresenterChanger(container, eventBus,
 				boatService));
 		eventHandlers
-				.add(new AddDamageHandler(container, eventBus, boatService));
-		eventHandlers.add(new DetailDamageHandler(container, eventBus,
+				.add(new AddBoatDamagePresenterChanger(container, eventBus, boatService));
+		eventHandlers.add(new DetailsBoatDamagePresenterChanger(container, eventBus,
 				boatService));
-		eventHandlers.add(new EditBoatDamageHandler(container, eventBus,
-				boatService));
-
-		eventHandlers.add(new EditBoatEventHandler(container, eventBus,
+		eventHandlers.add(new EditBoatDamagePresenterChanger(container, eventBus,
 				boatService));
 
-		eventHandlers.add(new ListDamageEventHandler(container, eventBus,
+		eventHandlers.add(new EditBoatPresenterChanger(container, eventBus,
+				boatService));
+
+		eventHandlers.add(new ListBoatDamagePresenterChanger(container, eventBus,
 				boatService));
 	}
 
 	private void bindLogbookEventHandlers() {
 
-		eventHandlers.add(new ListPersonalTripsEventHandler(container,
+		eventHandlers.add(new ListPersonalTripsPresenterChanger(container,
 				eventBus, logbookService));
 
 	}
@@ -86,12 +86,12 @@ public class AppController implements Presenter, EventListener {
 		bindLogbookEventHandlers();
 
 		// register fot presenter changes
-		for (AbstractEventHandler eventHandler : eventHandlers) {
+		for (PresenterChanger eventHandler : eventHandlers) {
 			eventHandler.addObserver(this);
 		}
 
 		if (History.getToken().equals("")) {
-			eventBus.fireEvent(new BoatListEvent());
+			eventBus.fireEvent(new ListBoatsEvent());
 			// TODO welcome page
 		} else {
 			History.fireCurrentHistoryState();

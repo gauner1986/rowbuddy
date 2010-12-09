@@ -1,7 +1,7 @@
 package de.rowbuddy.client.events;
 
-public class EditBoatEvent extends IdEvent<EditBoatEventHandler> {
-	public static final Type<EditBoatEventHandler> TYPE = new Type<EditBoatEventHandler>();
+public class EditBoatEvent extends IdEvent<EditBoatPresenterChanger> {
+	public static final Type<EditBoatPresenterChanger> TYPE = new Type<EditBoatPresenterChanger>();
 	public static final String HISTORY_IDENTIFIER = "EditBoat";
 
 	public EditBoatEvent(Long id) {
@@ -9,7 +9,7 @@ public class EditBoatEvent extends IdEvent<EditBoatEventHandler> {
 	}
 
 	@Override
-	public Type<EditBoatEventHandler> getAssociatedType() {
+	public Type<EditBoatPresenterChanger> getAssociatedType() {
 		return TYPE;
 	}
 }

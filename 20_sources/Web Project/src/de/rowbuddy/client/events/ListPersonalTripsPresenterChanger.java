@@ -10,11 +10,11 @@ import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 import de.rowbuddy.client.views.logbook.ListPersonalTripsView;
 
-public class ListPersonalTripsEventHandler extends AbstractEventHandler {
+public class ListPersonalTripsPresenterChanger extends PresenterChanger {
 
 	private final LogbookRemoteServiceAsync logbookService;
 
-	public ListPersonalTripsEventHandler(HasWidgets targetWidget,
+	public ListPersonalTripsPresenterChanger(HasWidgets targetWidget,
 			EventBus eventBus, LogbookRemoteServiceAsync logbookService) {
 		super(targetWidget, eventBus);
 		this.logbookService = logbookService;
@@ -33,7 +33,7 @@ public class ListPersonalTripsEventHandler extends AbstractEventHandler {
 	}
 
 	@Override
-	protected <T extends AbstractEventHandler> Type<T> getType() {
+	protected <T extends PresenterChanger> Type<T> getType() {
 		return (Type<T>) ListPersonalTripsEvent.TYPE;
 	}
 

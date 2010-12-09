@@ -2,7 +2,7 @@ package de.rowbuddy.client.events;
 
 import com.google.gwt.event.shared.GwtEvent;
 
-public abstract class AbstractEvent<T extends AbstractEventHandler> extends
+public abstract class AbstractEvent<T extends PresenterChanger> extends
 		GwtEvent<T> {
 
 	@Override

@@ -1,13 +1,13 @@
 package de.rowbuddy.client.events;
 
 public class ListPersonalTripsEvent extends
-		AbstractEvent<ListPersonalTripsEventHandler> {
+		AbstractEvent<ListPersonalTripsPresenterChanger> {
 
-	public static final Type<ListPersonalTripsEventHandler> TYPE = new Type<ListPersonalTripsEventHandler>();
+	public static final Type<ListPersonalTripsPresenterChanger> TYPE = new Type<ListPersonalTripsPresenterChanger>();
 	public static final String HISTORY_IDENTIFIER = "ListPersonalTrips";
 
 	@Override
-	public Type<ListPersonalTripsEventHandler> getAssociatedType() {
+	public Type<ListPersonalTripsPresenterChanger> getAssociatedType() {
 		return TYPE;
 	}
 

@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import de.rowbuddy.client.FadeAnimation;
 import de.rowbuddy.client.presenter.Presenter;
 
-public abstract class AbstractEventHandler implements EventHandler,
+public abstract class PresenterChanger implements EventHandler,
 		ValueChangeHandler<String> {
 
 	public interface EventListener {
@@ -24,11 +24,11 @@ public abstract class AbstractEventHandler implements EventHandler,
 
 	private final HasWidgets targetWidget;
 	private final static Logger logger = Logger
-			.getLogger(AbstractEventHandler.class.getName());
+			.getLogger(PresenterChanger.class.getName());
 	private final List<EventListener> listeners = new LinkedList<EventListener>();
 	protected final EventBus eventBus;
 
-	public AbstractEventHandler(HasWidgets targetWidget, EventBus eventBus) {
+	public PresenterChanger(HasWidgets targetWidget, EventBus eventBus) {
 		this.targetWidget = targetWidget;
 		this.eventBus = eventBus;
 
@@ -73,7 +73,7 @@ public abstract class AbstractEventHandler implements EventHandler,
 
 	public abstract Presenter createPresenter(AbstractEvent<?> event);
 
-	protected abstract <T extends AbstractEventHandler> Type<T> getType();
+	protected abstract <T extends PresenterChanger> Type<T> getType();
 
 	protected abstract String getHistoryIdentifier();
 
