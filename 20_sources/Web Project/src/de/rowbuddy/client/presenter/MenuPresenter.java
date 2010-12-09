@@ -11,13 +11,12 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.GWTEntryPoint;
-import de.rowbuddy.client.HistoryConstants;
 import de.rowbuddy.client.events.AddBoatDamageEvent;
-import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.ListBoatDamageEvent;
+import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEvent;
 
-public class MenuPresenter implements Presenter, HistoryConstants {
+public class MenuPresenter implements Presenter {
 
 	public interface MenuDisplay {
 		public HasClickHandlers getListBoatButton();

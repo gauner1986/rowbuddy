@@ -32,7 +32,7 @@ public class AddDamageView extends HeaderButtonView implements Display {
 		boatName = new TextBox();
 		description = new TextArea();
 		addInformation = new TextArea();
-		addButton = new Button("Hinzufügen");
+		addButton = new Button("Hinzuf&uuml;gen");
 		addButton.setStylePrimaryName("buttonApply buttonPositive");
 		cancelButton = new Button("Abbrechen");
 		cancelButton.setStylePrimaryName("buttonCancel buttonNegative");
