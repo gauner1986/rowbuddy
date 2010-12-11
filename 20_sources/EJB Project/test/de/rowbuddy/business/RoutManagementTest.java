@@ -24,6 +24,7 @@ public class RoutManagementTest extends EjbTestBase {
 	private Route incompleteRoute;
 	private Route normalRoute;
 	private Route gpsRoute;
+	private Route deletedRoute;
 
 	@Before
 	public void setup() throws RowBuddyException {
@@ -48,6 +49,16 @@ public class RoutManagementTest extends EjbTestBase {
 		p.add(new GpsPoint(51.25509323774028, 6.182534694671631));
 		p.add(new GpsPoint(51.353364886551454, 6.153985261917114));
 		gpsRoute.setWayPoints(p);
+
+		// Delted route
+		deletedRoute = new Route();
+		deletedRoute.setLengthKM(15);
+		deletedRoute.setMutable(true);
+		deletedRoute.setDeleted(true);
+		deletedRoute.setLastEditor(db.getMembers().get(0));
+		deletedRoute.setName("Delete route");
+		deletedRoute.setShortDescription("Deleted");
+		em.persist(deletedRoute);
 
 		// incomplete route
 		incompleteRoute = new Route();
@@ -217,8 +228,12 @@ public class RoutManagementTest extends EjbTestBase {
 	}
 
 	@Test
-	public void canGetDeletedRoute() {
+	public void canGetDeletedRoute() throws RowBuddyException {
+		// when
+		Route route = routeMgmt.getRoute(deletedRoute.getId());
 
+		// then
+		assertThat(route, is(notNullValue()));
 	}
 
 	// @Test
