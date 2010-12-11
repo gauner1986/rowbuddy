@@ -133,6 +133,14 @@ public class Database {
 		route4.setWayPoints(p);
 		em.persist(route4);
 
+		Route route5 = new Route();
+		route5.setName("Testroute 5");
+		route5.setLengthKM(6.4);
+		route5.setMutable(false);
+		route5.setShortDescription("This is a unit-test route 2");
+		route5.setLastEditor(getMembers().get(0));
+		em.persist(route5);
+
 		routes = em.getAllEntities(Route.class);
 	}
 

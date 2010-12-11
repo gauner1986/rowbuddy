@@ -286,4 +286,31 @@ public class RoutManagementTest extends EjbTestBase {
 		assertThat(oldVersion.isDeleted(), is(true));
 		assertThat(newVersion.getParentId(), is(oldVersion.getId()));
 	}
+
+	@Test(expected = RowBuddyException.class)
+	public void cannotEditDeletedRoute() throws RowBuddyException {
+		routeMgmt.editRoute(deletedRoute, db.getMembers().get(0));
+	}
+
+	@Test(expected = RowBuddyException.class)
+	public void cannotEditImmutableRouteWithWrongMember()
+			throws RowBuddyException {
+		// given
+		Route immutableRoute = db.getRoutes().get(4);
+		Member wrongMember = db.getMembers().get(1);
+
+		// when
+		routeMgmt.editRoute(immutableRoute, wrongMember);
+	}
+
+	@Test
+	public void canEditImmutableRouteWithCorrectMember()
+			throws RowBuddyException {
+		// given
+		Route immutableRoute = db.getRoutes().get(4);
+		Member wrongMember = db.getMembers().get(0);
+
+		// when
+		routeMgmt.editRoute(immutableRoute, wrongMember);
+	}
 }

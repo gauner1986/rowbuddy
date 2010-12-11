@@ -127,6 +127,16 @@ public class RouteManagement {
 		return newVersion;
 	}
 
+	/**
+	 * Liefert die entsprechende Route zu einer id. Diese kann auch die ID einer
+	 * älteren Version einer Route sein.
+	 * 
+	 * @param id
+	 *            id einer Route
+	 * @return die Route
+	 * @throws RowBuddyException
+	 *             wenn die Route nicht mehr existiert
+	 */
 	public Route getRoute(Long id) throws RowBuddyException {
 		if (id == null) {
 			throw new RowBuddyException("id must not be null");
