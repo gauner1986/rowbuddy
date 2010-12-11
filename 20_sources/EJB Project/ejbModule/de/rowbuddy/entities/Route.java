@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +26,7 @@ public class Route implements Serializable {
 	private Long parentId = null;
 	private String name = "";
 	private String shortDescription = "";
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<GpsPoint> wayPoints = new LinkedList<GpsPoint>();
 	private double lengthKM = 0;
 	private Member lastEditor = null;

@@ -46,6 +46,7 @@ public class RoutManagementTest extends EjbTestBase {
 		List<GpsPoint> p = new LinkedList<GpsPoint>();
 		p.add(new GpsPoint(51.25509323774028, 6.182534694671631));
 		p.add(new GpsPoint(51.353364886551454, 6.153985261917114));
+		gpsRoute.setWayPoints(p);
 
 		// incomplete route
 		incompleteRoute = new Route();
@@ -54,7 +55,9 @@ public class RoutManagementTest extends EjbTestBase {
 	@After
 	public void tearDown() {
 		routeMgmt = null;
-
+		incompleteRoute = null;
+		normalRoute = null;
+		gpsRoute = null;
 	}
 
 	@Test
@@ -114,4 +117,21 @@ public class RoutManagementTest extends EjbTestBase {
 		routeMgmt.addRoute(normalRoute, db.getMembers().get(0));
 	}
 
+	@Test
+	public void canGetRouteList() throws RowBuddyException {
+		// given
+		db.setupRoutes();
+
+		// when
+		List<Route> routes = routeMgmt.getRouteList();
+
+		// then
+		List<Route> wantedRoutes = new LinkedList<Route>();
+		for (Route r : db.getRoutes()) {
+			if (!r.isDeleted()) {
+				wantedRoutes.add(r);
+			}
+		}
+		assertThat(routes, equalsList(wantedRoutes));
+	}
 }
