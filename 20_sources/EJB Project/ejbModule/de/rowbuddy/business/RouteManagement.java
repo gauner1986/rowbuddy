@@ -71,10 +71,14 @@ public class RouteManagement {
 	 * Ist die Route unreferenziert, dann wird die gleiche Version mit den
 	 * geänderten Werten wieder zurückgegeben. Wenn die Route als mutable
 	 * gekennzeichnet ist, dann kann jeder Benutzer sie ändern. Andernfalls kann
-	 * nur der letzte Bearbeiter sie ändern.
+	 * nur der letzte Bearbeiter sie ändern. Wird eine neue Version der Route
+	 * erstellt, dann wird die alte als gelöscht markiert. So wird
+	 * sichergestellt, dass immer nur die aktuellste Version einer Route
+	 * existiert.
 	 * 
-	 * @return Die neue Version der Route.
+	 * @return Die geänderte Version der Route.
 	 * @throws RowBuddyException
+	 *             Kann durch diverse Logikprüfungen geworfen werden
 	 */
 	public Route editRoute(Route route, Member editor) throws RowBuddyException {
 

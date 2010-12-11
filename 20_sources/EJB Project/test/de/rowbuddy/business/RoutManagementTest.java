@@ -261,6 +261,7 @@ public class RoutManagementTest extends EjbTestBase {
 	public void canEditRouteWithReferences() throws RowBuddyException {
 		// given
 		Route refRoute = routeMgmt.getRoute(db.getRoutes().get(0).getId());
+		assertThat(refRoute.isDeleted(), is(false));
 		Member editor = db.getMembers().get(1);
 		List<GpsPoint> newPoints = new LinkedList<GpsPoint>();
 		newPoints.add(new GpsPoint(51.25509323774028, 6.182534694671631));
@@ -282,5 +283,7 @@ public class RoutManagementTest extends EjbTestBase {
 		assertThat(oldVersion.getId(), is(db.getRoutes().get(0).getId()));
 		assertThat(oldVersion.getWayPoints().size(), is(db.getRoutes().get(0)
 				.getWayPoints().size()));
+		assertThat(oldVersion.isDeleted(), is(true));
+		assertThat(newVersion.getParentId(), is(oldVersion.getId()));
 	}
 }
