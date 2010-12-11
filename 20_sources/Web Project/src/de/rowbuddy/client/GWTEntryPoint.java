@@ -22,7 +22,6 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -31,7 +30,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
-import de.rowbuddy.client.images.Images;
 import de.rowbuddy.client.services.BoatRemoteService;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.services.LogbookRemoteService;
@@ -95,7 +93,6 @@ public class GWTEntryPoint implements EntryPoint {
 
 	private Widget initalRootFlexTable(HasWidgets mainPanel,
 			Widget messagePanel, VerticalPanel vPanel) {
-		Images images = (Images) GWT.create(Images.class);
 
 		final FlexTable flexTable = new FlexTable();
 		FlexCellFormatter cellFormatter = flexTable.getFlexCellFormatter();
@@ -117,8 +114,7 @@ public class GWTEntryPoint implements EntryPoint {
 
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setWidth("100%");
-		hPanel.setStylePrimaryName("logoHeader");
-//		hPanel.add(new Image(images.logo()));
+		hPanel.setStylePrimaryName("logoHeader");	
 
 		final SessionManagerAsync sessionManager = (SessionManagerAsync) GWT
 			.create(SessionManager.class);
@@ -192,13 +188,13 @@ public class GWTEntryPoint implements EntryPoint {
 		flexTable.setWidget(1, 0, vPanel);
 
 		// messagePanel.setStyleName("messages");
-		DecoratorPanel panel = new DecoratorPanel();
-
-		panel.setWidget(messagePanel);
-		flexTable.setWidget(1, 1, panel);
+//		DecoratorPanel panel = new DecoratorPanel();
+//
+//		panel.setWidget(messagePanel);
+		flexTable.setWidget(1, 1, messagePanel);
 		// panel.setStylePrimaryName("messages");
 		flexTable.getCellFormatter().setStylePrimaryName(1, 0, "menuPanel");
-		flexTable.getCellFormatter().setStylePrimaryName(1, 1, "messages");
+		flexTable.getCellFormatter().setStyleName(1, 1, "messages");
 
 		flexTable.setWidget(2, 0, (Widget) mainPanel);
 
