@@ -91,6 +91,7 @@ public class Database {
 		route1.setLengthKM(5.5);
 		route1.setMutable(true);
 		route1.setShortDescription("This is a unit-test route 1");
+		route1.setLastEditor(getMembers().get(0));
 		em.persist(route1);
 
 		Route route2 = new Route();
@@ -98,6 +99,7 @@ public class Database {
 		route2.setLengthKM(6.4);
 		route2.setMutable(true);
 		route2.setShortDescription("This is a unit-test route 2");
+		route2.setLastEditor(getMembers().get(0));
 		em.persist(route2);
 
 		Route route3 = new Route();
@@ -106,6 +108,7 @@ public class Database {
 		route3.setMutable(false);
 		route3.setShortDescription("This is a unit-test route 3");
 		route3.setDeleted(true);
+		route3.setLastEditor(getMembers().get(0));
 		em.persist(route3);
 
 		Route route4 = new Route();
@@ -114,6 +117,7 @@ public class Database {
 		route4.setMutable(false);
 		route4.setShortDescription("This is a unit-test route 4");
 		route4.setDeleted(true);
+		route4.setLastEditor(getMembers().get(0));
 		List<GpsPoint> p = new LinkedList<GpsPoint>();
 		p.add(new GpsPoint(51.25509323774028, 6.182534694671631));
 		p.add(new GpsPoint(51.353364886551454, 6.153985261917114));
