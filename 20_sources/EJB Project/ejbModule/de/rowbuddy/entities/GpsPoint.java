@@ -61,6 +61,10 @@ public class GpsPoint implements Serializable {
 				otherPoint.latitude, otherPoint.longitude);
 	}
 
+	public GpsPoint getCopy() {
+		return new GpsPoint(latitude, longitude);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

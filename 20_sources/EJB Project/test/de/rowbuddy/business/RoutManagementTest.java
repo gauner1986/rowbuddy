@@ -1,6 +1,7 @@
 package de.rowbuddy.business;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.matchers.IsCollectionOf.equalsList;
 import static org.junit.Assert.assertThat;
@@ -254,5 +255,32 @@ public class RoutManagementTest extends EjbTestBase {
 		assertThat(r.getId(), is(noRefRoute.getId()));
 		assertThat(r.getName(), is("New name"));
 		assertThat(r.getLastEditor(), is(editor));
+	}
+
+	@Test
+	public void canEditRouteWithReferences() throws RowBuddyException {
+		// given
+		Route refRoute = routeMgmt.getRoute(db.getRoutes().get(0).getId());
+		Member editor = db.getMembers().get(1);
+		List<GpsPoint> newPoints = new LinkedList<GpsPoint>();
+		newPoints.add(new GpsPoint(51.25509323774028, 6.182534694671631));
+		newPoints.add(new GpsPoint(51.353364886551454, 6.153985261917114));
+
+		// when
+		refRoute.setName("New name");
+		refRoute.setWayPoints(newPoints);
+		Route newVersion = routeMgmt.editRoute(refRoute, editor);
+
+		// then
+		assertThat(newVersion, notNullValue());
+		assertThat(newVersion.getId(), is(not(refRoute.getId())));
+		assertThat(newVersion.getName(), is("New name"));
+		assertThat(newVersion.getLastEditor(), is(editor));
+		assertThat(newVersion.getWayPoints().size(), is(newPoints.size()));
+
+		Route oldVersion = routeMgmt.getRoute(db.getRoutes().get(0).getId());
+		assertThat(oldVersion.getId(), is(db.getRoutes().get(0).getId()));
+		assertThat(oldVersion.getWayPoints().size(), is(db.getRoutes().get(0)
+				.getWayPoints().size()));
 	}
 }

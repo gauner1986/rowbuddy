@@ -112,13 +112,19 @@ public class Route implements Serializable {
 		if (wayPoints.size() < 2) {
 			throw new RowBuddyException("At least two waypoints are needed");
 		}
+		// create copies to prevent existing way points from being edited
+		List<GpsPoint> copies = new LinkedList<GpsPoint>();
+		for (GpsPoint point : wayPoints) {
+			copies.add(point.getCopy());
+		}
+
 		double length = 0;
-		for (int i = 0; i < wayPoints.size() - 1; i++) {
-			length += wayPoints.get(i).distanceKmTo(wayPoints.get(i + 1));
+		for (int i = 0; i < copies.size() - 1; i++) {
+			length += copies.get(i).distanceKmTo(copies.get(i + 1));
 		}
 		setLengthKM(length);
 
-		this.wayPoints = wayPoints;
+		this.wayPoints = copies;
 	}
 
 	public List<GpsPoint> getWayPoints() {
