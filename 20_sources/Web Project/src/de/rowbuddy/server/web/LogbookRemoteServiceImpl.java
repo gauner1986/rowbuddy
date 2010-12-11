@@ -10,7 +10,9 @@ import de.rowbuddy.exceptions.RowBuddyException;
 
 public class LogbookRemoteServiceImpl extends AbstractRemoteService implements
 		LogbookRemoteService {
-	
+
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public void logRowedTrip(Trip rowedTrip) throws RowBuddyException {
 		getRowBuddyFacade().logRowedTrip(rowedTrip);
@@ -30,7 +32,7 @@ public class LogbookRemoteServiceImpl extends AbstractRemoteService implements
 	public void finishTrip(Trip openTrip) throws RowBuddyException {
 		getRowBuddyFacade().finishTrip(openTrip);
 	}
-	
+
 	@Override
 	public Trip getTrip(Long id) throws RowBuddyException {
 		return getRowBuddyFacade().getTrip(id);

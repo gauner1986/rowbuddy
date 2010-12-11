@@ -25,6 +25,7 @@ import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Role;
+import de.rowbuddy.entities.Route;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
@@ -49,6 +50,8 @@ public class RowBuddyFacade {
 	private Logbook logbook;
 	@EJB
 	private LogbookBoundary logbookBoundary;
+	@EJB
+	private RouteManagement routeManagement;
 
 	/**
 	 * Default constructor.
@@ -179,4 +182,29 @@ public class RowBuddyFacade {
 			throws RowBuddyException {
 		boatManagement.addDamage(damage, member, boatId);
 	}
+
+	public Route addRoute(Route newRoute) throws RowBuddyException {
+		return routeManagement.addRoute(newRoute, member);
+	}
+
+	public List<Route> getRouteList() {
+		return routeManagement.getRouteList();
+	}
+
+	public Route editRoute(Route route) throws RowBuddyException {
+		return routeManagement.editRoute(route, member);
+	}
+
+	public Route getRoute(Long id) throws RowBuddyException {
+		return routeManagement.getRoute(id);
+	}
+
+	public void deleteRoute(Long id) throws RowBuddyException {
+		routeManagement.deleteRoute(id, member);
+	}
+
+	public boolean canEditRoute(Route route) {
+		return routeManagement.canEditRoute(route, member);
+	}
+
 }
