@@ -20,10 +20,14 @@ public class RouteManagement {
 	@PersistenceContext
 	private EntityManager em;
 
-	public void addRoute(Route newRoute, Member currentUser)
+	public Route addRoute(Route newRoute, Member currentUser)
 			throws RowBuddyException {
 		if (newRoute == null) {
 			throw new RowBuddyException("Route must be specified");
+		}
+
+		if (currentUser == null) {
+			throw new RowBuddyException("User must not be null");
 		}
 
 		if (newRoute.getId() != null) {
@@ -38,10 +42,15 @@ public class RouteManagement {
 			throw new RowBuddyException("Last editor must not be set");
 		}
 
+		if (newRoute.isDeleted()) {
+			throw new RowBuddyException("Cannot add a deleted route");
+		}
+
 		newRoute.validate();
 		newRoute.setLastEditor(currentUser);
 
 		em.persist(newRoute);
+		return newRoute;
 	}
 
 	/**

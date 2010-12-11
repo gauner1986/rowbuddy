@@ -2,4 +2,5 @@
     <source path="entities"/>
     <source path="boundary/dtos"/>
     <source path="exceptions"/>
+    <source path="util" />
 </module>

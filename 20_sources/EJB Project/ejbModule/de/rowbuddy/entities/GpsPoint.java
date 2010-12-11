@@ -1,17 +1,23 @@
 package de.rowbuddy.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import de.rowbuddy.util.GpsUtility;
 
 /**
  * Entity implementation class for Entity: GpsPoint
- *
+ * 
  */
 @Entity
 public class GpsPoint implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private double longitude = 0;
 	private double latitude = 0;
@@ -19,8 +25,13 @@ public class GpsPoint implements Serializable {
 
 	public GpsPoint() {
 		super();
-	} 
-	
+	}
+
+	public GpsPoint(double latitude, double longitude) {
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+
 	public Long getId() {
 		return this.id;
 	}
@@ -44,5 +55,10 @@ public class GpsPoint implements Serializable {
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
-   
+
+	public double distanceKmTo(GpsPoint otherPoint) {
+		return GpsUtility.distanceKm(this.latitude, this.longitude,
+				otherPoint.latitude, otherPoint.longitude);
+	}
+
 }

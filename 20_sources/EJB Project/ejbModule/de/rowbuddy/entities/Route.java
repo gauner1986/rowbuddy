@@ -96,10 +96,18 @@ public class Route implements Serializable {
 		this.lastEditor = lastEditor;
 	}
 
-	public void setWayPoints(List<GpsPoint> wayPoints) {
+	public void setWayPoints(List<GpsPoint> wayPoints) throws RowBuddyException {
 		if (wayPoints == null) {
 			throw new NullPointerException("Waypoints cannot be null");
 		}
+		if (wayPoints.size() < 2) {
+			throw new RowBuddyException("At least two waypoints are needed");
+		}
+		double length = 0;
+		for (int i = 0; i < wayPoints.size() - 1; i++) {
+			length += wayPoints.get(i).distanceKmTo(wayPoints.get(i + 1));
+		}
+		setLengthKM(length);
 
 		this.wayPoints = wayPoints;
 	}
