@@ -1,5 +1,6 @@
 package de.rowbuddy.util;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import de.rowbuddy.entities.GpsPoint;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Route;
 import de.rowbuddy.entities.Trip;
+import de.rowbuddy.entities.TripMember;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 public class Database {
@@ -28,6 +30,7 @@ public class Database {
 	private List<Boat> boats;
 	private List<Member> members;
 	private List<Route> routes;
+	private List<Trip> trips;
 
 	private Database() {
 		em = (EntityManagerBeanLocal) Ejb.lookUp(EntityManagerBean.class,
@@ -82,6 +85,12 @@ public class Database {
 		member1.setEmail("test@test.de");
 		em.persist(member1);
 
+		Member member2 = new Member();
+		member2.setSurname("Fridolin");
+		member2.setGivenname("Freud");
+		member2.setEmail("fridolin@freud.de");
+		em.persist(member2);
+
 		members = em.getAllEntities(Member.class);
 	}
 
@@ -127,6 +136,20 @@ public class Database {
 		routes = em.getAllEntities(Route.class);
 	}
 
+	public void setupTrips() {
+		Trip trip1 = new Trip();
+		trip1.setBoat(boats.get(0));
+		trip1.setStartDate(new Date());
+		trip1.setFinished(false);
+		trip1.setRoute(routes.get(0));
+		TripMember tm1 = new TripMember();
+		tm1.setMember(members.get(0));
+		trip1.addTripMember(tm1);
+		em.persist(trip1);
+
+		trips = em.getAllEntities(Trip.class);
+	}
+
 	public List<Boat> getBoats() {
 		return boats;
 	}
@@ -137,6 +160,10 @@ public class Database {
 
 	public List<Route> getRoutes() {
 		return routes;
+	}
+
+	public List<Trip> getTrips() {
+		return trips;
 	}
 
 }

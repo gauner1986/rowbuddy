@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.rowbuddy.entities.GpsPoint;
+import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Route;
 import de.rowbuddy.exceptions.RowBuddyException;
 import de.rowbuddy.util.Ejb;
@@ -29,7 +30,9 @@ public class RoutManagementTest extends EjbTestBase {
 	@Before
 	public void setup() throws RowBuddyException {
 		db.setupMembers();
+		db.setupBoats();
 		db.setupRoutes();
+		db.setupTrips();
 		routeMgmt = Ejb.lookUp(RouteManagement.class, RouteManagement.class);
 
 		// Normal route
@@ -236,13 +239,20 @@ public class RoutManagementTest extends EjbTestBase {
 		assertThat(route, is(notNullValue()));
 	}
 
-	// @Test
-	// public void canEditRouteWithoutReferences() throws RowBuddyException {
-	//
-	// // given
-	// db.setupRoutes();
-	//
-	// // when
-	//
-	// }
+	@Test
+	public void canEditRouteWithoutReferences() throws RowBuddyException {
+		// given
+		Route noRefRoute = db.getRoutes().get(1);
+		Member editor = db.getMembers().get(1);
+
+		// when
+		noRefRoute.setName("New name");
+		Route r = routeMgmt.editRoute(noRefRoute, editor);
+
+		// then
+		assertThat(r, notNullValue());
+		assertThat(r.getId(), is(noRefRoute.getId()));
+		assertThat(r.getName(), is("New name"));
+		assertThat(r.getLastEditor(), is(editor));
+	}
 }

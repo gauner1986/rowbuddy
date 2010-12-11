@@ -101,6 +101,14 @@ public class Route implements Serializable {
 		if (wayPoints == null) {
 			throw new NullPointerException("Waypoints cannot be null");
 		}
+		if (wayPoints.size() == 0) {
+			if (this.wayPoints.size() > 0) {
+				// if way points were set before, remove length of route
+				setLengthKM(0);
+			}
+			this.wayPoints = wayPoints;
+			return;
+		}
 		if (wayPoints.size() < 2) {
 			throw new RowBuddyException("At least two waypoints are needed");
 		}

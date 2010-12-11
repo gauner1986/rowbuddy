@@ -5,7 +5,15 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import de.rowbuddy.exceptions.RowBuddyException;
 
@@ -51,22 +59,22 @@ public class Trip implements Serializable {
 	}
 
 	public void setStartDate(Date newStartDate) {
-		if (newStartDate == null){
+		if (newStartDate == null) {
 			throw new NullPointerException("Start date must not be null");
 		}
 		this.startDate = newStartDate;
 	}
-	
-	public void startNow(){
+
+	public void startNow() {
 		setStartDate(new Date());
 	}
-	
+
 	public Date getEndDate() {
 		return this.endDate;
 	}
 
 	public void setEndDate(Date newEndDate) {
-		if (newEndDate == null){
+		if (newEndDate == null) {
 			throw new NullPointerException("End date must not be null");
 		}
 		this.endDate = newEndDate;
@@ -105,6 +113,10 @@ public class Trip implements Serializable {
 		if (newMember == null) {
 			throw new NullPointerException("Tripmember must not be null");
 		}
+		if (newMember.getMember() == null) {
+			throw new NullPointerException(
+					"Member of Tripmember must not be null");
+		}
 		tripMembers.add(newMember);
 	}
 
@@ -140,7 +152,7 @@ public class Trip implements Serializable {
 	public boolean isFinished() {
 		return finished;
 	}
-	
+
 	public void setFinished(boolean finished) {
 		this.finished = finished;
 	}
@@ -152,7 +164,7 @@ public class Trip implements Serializable {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -170,27 +182,26 @@ public class Trip implements Serializable {
 		}
 		return true;
 	}
-	
-	public void validateStartedTrip() throws RowBuddyException{
-		
-		if (startDate == null){
+
+	public void validateStartedTrip() throws RowBuddyException {
+
+		if (startDate == null) {
 			throw new RowBuddyException("Start date must be set");
 		}
 	}
-	
+
 	public void validateFinishedTrip() throws RowBuddyException {
 
 		validateStartedTrip();
-		
-		if (endDate == null){
+
+		if (endDate == null) {
 			throw new RowBuddyException("End date must be set");
 		}
-		
+
 		if (startDate.after(endDate)) {
-			throw new RowBuddyException(
-					"End date must be after start date");
+			throw new RowBuddyException("End date must be after start date");
 		}
-		
+
 		if (route == null) {
 			throw new RowBuddyException("A Route must be set");
 		}
@@ -202,6 +213,6 @@ public class Trip implements Serializable {
 		if (tripMembers.size() == 0) {
 			throw new RowBuddyException("Please add tripmembers");
 		}
-		
+
 	}
 }

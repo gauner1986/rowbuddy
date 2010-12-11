@@ -99,6 +99,11 @@ public class RouteManagement {
 			throw new RowBuddyException("Route does not exist");
 		}
 
+		Member persistedMember = editor;
+		if (!em.contains(editor)) {
+			persistedMember = em.getReference(Member.class, editor.getId());
+		}
+
 		Route newVersion = fromDb;
 		if (hasReferences(fromDb)) {
 			fromDb.setDeleted(true);
@@ -113,7 +118,7 @@ public class RouteManagement {
 		newVersion.setName(route.getName());
 		newVersion.setShortDescription(route.getShortDescription());
 		newVersion.setWayPoints(route.getWayPoints());
-		newVersion.setLastEditor(editor);
+		newVersion.setLastEditor(persistedMember);
 
 		return newVersion;
 	}
@@ -133,7 +138,7 @@ public class RouteManagement {
 
 	public boolean hasReferences(Route route) {
 		TypedQuery<Trip> trips = em.createQuery(
-				"SELECT t FROM TRIP t WHERE t.route = :route", Trip.class);
+				"SELECT t FROM Trip t WHERE t.route = :route", Trip.class);
 		trips.setParameter("route", route);
 		if (trips.getResultList().size() == 0) {
 			return false;
