@@ -8,6 +8,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
@@ -35,8 +36,10 @@ public class ListPersonalTripsView extends HeaderButtonView implements
 		tripTable = new FlexTable();
 		tripTable.setWidth("100%");
 		tripTable.setStyleName("boatTable");
-
-		setContent(tripTable);
+		ScrollPanel scrollPanel = new ScrollPanel();
+		scrollPanel.add(tripTable);
+		scrollPanel.setStyleName("scollTable");
+		setContent(scrollPanel);
 	}
 
 	@Override
