@@ -5,16 +5,20 @@ import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.client.presenter.Presenter;
+import de.rowbuddy.client.presenter.route.RoutePresenter;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
+import de.rowbuddy.client.views.route.RouteView;
 
 public class ListRoutesPresenterChanger extends PresenterChanger {
 
 	private RouteRemoteServiceAsync routeService;
+	private EventBus eventBus;
 
 	public ListRoutesPresenterChanger(HasWidgets targetWidget,
 			EventBus eventBus, RouteRemoteServiceAsync routeService) {
 		super(targetWidget, eventBus);
 		this.routeService = routeService;
+		this.eventBus = eventBus;
 	}
 
 	@Override
@@ -24,8 +28,7 @@ public class ListRoutesPresenterChanger extends PresenterChanger {
 
 	@Override
 	public Presenter createPresenter(AbstractEvent<?> event) {
-		// TODO Hier muss noch ein Presenter erzeugt werden
-		return null;
+		return new RoutePresenter(routeService, new RouteView(), eventBus);
 	}
 
 	@Override
