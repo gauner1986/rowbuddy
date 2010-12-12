@@ -88,6 +88,11 @@ public class EditBoatPresenter implements Presenter {
 			@Override
 			public void onFailure(Throwable arg0) {
 				logger.severe("Cannot fetch boat:" + arg0.getMessage());
+				eventBus.fireEvent(new ListBoatsEvent());
+				StatusMessage message = new StatusMessage(false);
+				message.setStatus(Status.NEGATIVE);
+				message.setMessage("Boot existiert nicht");
+				eventBus.fireEvent(new StatusMessageEvent(message));
 			}
 		});
 	}

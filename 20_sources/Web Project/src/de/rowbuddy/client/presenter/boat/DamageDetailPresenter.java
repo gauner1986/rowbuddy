@@ -13,6 +13,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.events.EditDamageEvent;
 import de.rowbuddy.client.events.ListDamageEvent;
+import de.rowbuddy.client.events.StatusMessageEvent;
+import de.rowbuddy.client.model.StatusMessage;
+import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.BoatDamage;
@@ -93,6 +96,11 @@ public class DamageDetailPresenter implements Presenter {
 			@Override
 			public void onFailure(Throwable arg0) {
 				logger.severe(arg0.getMessage());
+				eventBus.fireEvent(new ListDamageEvent());
+				StatusMessage message = new StatusMessage(false);
+				message.setStatus(Status.NEGATIVE);
+				message.setMessage("Schaden existiert nicht mehr");
+				eventBus.fireEvent(new StatusMessageEvent(message));
 			}
 		});
 	}

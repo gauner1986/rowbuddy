@@ -137,6 +137,11 @@ public class EditDamagePresenter implements Presenter {
 			@Override
 			public void onFailure(Throwable arg0) {
 				logger.severe(arg0.getMessage());
+				eventBus.fireEvent(new ListDamageEvent());
+				StatusMessage message = new StatusMessage(false);
+				message.setStatus(Status.NEGATIVE);
+				message.setMessage("Schaden existiert nicht");
+				eventBus.fireEvent(new StatusMessageEvent(message));
 			}
 		});
 	}

@@ -10,6 +10,8 @@ import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
@@ -42,12 +44,14 @@ public class ListDamagePresenter implements Presenter {
 	private Logger logger = Logger.getLogger(ListDamagePresenter.class
 			.getName());
 	private List<DamageDTO> fetchedDamages;
+	private DateTimeFormat dtf;
 
 	public ListDamagePresenter(Display view, BoatRemoteServiceAsync service,
 			EventBus eventBus) {
 		this.view = view;
 		this.service = service;
 		this.eventBus = eventBus;
+		dtf = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM);
 	}
 
 	@Override
@@ -65,9 +69,10 @@ public class ListDamagePresenter implements Presenter {
 			public void onSuccess(List<DamageDTO> arg0) {
 				fetchedDamages = arg0;
 				view.clear();
+
 				for (DamageDTO damage : fetchedDamages) {
 					view.addDamageRow(damage.getBootName(), damage.getMember(),
-							damage.getDate().toString(), damage.isFixed());
+							dtf.format(damage.getDate()), damage.isFixed());
 				}
 			}
 

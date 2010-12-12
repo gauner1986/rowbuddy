@@ -13,8 +13,11 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.EditBoatEvent;
+import de.rowbuddy.client.events.ListBoatsEvent;
+import de.rowbuddy.client.events.StatusMessageEvent;
+import de.rowbuddy.client.model.StatusMessage;
+import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.Boat;
@@ -96,6 +99,11 @@ public class BoatDetailPresenter implements Presenter {
 			@Override
 			public void onFailure(Throwable arg0) {
 				logger.severe(arg0.getMessage());
+				eventBus.fireEvent(new ListBoatsEvent());
+				StatusMessage message = new StatusMessage(false);
+				message.setStatus(Status.NEGATIVE);
+				message.setMessage("Boot existiert nicht");
+				eventBus.fireEvent(new StatusMessageEvent(message));
 			}
 		});
 	}
