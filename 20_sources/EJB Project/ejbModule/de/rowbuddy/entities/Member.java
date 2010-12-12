@@ -1,9 +1,9 @@
 package de.rowbuddy.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -39,9 +39,9 @@ public class Member implements Serializable {
 	private String city = "";
 	private String zipCode = "";
 	@OneToMany
-	private Collection<Trip> publishedTrips = new LinkedList<Trip>();
+	private List<Trip> publishedTrips = new LinkedList<Trip>();
 	@ManyToMany(cascade = CascadeType.ALL)
-	private Collection<Role> roles = new LinkedList<Role>();
+	private List<Role> roles = new LinkedList<Role>();
 	private static final long serialVersionUID = 1L;
 
 	public Member() {
@@ -165,22 +165,22 @@ public class Member implements Serializable {
 		this.zipCode = zipCode;
 	}
 
-	public Collection<Trip> getPublishedTrips() {
+	public List<Trip> getPublishedTrips() {
 		return publishedTrips;
 	}
 
-	public void setPublishedTrips(Collection<Trip> publishedTrips) {
+	public void setPublishedTrips(List<Trip> publishedTrips) {
 		if (publishedTrips == null) {
 			throw new NullPointerException("Published trips must not be null");
 		}
 		this.publishedTrips = publishedTrips;
 	}
 
-	public Collection<Role> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Collection<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		if (roles == null) {
 			throw new NullPointerException("Roles must not be null");
 		}
