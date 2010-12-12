@@ -15,31 +15,34 @@ public class RouteRemoteServiceImpl extends AbstractRemoteService implements
 
 	@Override
 	public Route addRoute(Route newRoute) throws RowBuddyException {
-		return getRowBuddyFacade().addRoute(newRoute);
+		return makeSerlizable(getRowBuddyFacade().addRoute(newRoute));
+	}
+
+	private Route makeSerlizable(Route route) throws RowBuddyException {
+		List<GpsPoint> points = new LinkedList<GpsPoint>(route.getWayPoints());
+		route.setWayPoints(points);
+		route.getLastEditor().setRoles(new LinkedList<Role>());
+		route.getLastEditor().setPublishedTrips(new LinkedList<Trip>());
+		return route;
 	}
 
 	@Override
 	public List<Route> getRouteList() throws RowBuddyException {
 		List<Route> routes = new LinkedList<Route>();
 		for (Route route : getRowBuddyFacade().getRouteList()) {
-			List<GpsPoint> points = new LinkedList<GpsPoint>(
-					route.getWayPoints());
-			route.setWayPoints(points);
-			route.getLastEditor().setRoles(new LinkedList<Role>());
-			route.getLastEditor().setPublishedTrips(new LinkedList<Trip>());
-			routes.add(route);
+			routes.add(makeSerlizable(route));
 		}
 		return routes;
 	}
 
 	@Override
 	public Route editRoute(Route route) throws RowBuddyException {
-		return getRowBuddyFacade().editRoute(route);
+		return makeSerlizable(getRowBuddyFacade().editRoute(route));
 	}
 
 	@Override
 	public Route getRoute(Long id) throws RowBuddyException {
-		return getRowBuddyFacade().getRoute(id);
+		return makeSerlizable(getRowBuddyFacade().getRoute(id));
 	}
 
 	@Override
