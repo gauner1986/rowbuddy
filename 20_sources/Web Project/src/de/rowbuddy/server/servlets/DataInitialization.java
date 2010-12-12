@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.rowbuddy.business.BoatManagement;
 import de.rowbuddy.business.MemberManagement;
+import de.rowbuddy.business.RouteManagement;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.entities.Member;
+import de.rowbuddy.entities.Route;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 /**
@@ -28,6 +30,9 @@ public class DataInitialization extends HttpServlet {
 
 	@EJB
 	private MemberManagement memberManagement;
+	
+	@EJB
+	private RouteManagement routeManagement;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -41,6 +46,7 @@ public class DataInitialization extends HttpServlet {
 	public void init() {
 		Boat b1 = new Boat();
 		Member member = createTestMember();
+		createTestRoutes(member);
 		try {
 			b1.setName("Test Boot");
 			b1.setCoxed(false);
@@ -79,6 +85,32 @@ public class DataInitialization extends HttpServlet {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void createTestRoutes(Member member) {
+		Route r1 = null;
+		Route r2 = null;
+		try {
+			r1 = new Route();
+			r1.setLastEditor(member);
+			r1.setDeleted(false);
+			r1.setLengthKM(4.3);
+			r1.setMutable(true);
+			r1.setName("Krefelder Trainingsstrecke");
+			r1.setShortDescription("Eine sehr schöne Strecke zum trainieren.");			
+			routeManagement.addRoute(r1, member);
+			r2 = new Route();
+			r2.setLastEditor(member);
+			r2.setDeleted(false);
+			r2.setLengthKM(2.6);
+			r2.setMutable(false);
+			r2.setName("Rhein Duisburg-Wesel");
+			r2.setShortDescription("perfekt zum rudern :-)");			
+			routeManagement.addRoute(r2, member);
+		} catch (RowBuddyException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
 
 	private Member createTestMember() {
