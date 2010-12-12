@@ -92,6 +92,7 @@ public class DataInitialization extends HttpServlet {
 		Route r2 = null;
 		try {
 			r1 = new Route();
+			r1.setId(null);
 //			r1.setLastEditor(member);
 			r1.setDeleted(false);
 			r1.setLengthKM(4.3);
