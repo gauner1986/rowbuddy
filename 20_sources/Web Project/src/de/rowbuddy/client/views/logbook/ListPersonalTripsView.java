@@ -61,8 +61,9 @@ public class ListPersonalTripsView extends HeaderButtonView implements
 
 	private void initTableHead() {
 		tripTable.setText(0, 0, "Route");
-		tripTable.setText(0, 1, "Startzeit");
-		tripTable.setText(0, 2, "Endzeit");
+		tripTable.setText(0, 1, "Boot");
+		tripTable.setText(0, 2, "Startzeit");
+		tripTable.setText(0, 3, "Endzeit");
 		tripTable.getRowFormatter().setStyleName(0, "boatTableHeader");
 
 	}
@@ -78,9 +79,12 @@ public class ListPersonalTripsView extends HeaderButtonView implements
 			if (trip.getRoute() != null) {
 				tripTable.setText(i, 0, trip.getRoute().getName());
 			}
-			tripTable.setText(i, 1, dateFormat.format(trip.getStartDate()));
+			if (trip.getBoat() != null) {
+				tripTable.setText(i, 1, trip.getBoat().getName());
+			}
+			tripTable.setText(i, 2, dateFormat.format(trip.getStartDate()));
 			if (trip.getEndDate() != null) {
-				tripTable.setText(i, 2, dateFormat.format(trip.getEndDate()));
+				tripTable.setText(i, 3, dateFormat.format(trip.getEndDate()));
 			}
 
 			HTMLTable.RowFormatter rf = tripTable.getRowFormatter();
