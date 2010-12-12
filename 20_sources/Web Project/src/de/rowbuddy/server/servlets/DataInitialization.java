@@ -92,7 +92,7 @@ public class DataInitialization extends HttpServlet {
 		Route r2 = null;
 		try {
 			r1 = new Route();
-			r1.setLastEditor(member);
+//			r1.setLastEditor(member);
 			r1.setDeleted(false);
 			r1.setLengthKM(4.3);
 			r1.setMutable(true);
@@ -100,7 +100,7 @@ public class DataInitialization extends HttpServlet {
 			r1.setShortDescription("Eine sehr schöne Strecke zum trainieren.");			
 			routeManagement.addRoute(r1, member);
 			r2 = new Route();
-			r2.setLastEditor(member);
+//			r2.setLastEditor(member);
 			r2.setDeleted(false);
 			r2.setLengthKM(2.6);
 			r2.setMutable(false);
