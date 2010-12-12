@@ -11,7 +11,7 @@ public interface RouteRemoteService extends RemoteService {
 
 	public Route addRoute(Route newRoute) throws RowBuddyException;
 
-	public List<Route> getRouteList();
+	public List<Route> getRouteList() throws RowBuddyException;
 
 	public Route editRoute(Route route) throws RowBuddyException;
 

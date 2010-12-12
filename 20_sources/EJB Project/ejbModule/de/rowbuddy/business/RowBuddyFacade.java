@@ -187,7 +187,7 @@ public class RowBuddyFacade {
 		return routeManagement.addRoute(newRoute, member);
 	}
 
-	public List<Route> getRouteList() {
+	public List<Route> getRouteList() throws RowBuddyException {
 		return routeManagement.getRouteList();
 	}
 

@@ -1,9 +1,13 @@
 package de.rowbuddy.server.web;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import de.rowbuddy.client.services.RouteRemoteService;
+import de.rowbuddy.entities.GpsPoint;
+import de.rowbuddy.entities.Role;
 import de.rowbuddy.entities.Route;
+import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 public class RouteRemoteServiceImpl extends AbstractRemoteService implements
@@ -15,8 +19,17 @@ public class RouteRemoteServiceImpl extends AbstractRemoteService implements
 	}
 
 	@Override
-	public List<Route> getRouteList() {
-		return getRowBuddyFacade().getRouteList();
+	public List<Route> getRouteList() throws RowBuddyException {
+		List<Route> routes = new LinkedList<Route>();
+		for (Route route : getRowBuddyFacade().getRouteList()) {
+			List<GpsPoint> points = new LinkedList<GpsPoint>(
+					route.getWayPoints());
+			route.setWayPoints(points);
+			route.getLastEditor().setRoles(new LinkedList<Role>());
+			route.getLastEditor().setPublishedTrips(new LinkedList<Trip>());
+			routes.add(route);
+		}
+		return routes;
 	}
 
 	@Override

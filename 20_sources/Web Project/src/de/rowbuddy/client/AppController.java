@@ -82,7 +82,6 @@ public class AppController implements Presenter, EventListener {
 		eventHandlers.add(new ListRoutePresenterChanger(container, eventBus, routeService));
 		eventHandlers.add(new DetailsRoutePresenterChanger(eventBus, container, routeService));
 		eventHandlers.add(new AddRoutePresenterChanger(container, eventBus, routeService));
-		eventHandlers.add(new ListRoutesPresenterChanger(container, eventBus, routeService));
 	}
 
 	private void bindLogbookEventHandlers() {
