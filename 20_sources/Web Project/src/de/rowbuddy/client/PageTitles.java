@@ -11,4 +11,7 @@ public interface PageTitles {
 	public final String BOAT_DAMAGE_EDIT = "Boot's Schaden verändern";
 	public final String LOGBOOK_PERSONAL_TRIPS = "Eigene Fahrten";
 	public final String LOGBOOK_PERSONAL_OPEN_TRIPS = "Eigene offene Fahrten";
+	public final String ROUTE_OVERVIEW = "Routenübersicht";
+	public final String ROUTE_ADD = "Route hinzufügen";
+	public final String ROUTE_DETAIL = "Route details";
 }

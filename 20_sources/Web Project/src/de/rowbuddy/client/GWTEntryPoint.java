@@ -13,7 +13,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
@@ -34,6 +33,8 @@ import de.rowbuddy.client.services.BoatRemoteService;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.services.LogbookRemoteService;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
+import de.rowbuddy.client.services.RouteRemoteService;
+import de.rowbuddy.client.services.RouteRemoteServiceAsync;
 import de.rowbuddy.client.services.SessionManager;
 import de.rowbuddy.client.services.SessionManagerAsync;
 
@@ -56,6 +57,10 @@ public class GWTEntryPoint implements EntryPoint {
 				.getHostPageBaseURL() + "LogbookRemoteServiceImpl");
 		logger.info("Service registerd: " + GWT.getHostPageBaseURL()
 				+ "LogbookRemoteServiceImpl");
+		
+		RouteRemoteServiceAsync routeService = (RouteRemoteServiceAsync) GWT.create(RouteRemoteService.class);
+		((ServiceDefTarget) routeService).setServiceEntryPoint(GWT.getHostPageBaseURL() + "RouteRemoteServiceImpl");
+		logger.info("Service registerd: " + GWT.getHostPageBaseURL() + "RouteRemoteServiceImpl");
 
 		HasWidgets mainPanel = initialMainPanel();
 		FlowPanel messagePanel = new FlowPanel();
@@ -66,7 +71,7 @@ public class GWTEntryPoint implements EntryPoint {
 		RootPanel.get("Main").add(
 				initalRootFlexTable(mainPanel, messagePanel, vPanel));
 		
-		AppController controller = new AppController(boatService,
+		AppController controller = new AppController(boatService, routeService,
 				logbookService, eventBus, messagePanel, vPanel);
 
 		controller.start(mainPanel);

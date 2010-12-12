@@ -1,7 +1,5 @@
 package de.rowbuddy.client.presenter;
 
-import java.util.logging.Logger;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -10,11 +8,11 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.GWTEntryPoint;
 import de.rowbuddy.client.events.AddDamageEvent;
-import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.ListBoatsEvent;
+import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEvent;
+import de.rowbuddy.client.events.ListRouteEvent;
 
 public class MenuPresenter implements Presenter {
 
@@ -61,9 +59,7 @@ public class MenuPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				Logger logger = Logger.getLogger(GWTEntryPoint.class.getName());
-				logger.info("Click++++++");
-				eventBus.fireEvent(new ListBoatsEvent());
+				eventBus.fireEvent(new ListRouteEvent());
 			}
 		}, ClickEvent.getType());
 
