@@ -69,6 +69,7 @@ public class RouteView extends HeaderButtonView implements Display {
 			} else {
 				rf.addStyleName(i, "FlexTable-EvenRow");
 			}
+			i++;
 		}
 	}
 
