@@ -12,8 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import de.rowbuddy.exceptions.RowBuddyException;
 
@@ -22,6 +24,7 @@ import de.rowbuddy.exceptions.RowBuddyException;
  * 
  */
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames="email"))
 public class Member implements Serializable {
 
 	@Id
