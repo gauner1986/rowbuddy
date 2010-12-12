@@ -19,6 +19,7 @@ import de.rowbuddy.client.events.EditDamagePresenterChanger;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.ListBoatsPresenterChanger;
 import de.rowbuddy.client.events.ListDamagePresenterChanger;
+import de.rowbuddy.client.events.ListPersonalOpenTripsPresenterChanger;
 import de.rowbuddy.client.events.ListPersonalTripsPresenterChanger;
 import de.rowbuddy.client.events.ListRoutesPresenterChanger;
 import de.rowbuddy.client.events.PresenterChanger;
@@ -42,7 +43,8 @@ public class AppController implements Presenter, EventListener {
 	private Presenter menuPresenter;
 	private List<PresenterChanger> eventHandlers = new LinkedList<PresenterChanger>();
 
-	public AppController(BoatRemoteServiceAsync boatService, RouteRemoteServiceAsync routeService,
+	public AppController(BoatRemoteServiceAsync boatService,
+			RouteRemoteServiceAsync routeService,
 			LogbookRemoteServiceAsync logbookService, SimpleEventBus eventBus,
 			HasWidgets messageContainer, HasWidgets menuPanel) {
 		this.boatService = boatService;
@@ -57,16 +59,16 @@ public class AppController implements Presenter, EventListener {
 	}
 
 	private void bindBoatEventHandlers() {
-		eventHandlers
-				.add(new ListBoatsPresenterChanger(eventBus, container, boatService));
+		eventHandlers.add(new ListBoatsPresenterChanger(eventBus, container,
+				boatService));
 		eventHandlers.add(new DetailsBoatPresenterChanger(eventBus, container,
 				boatService));
 		eventHandlers.add(new AddBoatPresenterChanger(container, eventBus,
 				boatService));
-		eventHandlers
-				.add(new AddDamagePresenterChanger(container, eventBus, boatService));
-		eventHandlers.add(new DetailsDamagePresenterChanger(container, eventBus,
+		eventHandlers.add(new AddDamagePresenterChanger(container, eventBus,
 				boatService));
+		eventHandlers.add(new DetailsDamagePresenterChanger(container,
+				eventBus, boatService));
 		eventHandlers.add(new EditDamagePresenterChanger(container, eventBus,
 				boatService));
 
@@ -78,14 +80,19 @@ public class AppController implements Presenter, EventListener {
 	}
 
 	private void bindRoutEventHandlers() {
-		eventHandlers.add(new DetailsRoutePresenterChanger(eventBus, container, routeService));
-		eventHandlers.add(new AddRoutePresenterChanger(container, eventBus, routeService));
-		eventHandlers.add(new ListRoutesPresenterChanger(container, eventBus, routeService));
+		eventHandlers.add(new DetailsRoutePresenterChanger(eventBus, container,
+				routeService));
+		eventHandlers.add(new AddRoutePresenterChanger(container, eventBus,
+				routeService));
+		eventHandlers.add(new ListRoutesPresenterChanger(container, eventBus,
+				routeService));
 	}
 
 	private void bindLogbookEventHandlers() {
 
 		eventHandlers.add(new ListPersonalTripsPresenterChanger(container,
+				eventBus, logbookService));
+		eventHandlers.add(new ListPersonalOpenTripsPresenterChanger(container,
 				eventBus, logbookService));
 
 	}

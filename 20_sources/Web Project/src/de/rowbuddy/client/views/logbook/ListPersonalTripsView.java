@@ -1,27 +1,18 @@
 package de.rowbuddy.client.views.logbook;
 
-import java.text.DateFormat;
 import java.util.Collection;
-
-import javax.xml.registry.infomodel.PersonName;
-
-import de.rowbuddy.boundary.dtos.BoatDTO;
-import de.rowbuddy.boundary.dtos.PersonalTripDTO;
-import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.presenter.ListPersonalTripsPresenter;
-import de.rowbuddy.client.views.HeaderButtonView;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import de.rowbuddy.boundary.dtos.PersonalTripDTO;
+import de.rowbuddy.client.presenter.ListPersonalTripsPresenter;
+import de.rowbuddy.client.views.HeaderButtonView;
 
 public class ListPersonalTripsView extends HeaderButtonView implements
 		ListPersonalTripsPresenter.Display {
@@ -32,7 +23,6 @@ public class ListPersonalTripsView extends HeaderButtonView implements
 
 	public ListPersonalTripsView(String pageTitle) {
 		super(pageTitle);
-
 
 		startTripButton = new Button("Trip starten");
 		startTripButton.setStyleName("buttonAdd buttonRegular");
@@ -82,7 +72,8 @@ public class ListPersonalTripsView extends HeaderButtonView implements
 		tripTable.removeAllRows();
 		initTableHead();
 		int i = 1;
-		DateTimeFormat dateFormat = DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_TIME_SHORT);
+		DateTimeFormat dateFormat = DateTimeFormat
+				.getFormat(DateTimeFormat.PredefinedFormat.DATE_TIME_SHORT);
 		for (PersonalTripDTO trip : trips) {
 			if (trip.getRoute() != null) {
 				tripTable.setText(i, 0, trip.getRoute().getName());
@@ -91,7 +82,7 @@ public class ListPersonalTripsView extends HeaderButtonView implements
 			if (trip.getEndDate() != null) {
 				tripTable.setText(i, 2, dateFormat.format(trip.getEndDate()));
 			}
-			
+
 			HTMLTable.RowFormatter rf = tripTable.getRowFormatter();
 
 			if ((i % 2) != 0) {

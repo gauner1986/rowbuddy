@@ -31,6 +31,7 @@ public class MenuView extends Composite implements MenuDisplay {
 	private Images images = (Images) GWT.create(Images.class);
 	private Anchor browseBoats = new Anchor("Bootsübersicht");
 	private Anchor listPersonalTrips = new Anchor("Meine Fahrten");
+	private Anchor listPersonalOpenTrips = new Anchor("Meine offenen Fahrten");
 	private Anchor browseDamages = new Anchor("Schäden anzeigen(admin)");
 	private DecoratedStackPanel menuPanel = new DecoratedStackPanel();
 	private HorizontalPanel route = getHeaderString("Route", images.map());
@@ -109,13 +110,11 @@ public class MenuView extends Composite implements MenuDisplay {
 		FlexTable tb = new FlexTable();
 		Anchor browseTrips = new Anchor("Fahrtenübersicht");
 		Anchor browseOpenTrips = new Anchor("Offene Fahrten");
-		Anchor browsePersonalOpenTrips = new Anchor(
-				"Persönliche offene Fahrten");
 
 		tb.setWidget(0, 0, listPersonalTrips);
 		tb.setWidget(1, 0, browseTrips);
 		tb.setWidget(2, 0, browseOpenTrips);
-		tb.setWidget(3, 0, browsePersonalOpenTrips);
+		tb.setWidget(3, 0, listPersonalOpenTrips);
 
 		tb.getRowFormatter().setStyleName(0, "menuItem");
 		tb.getRowFormatter().setStyleName(1, "menuItem");
@@ -214,6 +213,11 @@ public class MenuView extends Composite implements MenuDisplay {
 	@Override
 	public HasClickHandlers getListPersonalTripsButton() {
 		return listPersonalTrips;
+	}
+
+	@Override
+	public HasClickHandlers getListPersonalOpenTripsButton() {
+		return listPersonalOpenTrips;
 	}
 
 	@Override

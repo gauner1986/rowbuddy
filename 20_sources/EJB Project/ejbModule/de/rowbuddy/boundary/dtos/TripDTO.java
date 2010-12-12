@@ -1,22 +1,22 @@
 package de.rowbuddy.boundary.dtos;
 
-import java.util.Collection;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.LinkedList;
+import java.util.List;
 
 import de.rowbuddy.entities.Boat;
-import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Route;
-import de.rowbuddy.entities.TripMember;
 
-public class TripDTO {
+public class TripDTO implements Serializable {
+
+	private static final long serialVersionUID = 1201358638320472393L;
 
 	private Long id = null;
 	private Date startDate = null;
 	private Date endDate = null;
 	private Boat boat = null;
-	private Collection<TripMember> tripMembers = new LinkedList<TripMember>();
-	private Member lastEditor = null;
+	private List<TripMemberDTO> tripMembers = null;
+	private MemberDTO lastEditor = null;
 	private Route route = null;
 	private boolean finished = false;
 	private boolean canEditTrip = false;
@@ -53,19 +53,19 @@ public class TripDTO {
 		this.boat = boat;
 	}
 
-	public Collection<TripMember> getTripMembers() {
+	public List<TripMemberDTO> getTripMembers() {
 		return tripMembers;
 	}
 
-	public void setTripMembers(Collection<TripMember> tripMembers) {
+	public void setTripMembers(List<TripMemberDTO> tripMembers) {
 		this.tripMembers = tripMembers;
 	}
 
-	public Member getLastEditor() {
+	public MemberDTO getLastEditor() {
 		return lastEditor;
 	}
 
-	public void setLastEditor(Member lastEditor) {
+	public void setLastEditor(MemberDTO lastEditor) {
 		this.lastEditor = lastEditor;
 	}
 

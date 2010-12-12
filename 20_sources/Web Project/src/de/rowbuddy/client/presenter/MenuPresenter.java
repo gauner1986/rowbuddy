@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Widget;
 import de.rowbuddy.client.events.AddDamageEvent;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.ListDamageEvent;
+import de.rowbuddy.client.events.ListPersonalOpenTripsEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEvent;
 import de.rowbuddy.client.events.ListRoutesEvent;
 
@@ -22,6 +23,8 @@ public class MenuPresenter implements Presenter {
 		public HasClickHandlers getListBoatButton();
 
 		public HasClickHandlers getListPersonalTripsButton();
+
+		public HasClickHandlers getListPersonalOpenTripsButton();
 
 		public HasClickHandlers getListDamageButton();
 
@@ -75,6 +78,15 @@ public class MenuPresenter implements Presenter {
 				eventBus.fireEvent(new ListPersonalTripsEvent());
 			}
 		});
+
+		view.getListPersonalOpenTripsButton().addClickHandler(
+				new ClickHandler() {
+
+					@Override
+					public void onClick(ClickEvent arg0) {
+						eventBus.fireEvent(new ListPersonalOpenTripsEvent());
+					}
+				});
 
 		view.getListDamageButton().addClickHandler(new ClickHandler() {
 

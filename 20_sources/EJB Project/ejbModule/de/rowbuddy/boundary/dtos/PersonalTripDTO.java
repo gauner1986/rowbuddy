@@ -1,38 +1,23 @@
 package de.rowbuddy.boundary.dtos;
 
-import java.util.Collection;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import de.rowbuddy.entities.Boat;
-import de.rowbuddy.entities.Member;
-import de.rowbuddy.entities.Route;
-import de.rowbuddy.entities.TripMember;
+public class PersonalTripDTO implements Serializable {
 
-public class PersonalTripDTO {
+	private static final long serialVersionUID = 5901330792234801831L;
 
 	private Long id = null;
 	private Date startDate = null;
 	private Date endDate = null;
-	private Boat boat = null;
-	private TripMember memberRole = null;
-	private Member lastEditor = null;
-	private Route route = null;
+	private BoatDTO boat = null;
+	private TripMemberDTO memberRole = null;
+	private MemberDTO lastEditor = null;
+	private RouteDTO route = null;
 	private boolean finished = false;
-	private TripMember userMember = null;
+	private TripMemberDTO userMember = null;
 
-	public PersonalTripDTO(Long id, Date startDate, Date endDate, Boat boat,
-			TripMember memberRole, Member lastEditor, Route route,
-			boolean finished) {
-		super();
-		this.id = id;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.boat = boat;
-		this.memberRole = memberRole;
-		this.lastEditor = lastEditor;
-		this.route = route;
-		this.finished = finished;
+	public PersonalTripDTO() {
 	}
 
 	public Long getId() {
@@ -47,19 +32,19 @@ public class PersonalTripDTO {
 		return endDate;
 	}
 
-	public Boat getBoat() {
+	public BoatDTO getBoat() {
 		return boat;
 	}
 
-	public TripMember getMemberRole() {
+	public TripMemberDTO getMemberRole() {
 		return memberRole;
 	}
 
-	public Member getLastEditor() {
+	public MemberDTO getLastEditor() {
 		return lastEditor;
 	}
 
-	public Route getRoute() {
+	public RouteDTO getRoute() {
 		return route;
 	}
 
@@ -67,7 +52,43 @@ public class PersonalTripDTO {
 		return finished;
 	}
 
-	public TripMember getUserMember() {
+	public TripMemberDTO getUserMember() {
 		return userMember;
+	}
+
+	public void setBoat(BoatDTO boat) {
+		this.boat = boat;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setLastEditor(MemberDTO lastEditor) {
+		this.lastEditor = lastEditor;
+	}
+
+	public void setMemberRole(TripMemberDTO memberRole) {
+		this.memberRole = memberRole;
+	}
+
+	public void setRoute(RouteDTO route) {
+		this.route = route;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public void setUserMember(TripMemberDTO userMember) {
+		this.userMember = userMember;
 	}
 }

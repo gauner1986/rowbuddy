@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
+import de.rowbuddy.client.events.LogRowedTripEvent;
 import de.rowbuddy.client.events.StartTripEvent;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 
@@ -33,18 +34,24 @@ public class ListPersonalTripsPresenter implements Presenter {
 		int getClickedRow(ClickEvent event);
 	}
 
+	public enum ListType {
+		ALL, OPEN
+	}
+
 	private final Display view;
 	private final LogbookRemoteServiceAsync logbook;
 	private final EventBus eventBus;
 	private List<PersonalTripDTO> fetchedTrips;
+	private final ListType listType;
 	private static Logger logger = Logger
 			.getLogger(ListPersonalTripsPresenter.class.getName());
 
 	public ListPersonalTripsPresenter(LogbookRemoteServiceAsync logbook,
-			Display view, EventBus eventBus) {
+			Display view, EventBus eventBus, ListType listType) {
 		this.logbook = logbook;
 		this.view = view;
 		this.eventBus = eventBus;
+		this.listType = listType;
 	}
 
 	private void bind() {
@@ -58,8 +65,7 @@ public class ListPersonalTripsPresenter implements Presenter {
 		view.getLogRowedTripButton().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent arg0) {
-				// TODO: Implement Event
-				// eventBus.fireEvent(new LogRowedTripEvent());
+				eventBus.fireEvent(new LogRowedTripEvent());
 			}
 		});
 
@@ -74,7 +80,7 @@ public class ListPersonalTripsPresenter implements Presenter {
 
 					logger.info("Fire TripDetailEvent id:" + id);
 					// TODO: Implement
-					// eventBus.fireEvent(new TripDetailEvent(id));
+					// eventBus.fireEvent(new DetailsTripEvent(id));
 				}
 			}
 		});
@@ -85,7 +91,15 @@ public class ListPersonalTripsPresenter implements Presenter {
 		bind();
 		container.clear();
 		container.add(view.asWidget());
-		fetchPersonalTrips();
+
+		switch (listType) {
+		case ALL:
+			fetchPersonalTrips();
+			break;
+		case OPEN:
+			fetchPersonalOpenTrips();
+			break;
+		}
 	}
 
 	private void fetchPersonalTrips() {
@@ -103,4 +117,18 @@ public class ListPersonalTripsPresenter implements Presenter {
 		});
 	}
 
+	private void fetchPersonalOpenTrips() {
+		logbook.getPersonalOpenTrips(new AsyncCallback<List<PersonalTripDTO>>() {
+
+			@Override
+			public void onSuccess(List<PersonalTripDTO> arg0) {
+				view.setData(arg0);
+			}
+
+			@Override
+			public void onFailure(Throwable arg0) {
+				Window.alert(arg0.toString());
+			}
+		});
+	}
 }

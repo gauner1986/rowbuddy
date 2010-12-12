@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
+import de.rowbuddy.boundary.dtos.PersonalTripDTOConverter;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.RowBuddyException;
@@ -19,10 +20,9 @@ public class Logbook {
 
 	@PersistenceContext
 	EntityManager em;
-	
-	public enum ListType{
-		All,
-		OpenOnly
+
+	public enum ListType {
+		All, OpenOnly
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class Logbook {
 		}
 
 		startedTrip.validateStartedTrip();
-		
+
 		startedTrip.setLastEditor(currentUser);
 		startedTrip.setFinished(false);
 
@@ -110,8 +110,11 @@ public class Logbook {
 
 	/**
 	 * checks if a user has the permission to edit a trip
-	 * @param trip the trip that should be edited
-	 * @param currentUser the current user
+	 * 
+	 * @param trip
+	 *            the trip that should be edited
+	 * @param currentUser
+	 *            the current user
 	 * @return true if the user can edit the trip, otherwise false
 	 */
 	public boolean canEditTrip(Trip trip, Member currentUser) {
@@ -137,10 +140,12 @@ public class Logbook {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * assembles trips that have not ended yet
-	 * @param currentUser the current user
+	 * 
+	 * @param currentUser
+	 *            the current user
 	 * @return a list with trips
 	 */
 	public List<Trip> getOpenTrips(Member currentUser) {
@@ -151,46 +156,50 @@ public class Logbook {
 
 	/**
 	 * Finds a trip for a given id
-	 * @param id id of the trip
+	 * 
+	 * @param id
+	 *            id of the trip
 	 * @return the trip
-	 * @throws RowBuddyException if id is null or if the trip is not found
+	 * @throws RowBuddyException
+	 *             if id is null or if the trip is not found
 	 */
-	public Trip getTrip(Long id) throws RowBuddyException{
-		if (id == null){
+	public Trip getTrip(Long id) throws RowBuddyException {
+		if (id == null) {
 			throw new RowBuddyException("You must specify an id");
 		}
-		
+
 		Trip trip = em.find(Trip.class, id);
-		if (trip == null){
+		if (trip == null) {
 			throw new RowBuddyException("Trip does not exist");
 		}
 		return trip;
 	}
 
 	/**
-	 * determines all trips that member has participated in 
+	 * determines all trips that member has participated in
+	 * 
 	 * @param member
-	 * @param listType 
+	 * @param listType
 	 * @return a list of PersonalTripDTO
 	 */
-	public List<PersonalTripDTO> getPersonalTrips(Member member, ListType listType) {
-		if (member == null){
+	public List<PersonalTripDTO> getPersonalTrips(Member member,
+			ListType listType) {
+		if (member == null) {
 			throw new NullPointerException("You must specify a member");
 		}
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT ");
-		sb.append("new ");
-		sb.append(PersonalTripDTO.class.getName());
-		sb.append("(trip.id, trip.startDate, trip.endDate, trip.boat, memberRole, trip.lastEditor, trip.route, trip.finished)");
+		sb.append("SELECT trip ");
 		sb.append("FROM Trip trip INNER JOIN trip.tripMembers memberRole ");
 		sb.append("WHERE memberRole.member = :member ");
-		if (listType == ListType.OpenOnly){
+		if (listType == ListType.OpenOnly) {
 			sb.append("AND trip.finished=false");
 		}
-		
-		TypedQuery<PersonalTripDTO> q = em.createQuery(sb.toString(), PersonalTripDTO.class);
+
+		TypedQuery<Trip> q = em.createQuery(sb.toString(), Trip.class);
 		q.setParameter("member", member);
-		return q.getResultList();
+
+		PersonalTripDTOConverter conv = new PersonalTripDTOConverter(member);
+		return conv.getList(q.getResultList());
 	}
 }

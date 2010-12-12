@@ -27,5 +27,6 @@ public interface LogbookRemoteServiceAsync {
 
 	public void getPersonalTrips(AsyncCallback<List<PersonalTripDTO>> callback);
 
-	public void getPersonalOpenTrips(AsyncCallback<List<PersonalTripDTO>> callback);	
+	public void getPersonalOpenTrips(
+			AsyncCallback<List<PersonalTripDTO>> callback);
 }

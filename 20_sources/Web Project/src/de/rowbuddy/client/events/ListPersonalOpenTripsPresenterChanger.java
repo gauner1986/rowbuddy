@@ -11,11 +11,11 @@ import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 import de.rowbuddy.client.views.logbook.ListPersonalTripsView;
 
-public class ListPersonalTripsPresenterChanger extends PresenterChanger {
+public class ListPersonalOpenTripsPresenterChanger extends PresenterChanger {
 
 	private final LogbookRemoteServiceAsync logbookService;
 
-	public ListPersonalTripsPresenterChanger(HasWidgets targetWidget,
+	public ListPersonalOpenTripsPresenterChanger(HasWidgets targetWidget,
 			EventBus eventBus, LogbookRemoteServiceAsync logbookService) {
 		super(targetWidget, eventBus);
 		this.logbookService = logbookService;
@@ -23,23 +23,24 @@ public class ListPersonalTripsPresenterChanger extends PresenterChanger {
 
 	@Override
 	public AbstractEvent<?> toEvent(String historyItem) {
-		return new ListPersonalTripsEvent();
+		return new ListPersonalOpenTripsEvent();
 	}
 
 	@Override
 	public Presenter createPresenter(AbstractEvent<?> event) {
 		return new ListPersonalTripsPresenter(logbookService,
-				new ListPersonalTripsView(PageTitles.LOGBOOK_PERSONAL_TRIPS),
-				eventBus, ListType.ALL);
+				new ListPersonalTripsView(
+						PageTitles.LOGBOOK_PERSONAL_OPEN_TRIPS), eventBus,
+				ListType.OPEN);
 	}
 
 	@Override
 	protected <T extends PresenterChanger> Type<T> getType() {
-		return (Type<T>) ListPersonalTripsEvent.TYPE;
+		return (Type<T>) ListPersonalOpenTripsEvent.TYPE;
 	}
 
 	@Override
 	protected String getHistoryIdentifier() {
-		return ListPersonalTripsEvent.HISTORY_IDENTIFIER;
+		return ListPersonalOpenTripsEvent.HISTORY_IDENTIFIER;
 	}
 }
