@@ -8,22 +8,21 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.client.events.AbstractEvent;
+import de.rowbuddy.client.events.AddBoatPresenterChanger;
+import de.rowbuddy.client.events.AddDamagePresenterChanger;
 import de.rowbuddy.client.events.AddRoutePresenterChanger;
+import de.rowbuddy.client.events.DetailsBoatPresenterChanger;
+import de.rowbuddy.client.events.DetailsDamagePresenterChanger;
 import de.rowbuddy.client.events.DetailsRoutePresenterChanger;
-import de.rowbuddy.client.events.ListRoutePresenterChanger;
+import de.rowbuddy.client.events.EditBoatPresenterChanger;
+import de.rowbuddy.client.events.EditDamagePresenterChanger;
+import de.rowbuddy.client.events.ListBoatsEvent;
+import de.rowbuddy.client.events.ListBoatsPresenterChanger;
+import de.rowbuddy.client.events.ListDamagePresenterChanger;
+import de.rowbuddy.client.events.ListPersonalTripsPresenterChanger;
 import de.rowbuddy.client.events.ListRoutesPresenterChanger;
 import de.rowbuddy.client.events.PresenterChanger;
 import de.rowbuddy.client.events.PresenterChanger.EventListener;
-import de.rowbuddy.client.events.AddBoatPresenterChanger;
-import de.rowbuddy.client.events.AddDamagePresenterChanger;
-import de.rowbuddy.client.events.DetailsBoatPresenterChanger;
-import de.rowbuddy.client.events.ListBoatsEvent;
-import de.rowbuddy.client.events.ListBoatsPresenterChanger;
-import de.rowbuddy.client.events.DetailsDamagePresenterChanger;
-import de.rowbuddy.client.events.EditDamagePresenterChanger;
-import de.rowbuddy.client.events.EditBoatPresenterChanger;
-import de.rowbuddy.client.events.ListDamagePresenterChanger;
-import de.rowbuddy.client.events.ListPersonalTripsPresenterChanger;
 import de.rowbuddy.client.presenter.MenuPresenter;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.StatusMessagePresenter;
@@ -79,7 +78,6 @@ public class AppController implements Presenter, EventListener {
 	}
 
 	private void bindRoutEventHandlers() {
-		eventHandlers.add(new ListRoutePresenterChanger(container, eventBus, routeService));
 		eventHandlers.add(new DetailsRoutePresenterChanger(eventBus, container, routeService));
 		eventHandlers.add(new AddRoutePresenterChanger(container, eventBus, routeService));
 	}

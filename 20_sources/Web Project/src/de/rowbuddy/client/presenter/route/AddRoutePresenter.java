@@ -15,7 +15,6 @@ import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
 import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.presenter.Presenter;
-import de.rowbuddy.client.presenter.boat.AddBoatPresenter;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
 import de.rowbuddy.entities.Route;
 
@@ -38,8 +37,7 @@ public class AddRoutePresenter implements Presenter {
 	private Display view = null;
 	private RouteRemoteServiceAsync routeService = null;
 	private EventBus eventBus;
-	private static Logger logger = Logger.getLogger(AddBoatPresenter.class
-			.getName());
+	private static Logger logger = Logger.getLogger(AddRoutePresenter.class.getName());
 
 	public AddRoutePresenter(Display view,
 			RouteRemoteServiceAsync routeService, EventBus eventBus) {

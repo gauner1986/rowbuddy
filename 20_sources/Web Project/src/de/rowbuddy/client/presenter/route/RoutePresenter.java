@@ -37,8 +37,7 @@ public class RoutePresenter implements Presenter {
 	private RouteRemoteServiceAsync routeService;
 	private EventBus eventBus;
 	private List<Route> fetchedRoutes;
-	private static Logger logger = Logger.getLogger(BoatPresenter.class
-			.getName());
+	private static Logger logger = Logger.getLogger(RoutePresenter.class.getName());
 
 	public RoutePresenter(RouteRemoteServiceAsync routeService, Display view,
 			EventBus eventBus) {

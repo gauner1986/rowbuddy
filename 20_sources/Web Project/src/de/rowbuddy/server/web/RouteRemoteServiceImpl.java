@@ -13,6 +13,11 @@ import de.rowbuddy.exceptions.RowBuddyException;
 public class RouteRemoteServiceImpl extends AbstractRemoteService implements
 		RouteRemoteService {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public Route addRoute(Route newRoute) throws RowBuddyException {
 		return makeSerlizable(getRowBuddyFacade().addRoute(newRoute));

@@ -1,5 +1,7 @@
 package de.rowbuddy.client.presenter;
 
+import java.util.logging.Logger;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -12,7 +14,7 @@ import de.rowbuddy.client.events.AddDamageEvent;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEvent;
-import de.rowbuddy.client.events.ListRouteEvent;
+import de.rowbuddy.client.events.ListRoutesEvent;
 
 public class MenuPresenter implements Presenter {
 
@@ -33,6 +35,8 @@ public class MenuPresenter implements Presenter {
 	private MenuDisplay view;
 	private HasWidgets container;
 	private SimpleEventBus eventBus;
+	private static Logger logger = Logger.getLogger(MenuPresenter.class
+			.getName());
 
 	public MenuPresenter(MenuDisplay view, SimpleEventBus eventBus) {
 		this.view = view;
@@ -59,7 +63,8 @@ public class MenuPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				eventBus.fireEvent(new ListRouteEvent());
+				logger.info("click ListroutesEvent");
+				eventBus.fireEvent(new ListRoutesEvent());
 			}
 		}, ClickEvent.getType());
 

@@ -13,7 +13,6 @@ import com.google.gwt.user.client.ui.Widget;
 import de.rowbuddy.client.events.EditBoatEvent;
 import de.rowbuddy.client.events.ListRoutesEvent;
 import de.rowbuddy.client.presenter.Presenter;
-import de.rowbuddy.client.presenter.boat.BoatDetailPresenter;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
 import de.rowbuddy.entities.Route;
 
@@ -37,8 +36,7 @@ public class RouteDetailPresenter implements Presenter {
 
 	private Display view;
 	private RouteRemoteServiceAsync routeService;
-	private static Logger logger = Logger.getLogger(BoatDetailPresenter.class
-			.getName());
+	private static Logger logger = Logger.getLogger(RouteDetailPresenter.class.getName());
 	private Long id;
 	private EventBus eventBus;
 
