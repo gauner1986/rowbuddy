@@ -53,7 +53,7 @@ public class LogbookRemoteServiceImpl extends AbstractRemoteService implements
 		try {
 			return getRowBuddyFacade().getTrip(id);
 		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block	
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -66,6 +66,6 @@ public class LogbookRemoteServiceImpl extends AbstractRemoteService implements
 
 	@Override
 	public List<PersonalTripDTO> getPersonalOpenTrips() {
-		return getRowBuddyFacade().getPersonalTrips();
+		return getRowBuddyFacade().getPersonalOpenTrips();
 	}
 }
