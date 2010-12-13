@@ -1,16 +1,16 @@
 package de.rowbuddy.client.views.route;
 
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.maps.client.InfoWindowContent;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
+import com.google.gwt.maps.client.control.MapTypeControl;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -60,14 +60,15 @@ public class RouteDetail extends HeaderButtonView implements Display {
 		detailTable.setText(3, 0, "Veränderbar:");
 		mutable = new CheckBox();
 		mutable.setEnabled(false);
-		// detailTable.setWidget(3, 1, mutable);
+		detailTable.setWidget(3, 1, mutable);
 
 		LatLng krefeldCity = LatLng.newInstance(51.3333333, 6.5666667);
 
 		final MapWidget map = new MapWidget(krefeldCity, 13);
-		map.setSize("100%", "100%");
+//		map.setSize("100%", "100%");
 		// Add some controls for the zoom level
 		map.addControl(new LargeMapControl());
+        map.addControl(new MapTypeControl(true));
 
 		// Add a marker
 		map.addOverlay(new Marker(krefeldCity));
@@ -76,12 +77,13 @@ public class RouteDetail extends HeaderButtonView implements Display {
 		map.getInfoWindow().open(map.getCenter(),
 				new InfoWindowContent("Krefeld City"));
 
-		final DockLayoutPanel dock = new DockLayoutPanel(Unit.PX);
-		dock.addNorth(map, 500);
-
-		detailTable.setWidget(3, 1, map);
+		HorizontalPanel hPanel = new HorizontalPanel();
+		hPanel.add(map);
+		hPanel.setHeight("350px");
+		hPanel.setWidth("100%");
 
 		vPanel.add(detailTable);
+		vPanel.add(hPanel);
 		setContent(vPanel);
 	}
 
