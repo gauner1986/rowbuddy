@@ -38,7 +38,7 @@ public class AddRouteView extends HeaderButtonView implements Display {
 		nameText = new TextBox();
 		routeTable.setWidget(0, 1, nameText);
 		
-		routeTable.setText(1, 0, "L‰nge:");
+		routeTable.setText(1, 0, "L√§nge:");
 		length = new TextBox();
 		routeTable.setWidget(1, 1, length);
 		
@@ -46,7 +46,7 @@ public class AddRouteView extends HeaderButtonView implements Display {
 		description = new TextBox();
 		routeTable.setWidget(2, 1, description);
 		
-		routeTable.setText(3, 0, "Ver‰nderbar:");
+		routeTable.setText(3, 0, "Ver√§nderbar:");
 		mutable = new CheckBox();
 		routeTable.setWidget(3, 1, mutable);
 		

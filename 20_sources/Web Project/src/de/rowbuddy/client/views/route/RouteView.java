@@ -23,7 +23,7 @@ public class RouteView extends HeaderButtonView implements Display {
 	public RouteView() {
 		super(PageTitles.ROUTE_OVERVIEW);
 
-		addButton = new Button("Route hinzufügen");
+		addButton = new Button("Route hinzufÃ¼gen");
 		addButton.setStyleName("buttonAdd buttonRegular");
 		addButton(addButton);
 
@@ -76,7 +76,7 @@ public class RouteView extends HeaderButtonView implements Display {
 	private void initTableHead() {
 		routeTable.setText(0, 0, "Name");
 		routeTable.setText(0, 1, "Autor");
-		routeTable.setText(0, 2, "Länge");
+		routeTable.setText(0, 2, "LÃ¤nge");
 
 		routeTable.getRowFormatter().setStyleName(0, "boatTableHeader");
 		routeTable.setCellPadding(5);

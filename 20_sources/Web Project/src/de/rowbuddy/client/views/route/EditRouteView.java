@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 
 import de.rowbuddy.client.PageTitles;
@@ -22,7 +23,7 @@ public class EditRouteView extends HeaderButtonView implements Display {
 	private FlexTable routeTable;
 	private TextBox nameText;
 	private TextBox lengthText;
-	private TextBox descriptionText;
+	private TextArea descriptionText;
 	private CheckBox mutable;
 	private DialogBox box;
 	private Button deleteButton;
@@ -35,7 +36,7 @@ public class EditRouteView extends HeaderButtonView implements Display {
 		submitButton.setStylePrimaryName("buttonSave buttonPositive");
 		cancelButton = new Button("Abbrechen");
 		cancelButton.setStylePrimaryName("buttonCancel buttonNegative");
-		dialogButton = new Button("Löschen");
+		dialogButton = new Button("LÃ¶schen");
 		dialogButton.setStylePrimaryName("buttonDelete buttonNegative");
 		
 		addButton(submitButton);
@@ -46,17 +47,20 @@ public class EditRouteView extends HeaderButtonView implements Display {
 		
 		routeTable.setText(0, 0, "Name:");
 		nameText = new TextBox();
+		nameText.setWidth("100%");
 		routeTable.setWidget(0, 1, nameText);
 		
-		routeTable.setText(1, 0, "Länge:");
+		routeTable.setText(1, 0, "LÃ¤nge:");
 		lengthText = new TextBox();
+		lengthText.setWidth("100%");
 		routeTable.setWidget(1, 1, lengthText);
 		
 		routeTable.setText(2, 0, "Description:");
-		descriptionText = new TextBox();
+		descriptionText = new TextArea();
+		descriptionText.setWidth("100%");
 		routeTable.setWidget(2, 1, descriptionText);
 		
-		routeTable.setText(3, 0, "Veränderbar:");
+		routeTable.setText(3, 0, "VerÃ¤nderbar:");
 		mutable = new CheckBox();
 		routeTable.setWidget(3, 1, mutable);
 		
@@ -69,7 +73,7 @@ public class EditRouteView extends HeaderButtonView implements Display {
 
 		HorizontalPanel dialogContent = new HorizontalPanel();
 
-		box.setText("Möchten Sie wirklich löschen?");
+		box.setText("MÃ¶chten Sie wirklich lÃ¶schen?");
 		box.setWidget(dialogContent);
 		dialogContent.add(deleteButton);
 		Button dialogClose = new Button("Nein");

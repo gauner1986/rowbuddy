@@ -49,7 +49,7 @@ public class RouteDetail extends HeaderButtonView implements Display {
 		nameText = new Label();
 		detailTable.setWidget(0, 1, nameText);
 
-		detailTable.setText(1, 0, "L‰nge:");
+		detailTable.setText(1, 0, "L√§nge:");
 		lenght = new Label();
 		detailTable.setWidget(1, 1, lenght);
 
@@ -57,7 +57,7 @@ public class RouteDetail extends HeaderButtonView implements Display {
 		description = new Label();
 		detailTable.setWidget(2, 1, description);
 
-		detailTable.setText(3, 0, "Ver‰nderbar:");
+		detailTable.setText(3, 0, "Ver√§nderbar:");
 		mutable = new CheckBox();
 		mutable.setEnabled(false);
 		detailTable.setWidget(3, 1, mutable);
