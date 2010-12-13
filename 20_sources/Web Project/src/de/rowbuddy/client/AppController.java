@@ -16,6 +16,7 @@ import de.rowbuddy.client.events.DetailsDamagePresenterChanger;
 import de.rowbuddy.client.events.DetailsRoutePresenterChanger;
 import de.rowbuddy.client.events.EditBoatPresenterChanger;
 import de.rowbuddy.client.events.EditDamagePresenterChanger;
+import de.rowbuddy.client.events.EditRoutPresenterChanger;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.ListBoatsPresenterChanger;
 import de.rowbuddy.client.events.ListDamagePresenterChanger;
@@ -86,6 +87,7 @@ public class AppController implements Presenter, EventListener {
 				routeService));
 		eventHandlers.add(new ListRoutesPresenterChanger(container, eventBus,
 				routeService));
+		eventHandlers.add(new EditRoutPresenterChanger(container, eventBus, routeService));
 	}
 
 	private void bindLogbookEventHandlers() {

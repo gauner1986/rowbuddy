@@ -14,4 +14,5 @@ public interface PageTitles {
 	public final String ROUTE_OVERVIEW = "Routenübersicht";
 	public final String ROUTE_ADD = "Route hinzufügen";
 	public final String ROUTE_DETAIL = "Route details";
+	public final String ROUTE_EDIT = "Route bearbeiten";
 }
