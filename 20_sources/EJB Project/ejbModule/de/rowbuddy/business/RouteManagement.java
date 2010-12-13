@@ -83,7 +83,7 @@ public class RouteManagement {
 	public Route editRoute(Route route, Member editor) throws RowBuddyException {
 
 		if (route == null) {
-			throw new RowBuddyException("CurrentUser must not be null");
+			throw new RowBuddyException("Route must not be null");
 		}
 
 		if (editor == null) {
@@ -98,6 +98,8 @@ public class RouteManagement {
 			throw new RowBuddyException("Route cannot be edited");
 		}
 
+		route.validate();
+
 		Route fromDb = em.find(Route.class, route.getId());
 		if (fromDb == null) {
 			throw new RowBuddyException("Route does not exist");
@@ -109,7 +111,7 @@ public class RouteManagement {
 		}
 
 		Route newVersion = fromDb;
-		if (hasReferences(fromDb)) {
+		if (hasTripReferences(fromDb)) {
 			fromDb.setDeleted(true);
 
 			newVersion = new Route();
@@ -150,7 +152,14 @@ public class RouteManagement {
 		return route;
 	}
 
-	public boolean hasReferences(Route route) {
+	/**
+	 * Determines, if a route is used in a trip.
+	 * 
+	 * @param route
+	 *            the route to be checked for
+	 * @return true, if the route is used in a trip, otherwise false
+	 */
+	public boolean hasTripReferences(Route route) {
 		TypedQuery<Trip> trips = em.createQuery(
 				"SELECT t FROM Trip t WHERE t.route = :route", Trip.class);
 		trips.setParameter("route", route);
@@ -170,10 +179,7 @@ public class RouteManagement {
 			throw new RowBuddyException("deleter must be specified");
 		}
 
-		Route route = em.find(Route.class, id);
-		if (route == null) {
-			throw new RowBuddyException("Route was not found");
-		}
+		Route route = getRoute(id);
 
 		if (!canEditRoute(route, deleter)) {
 			throw new RowBuddyException("Route cannot be edited");
