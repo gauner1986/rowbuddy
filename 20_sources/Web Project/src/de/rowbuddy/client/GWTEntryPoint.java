@@ -9,6 +9,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.maps.client.Maps;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
@@ -44,6 +45,15 @@ public class GWTEntryPoint implements EntryPoint {
 			.getName());
 
 	public void onModuleLoad() {
+		Maps.loadMapsApi("", "2", false, new Runnable() {
+			public void run() {
+				load();
+			}
+		});
+
+	}
+
+	public void load() {
 		BoatRemoteServiceAsync boatService = (BoatRemoteServiceAsync) GWT
 				.create(BoatRemoteService.class);
 		((ServiceDefTarget) boatService).setServiceEntryPoint(GWT

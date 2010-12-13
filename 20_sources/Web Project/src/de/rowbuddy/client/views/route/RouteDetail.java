@@ -1,8 +1,15 @@
 package de.rowbuddy.client.views.route;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.maps.client.InfoWindowContent;
+import com.google.gwt.maps.client.MapWidget;
+import com.google.gwt.maps.client.control.LargeMapControl;
+import com.google.gwt.maps.client.geom.LatLng;
+import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -12,7 +19,7 @@ import de.rowbuddy.client.presenter.route.RouteDetailPresenter.Display;
 import de.rowbuddy.client.views.HeaderButtonView;
 
 public class RouteDetail extends HeaderButtonView implements Display {
-	
+
 	VerticalPanel vPanel;
 	private FlexTable detailTable;
 	private Label nameText;
@@ -21,10 +28,10 @@ public class RouteDetail extends HeaderButtonView implements Display {
 	private CheckBox mutable;
 	private Button editButton;
 	private Button cancelButton;
-	
-	public RouteDetail(){
+
+	public RouteDetail() {
 		super(PageTitles.ROUTE_DETAIL);
-		
+
 		vPanel = new VerticalPanel();
 		vPanel.setWidth("100%");
 		editButton = new Button("Route bearbeiten");
@@ -33,28 +40,47 @@ public class RouteDetail extends HeaderButtonView implements Display {
 		cancelButton = new Button("Abbrechen");
 		cancelButton.setStylePrimaryName("buttonCancel buttonNegative");
 		addButton(cancelButton);
-		
+
 		detailTable = new FlexTable();
 		detailTable.setStylePrimaryName("detailContent");
 		detailTable.setCellPadding(5);
-		
+
 		detailTable.setText(0, 0, "Name:");
 		nameText = new Label();
 		detailTable.setWidget(0, 1, nameText);
-		
+
 		detailTable.setText(1, 0, "Länge:");
 		lenght = new Label();
 		detailTable.setWidget(1, 1, lenght);
-		
+
 		detailTable.setText(2, 0, "Beschreibung:");
 		description = new Label();
 		detailTable.setWidget(2, 1, description);
-		
+
 		detailTable.setText(3, 0, "Veränderbar:");
 		mutable = new CheckBox();
 		mutable.setEnabled(false);
-		detailTable.setWidget(3, 1, mutable);
-		
+		// detailTable.setWidget(3, 1, mutable);
+
+		LatLng cawkerCity = LatLng.newInstance(39.509, -98.434);
+
+		final MapWidget map = new MapWidget(cawkerCity, 2);
+		map.setSize("100%", "100%");
+		// Add some controls for the zoom level
+		map.addControl(new LargeMapControl());
+
+		// Add a marker
+		map.addOverlay(new Marker(cawkerCity));
+
+		// Add an info window to highlight a point of interest
+		map.getInfoWindow().open(map.getCenter(),
+				new InfoWindowContent("World's Largest Ball of Sisal Twine"));
+
+		final DockLayoutPanel dock = new DockLayoutPanel(Unit.PX);
+		dock.addNorth(map, 500);
+
+		detailTable.setWidget(3, 1, map);
+
 		vPanel.add(detailTable);
 		setContent(vPanel);
 	}
