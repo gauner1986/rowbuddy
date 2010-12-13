@@ -83,12 +83,14 @@ public class Database {
 		member1.setSurname("Pan");
 		member1.setGivenname("Peter");
 		member1.setEmail("test@test.de");
+		member1.setMemberId("ID123");
 		em.persist(member1);
 
 		Member member2 = new Member();
 		member2.setSurname("Fridolin");
 		member2.setGivenname("Freud");
 		member2.setEmail("fridolin@freud.de");
+		member2.setMemberId("ID124");
 		em.persist(member2);
 
 		members = em.getAllEntities(Member.class);

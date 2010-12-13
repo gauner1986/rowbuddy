@@ -35,9 +35,9 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	public void setup() {
 		ejbHandler = new EjbExceptionHandler();
 		adminMember = createTestMember("bla@bla.de2", "secret", new RoleName[] {
-				RoleName.ADMIN, RoleName.MEMBER });
+				RoleName.ADMIN, RoleName.MEMBER }, "ID1");
 		userMember = createTestMember("user@bla.de", "secret",
-				new RoleName[] { RoleName.MEMBER });
+				new RoleName[] { RoleName.MEMBER }, "ID2");
 
 		existingBoat = new Boat();
 		try {
@@ -78,7 +78,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	}
 
 	private Member createTestMember(String username, String password,
-			RoleName[] roleNames) {
+			RoleName[] roleNames, String mId) {
 		Member member = new Member();
 		try {
 			member.setEmail(username);
@@ -99,6 +99,12 @@ public class SecuritySalamanderTest extends EjbTestBase {
 			roles.add(role);
 		}
 		member.setRoles(roles);
+		try {
+			member.setMemberId(mId);
+		} catch (RowBuddyException e) {
+			e.printStackTrace();
+			fail();
+		}
 		return member;
 	}
 
@@ -115,7 +121,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	@Test
 	public void cannotLoginWithWrongUserAndPass() {
 		Member falseMember = createTestMember("basfa@asfsa.de", "wrongpass",
-				new RoleName[] {});
+				new RoleName[] {}, "ID3");
 		try {
 			rowBuddyFacade.login(falseMember);
 			fail("Member can login anyway, where he shouldn't.");
@@ -127,7 +133,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	@Test
 	public void cannotLoginWithWrongPass() {
 		Member falseMember = createTestMember("bla@bla2.de", "wrongpass",
-				new RoleName[] {});
+				new RoleName[] {}, "ID4");
 		try {
 			rowBuddyFacade.login(falseMember);
 			fail("Member can login anyway, where he shouldn't.");

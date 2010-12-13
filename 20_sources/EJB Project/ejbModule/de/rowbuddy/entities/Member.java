@@ -24,7 +24,8 @@ import de.rowbuddy.exceptions.RowBuddyException;
  * 
  */
 @Entity
-@Table(uniqueConstraints=@UniqueConstraint(columnNames="email"))
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = "email"),
+		@UniqueConstraint(columnNames = "memberId") })
 public class Member implements Serializable {
 
 	@Id
