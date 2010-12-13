@@ -26,20 +26,35 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 	}
 
 	@Override
-	public void addBoat(Boat boat) throws Exception {
-		getRowBuddyFacade().addBoat(boat);
+	public void addBoat(Boat boat) {
+		try {
+			getRowBuddyFacade().addBoat(boat);
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void updateBoat(Boat boat) throws Exception {
-		getRowBuddyFacade().updateBoat(boat);
+	public void updateBoat(Boat boat) {
+		try {
+			getRowBuddyFacade().updateBoat(boat);
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public Boat getBoat(Long id) throws Exception {
+	public Boat getBoat(Long id)  {
 
 		Boat boat = null;
-		boat = getRowBuddyFacade().getBoat(id);
+		try {
+			boat = getRowBuddyFacade().getBoat(id);
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		List<BoatDamage> damages = new ArrayList<BoatDamage>();
 		List<BoatReservation> reservations = new ArrayList<BoatReservation>();
@@ -54,14 +69,24 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 		reservations.addAll(boat.getBoatReservations());
 
 		boat.setBoatDamages(damages);
-		boat.setBoatReservations(reservations);
+		try {
+			boat.setBoatReservations(reservations);
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return boat;
 	}
 
 	@Override
-	public void deleteBoat(Long id) throws Exception {
-		getRowBuddyFacade().deleteBoat(id);
+	public void deleteBoat(Long id)  {
+		try {
+			getRowBuddyFacade().deleteBoat(id);
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

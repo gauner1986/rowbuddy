@@ -9,6 +9,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
@@ -21,8 +22,11 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.SessionHolder;
 import de.rowbuddy.client.images.Images;
 import de.rowbuddy.client.presenter.MenuPresenter.MenuDisplay;
+import de.rowbuddy.entities.Member;
+import de.rowbuddy.entities.Role;
 
 public class MenuView extends Composite implements MenuDisplay {
 
@@ -53,11 +57,24 @@ public class MenuView extends Composite implements MenuDisplay {
 				getHeaderString("Statistiken", images.statistics())
 						.getElement().getString(), true);
 		menuPanel.add(createRouteMenu(), route.getElement().getString(), true);
+		SessionHolder.getSessionManager().getMember(new AsyncCallback<Member>() {
+
+			@Override
+			public void onSuccess(Member arg0) {
+				if (arg0.isInRole(Role.RoleName.ADMIN)) {
+					menuPanel.add(createMemberControl(),
+						getHeaderString("Mitgliederverwaltung(admin)", images.member())
+							.getElement().getString(), true);
+				} else {
+					browseDamages.setVisible(false);
+				}
+			}
+
+			@Override
+			public void onFailure(Throwable arg0) {}
+		});
 		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.boat())
 				.getElement().getString(), true);
-		menuPanel.add(createMemberControl(),
-				getHeaderString("Mitgliederverwaltung(admin)", images.member())
-						.getElement().getString(), true);
 
 		menuPanel.addHandler(new ClickHandler() {
 			@Override
@@ -126,13 +143,14 @@ public class MenuView extends Composite implements MenuDisplay {
 	private Widget createStatistikMenu() {
 		FlexTable tb = new FlexTable();
 
-		Anchor boatdamagesYear = new Anchor("Bootsschäden(admin)");
+		final Anchor boatdamagesYear = new Anchor("Bootsschäden(admin)");
 		Anchor clubactivityMonth = new Anchor("Aktivität - Monatsstatistik");
 		Anchor clubactivityWeekday = new Anchor("Aktivität - Tagesstatistik");
 		Anchor highscoreBoats = new Anchor("Boote - Jahresstatistik");
 		Anchor highscoreMonth = new Anchor("Monatsstatistik");
 		Anchor highscoreYear = new Anchor("Jahresstatistik");
 		Anchor popularRoutes = new Anchor("Beliebteste Routen");
+
 		tb.setWidget(0, 0, boatdamagesYear);
 		tb.setWidget(1, 0, clubactivityMonth);
 		tb.setWidget(2, 0, clubactivityWeekday);
@@ -148,6 +166,19 @@ public class MenuView extends Composite implements MenuDisplay {
 		tb.getRowFormatter().setStyleName(4, "menuItem");
 		tb.getRowFormatter().setStyleName(5, "menuItem");
 		tb.getRowFormatter().setStyleName(6, "menuItem");
+
+		SessionHolder.getSessionManager().getMember(new AsyncCallback<Member>() {
+
+			@Override
+			public void onSuccess(Member arg0) {
+				if (!arg0.isInRole(Role.RoleName.ADMIN)) {
+					boatdamagesYear.setVisible(false);
+				}
+			}
+
+			@Override
+			public void onFailure(Throwable arg0) {}
+		});
 
 		return tb;
 	}

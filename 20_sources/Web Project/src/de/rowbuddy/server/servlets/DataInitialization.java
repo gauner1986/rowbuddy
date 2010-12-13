@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.LinkedList;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -19,6 +20,7 @@ import de.rowbuddy.business.RouteManagement;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.entities.Member;
+import de.rowbuddy.entities.Role;
 import de.rowbuddy.entities.Route;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.entities.TripMember;
@@ -57,6 +59,7 @@ public class DataInitialization extends HttpServlet {
 			createTestRoutes(member);
 			createTestBoats(member);
 			createTestTrips(member);
+			createAdminTestMember();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -153,6 +156,22 @@ public class DataInitialization extends HttpServlet {
 		testMember.setEmail("bla@bla.de");
 		testMember.setBirthdate(new Date(System.currentTimeMillis()));
 		testMember.setMemberId("XDSADSF-221");
+		memberManagement.addMember(testMember);
+		return testMember;
+	}
+	
+	private Member createAdminTestMember() throws RowBuddyException {
+		Member testMember = new Member();
+		testMember.setGivenname("Jan");
+		testMember.setSurname("Trzeszkowski");
+		testMember.setPassword("blubb");
+		testMember.setEmail("admin@bla.de");
+		testMember.setBirthdate(new Date(System.currentTimeMillis()));
+		LinkedList<Role> roles = new LinkedList<Role>();
+		Role r = new Role();
+		r.setName(Role.RoleName.ADMIN);
+		roles.add(r);
+		testMember.setRoles(roles);
 		memberManagement.addMember(testMember);
 		return testMember;
 	}

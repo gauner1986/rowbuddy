@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import de.rowbuddy.entities.Member;
+import de.rowbuddy.entities.Role;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.RowBuddyException;
 
@@ -133,7 +134,7 @@ public class Logbook {
 		if (persistedTrip.getTripMembers().contains(persistedMember)) {
 			return true;
 		}
-		if (persistedMember.isInRole("admin")) {
+		if (persistedMember.isInRole(Role.RoleName.ADMIN)) {
 			return true;
 		}
 		return false;

@@ -27,8 +27,8 @@ public abstract class AbstractRemoteService extends RemoteServiceServlet {
 
 			RowBuddyFacade rbf = (RowBuddyFacade) ic.lookup("java:global/Ear_Project/EJB_Project/RowBuddyFacade");
 			Member m = new Member();
-			m.setEmail("bla@bla.de");
-			m.setPassword("bla");
+			m.setEmail("admin@bla.de");
+			m.setPassword("blubb");
 			rbf.login(m);
 			return rbf;
 		} catch (Exception e) {

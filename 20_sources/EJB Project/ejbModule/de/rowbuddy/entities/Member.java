@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 /**
@@ -49,7 +50,16 @@ public class Member implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public Member() {
-		roles.add(new Role()); // default role
+		if(roles.size()==0){
+			Role r = new Role();
+		try {
+			r.setName(Role.RoleName.MEMBER);
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			roles.add(r);
+		}
 	}
 
 	public Long getId() {
@@ -191,7 +201,7 @@ public class Member implements Serializable {
 		this.roles = roles;
 	}
 
-	public boolean isInRole(String roleName) {
+	public boolean isInRole(RoleName roleName) {
 		for (Role r : roles) {
 			if (r.getName().equals(roleName)) {
 				return true;
@@ -203,6 +213,15 @@ public class Member implements Serializable {
 	public String getFullName() {
 		return givenname + ", " + surname;
 	}
+	
+//	public boolean isAdmin(){
+//		for(Role r : roles){
+//			if(r.getName().equals(Role.RoleName.ADMIN)){
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 
 	@Override
 	public int hashCode() {

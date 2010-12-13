@@ -1,9 +1,12 @@
 package de.rowbuddy.client.views.boat;
 
 import java.util.Collection;
+import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -13,8 +16,11 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.client.PageTitles;
+import de.rowbuddy.client.SessionHolder;
 import de.rowbuddy.client.presenter.boat.BoatPresenter;
 import de.rowbuddy.client.views.HeaderButtonView;
+import de.rowbuddy.entities.Member;
+import de.rowbuddy.entities.Role;
 
 public class BoatView extends HeaderButtonView implements BoatPresenter.Display {
 
@@ -32,10 +38,33 @@ public class BoatView extends HeaderButtonView implements BoatPresenter.Display 
 		boatTable.setWidth("100%");
 		boatTable.setStyleName("boatTable");
 		ScrollPanel scrollPanel = new ScrollPanel();
-	    scrollPanel.add(boatTable);
-	    scrollPanel.setStyleName("scollTable");
-	    
+		scrollPanel.add(boatTable);
+		scrollPanel.setStyleName("scollTable");
 		setContent(scrollPanel);
+		setPermissions();
+	}
+
+	private void setPermissions() {
+		SessionHolder.getSessionManager().getMember(
+				new AsyncCallback<Member>() {
+
+					@Override
+					public void onSuccess(Member arg0) {
+						if(!arg0.isInRole(Role.RoleName.ADMIN)){
+							Logger logger = Logger.getLogger(BoatView.class.getName());
+							logger.info(""+arg0.getRoles().size());
+							for(Role r : arg0.getRoles()){
+								logger.info(r.getName().toString());
+							}
+							addButton.setVisible(false);
+						}
+					}
+
+					@Override
+					public void onFailure(Throwable arg0) {
+						Window.alert("error");
+					}
+				});
 	}
 
 	@Override
@@ -89,7 +118,7 @@ public class BoatView extends HeaderButtonView implements BoatPresenter.Display 
 			boatTable.setWidget(i, 3, lockedBox);
 
 			HTMLTable.RowFormatter rf = boatTable.getRowFormatter();
-			
+
 			if ((i % 2) != 0) {
 				rf.setStylePrimaryName(i, "FlexTable-OddRow");
 			} else {

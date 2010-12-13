@@ -52,6 +52,15 @@ public class MemberManagement {
 		}
 		return member;
 	}
+	
+	public Member getMember(String email){
+		String query = "SELECT m FROM Member m WHERE (m.email=:member) ";
+
+		TypedQuery<Member> q = em.createQuery(query, Member.class);
+		q.setParameter("member", email);
+		Member m = q.getSingleResult();
+		return m;
+	}
 
 	private void checkEmailExists(String email, Long exceptId)
 			throws RowBuddyException {

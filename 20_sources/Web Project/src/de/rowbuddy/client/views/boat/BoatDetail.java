@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DecoratedTabBar;
@@ -13,8 +15,11 @@ import com.google.gwt.user.client.ui.TabBar;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.rowbuddy.client.PageTitles;
+import de.rowbuddy.client.SessionHolder;
 import de.rowbuddy.client.presenter.boat.BoatDetailPresenter.Display;
 import de.rowbuddy.client.views.HeaderButtonView;
+import de.rowbuddy.entities.Member;
+import de.rowbuddy.entities.Role;
 
 public class BoatDetail extends HeaderButtonView implements Display {
 
@@ -91,6 +96,25 @@ public class BoatDetail extends HeaderButtonView implements Display {
 		vPanel.add(bar);
 		vPanel.add(detailTable);
 		setContent(vPanel);
+		setPermissions();
+	}
+	
+	private void setPermissions() {
+		SessionHolder.getSessionManager().getMember(
+				new AsyncCallback<Member>() {
+
+					@Override
+					public void onSuccess(Member arg0) {
+						if(!arg0.isInRole(Role.RoleName.ADMIN)){
+							editButton.setVisible(false);
+						}
+					}
+
+					@Override
+					public void onFailure(Throwable arg0) {
+						Window.alert("error");
+					}
+				});
 	}
 
 	@Override

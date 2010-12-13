@@ -89,8 +89,8 @@ public class RowBuddyFacade {
 		}
 	}
 
-	public MemberDTO getMember() {
-		return new MemberDTOConverter().getDto(member);
+	public Member getMember() {
+		return member;
 	}
 
 	@ExcludeClassInterceptors

@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.rowbuddy.entities.Member;
+import de.rowbuddy.entities.Role;
 import de.rowbuddy.exceptions.RowBuddyException;
 import de.rowbuddy.util.Ejb;
 import de.rowbuddy.util.EjbTestBase;
@@ -53,6 +54,10 @@ public class MemberManagementTest extends EjbTestBase {
 	public void canAddMultipleMembers() throws RowBuddyException {
 		Member m1 = memberMgmt.addMember(member1);
 		Member m2 = memberMgmt.addMember(member2);
+		
+		for(Role r : m2.getRoles()){
+			System.out.println(r.toString());
+		}
 		assertThat(m1.getRoles(), equalsList(m2.getRoles()));
 	}
 
