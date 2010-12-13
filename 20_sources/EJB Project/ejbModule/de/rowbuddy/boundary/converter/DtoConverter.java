@@ -1,4 +1,4 @@
-package de.rowbuddy.boundary.dtos;
+package de.rowbuddy.boundary.converter;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,6 +1,5 @@
 package de.rowbuddy.boundary.converter;
 
-import de.rowbuddy.boundary.dtos.DtoConverter;
 import de.rowbuddy.boundary.dtos.RouteDTO;
 import de.rowbuddy.entities.Route;
 

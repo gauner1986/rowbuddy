@@ -1,7 +1,6 @@
 package de.rowbuddy.boundary.converter;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
-import de.rowbuddy.boundary.dtos.DtoConverter;
 import de.rowbuddy.entities.Boat;
 
 public class BoatDTOConverter extends DtoConverter<Boat, BoatDTO> {
