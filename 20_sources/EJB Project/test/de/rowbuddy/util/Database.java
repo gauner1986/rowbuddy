@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import nl.fontys.rowbuddy.EntityManagerBean;
-import nl.fontys.rowbuddy.EntityManagerBeanLocal;
+import de.rowbuddy.EntityManagerBean;
+import de.rowbuddy.EntityManagerBeanLocal;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.entities.GpsPoint;

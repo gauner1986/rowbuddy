@@ -1,9 +1,10 @@
 package de.rowbuddy.util;
 
-import nl.fontys.rowbuddy.EntityManagerBean;
-import nl.fontys.rowbuddy.EntityManagerBeanLocal;
 
 import org.junit.Before;
+
+import de.rowbuddy.EntityManagerBean;
+import de.rowbuddy.EntityManagerBeanLocal;
 
 /**
  *

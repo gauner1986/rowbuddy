@@ -1,4 +1,4 @@
-package nl.fontys.rowbuddy;
+package de.rowbuddy;
 
 import java.util.List;
 
