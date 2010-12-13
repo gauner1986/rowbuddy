@@ -8,8 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import de.rowbuddy.boundary.dtos.PersonalTripDTO;
-import de.rowbuddy.boundary.dtos.PersonalTripDTOConverter;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.RowBuddyException;
@@ -180,10 +178,9 @@ public class Logbook {
 	 * 
 	 * @param member
 	 * @param listType
-	 * @return a list of PersonalTripDTO
+	 * @return a list of Trips
 	 */
-	public List<PersonalTripDTO> getPersonalTrips(Member member,
-			ListType listType) {
+	public List<Trip> getPersonalTrips(Member member, ListType listType) {
 		if (member == null) {
 			throw new NullPointerException("You must specify a member");
 		}
@@ -198,8 +195,6 @@ public class Logbook {
 
 		TypedQuery<Trip> q = em.createQuery(sb.toString(), Trip.class);
 		q.setParameter("member", member);
-
-		PersonalTripDTOConverter conv = new PersonalTripDTOConverter(member);
-		return conv.getList(q.getResultList());
+		return q.getResultList();
 	}
 }

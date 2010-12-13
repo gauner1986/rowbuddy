@@ -15,6 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.rowbuddy.boundary.LogbookBoundary;
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.business.Logbook.ListType;
 import de.rowbuddy.entities.Trip;
@@ -27,6 +28,7 @@ import de.rowbuddy.util.EjbTestBase;
 public class LogbookTest extends EjbTestBase {
 
 	Logbook logbook;
+	LogbookBoundary lbBoundary;
 	Trip rowedTrip;
 	Trip startedTrip1;
 	Trip startedTrip2;
@@ -38,6 +40,7 @@ public class LogbookTest extends EjbTestBase {
 	public void setup() throws RowBuddyException, ParseException {
 
 		logbook = Ejb.lookUp(Logbook.class, Logbook.class);
+		lbBoundary = Ejb.lookUp(LogbookBoundary.class, LogbookBoundary.class);
 		db.setupBoats();
 		db.setupMembers();
 		db.setupRoutes();
@@ -165,7 +168,7 @@ public class LogbookTest extends EjbTestBase {
 		logbook.startTrip(startedTrip3, db.getMembers().get(0));
 
 		// when
-		List<PersonalTripDTO> personalTrips = logbook.getPersonalTrips(db
+		List<PersonalTripDTO> personalTrips = lbBoundary.getPersonalTrips(db
 				.getMembers().get(0), ListType.All);
 
 		// then
@@ -180,8 +183,8 @@ public class LogbookTest extends EjbTestBase {
 		logbook.startTrip(startedTrip3, db.getMembers().get(0));
 
 		// when
-		List<PersonalTripDTO> personalOpenTrips = logbook.getPersonalTrips(db
-				.getMembers().get(0), ListType.OpenOnly);
+		List<PersonalTripDTO> personalOpenTrips = lbBoundary.getPersonalTrips(
+				db.getMembers().get(0), ListType.OpenOnly);
 
 		// then
 	}

@@ -1,4 +1,4 @@
-package de.rowbuddy.business;
+package de.rowbuddy.boundary;
 
 import java.lang.reflect.Field;
 

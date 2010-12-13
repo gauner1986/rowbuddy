@@ -1,5 +1,7 @@
-package de.rowbuddy.boundary.dtos;
+package de.rowbuddy.boundary.converter;
 
+import de.rowbuddy.boundary.dtos.DtoConverter;
+import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.entities.Trip;
 
 public class TripDTOConverter extends DtoConverter<Trip, TripDTO> {

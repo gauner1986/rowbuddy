@@ -1,4 +1,4 @@
-package de.rowbuddy.business;
+package de.rowbuddy.boundary;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

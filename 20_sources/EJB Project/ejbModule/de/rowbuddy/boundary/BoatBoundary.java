@@ -6,10 +6,10 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import de.rowbuddy.boundary.converter.BoatDTOConverter;
+import de.rowbuddy.boundary.converter.DamageDTOConverter;
 import de.rowbuddy.boundary.dtos.BoatDTO;
-import de.rowbuddy.boundary.dtos.BoatDTOConverter;
 import de.rowbuddy.boundary.dtos.DamageDTO;
-import de.rowbuddy.boundary.dtos.DamageDTOConverter;
 import de.rowbuddy.business.BoatManagement;
 import de.rowbuddy.business.ListType;
 import de.rowbuddy.entities.Boat;

@@ -7,11 +7,11 @@ import javax.servlet.annotation.WebServlet;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import de.rowbuddy.boundary.RowBuddyFacade;
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
-import de.rowbuddy.business.RowBuddyFacade;
 import de.rowbuddy.client.services.SessionManager;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.Trip;

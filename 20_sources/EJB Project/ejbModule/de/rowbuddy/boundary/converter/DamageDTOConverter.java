@@ -1,5 +1,7 @@
-package de.rowbuddy.boundary.dtos;
+package de.rowbuddy.boundary.converter;
 
+import de.rowbuddy.boundary.dtos.DamageDTO;
+import de.rowbuddy.boundary.dtos.DtoConverter;
 import de.rowbuddy.entities.BoatDamage;
 
 public class DamageDTOConverter extends DtoConverter<BoatDamage, DamageDTO> {

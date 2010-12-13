@@ -1,4 +1,4 @@
-package de.rowbuddy.business;
+package de.rowbuddy.boundary;
 
 import java.util.List;
 
@@ -12,14 +12,15 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import de.rowbuddy.boundary.BoatBoundary;
-import de.rowbuddy.boundary.LogbookBoundary;
+import de.rowbuddy.boundary.converter.MemberDTOConverter;
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.DamageDTO;
 import de.rowbuddy.boundary.dtos.MemberDTO;
-import de.rowbuddy.boundary.dtos.MemberDTOConverter;
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
+import de.rowbuddy.business.BoatManagement;
+import de.rowbuddy.business.Logbook;
+import de.rowbuddy.business.RouteManagement;
 import de.rowbuddy.business.Logbook.ListType;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
@@ -147,11 +148,11 @@ public class RowBuddyFacade {
 	}
 
 	public List<PersonalTripDTO> getPersonalTrips() {
-		return logbook.getPersonalTrips(this.member, ListType.All);
+		return logbookBoundary.getPersonalTrips(this.member, ListType.All);
 	}
 
 	public List<PersonalTripDTO> getPersonalOpenTrips() {
-		return logbook.getPersonalTrips(this.member, ListType.OpenOnly);
+		return logbookBoundary.getPersonalTrips(this.member, ListType.OpenOnly);
 	}
 
 	public List<DamageDTO> getOpenDamages() {

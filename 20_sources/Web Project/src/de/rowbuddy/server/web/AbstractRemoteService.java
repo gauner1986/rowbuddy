@@ -4,7 +4,7 @@ import javax.naming.InitialContext;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import de.rowbuddy.business.RowBuddyFacade;
+import de.rowbuddy.boundary.RowBuddyFacade;
 import de.rowbuddy.entities.Member;
 
 public abstract class AbstractRemoteService extends RemoteServiceServlet {
