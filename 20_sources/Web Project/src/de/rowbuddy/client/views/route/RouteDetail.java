@@ -62,19 +62,19 @@ public class RouteDetail extends HeaderButtonView implements Display {
 		mutable.setEnabled(false);
 		// detailTable.setWidget(3, 1, mutable);
 
-		LatLng cawkerCity = LatLng.newInstance(39.509, -98.434);
+		LatLng krefeldCity = LatLng.newInstance(51.3333333, 6.5666667);
 
-		final MapWidget map = new MapWidget(cawkerCity, 2);
+		final MapWidget map = new MapWidget(krefeldCity, 13);
 		map.setSize("100%", "100%");
 		// Add some controls for the zoom level
 		map.addControl(new LargeMapControl());
 
 		// Add a marker
-		map.addOverlay(new Marker(cawkerCity));
+		map.addOverlay(new Marker(krefeldCity));
 
 		// Add an info window to highlight a point of interest
 		map.getInfoWindow().open(map.getCenter(),
-				new InfoWindowContent("World's Largest Ball of Sisal Twine"));
+				new InfoWindowContent("Krefeld City"));
 
 		final DockLayoutPanel dock = new DockLayoutPanel(Unit.PX);
 		dock.addNorth(map, 500);
