@@ -5,6 +5,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -19,7 +20,7 @@ public class AddRouteView extends HeaderButtonView implements Display {
 	private FlexTable routeTable = null;
 	private TextBox nameText = null;
 	private TextBox length = null;
-	private TextBox description = null;
+	private TextArea description = null;
 	private CheckBox  mutable = null;
 	
 	public AddRouteView(){
@@ -36,14 +37,17 @@ public class AddRouteView extends HeaderButtonView implements Display {
 		
 		routeTable.setText(0, 0, "Name:");
 		nameText = new TextBox();
+		nameText.setWidth("100%");
 		routeTable.setWidget(0, 1, nameText);
 		
 		routeTable.setText(1, 0, "Länge:");
 		length = new TextBox();
+		length.setWidth("100%");
 		routeTable.setWidget(1, 1, length);
 		
 		routeTable.setText(2, 0, "Beschreibung:");
-		description = new TextBox();
+		description = new TextArea();
+		description.setWidth("100%");
 		routeTable.setWidget(2, 1, description);
 		
 		routeTable.setText(3, 0, "Veränderbar:");
