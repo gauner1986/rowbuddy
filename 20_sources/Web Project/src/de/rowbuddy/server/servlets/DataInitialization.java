@@ -186,6 +186,7 @@ public class DataInitialization extends HttpServlet {
 			testMember.setPassword("bla");
 			testMember.setEmail("bla@bla.de");
 			testMember.setBirthdate(new Date(System.currentTimeMillis()));
+			testMember.setMemberId("XDSADSF-223");
 			LinkedList<Role> roles = new LinkedList<Role>();
 			Role r = new Role();
 			r.setName(Role.RoleName.ADMIN);
