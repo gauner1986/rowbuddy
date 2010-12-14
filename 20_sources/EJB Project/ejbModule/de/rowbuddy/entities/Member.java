@@ -199,7 +199,7 @@ public class Member implements Serializable {
 	}
 
 	public String getFullName() {
-		return givenname + ", " + surname;
+		return givenname + " " + surname;
 	}
 
 	// public boolean isAdmin(){
