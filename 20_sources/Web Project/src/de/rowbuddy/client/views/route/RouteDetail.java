@@ -10,7 +10,6 @@ import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -65,10 +64,10 @@ public class RouteDetail extends HeaderButtonView implements Display {
 		LatLng krefeldCity = LatLng.newInstance(51.3333333, 6.5666667);
 
 		final MapWidget map = new MapWidget(krefeldCity, 13);
-//		map.setSize("100%", "100%");
+		// map.setSize("100%", "100%");
 		// Add some controls for the zoom level
 		map.addControl(new LargeMapControl());
-        map.addControl(new MapTypeControl(true));
+		map.addControl(new MapTypeControl(true));
 
 		// Add a marker
 		map.addOverlay(new Marker(krefeldCity));
@@ -77,13 +76,15 @@ public class RouteDetail extends HeaderButtonView implements Display {
 		map.getInfoWindow().open(map.getCenter(),
 				new InfoWindowContent("Krefeld City"));
 
-		HorizontalPanel hPanel = new HorizontalPanel();
-		hPanel.add(map);
-		hPanel.setHeight("350px");
-		hPanel.setWidth("100%");
-
+		map.setWidth("100%");
+		map.setHeight("400px");
+		// HorizontalPanel hPanel = new HorizontalPanel();
+		// hPanel.add(map);
+		// hPanel.setHeight("350px");
+		// hPanel.setWidth("100%");
+		detailTable.setWidget(3, 1, map);
 		vPanel.add(detailTable);
-		vPanel.add(hPanel);
+		// vPanel.add(hPanel);
 		setContent(vPanel);
 	}
 
