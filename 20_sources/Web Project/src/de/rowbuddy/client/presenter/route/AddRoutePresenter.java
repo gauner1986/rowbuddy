@@ -25,6 +25,7 @@ import de.rowbuddy.client.model.StatusMessage;
 import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
+import de.rowbuddy.entities.GpsPoint;
 import de.rowbuddy.entities.Route;
 
 public class AddRoutePresenter implements Presenter {
@@ -75,7 +76,7 @@ public class AddRoutePresenter implements Presenter {
 
 					@Override
 					public void onFailure(Throwable arg0) {
-						logger.severe(arg0.getMessage());
+						logger.severe("Cannot add route: " + arg0.getMessage());
 					}
 
 					@Override
@@ -148,6 +149,11 @@ public class AddRoutePresenter implements Presenter {
 			route.setName(view.getName().getValue());
 			route.setLastEditor(null);
 			route.setLengthKM(Double.valueOf(view.getLengthKM().getValue()));
+			List<GpsPoint> wayPoints = new LinkedList<GpsPoint>();
+			for(LatLng latlng : points){
+				wayPoints.add(new GpsPoint(latlng.getLatitude(), latlng.getLongitude()));
+			}
+			route.setWayPoints(wayPoints);
 			routeService.addRoute(route, action);
 		} catch (Exception e) {
 			StatusMessage message = new StatusMessage();
