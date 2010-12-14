@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Role;
+import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.exceptions.RowBuddyException;
 import de.rowbuddy.util.Ejb;
 import de.rowbuddy.util.EjbTestBase;
@@ -22,6 +23,19 @@ public class MemberManagementTest extends EjbTestBase {
 	private Member member2;
 	private Member admin1;
 	private Member admin2;
+	
+	public MemberManagementTest(){
+		memberMgmt = Ejb.lookUp(MemberManagement.class, MemberManagement.class);
+		Role r = new Role();
+		try {
+			r.setName(RoleName.MEMBER);
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		memberMgmt.addRole(r);
+		memberMgmt = null;
+	}
 
 	@Before
 	public void setup() throws RowBuddyException {
@@ -56,7 +70,10 @@ public class MemberManagementTest extends EjbTestBase {
 		Member m2 = memberMgmt.addMember(member2);
 		
 		for(Role r : m2.getRoles()){
-			System.out.println(r.toString());
+			System.out.println(r);
+		}
+		for(Role r : m1.getRoles()){
+			System.out.println(r);
 		}
 		assertThat(m1.getRoles(), equalsList(m2.getRoles()));
 	}

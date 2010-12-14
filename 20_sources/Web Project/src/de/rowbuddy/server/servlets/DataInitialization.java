@@ -25,6 +25,7 @@ import de.rowbuddy.entities.Route;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.entities.TripMember;
 import de.rowbuddy.entities.TripMemberType;
+import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 /**
@@ -64,6 +65,25 @@ public class DataInitialization extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void setupRoles(){
+		Role admin = new Role();
+		try {
+			admin.setName(RoleName.ADMIN);
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Role member = new Role();
+		try {
+			member.setName(RoleName.MEMBER);
+		} catch (RowBuddyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		memberManagement.addRole(admin);
+		memberManagement.addRole(member);
 	}
 
 	private void createTestRoutes(Member member) throws RowBuddyException {

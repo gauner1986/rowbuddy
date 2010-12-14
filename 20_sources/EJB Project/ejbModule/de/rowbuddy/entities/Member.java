@@ -50,16 +50,6 @@ public class Member implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public Member() {
-		if(roles.size()==0){
-			Role r = new Role();
-		try {
-			r.setName(Role.RoleName.MEMBER);
-		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-			roles.add(r);
-		}
 	}
 
 	public Long getId() {

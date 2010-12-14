@@ -1,5 +1,6 @@
 package de.rowbuddy.business;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -12,6 +13,8 @@ import javax.persistence.TypedQuery;
 import com.sun.istack.logging.Logger;
 
 import de.rowbuddy.entities.Member;
+import de.rowbuddy.entities.Role;
+import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 /**
@@ -35,7 +38,21 @@ public class MemberManagement {
 			throw new RowBuddyException(
 					"Member is not allowed to have a predefined id");
 		}
-
+		
+		if(addMember.getRoles().size() == 0){
+			try {
+				String query = "SELECT r FROM Role r WHERE (r.roleName = :role)";
+				TypedQuery<Role> q = em.createQuery(query, Role.class);
+				q.setParameter("role", RoleName.MEMBER);
+				Role r = q.getSingleResult();
+				LinkedList<Role> roles = new LinkedList<Role>();
+				roles.add(r);
+				addMember.setRoles(roles);
+			} catch (Exception e){
+				logger.info("A Member default role could not be set up, omitting (probably no Roles in the database)",e);
+			}
+		}
+		
 		checkEmailExists(addMember.getEmail(), new Long(-1));
 
 		em.persist(addMember);
@@ -105,6 +122,10 @@ public class MemberManagement {
 			importMember(member);
 		}
 		logger.info("Import Members: Finished");
+	}
+	
+	public void addRole(Role role){
+		em.persist(role);
 	}
 
 	private Member importMember(Member member) throws RowBuddyException {
