@@ -1,6 +1,7 @@
 package de.rowbuddy.client.views.route;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.maps.client.MapOptions;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
 import com.google.gwt.maps.client.control.MapTypeControl;
@@ -59,11 +60,12 @@ public class AddRouteView extends HeaderButtonView implements Display {
 		routeTable.setText(3, 0, "Veränderbar:");
 		mutable = new CheckBox();
 		routeTable.setWidget(3, 1, mutable);
-
-		map = new MapWidget();
-		map.setStylePrimaryName("mapWidget");
+		MapOptions options = MapOptions.newInstance();
+		options.setDraggableCursor("crosshair");
+		options.setDraggingCursor("text");
 		LatLng krefeldCity = LatLng.newInstance(51.341256, 6.684687);
-		map.setCenter(krefeldCity, 13);
+		map = new MapWidget(krefeldCity, 13, options);
+		map.setStylePrimaryName("mapWidget");
 		routeTable.getFlexCellFormatter().setColSpan(4, 0, 2);
 		routeTable.getFlexCellFormatter().setColSpan(5, 0, 2);
 		// Add some controls for the zoom level
