@@ -23,27 +23,29 @@ public class RouteManagement {
 	public Route addRoute(Route newRoute, Member currentUser)
 			throws RowBuddyException {
 		if (newRoute == null) {
-			throw new RowBuddyException("Route must be specified");
+			throw new RowBuddyException("Route darf nicht null sein");
 		}
 
 		if (currentUser == null) {
-			throw new RowBuddyException("User must not be null");
+			throw new RowBuddyException("Benutzer darf nicht null sein");
 		}
 
 		if (newRoute.getId() != null) {
-			throw new RowBuddyException("Id must not be specified");
+			throw new RowBuddyException("Id muss null sein");
 		}
 
 		if (newRoute.getParentId() != null) {
-			throw new RowBuddyException("Parent id must not be specified");
+			throw new RowBuddyException(
+					"Vordegaenger Version darf nicht angegeben werden");
 		}
 
 		if (newRoute.getLastEditor() != null) {
-			throw new RowBuddyException("Last editor must not be set");
+			throw new RowBuddyException("Bearbeiteter muss null sein");
 		}
 
 		if (newRoute.isDeleted()) {
-			throw new RowBuddyException("Cannot add a deleted route");
+			throw new RowBuddyException(
+					"Eine geloeschte Route kann nicht hinzugefuegt werden");
 		}
 
 		newRoute.validate();
@@ -83,26 +85,26 @@ public class RouteManagement {
 	public Route editRoute(Route route, Member editor) throws RowBuddyException {
 
 		if (route == null) {
-			throw new RowBuddyException("Route must not be null");
+			throw new RowBuddyException("Route darf nicht null sein");
 		}
 
 		if (editor == null) {
-			throw new RowBuddyException("CurrentUser must not be null");
+			throw new RowBuddyException("Bearbeiter darf nicht null sein");
 		}
 
 		if (route.getId() == null) {
-			throw new RowBuddyException("Id must not be null");
+			throw new RowBuddyException("Id darf nicht null sein");
 		}
 
 		if (!canEditRoute(route, editor)) {
-			throw new RowBuddyException("Route cannot be edited");
+			throw new RowBuddyException("Route kann nicht editiert werden");
 		}
 
 		route.validate();
 
 		Route fromDb = em.find(Route.class, route.getId());
 		if (fromDb == null) {
-			throw new RowBuddyException("Route does not exist");
+			throw new RowBuddyException("Die Route existiert nicht");
 		}
 
 		Member persistedMember = editor;
@@ -141,12 +143,12 @@ public class RouteManagement {
 	 */
 	public Route getRoute(Long id) throws RowBuddyException {
 		if (id == null) {
-			throw new RowBuddyException("id must not be null");
+			throw new RowBuddyException("Id darf nicht null sein");
 		}
 
 		Route route = em.find(Route.class, id);
 		if (route == null) {
-			throw new RowBuddyException("Route was not found");
+			throw new RowBuddyException("Route wurde nicht gefunden");
 		}
 
 		return route;
@@ -172,17 +174,17 @@ public class RouteManagement {
 
 	public void deleteRoute(Long id, Member deleter) throws RowBuddyException {
 		if (id == null) {
-			throw new RowBuddyException("id must be specified");
+			throw new RowBuddyException("Id darf nicht angegeben werden");
 		}
 
 		if (deleter == null) {
-			throw new RowBuddyException("deleter must be specified");
+			throw new RowBuddyException("Mitglied muss angegeben werden");
 		}
 
 		Route route = getRoute(id);
 
 		if (!canEditRoute(route, deleter)) {
-			throw new RowBuddyException("Route cannot be edited");
+			throw new RowBuddyException("Route kann nicht editiert werden");
 		}
 
 		route.setDeleted(true);
