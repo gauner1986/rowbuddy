@@ -52,7 +52,7 @@ public class BoatDamage implements Serializable {
 
 	public void setLogDate(Date logDate) {
 		if (logDate == null) {
-			throw new NullPointerException("LogDate must not be null");
+			throw new NullPointerException("LogDatum darf nicht null sein");
 		}
 		this.logDate = logDate;
 	}
@@ -72,10 +72,11 @@ public class BoatDamage implements Serializable {
 	public void setDamageDescription(String damageDescription)
 			throws RowBuddyException {
 		if (damageDescription == null) {
-			throw new NullPointerException("Damage description cannot be null");
+			throw new NullPointerException("Beschreibung darf nicht null sein");
 		}
 		if (damageDescription.isEmpty()) {
-			throw new RowBuddyException("Damage description has to be set");
+			throw new RowBuddyException(
+					"Es muss eine Beschreibung angegeben werden");
 		}
 		this.damageDescription = damageDescription;
 	}
@@ -107,17 +108,17 @@ public class BoatDamage implements Serializable {
 	public void setAdditionalInformation(String additionalInformation) {
 		if (additionalInformation == null) {
 			throw new NullPointerException(
-					"Additional information must not be null");
+					"Zusaetzliche Information duerfen nicht null sein");
 		}
 		this.additionalInformation = additionalInformation;
 	}
 
 	public void validate() throws RowBuddyException {
 		if (damageDescription.isEmpty()) {
-			throw new RowBuddyException("Description must be specified");
+			throw new RowBuddyException("Beschreibung darf nicht leer sein");
 		}
 		if (logger == null) {
-			throw new NullPointerException("Logger must be specified");
+			throw new NullPointerException("Mitglied angegeben werden");
 		}
 	}
 }
