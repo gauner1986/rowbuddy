@@ -19,6 +19,7 @@ import javax.persistence.UniqueConstraint;
 
 import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.exceptions.RowBuddyException;
+import de.rowbuddy.util.EncryptionUtility;
 
 /**
  * Entity implementation class for Entity: Member
@@ -133,8 +134,7 @@ public class Member implements Serializable {
 	}
 
 	public void setPassword(String password) {
-		// TODO encryption of password
-		this.password = password;
+		this.password = EncryptionUtility.encryptStringWithSHA(password);
 	}
 
 	public boolean getDeleted() {

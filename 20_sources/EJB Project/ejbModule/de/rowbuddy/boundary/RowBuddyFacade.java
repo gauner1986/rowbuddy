@@ -28,6 +28,7 @@ import de.rowbuddy.entities.Route;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
+import de.rowbuddy.util.EncryptionUtility;
 
 /**
  * Session Bean implementation class RowBuddyFacade
@@ -78,7 +79,7 @@ public class RowBuddyFacade {
 			throw new NotLoggedInException(
 					"This member doesn't exist in our database");
 
-		if (!m.getPassword().equals(member.getPassword())) {
+		if (!EncryptionUtility.encryptStringWithSHA(m.getPassword()).equals(member.getPassword())) {
 			throw new NotLoggedInException(
 					"The password you specified is not correct");
 		} else {
