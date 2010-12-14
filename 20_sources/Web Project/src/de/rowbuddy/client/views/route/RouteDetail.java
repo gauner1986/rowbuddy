@@ -67,6 +67,7 @@ public class RouteDetail extends HeaderButtonView implements Display {
 		detailTable.setWidget(3, 1, mutable);
 
 		map = new MapWidget();
+		map.setStylePrimaryName("mapWidget");
 		// Add some controls for the zoom level
 		map.addControl(new LargeMapControl());
 		map.addControl(new MapTypeControl(true));
@@ -128,8 +129,6 @@ public class RouteDetail extends HeaderButtonView implements Display {
 
 			map.addOverlay(new Polyline(latLngs));
 		}
-		map.setWidth("100%");
-		map.setHeight("400px");
 		detailTable.setWidget(4, 0, map);
 		detailTable.getFlexCellFormatter().setColSpan(4, 0, 2);
 	}

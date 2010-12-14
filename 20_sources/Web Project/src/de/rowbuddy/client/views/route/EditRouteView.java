@@ -33,46 +33,47 @@ public class EditRouteView extends HeaderButtonView implements Display {
 	private Button deleteButton;
 	private Button dialogButton;
 	private final MapWidget map;
-	
-	public EditRouteView(){
+
+	public EditRouteView() {
 		super(PageTitles.ROUTE_EDIT);
-		
+
 		submitButton = new Button("Route speichern");
 		submitButton.setStylePrimaryName("buttonSave buttonPositive");
 		cancelButton = new Button("Abbrechen");
 		cancelButton.setStylePrimaryName("buttonCancel buttonNegative");
 		dialogButton = new Button("Löschen");
 		dialogButton.setStylePrimaryName("buttonDelete buttonNegative");
-		
+
 		addButton(submitButton);
 		addButton(dialogButton);
 		addButton(cancelButton);
-		
+
 		routeTable = new FlexTable();
-		
+
 		routeTable.setText(0, 0, "Name:");
 		nameText = new TextBox();
 		nameText.setWidth("100%");
 		routeTable.setWidget(0, 1, nameText);
-		
+
 		routeTable.setText(1, 0, "Länge:");
 		lengthText = new TextBox();
 		lengthText.setWidth("100%");
 		routeTable.setWidget(1, 1, lengthText);
-		
+
 		routeTable.setText(2, 0, "Description:");
 		descriptionText = new TextArea();
 		descriptionText.setWidth("100%");
 		routeTable.setWidget(2, 1, descriptionText);
-		
+
 		routeTable.setText(3, 0, "Veränderbar:");
 		mutable = new CheckBox();
 		routeTable.setWidget(3, 1, mutable);
-		
+
 		map = new MapWidget();
+		map.setStylePrimaryName("mapWidget");
 		routeTable.setWidget(4, 0, map);
 		routeTable.getFlexCellFormatter().setColSpan(4, 0, 2);
-		
+
 		box = new DialogBox(false, true);
 		box.setGlassEnabled(true);
 		box.setGlassStyleName("glassStyle");
@@ -99,7 +100,7 @@ public class EditRouteView extends HeaderButtonView implements Display {
 
 		setContent(routeTable);
 	}
-	
+
 	@Override
 	public HasClickHandlers getSubmitButton() {
 		return submitButton;
