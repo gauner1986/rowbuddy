@@ -1,6 +1,7 @@
 package de.rowbuddy.util;
 
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * 
@@ -8,20 +9,28 @@ import java.security.MessageDigest;
  */
 
 public class EncryptionUtility {
-	
+
 	public static String encryptStringWithSHA2(String input) {
 		String output = null;
-		MessageDigest md = MessageDigest.getInstance("SHA-256");
+		MessageDigest md = null;
+		try {
+			md = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		md.update(input.getBytes());
 
 		byte byteData[] = md.digest();
-		
+
 		StringBuffer sb = new StringBuffer();
-		for(int i = 0; i < byteData.length; i++) {
-			sb.append(Integer.toString((byteData[i] & =xff) + 0x100, 16).substring(1));
+		for (int i = 0; i < byteData.length; i++) {
+			sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16)
+					.substring(1));
 		}
-		
+
 		output = sb.toString();
 		return output;
-	}
+	}
+
 }

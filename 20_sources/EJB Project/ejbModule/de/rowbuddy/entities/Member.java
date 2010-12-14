@@ -134,7 +134,7 @@ public class Member implements Serializable {
 	}
 
 	public void setPassword(String password) {
-		this.password = EncryptionUtility.encryptStringWithSHA(password);
+		this.password = password;
 	}
 
 	public boolean getDeleted() {

@@ -79,7 +79,7 @@ public class RowBuddyFacade {
 			throw new NotLoggedInException(
 					"This member doesn't exist in our database");
 
-		if (!EncryptionUtility.encryptStringWithSHA(m.getPassword()).equals(member.getPassword())) {
+		if (!m.getPassword().equals(member.getPassword())) {
 			throw new NotLoggedInException(
 					"The password you specified is not correct");
 		} else {
