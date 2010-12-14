@@ -55,11 +55,11 @@ public class DataInitialization extends HttpServlet {
 	@Override
 	public void init() {
 		try {
-			Member member = createTestMember();
+			Member member = createTestMember(true);
 			createTestRoutes(member);
 			createTestBoats(member);
 			createTestTrips(member);
-			createAdminTestMember();
+			//createAdminTestMember();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -148,7 +148,8 @@ public class DataInitialization extends HttpServlet {
 		logbook.logRowedTrip(trip2, member);
 	}
 
-	private Member createTestMember() throws RowBuddyException {
+	private Member createTestMember(boolean admin) throws RowBuddyException {
+		if(!admin){
 		Member testMember = new Member();
 		testMember.setGivenname("Jan");
 		testMember.setSurname("Trzeszkowski");
@@ -158,22 +159,21 @@ public class DataInitialization extends HttpServlet {
 		testMember.setMemberId("XDSADSF-221");
 		memberManagement.addMember(testMember);
 		return testMember;
-	}
-	
-	private Member createAdminTestMember() throws RowBuddyException {
-		Member testMember = new Member();
-		testMember.setGivenname("Jan");
-		testMember.setSurname("Trzeszkowski");
-		testMember.setPassword("blubb");
-		testMember.setEmail("admin@bla.de");
-		testMember.setBirthdate(new Date(System.currentTimeMillis()));
-		LinkedList<Role> roles = new LinkedList<Role>();
-		Role r = new Role();
-		r.setName(Role.RoleName.ADMIN);
-		roles.add(r);
-		testMember.setRoles(roles);
-		memberManagement.addMember(testMember);
-		return testMember;
+		} else {
+			Member testMember = new Member();
+			testMember.setGivenname("Jan");
+			testMember.setSurname("Trzeszkowski");
+			testMember.setPassword("bla");
+			testMember.setEmail("bla@bla.de");
+			testMember.setBirthdate(new Date(System.currentTimeMillis()));
+			LinkedList<Role> roles = new LinkedList<Role>();
+			Role r = new Role();
+			r.setName(Role.RoleName.ADMIN);
+			roles.add(r);
+			testMember.setRoles(roles);
+			Member toReturn = memberManagement.addMember(testMember);
+			return toReturn;
+		}
 	}
 
 	/**

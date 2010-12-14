@@ -39,7 +39,7 @@ public class SessionManagerImpl extends AbstractRemoteService implements Session
 		
 		convMember.setPublishedTrips(new LinkedList<Trip>());
 		LinkedList<Role> roleList = new LinkedList<Role>();
-		for(Role r: convMember.getRoles()){
+		for(Role r: rawMember.getRoles()){
 			roleList.add(r);
 		}
 		convMember.setRoles(roleList);
