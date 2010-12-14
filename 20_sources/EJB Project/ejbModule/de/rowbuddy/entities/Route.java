@@ -43,9 +43,6 @@ public class Route implements Serializable {
 	}
 
 	public void setId(Long id) {
-		if (id == null) {
-			throw new NullPointerException("Id darf nicht null sein");
-		}
 		this.id = id;
 	}
 
@@ -54,10 +51,6 @@ public class Route implements Serializable {
 	}
 
 	public void setParentId(Long parentId) {
-		if (parentId == null) {
-			throw new NullPointerException(
-					"Vorgaenger Version darf nicht null sein");
-		}
 		this.parentId = parentId;
 	}
 
