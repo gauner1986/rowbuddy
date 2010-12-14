@@ -64,10 +64,10 @@ public class RouteDetail extends HeaderButtonView implements Display {
 		LatLng krefeldCity = LatLng.newInstance(51.3333333, 6.5666667);
 
 		final MapWidget map = new MapWidget(krefeldCity, 13);
-		// map.setSize("100%", "100%");
 		// Add some controls for the zoom level
 		map.addControl(new LargeMapControl());
 		map.addControl(new MapTypeControl(true));
+        map.setVisible(true);
 
 		// Add a marker
 		map.addOverlay(new Marker(krefeldCity));
@@ -78,13 +78,9 @@ public class RouteDetail extends HeaderButtonView implements Display {
 
 		map.setWidth("100%");
 		map.setHeight("400px");
-		// HorizontalPanel hPanel = new HorizontalPanel();
-		// hPanel.add(map);
-		// hPanel.setHeight("350px");
-		// hPanel.setWidth("100%");
-		detailTable.setWidget(3, 1, map);
+		detailTable.setWidget(4, 0, map);
+		detailTable.getFlexCellFormatter().setColSpan(4, 0, 2);
 		vPanel.add(detailTable);
-		// vPanel.add(hPanel);
 		setContent(vPanel);
 	}
 
