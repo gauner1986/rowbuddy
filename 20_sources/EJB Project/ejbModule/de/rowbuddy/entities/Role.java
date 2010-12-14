@@ -1,7 +1,11 @@
 package de.rowbuddy.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import de.rowbuddy.exceptions.RowBuddyException;
 
@@ -11,8 +15,10 @@ import de.rowbuddy.exceptions.RowBuddyException;
  */
 @Entity
 public class Role implements Serializable {
-	
-	public enum RoleName {ADMIN,MEMBER}
+
+	public enum RoleName {
+		ADMIN, MEMBER
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,7 +41,7 @@ public class Role implements Serializable {
 
 	public void setName(RoleName name) throws RowBuddyException {
 		if (name == null) {
-			throw new NullPointerException("Name of role must not be null");
+			throw new NullPointerException("Rollenname darf nicht null sein");
 		}
 		this.roleName = name;
 	}
