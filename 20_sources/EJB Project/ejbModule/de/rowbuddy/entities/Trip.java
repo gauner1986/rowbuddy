@@ -60,7 +60,7 @@ public class Trip implements Serializable {
 
 	public void setStartDate(Date newStartDate) {
 		if (newStartDate == null) {
-			throw new NullPointerException("Start date must not be null");
+			throw new NullPointerException("Anfangsdatum darf nicht null sein");
 		}
 		this.startDate = newStartDate;
 	}
@@ -75,7 +75,7 @@ public class Trip implements Serializable {
 
 	public void setEndDate(Date newEndDate) {
 		if (newEndDate == null) {
-			throw new NullPointerException("End date must not be null");
+			throw new NullPointerException("Enddatum darf nicht null sein");
 		}
 		this.endDate = newEndDate;
 	}
@@ -86,14 +86,14 @@ public class Trip implements Serializable {
 
 	public void setBoat(Boat newBoat) {
 		if (newBoat == null) {
-			throw new NullPointerException("Boat must not be null");
+			throw new NullPointerException("Boot darf nicht null sein");
 		}
 		this.boat = newBoat;
 	}
 
 	public void removeBoat() {
 		if (boat == null) {
-			throw new IllegalStateException("Boat is not set");
+			throw new IllegalStateException("Es gibt kein Boot");
 		}
 		this.boat = null;
 	}
@@ -104,18 +104,20 @@ public class Trip implements Serializable {
 
 	public void setTripMembers(List<TripMember> newTripMembers) {
 		if (newTripMembers == null) {
-			throw new NullPointerException("Tripmembers must not be null");
+			throw new NullPointerException(
+					"Tripteilnehmer darf nicht null sein");
 		}
 		this.tripMembers = newTripMembers;
 	}
 
 	public void addTripMember(TripMember newMember) {
 		if (newMember == null) {
-			throw new NullPointerException("Tripmember must not be null");
+			throw new NullPointerException(
+					"Tripteilnehmer darf nicht null sein");
 		}
 		if (newMember.getMember() == null) {
 			throw new NullPointerException(
-					"Member of Tripmember must not be null");
+					"Tripteilnehmer 'member' darf nicht null sein");
 		}
 		tripMembers.add(newMember);
 	}
@@ -126,7 +128,7 @@ public class Trip implements Serializable {
 
 	public void setLastEditor(Member newLastEditor) {
 		if (newLastEditor == null) {
-			throw new NullPointerException("Last editor must not be null");
+			throw new NullPointerException("Mitglied darf nicht null sein");
 		}
 		this.lastEditor = newLastEditor;
 	}
@@ -137,14 +139,14 @@ public class Trip implements Serializable {
 
 	public void setRoute(Route newRoute) {
 		if (newRoute == null) {
-			throw new NullPointerException("Route must not be null");
+			throw new NullPointerException("Route darf nicht null sein");
 		}
 		this.route = newRoute;
 	}
 
 	public void removeRoute() {
 		if (this.route == null) {
-			throw new IllegalStateException("Route is not set");
+			throw new IllegalStateException("Route ist null");
 		}
 		this.route = null;
 	}
@@ -186,7 +188,7 @@ public class Trip implements Serializable {
 	public void validateStartedTrip() throws RowBuddyException {
 
 		if (startDate == null) {
-			throw new RowBuddyException("Start date must be set");
+			throw new RowBuddyException("Startdatum darf nicht null sein");
 		}
 	}
 
@@ -195,23 +197,25 @@ public class Trip implements Serializable {
 		validateStartedTrip();
 
 		if (endDate == null) {
-			throw new RowBuddyException("End date must be set");
+			throw new RowBuddyException("Enddatum darf nicht null sein");
 		}
 
 		if (startDate.after(endDate)) {
-			throw new RowBuddyException("End date must be after start date");
+			throw new RowBuddyException(
+					"Startdatum muss vor dem Enddatum liegen");
 		}
 
 		if (route == null) {
-			throw new RowBuddyException("A Route must be set");
+			throw new RowBuddyException("Route darf nicht null sein");
 		}
 
 		if (boat == null) {
-			throw new RowBuddyException("A boat must be set");
+			throw new RowBuddyException("Boat darf nicht null sein");
 		}
 
 		if (tripMembers.size() == 0) {
-			throw new RowBuddyException("Please add tripmembers");
+			throw new RowBuddyException(
+					"Es muessen Tripteilnehmer angegeben werden");
 		}
 
 	}
