@@ -35,11 +35,10 @@ public class MemberManagement {
 	public Member addMember(Member addMember) throws RowBuddyException {
 
 		if (addMember.getId() != null) {
-			throw new RowBuddyException(
-					"Member is not allowed to have a predefined id");
+			throw new RowBuddyException("Mitglied darf keine Id haben");
 		}
-		
-		if(addMember.getRoles().size() == 0){
+
+		if (addMember.getRoles().size() == 0) {
 			try {
 				String query = "SELECT r FROM Role r WHERE (r.roleName = :role)";
 				TypedQuery<Role> q = em.createQuery(query, Role.class);
@@ -48,11 +47,13 @@ public class MemberManagement {
 				LinkedList<Role> roles = new LinkedList<Role>();
 				roles.add(r);
 				addMember.setRoles(roles);
-			} catch (Exception e){
-				logger.info("A Member default role could not be set up, omitting (probably no Roles in the database)",e);
+			} catch (Exception e) {
+				logger.info(
+						"A Member default role could not be set up, omitting (probably no Roles in the database)",
+						e);
 			}
 		}
-		
+
 		checkEmailExists(addMember.getEmail(), new Long(-1));
 
 		em.persist(addMember);
@@ -61,16 +62,16 @@ public class MemberManagement {
 
 	public Member getMember(Long id) throws RowBuddyException {
 		if (id == null) {
-			throw new RowBuddyException("id must not be null");
+			throw new RowBuddyException("Id darf nicht null sein");
 		}
 		Member member = em.find(Member.class, id);
 		if (member == null) {
-			throw new RowBuddyException("member was not found");
+			throw new RowBuddyException("Das Mitglied existiert nicht");
 		}
 		return member;
 	}
-	
-	public Member getMember(String email){
+
+	public Member getMember(String email) {
 		String query = "SELECT m FROM Member m WHERE (m.email=:member) ";
 
 		TypedQuery<Member> q = em.createQuery(query, Member.class);
@@ -94,13 +95,13 @@ public class MemberManagement {
 		List<Member> sameEmailAsExistingMember = q.getResultList();
 		if (sameEmailAsExistingMember.size() > 0) {
 			throw new RowBuddyException(
-					"A user with this emailadress already exists");
+					"Die Email-Adresse wird bereits verwendet");
 		}
 	}
 
 	public Member updateMember(Member member) throws RowBuddyException {
 		if (member == null) {
-			throw new RowBuddyException("member must not be null");
+			throw new RowBuddyException("Mitglied darf nicht null sein");
 		}
 
 		// ensure that member exists
@@ -133,8 +134,8 @@ public class MemberManagement {
 		}
 		logger.info("Import Members: Finished");
 	}
-	
-	public void addRole(Role role){
+
+	public void addRole(Role role) {
 		em.persist(role);
 	}
 
