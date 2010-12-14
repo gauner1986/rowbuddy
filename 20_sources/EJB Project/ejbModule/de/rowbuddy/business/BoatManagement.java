@@ -31,12 +31,12 @@ public class BoatManagement {
 
 	public Boat getBoat(Long id) throws RowBuddyException {
 		if (id == null) {
-			throw new RowBuddyException("Id must be specified");
+			throw new RowBuddyException("Boot id darf nicht null sein");
 		}
 
 		Boat boat = em.find(Boat.class, id);
 		if (boat == null) {
-			throw new RowBuddyException("Boat does not exist");
+			throw new RowBuddyException("Boot existiert nicht");
 		}
 		return boat;
 	}
@@ -45,7 +45,7 @@ public class BoatManagement {
 
 		if (addBoat.getId() != null) {
 			throw new RowBuddyException(
-					"Boat is not allowed to have a predefined id");
+					"Boot darf keine vordefinierte Id haben");
 		}
 
 		if (addBoat.isDeleted()) {
@@ -61,18 +61,19 @@ public class BoatManagement {
 	public Boat updateBoat(Boat updateBoat) throws RowBuddyException {
 
 		if (updateBoat.getId() == null) {
-			throw new RowBuddyException("You must specify an id");
+			throw new RowBuddyException("Boot Id darf nicht null sein");
 		}
 
 		if (updateBoat.isDeleted()) {
-			throw new RowBuddyException("Cannot save deleted boat");
+			throw new RowBuddyException(
+					"Update darf nicht auf einem geloeschten Boot aufgerufen wird");
 		}
 
 		Boat dbBoat = getBoat(updateBoat.getId());
 
 		if (dbBoat.isDeleted()) {
 			throw new RowBuddyException(
-					"Boat was deleted and cannot be updated");
+					"Update darf nicht auf einem geloeschten Boot aufgerufen wird");
 		}
 
 		updateBoat.validate();
@@ -97,7 +98,7 @@ public class BoatManagement {
 	public void addDamage(BoatDamage damage, Member logger, Long boatId)
 			throws RowBuddyException {
 		if (damage.getId() != null) {
-			throw new RowBuddyException("Id must be null");
+			throw new RowBuddyException("Id darf nicht null sein");
 		}
 
 		damage.setLogDate(new Date());
@@ -105,7 +106,7 @@ public class BoatManagement {
 		damage.validate();
 
 		if (damage.getBoat() != null) {
-			throw new RowBuddyException("Boat must be null");
+			throw new RowBuddyException("Boot darf nicht null sein");
 		}
 
 		Boat persistedBoat = getBoat(boatId);
@@ -123,13 +124,13 @@ public class BoatManagement {
 
 	public void deleteBoat(Long id) throws RowBuddyException {
 		if (id == null) {
-			throw new RowBuddyException("You must specify an id");
+			throw new RowBuddyException("Es muss eine Id angegeben werden");
 		}
 
 		Boat boat = getBoat(id);
 
 		if (boat.isDeleted()) {
-			throw new RowBuddyException("Boat is already deleted");
+			throw new RowBuddyException("Boot ist schon geloescht");
 		}
 		boat.setDeleted(true);
 	}
@@ -146,7 +147,7 @@ public class BoatManagement {
 
 	public BoatDamage getDamage(Long id) throws RowBuddyException {
 		if (id == null) {
-			throw new RowBuddyException("Id must be specified");
+			throw new RowBuddyException("Id muss angegeben werden");
 		}
 		return em.find(BoatDamage.class, id);
 	}
