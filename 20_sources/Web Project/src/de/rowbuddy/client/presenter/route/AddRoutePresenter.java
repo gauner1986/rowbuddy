@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.events.ListRoutesEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
 import de.rowbuddy.client.model.StatusMessage.Status;
@@ -87,8 +88,9 @@ public class AddRoutePresenter implements Presenter {
 					@Override
 					public void onSuccess(Route arg0) {
 						logger.info("Route successful added; Reset View");
+						eventBus.fireEvent(new ListRoutesEvent());
 						StatusMessage message = new StatusMessage();
-						message.setMessage("Route erfolgreich hinzugef�gt");
+						message.setMessage("Route erfolgreich hinzugefügt");
 						message.setStatus(Status.POSITIVE);
 						message.setAttached(false);
 						eventBus.fireEvent(new StatusMessageEvent(message));

@@ -111,18 +111,19 @@ public class Route implements Serializable {
 					"Es muessen mindestens zwei Koordinaten angegeben werden");
 		}
 		// create copies to prevent existing way points from being edited
-		List<GpsPoint> copies = new LinkedList<GpsPoint>();
-		for (GpsPoint point : wayPoints) {
-			copies.add(point.getCopy());
-		}
+//		List<GpsPoint> copies = new LinkedList<GpsPoint>();
+//		for (GpsPoint point : wayPoints) {
+//			copies.add(point.getCopy());
+//		}
 
-		double length = 0;
-		for (int i = 0; i < copies.size() - 1; i++) {
-			length += copies.get(i).distanceKmTo(copies.get(i + 1));
-		}
-		setLengthKM(length);
+//		double length = 0;
+//		for (int i = 0; i < copies.size() - 1; i++) {
+//			length += copies.get(i).distanceKmTo(copies.get(i + 1));
+//		}
+//		setLengthKM(length);
 
-		this.wayPoints = copies;
+//		this.wayPoints = copies;
+		this.wayPoints = wayPoints;
 	}
 
 	public List<GpsPoint> getWayPoints() {
