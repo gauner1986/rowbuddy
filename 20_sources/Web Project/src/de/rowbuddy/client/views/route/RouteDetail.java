@@ -1,5 +1,7 @@
 package de.rowbuddy.client.views.route;
 
+import java.util.List;
+
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.maps.client.InfoWindowContent;
 import com.google.gwt.maps.client.MapWidget;
@@ -7,6 +9,7 @@ import com.google.gwt.maps.client.control.LargeMapControl;
 import com.google.gwt.maps.client.control.MapTypeControl;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
+import com.google.gwt.maps.client.overlay.Polyline;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -16,6 +19,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.route.RouteDetailPresenter.Display;
 import de.rowbuddy.client.views.HeaderButtonView;
+import de.rowbuddy.entities.GpsPoint;
 
 public class RouteDetail extends HeaderButtonView implements Display {
 
@@ -27,6 +31,7 @@ public class RouteDetail extends HeaderButtonView implements Display {
 	private CheckBox mutable;
 	private Button editButton;
 	private Button cancelButton;
+	private final MapWidget map;
 
 	public RouteDetail() {
 		super(PageTitles.ROUTE_DETAIL);
@@ -61,25 +66,11 @@ public class RouteDetail extends HeaderButtonView implements Display {
 		mutable.setEnabled(false);
 		detailTable.setWidget(3, 1, mutable);
 
-		LatLng krefeldCity = LatLng.newInstance(51.3333333, 6.5666667);
-
-		final MapWidget map = new MapWidget(krefeldCity, 13);
+		map = new MapWidget();
 		// Add some controls for the zoom level
 		map.addControl(new LargeMapControl());
 		map.addControl(new MapTypeControl(true));
-        map.setVisible(true);
 
-		// Add a marker
-		map.addOverlay(new Marker(krefeldCity));
-
-		// Add an info window to highlight a point of interest
-		map.getInfoWindow().open(map.getCenter(),
-				new InfoWindowContent("Krefeld City"));
-
-		map.setWidth("100%");
-		map.setHeight("400px");
-		detailTable.setWidget(4, 0, map);
-		detailTable.getFlexCellFormatter().setColSpan(4, 0, 2);
 		vPanel.add(detailTable);
 		setContent(vPanel);
 	}
@@ -112,6 +103,35 @@ public class RouteDetail extends HeaderButtonView implements Display {
 	@Override
 	public HasClickHandlers getCancelButton() {
 		return cancelButton;
+	}
+
+	@Override
+	public void setMap(List<GpsPoint> points) {
+		if (points.isEmpty()) {
+			LatLng krefeldCity = LatLng.newInstance(51.3333333, 6.5666667);
+			map.setCenter(krefeldCity, 13);
+			map.addOverlay(new Marker(krefeldCity));
+
+			map.getInfoWindow().open(map.getCenter(),
+					new InfoWindowContent("Krefelder City"));
+		} else {
+			LatLng[] latLngs = new LatLng[points.size()];
+			int i = 0;
+			for (GpsPoint point : points) {
+				LatLng latLng = LatLng.newInstance(point.getLatitude(),
+						point.getLongitude());
+				map.setCenter(latLng, 13);
+				map.addOverlay(new Marker(latLng));
+				latLngs[i] = latLng;
+				i++;
+			}
+
+			map.addOverlay(new Polyline(latLngs));
+		}
+		map.setWidth("100%");
+		map.setHeight("400px");
+		detailTable.setWidget(4, 0, map);
+		detailTable.getFlexCellFormatter().setColSpan(4, 0, 2);
 	}
 
 }

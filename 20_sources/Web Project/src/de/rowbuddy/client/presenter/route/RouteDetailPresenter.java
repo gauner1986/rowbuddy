@@ -1,5 +1,6 @@
 package de.rowbuddy.client.presenter.route;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -14,6 +15,7 @@ import de.rowbuddy.client.events.EditRouteEvent;
 import de.rowbuddy.client.events.ListRoutesEvent;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
+import de.rowbuddy.entities.GpsPoint;
 import de.rowbuddy.entities.Route;
 
 public class RouteDetailPresenter implements Presenter {
@@ -26,6 +28,8 @@ public class RouteDetailPresenter implements Presenter {
 		void setDescription(String description);
 
 		void setMutable(boolean value);
+		
+		void setMap(List<GpsPoint> points);
 
 		HasClickHandlers getEditButton();
 
@@ -65,6 +69,7 @@ public class RouteDetailPresenter implements Presenter {
 				view.setLenght("" + arg0.getLengthKM());
 				view.setDescription(arg0.getShortDescription());
 				view.setMutable(arg0.isMutable());
+				view.setMap(arg0.getWayPoints());
 			}
 
 			@Override

@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -19,6 +20,7 @@ import de.rowbuddy.business.MemberManagement;
 import de.rowbuddy.business.RouteManagement;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
+import de.rowbuddy.entities.GpsPoint;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Role;
 import de.rowbuddy.entities.Route;
@@ -60,14 +62,14 @@ public class DataInitialization extends HttpServlet {
 			createTestRoutes(member);
 			createTestBoats(member);
 			createTestTrips(member);
-			//createAdminTestMember();
+			// createAdminTestMember();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public void setupRoles(){
+
+	public void setupRoles() {
 		Role admin = new Role();
 		try {
 			admin.setName(RoleName.ADMIN);
@@ -101,7 +103,16 @@ public class DataInitialization extends HttpServlet {
 		r2.setMutable(false);
 		r2.setName("Rhein Duisburg-Wesel");
 		r2.setShortDescription("perfekt zum rudern :-)");
+		r2.setWayPoints(createWayPoints());
 		routeManagement.addRoute(r2, member);
+	}
+
+	private List<GpsPoint> createWayPoints() {
+		List<GpsPoint> p = new LinkedList<GpsPoint>();
+		p.add(new GpsPoint(51.25509323774028, 6.182534694671631));
+		p.add(new GpsPoint(51.353364886551454, 6.153985261917114));
+		p.add(new GpsPoint(51.3333333, 6.5666667));
+		return p;
 	}
 
 	private void createTestBoats(Member member) throws RowBuddyException {
@@ -169,16 +180,16 @@ public class DataInitialization extends HttpServlet {
 	}
 
 	private Member createTestMember(boolean admin) throws RowBuddyException {
-		if(!admin){
-		Member testMember = new Member();
-		testMember.setGivenname("Jan");
-		testMember.setSurname("Trzeszkowski");
-		testMember.setPassword("bla");
-		testMember.setEmail("bla@bla.de");
-		testMember.setBirthdate(new Date(System.currentTimeMillis()));
-		testMember.setMemberId("XDSADSF-221");
-		memberManagement.addMember(testMember);
-		return testMember;
+		if (!admin) {
+			Member testMember = new Member();
+			testMember.setGivenname("Jan");
+			testMember.setSurname("Trzeszkowski");
+			testMember.setPassword("bla");
+			testMember.setEmail("bla@bla.de");
+			testMember.setBirthdate(new Date(System.currentTimeMillis()));
+			testMember.setMemberId("XDSADSF-221");
+			memberManagement.addMember(testMember);
+			return testMember;
 		} else {
 			Member testMember = new Member();
 			testMember.setGivenname("Jan");
