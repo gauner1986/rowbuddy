@@ -65,7 +65,7 @@ public class Logbook {
 			throws RowBuddyException {
 
 		if (startedTrip.getId() != null) {
-			throw new RowBuddyException("Cannot start existing trip");
+			throw new RowBuddyException("Trip Id muss null sein");
 		}
 
 		startedTrip.validateStartedTrip();
@@ -87,16 +87,16 @@ public class Logbook {
 			throws RowBuddyException {
 
 		if (openTrip.getId() == null) {
-			throw new RowBuddyException("Cannot finish unsaved trip");
+			throw new RowBuddyException("Trip Id muss null sein");
 		}
 
 		Trip dbTrip = em.find(Trip.class, openTrip.getId());
 		if (dbTrip == null) {
-			throw new RowBuddyException("Trip does not exist");
+			throw new RowBuddyException("Trip existiert nicht");
 		}
 
 		if (!canEditTrip(dbTrip, currentUser)) {
-			throw new RowBuddyException("You are not allowed to edit this trip");
+			throw new RowBuddyException("Du darfst diesen Trip nicht aendern");
 		}
 
 		openTrip.validateFinishedTrip();
@@ -169,7 +169,7 @@ public class Logbook {
 
 		Trip trip = em.find(Trip.class, id);
 		if (trip == null) {
-			throw new RowBuddyException("Trip does not exist");
+			throw new RowBuddyException("Trip existiert nicht");
 		}
 		return trip;
 	}
@@ -183,7 +183,8 @@ public class Logbook {
 	 */
 	public List<Trip> getPersonalTrips(Member member, ListType listType) {
 		if (member == null) {
-			throw new NullPointerException("You must specify a member");
+			throw new NullPointerException(
+					"Es muss ein Mitglied angegeben werden");
 		}
 
 		StringBuilder sb = new StringBuilder();
