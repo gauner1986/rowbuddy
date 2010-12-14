@@ -43,6 +43,8 @@ public class AddRoutePresenter implements Presenter {
 
 		HasValue<String> getLengthKM();
 		
+		HasValue<Boolean> isMutable();
+		
 		HasValue<String> getShortDescription();
 
 		MapWidget getMap();
@@ -165,6 +167,7 @@ public class AddRoutePresenter implements Presenter {
 			route.setLastEditor(null);
 			route.setLengthKM(Double.valueOf(view.getLengthKM().getValue()));
 			route.setShortDescription(view.getShortDescription().getValue());
+			route.setMutable(view.isMutable().getValue());
 			List<GpsPoint> wayPoints = new LinkedList<GpsPoint>();
 			for (LatLng latlng : points) {
 				wayPoints.add(new GpsPoint(latlng.getLatitude(), latlng

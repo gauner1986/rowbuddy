@@ -49,6 +49,7 @@ public class AddRouteView extends HeaderButtonView implements Display {
 
 		routeTable.setText(1, 0, "Länge in km:");
 		length = new TextBox();
+		length.setText("automatische Berechnung");
 		length.setWidth("100%");
 		length.setEnabled(false);
 		routeTable.setWidget(1, 1, length);
@@ -126,6 +127,11 @@ public class AddRouteView extends HeaderButtonView implements Display {
 	@Override
 	public HasValue<String> getShortDescription() {
 		return description;
+	}
+
+	@Override
+	public HasValue<Boolean> isMutable() {
+		return mutable;
 	}
 
 }

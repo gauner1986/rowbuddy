@@ -1,12 +1,20 @@
 package de.rowbuddy.client.presenter.route;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.maps.client.MapWidget;
+import com.google.gwt.maps.client.event.MapClickHandler;
+import com.google.gwt.maps.client.event.MapRightClickHandler;
 import com.google.gwt.maps.client.geom.LatLng;
+import com.google.gwt.maps.client.overlay.Marker;
+import com.google.gwt.maps.client.overlay.Polyline;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -38,9 +46,9 @@ public class EditRoutePresenter implements Presenter {
 
 		HasValue<Boolean> isMutable();
 
-		LatLng[] getMap();
+		MapWidget getMap();
 
-		void setMap(LatLng[] points);
+		void setMap(LatLng[] points, Polyline polyline);
 
 		Widget asWidget();
 
@@ -60,6 +68,8 @@ public class EditRoutePresenter implements Presenter {
 	private Long id;
 	private Logger logger = Logger
 			.getLogger(EditRoutePresenter.class.getName());
+	private List<LatLng> points;
+	private Polyline polyline;
 
 	public EditRoutePresenter(Display view,
 			RouteRemoteServiceAsync routeService, EventBus eventBus, Long id) {
@@ -67,6 +77,7 @@ public class EditRoutePresenter implements Presenter {
 		this.routeService = routeService;
 		this.eventBus = eventBus;
 		this.id = id;
+		points = new LinkedList<LatLng>();
 	}
 
 	@Override
@@ -96,9 +107,11 @@ public class EditRoutePresenter implements Presenter {
 					for (GpsPoint point : arg0.getWayPoints()) {
 						points[i] = LatLng.newInstance(point.getLatitude(),
 								point.getLongitude());
+						EditRoutePresenter.this.points.add(points[i]);
 						i++;
 					}
-					view.setMap(points);
+					polyline = new Polyline(points);
+					view.setMap(points, polyline);
 				}
 			}
 
@@ -214,6 +227,55 @@ public class EditRoutePresenter implements Presenter {
 				});
 			}
 		});
+		
+		view.getMap().addMapClickHandler(new MapClickHandler() {
+
+			@Override
+			public void onClick(MapClickEvent event) {
+				view.getMap().addOverlay(new Marker(event.getLatLng()));
+				points.add(event.getLatLng());
+				LatLng[] latLngs = new LatLng[points.size()];
+				if (polyline != null) {
+					view.getMap().removeOverlay(polyline);
+				}
+				polyline = new Polyline(points.toArray(latLngs));
+				view.getMap().addOverlay(polyline);
+				view.getLength().setValue("" + calcDistance());
+				logger.info("Marker add: " + points.size());
+			}
+		});
+
+		view.getMap().addMapRightClickHandler(new MapRightClickHandler() {
+
+			@Override
+			public void onRightClick(MapRightClickEvent event) {
+				if (event.getOverlay() instanceof Marker) {
+					Marker marker = (Marker) event.getOverlay();
+					view.getMap().removeOverlay(marker);
+					points.remove(marker.getLatLng());
+					view.getMap().removeOverlay(polyline);
+					LatLng[] latLngs = new LatLng[points.size()];
+					polyline = new Polyline(points.toArray(latLngs));
+					view.getMap().addOverlay(polyline);
+					view.getLength().setValue("" + calcDistance());
+					logger.info("Marker remove: " + points.size());
+				}
+			}
+		});
+	}
+	
+	private double calcDistance() {
+		double lengthInMeter = 0.0;
+		if (points.size() > 1) {
+			Iterator<LatLng> iterator = points.iterator();
+			LatLng point = iterator.next();
+			while (iterator.hasNext()) {
+				LatLng pointNext = iterator.next();
+				lengthInMeter += point.distanceFrom(pointNext);
+				point = pointNext;
+			}
+		}
+		return Math.round((lengthInMeter / 1000.0) * 100.) / 100.;
 	}
 
 }

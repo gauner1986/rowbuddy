@@ -3,8 +3,9 @@ package de.rowbuddy.client.views.route;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.maps.client.MapOptions;
 import com.google.gwt.maps.client.MapWidget;
-import com.google.gwt.maps.client.control.LargeMapControl;
+import com.google.gwt.maps.client.control.LargeMapControl3D;
 import com.google.gwt.maps.client.control.MapTypeControl;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
@@ -13,6 +14,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextArea;
@@ -71,17 +73,26 @@ public class EditRouteView extends HeaderButtonView implements Display {
 		mutable = new CheckBox();
 		routeTable.setWidget(3, 1, mutable);
 
-		map = new MapWidget();
-		map.setStylePrimaryName("mapWidget");
+		MapOptions options = MapOptions.newInstance();
+		options.setDraggableCursor("crosshair");
+		options.setDraggingCursor("text");
 		LatLng krefeldCity = LatLng.newInstance(51.341256, 6.684687);
-		map.setCenter(krefeldCity, 13);
+		map = new MapWidget(krefeldCity, 13, options);
+		map.setStylePrimaryName("mapWidget");
 		map.addOverlay(new Marker(krefeldCity));
 		routeTable.getFlexCellFormatter().setColSpan(4, 0, 2);
+		routeTable.getFlexCellFormatter().setColSpan(5, 0, 2);
 		// Add some controls for the zoom level
-		map.addControl(new LargeMapControl());
+		map.addControl(new LargeMapControl3D());
 		map.addControl(new MapTypeControl(true));
 
-		routeTable.setWidget(4, 0, map);
+		routeTable
+		.setWidget(
+				4,
+				0,
+				new HTML(
+						"Zum Hinzufügen von GPS-Punkten, bitte auf die Karte klicken.<br/>Zum Löschen von GPS-Punkten, bitte auf einen existieren Punkt rechts klicken."));
+routeTable.setWidget(5, 0, map);
 
 		box = new DialogBox(false, true);
 		box.setGlassEnabled(true);
@@ -161,7 +172,7 @@ public class EditRouteView extends HeaderButtonView implements Display {
 	}
 
 	@Override
-	public void setMap(LatLng[] points) {
+	public void setMap(LatLng[] points, Polyline polyline) {
 		if (points.length > 0) {
 			map.clearOverlays();
 			map.closeInfoWindow();
@@ -169,14 +180,13 @@ public class EditRouteView extends HeaderButtonView implements Display {
 				map.setCenter(point);
 				map.addOverlay(new Marker(point));
 			}
-			map.addOverlay(new Polyline(points));
+			map.addOverlay(polyline);
 		}
 	}
 
 	@Override
-	public LatLng[] getMap() {
-		// TODO Auto-generated method stub
-		return null;
+	public MapWidget getMap() {
+		return map;
 	}
 
 }
