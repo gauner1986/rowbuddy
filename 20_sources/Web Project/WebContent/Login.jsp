@@ -46,13 +46,13 @@
 %>
 </tr>
 <tr>
-	<td>Email:</td>
-	<td><input type="text" name="email" /></td>
+	<td align="right">Email:</td>
+	<td align="center"><input type="text" name="email" style="width:150px;" /></td>
 </tr>
 
 <tr>
-	<td>Passwort:</td>
-	<td><input type="password" name="password" /></td>
+	<td align="right">Passwort:</td>
+	<td align="center"><input type="password" name="password" style="width:150px;"/></td>
 </tr>
 <tr>
 	<td align="center" colspan="2"><input type="submit" value="Login" class="buttonLogin buttonPositive"/></td>
