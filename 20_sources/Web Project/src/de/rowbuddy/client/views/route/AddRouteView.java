@@ -8,6 +8,7 @@ import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
@@ -45,7 +46,7 @@ public class AddRouteView extends HeaderButtonView implements Display {
 		nameText.setWidth("100%");
 		routeTable.setWidget(0, 1, nameText);
 
-		routeTable.setText(1, 0, "Länge:");
+		routeTable.setText(1, 0, "Länge in km:");
 		length = new TextBox();
 		length.setWidth("100%");
 		routeTable.setWidget(1, 1, length);
@@ -64,11 +65,18 @@ public class AddRouteView extends HeaderButtonView implements Display {
 		LatLng krefeldCity = LatLng.newInstance(51.341256, 6.684687);
 		map.setCenter(krefeldCity, 13);
 		routeTable.getFlexCellFormatter().setColSpan(4, 0, 2);
+		routeTable.getFlexCellFormatter().setColSpan(5, 0, 2);
 		// Add some controls for the zoom level
 		map.addControl(new LargeMapControl());
 		map.addControl(new MapTypeControl(true));
 
-		routeTable.setWidget(4, 0, map);
+		routeTable
+				.setWidget(
+						4,
+						0,
+						new HTML(
+								"Zum Hinzufügen von GPS-Punkten, bitte auf die Karte klicken.<br/>Zum Löschen von GPS-Punkten, bitte auf einen existieren Punkt rechts klicken."));
+		routeTable.setWidget(5, 0, map);
 
 		setContent(routeTable);
 	}

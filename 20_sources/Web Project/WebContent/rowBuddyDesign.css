@@ -27,6 +27,11 @@ body {
 	background-color: rgba(100, 100, 100, 0.5);
 }
 
+.gwt-HTML {
+	padding-top: 20px;
+	font-size: x-small;
+}
+
 .messages {
 	border: 3px solid #bbbbbb;
 	border-bottom: 0px;

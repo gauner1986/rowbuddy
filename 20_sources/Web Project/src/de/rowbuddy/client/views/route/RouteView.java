@@ -76,7 +76,7 @@ public class RouteView extends HeaderButtonView implements Display {
 	private void initTableHead() {
 		routeTable.setText(0, 0, "Name");
 		routeTable.setText(0, 1, "Autor");
-		routeTable.setText(0, 2, "Länge");
+		routeTable.setText(0, 2, "Länge in km");
 
 		routeTable.getRowFormatter().setStyleName(0, "boatTableHeader");
 		routeTable.setCellPadding(5);

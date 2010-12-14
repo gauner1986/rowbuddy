@@ -51,7 +51,7 @@ public class RouteDetail extends HeaderButtonView implements Display {
 		nameText = new Label();
 		detailTable.setWidget(0, 1, nameText);
 
-		detailTable.setText(1, 0, "Länge:");
+		detailTable.setText(1, 0, "Länge in km:");
 		lenght = new Label();
 		detailTable.setWidget(1, 1, lenght);
 

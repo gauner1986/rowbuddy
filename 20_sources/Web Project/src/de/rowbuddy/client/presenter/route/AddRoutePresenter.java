@@ -1,5 +1,6 @@
 package de.rowbuddy.client.presenter.route;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -103,6 +104,7 @@ public class AddRoutePresenter implements Presenter {
 				}
 				polyline = new Polyline(points.toArray(latLngs));
 				view.getMap().addOverlay(polyline);
+				view.getLengthKM().setValue("" + calcDistance());
 				logger.info("Marker add: " + points.size());
 			}
 		});
@@ -119,10 +121,25 @@ public class AddRoutePresenter implements Presenter {
 					LatLng[] latLngs = new LatLng[points.size()];
 					polyline = new Polyline(points.toArray(latLngs));
 					view.getMap().addOverlay(polyline);
+					view.getLengthKM().setValue("" + calcDistance());
 					logger.info("Marker remove: " + points.size());
 				}
 			}
 		});
+	}
+
+	private double calcDistance() {
+		double lengthInMeter = 0.0;
+		if (points.size() > 1) {
+			Iterator<LatLng> iterator = points.iterator();
+			LatLng point = iterator.next();
+			while (iterator.hasNext()) {
+				LatLng pointNext = iterator.next();
+				lengthInMeter += point.distanceFrom(pointNext);
+				point = pointNext;
+			}
+		}
+		return Math.round((lengthInMeter / 1000.0) * 100.) / 100.;
 	}
 
 	private void addRoute(AsyncCallback<Route> action) {

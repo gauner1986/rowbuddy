@@ -57,7 +57,7 @@ public class EditRouteView extends HeaderButtonView implements Display {
 		nameText.setWidth("100%");
 		routeTable.setWidget(0, 1, nameText);
 
-		routeTable.setText(1, 0, "Länge:");
+		routeTable.setText(1, 0, "Länge in km:");
 		lengthText = new TextBox();
 		lengthText.setWidth("100%");
 		routeTable.setWidget(1, 1, lengthText);
