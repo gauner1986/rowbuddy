@@ -3,7 +3,7 @@ package de.rowbuddy.client.views.route;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.maps.client.MapOptions;
 import com.google.gwt.maps.client.MapWidget;
-import com.google.gwt.maps.client.control.LargeMapControl;
+import com.google.gwt.maps.client.control.LargeMapControl3D;
 import com.google.gwt.maps.client.control.MapTypeControl;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.ui.Button;
@@ -50,6 +50,7 @@ public class AddRouteView extends HeaderButtonView implements Display {
 		routeTable.setText(1, 0, "Länge in km:");
 		length = new TextBox();
 		length.setWidth("100%");
+		length.setEnabled(false);
 		routeTable.setWidget(1, 1, length);
 
 		routeTable.setText(2, 0, "Beschreibung:");
@@ -69,8 +70,9 @@ public class AddRouteView extends HeaderButtonView implements Display {
 		routeTable.getFlexCellFormatter().setColSpan(4, 0, 2);
 		routeTable.getFlexCellFormatter().setColSpan(5, 0, 2);
 		// Add some controls for the zoom level
-		map.addControl(new LargeMapControl());
+		map.addControl(new LargeMapControl3D());
 		map.addControl(new MapTypeControl(true));
+		map.setGoogleBarEnabled(true);
 
 		routeTable
 				.setWidget(
@@ -115,6 +117,16 @@ public class AddRouteView extends HeaderButtonView implements Display {
 	@Override
 	public MapWidget getMap() {
 		return map;
+	}
+
+	@Override
+	public HasClickHandlers getResetButton() {
+		return resetButton;
+	}
+
+	@Override
+	public HasValue<String> getShortDescription() {
+		return description;
 	}
 
 }

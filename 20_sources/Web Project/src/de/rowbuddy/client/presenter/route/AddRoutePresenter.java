@@ -15,6 +15,7 @@ import com.google.gwt.maps.client.event.MapRightClickHandler;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.Polyline;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -35,9 +36,13 @@ public class AddRoutePresenter implements Presenter {
 
 		HasClickHandlers getAddButton();
 
+		HasClickHandlers getResetButton();
+
 		HasValue<String> getName();
 
 		HasValue<String> getLengthKM();
+		
+		HasValue<String> getShortDescription();
 
 		MapWidget getMap();
 
@@ -127,6 +132,14 @@ public class AddRoutePresenter implements Presenter {
 				}
 			}
 		});
+
+		view.getResetButton().addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent arg0) {
+				History.back();
+			}
+		});
 	}
 
 	private double calcDistance() {
@@ -149,11 +162,14 @@ public class AddRoutePresenter implements Presenter {
 			route.setName(view.getName().getValue());
 			route.setLastEditor(null);
 			route.setLengthKM(Double.valueOf(view.getLengthKM().getValue()));
+			route.setShortDescription(view.getShortDescription().getValue());
 			List<GpsPoint> wayPoints = new LinkedList<GpsPoint>();
-			for(LatLng latlng : points){
-				wayPoints.add(new GpsPoint(latlng.getLatitude(), latlng.getLongitude()));
+			for (LatLng latlng : points) {
+				wayPoints.add(new GpsPoint(latlng.getLatitude(), latlng
+						.getLongitude()));
 			}
 			route.setWayPoints(wayPoints);
+			route.validate();
 			routeService.addRoute(route, action);
 		} catch (Exception e) {
 			StatusMessage message = new StatusMessage();
