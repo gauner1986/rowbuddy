@@ -1,7 +1,5 @@
 package de.rowbuddy.client.views;
 
-import java.util.logging.Logger;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.NativeEvent;
@@ -36,10 +34,9 @@ public class MenuView extends Composite implements MenuDisplay {
 	private Anchor browseBoats = new Anchor("Bootsübersicht");
 	private Anchor listPersonalTrips = new Anchor("Meine Fahrten");
 	private Anchor listPersonalOpenTrips = new Anchor("Meine offenen Fahrten");
-	private Anchor browseDamages = new Anchor("Schäden anzeigen(admin)");
+	private Anchor browseDamages = new Anchor("Schäden anzeigen");
 	private DecoratedStackPanel menuPanel = new DecoratedStackPanel();
 	private HorizontalPanel route = getHeaderString("Route", images.map());
-	private Logger logger = Logger.getLogger(MenuView.class.getName());
 	private Anchor logDamageBoat = new Anchor("Schaden registrieren");
 
 	public MenuView() {
@@ -63,7 +60,7 @@ public class MenuView extends Composite implements MenuDisplay {
 			public void onSuccess(Member arg0) {
 				if (arg0.isInRole(Role.RoleName.ADMIN)) {
 					menuPanel.add(createMemberControl(),
-						getHeaderString("Mitgliederverwaltung(admin)", images.member())
+						getHeaderString("Mitgliederverwaltung", images.member())
 							.getElement().getString(), true);
 				} else {
 					browseDamages.setVisible(false);
@@ -143,7 +140,7 @@ public class MenuView extends Composite implements MenuDisplay {
 	private Widget createStatistikMenu() {
 		FlexTable tb = new FlexTable();
 
-		final Anchor boatdamagesYear = new Anchor("Bootsschäden(admin)");
+		final Anchor boatdamagesYear = new Anchor("Bootsschäden");
 		Anchor clubactivityMonth = new Anchor("Aktivität - Monatsstatistik");
 		Anchor clubactivityWeekday = new Anchor("Aktivität - Tagesstatistik");
 		Anchor highscoreBoats = new Anchor("Boote - Jahresstatistik");
