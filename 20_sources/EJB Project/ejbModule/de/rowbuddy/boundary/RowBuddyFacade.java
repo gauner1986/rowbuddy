@@ -63,7 +63,7 @@ public class RowBuddyFacade {
 	public void login(Member member) throws NotLoggedInException {
 		if (member.getEmail() == null || member.getPassword() == null)
 			throw new NotLoggedInException(
-					"You didn't specify an E-Mail address and/or a password");
+					"Sie haben keinen Benutzernamen und/oder Passwort angegeben.");
 
 		Query q = em
 				.createQuery("SELECT m FROM Member m WHERE m.email = :email");
@@ -73,15 +73,15 @@ public class RowBuddyFacade {
 			m = (Member) q.getSingleResult();
 		} catch (NoResultException nre) {
 			throw new NotLoggedInException(
-					"This member doesn't exist in our database");
+				"Ihr Passwort und/oder der Benutzername sind inkorrekt.");
 		}
 		if (m == null)
 			throw new NotLoggedInException(
-					"This member doesn't exist in our database");
+				"Ihr Passwort und/oder der Benutzername sind inkorrekt.");
 
 		if (!m.getPassword().equals(member.getPassword())) {
 			throw new NotLoggedInException(
-					"The password you specified is not correct");
+					"Ihr Passwort und/oder der Benutzername sind inkorrekt.");
 		} else {
 			this.member = m;
 		}
@@ -115,8 +115,7 @@ public class RowBuddyFacade {
 	}
 
 	@AllowedRoles(values = { Role.RoleName.ADMIN })
-	public Boat updateBoat(Boat updateBoat) throws RowBuddyException,
-			RowBuddyException {
+	public Boat updateBoat(Boat updateBoat) throws RowBuddyException{
 		return boatManagement.updateBoat(updateBoat);
 	}
 
