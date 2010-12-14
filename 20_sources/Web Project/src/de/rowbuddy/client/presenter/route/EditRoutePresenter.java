@@ -1,12 +1,12 @@
 package de.rowbuddy.client.presenter.route;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -37,8 +37,10 @@ public class EditRoutePresenter implements Presenter {
 		HasValue<String> getDescription();
 
 		HasValue<Boolean> isMutable();
-		
-		HasValue<List<GpsPoint>> getMap();
+
+		LatLng[] getMap();
+
+		void setMap(LatLng[] points);
 
 		Widget asWidget();
 
@@ -87,7 +89,17 @@ public class EditRoutePresenter implements Presenter {
 				view.getLength().setValue("" + route.getLengthKM());
 				view.getDescription().setValue(route.getShortDescription());
 				view.isMutable().setValue(route.isMutable());
-				view.getMap().setValue(route.getWayPoints());
+
+				if (!arg0.getWayPoints().isEmpty()) {
+					LatLng[] points = new LatLng[arg0.getWayPoints().size()];
+					int i = 0;
+					for (GpsPoint point : arg0.getWayPoints()) {
+						points[i] = LatLng.newInstance(point.getLatitude(),
+								point.getLongitude());
+						i++;
+					}
+					view.setMap(points);
+				}
 			}
 
 			@Override

@@ -1,11 +1,15 @@
 package de.rowbuddy.client.views.route;
 
-import java.util.List;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.maps.client.InfoWindowContent;
 import com.google.gwt.maps.client.MapWidget;
+import com.google.gwt.maps.client.control.LargeMapControl;
+import com.google.gwt.maps.client.control.MapTypeControl;
+import com.google.gwt.maps.client.geom.LatLng;
+import com.google.gwt.maps.client.overlay.Marker;
+import com.google.gwt.maps.client.overlay.Polyline;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -18,7 +22,6 @@ import com.google.gwt.user.client.ui.TextBox;
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.route.EditRoutePresenter.Display;
 import de.rowbuddy.client.views.HeaderButtonView;
-import de.rowbuddy.entities.GpsPoint;
 
 public class EditRouteView extends HeaderButtonView implements Display {
 
@@ -71,8 +74,17 @@ public class EditRouteView extends HeaderButtonView implements Display {
 
 		map = new MapWidget();
 		map.setStylePrimaryName("mapWidget");
-		routeTable.setWidget(4, 0, map);
+		LatLng krefeldCity = LatLng.newInstance(51.3333333, 6.5666667);
+		map.setCenter(krefeldCity, 13);
+		map.addOverlay(new Marker(krefeldCity));
+		map.getInfoWindow().open(map.getCenter(),
+				new InfoWindowContent("Krefelder City"));
 		routeTable.getFlexCellFormatter().setColSpan(4, 0, 2);
+		// Add some controls for the zoom level
+		map.addControl(new LargeMapControl());
+		map.addControl(new MapTypeControl(true));
+
+		routeTable.setWidget(4, 0, map);
 
 		box = new DialogBox(false, true);
 		box.setGlassEnabled(true);
@@ -152,7 +164,17 @@ public class EditRouteView extends HeaderButtonView implements Display {
 	}
 
 	@Override
-	public HasValue<List<GpsPoint>> getMap() {
+	public void setMap(LatLng[] points) {
+		map.clearOverlays();
+		for (LatLng point : points) {
+			map.addOverlay(new Marker(point));
+		}
+		map.addOverlay(new Polyline(points));
+	}
+
+	@Override
+	public LatLng[] getMap() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

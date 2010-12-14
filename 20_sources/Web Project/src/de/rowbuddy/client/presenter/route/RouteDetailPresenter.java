@@ -1,12 +1,12 @@
 package de.rowbuddy.client.presenter.route;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
@@ -28,8 +28,8 @@ public class RouteDetailPresenter implements Presenter {
 		void setDescription(String description);
 
 		void setMutable(boolean value);
-		
-		void setMap(List<GpsPoint> points);
+
+		void setMap(LatLng[] points);
 
 		HasClickHandlers getEditButton();
 
@@ -40,7 +40,8 @@ public class RouteDetailPresenter implements Presenter {
 
 	private Display view;
 	private RouteRemoteServiceAsync routeService;
-	private static Logger logger = Logger.getLogger(RouteDetailPresenter.class.getName());
+	private static Logger logger = Logger.getLogger(RouteDetailPresenter.class
+			.getName());
 	private Long id;
 	private EventBus eventBus;
 
@@ -69,7 +70,16 @@ public class RouteDetailPresenter implements Presenter {
 				view.setLenght("" + arg0.getLengthKM());
 				view.setDescription(arg0.getShortDescription());
 				view.setMutable(arg0.isMutable());
-				view.setMap(arg0.getWayPoints());
+				if (!arg0.getWayPoints().isEmpty()) {
+					LatLng[] points = new LatLng[arg0.getWayPoints().size()];
+					int i = 0;
+					for (GpsPoint point : arg0.getWayPoints()) {
+						points[i] = LatLng.newInstance(point.getLatitude(),
+								point.getLongitude());
+						i++;
+					}
+					view.setMap(points);
+				}
 			}
 
 			@Override
@@ -78,18 +88,18 @@ public class RouteDetailPresenter implements Presenter {
 			}
 		});
 	}
-	
-	private void bind(){
+
+	private void bind() {
 		view.getEditButton().addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent arg0) {
 				eventBus.fireEvent(new EditRouteEvent(id));
 			}
 		});
-		
+
 		view.getCancelButton().addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent arg0) {
 				eventBus.fireEvent(new ListRoutesEvent());
