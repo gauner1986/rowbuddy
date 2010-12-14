@@ -58,7 +58,7 @@ public class Member implements Serializable {
 
 	public void setId(Long id) {
 		if (id == null) {
-			throw new NullPointerException("Id must not be null");
+			throw new NullPointerException("Id darf nicht null sein");
 		}
 		this.id = id;
 	}
@@ -69,10 +69,11 @@ public class Member implements Serializable {
 
 	public void setMemberId(String memberId) throws RowBuddyException {
 		if (memberId == null) {
-			throw new NullPointerException("Member ID must not be null");
+			throw new NullPointerException(
+					"Mitgliedsnummer darf nicht null sein");
 		}
 		if (memberId.isEmpty()) {
-			throw new RowBuddyException("Member ID has to be set");
+			throw new RowBuddyException("Mitgliedsnummer darf nicht leer sein");
 		}
 		this.memberId = memberId;
 	}
@@ -83,10 +84,10 @@ public class Member implements Serializable {
 
 	public void setGivenname(String givenname) throws RowBuddyException {
 		if (givenname == null) {
-			throw new NullPointerException("Givenname must not be null");
+			throw new NullPointerException("Vorname darf nicht null sein");
 		}
 		if (givenname.isEmpty()) {
-			throw new RowBuddyException("Givenname has to be set");
+			throw new RowBuddyException("Vorname darf nicht leer sein");
 		}
 		this.givenname = givenname;
 	}
@@ -97,10 +98,10 @@ public class Member implements Serializable {
 
 	public void setSurname(String surname) throws RowBuddyException {
 		if (surname == null) {
-			throw new NullPointerException("Surname must not be null");
+			throw new NullPointerException("Nachname darf nicht null sein");
 		}
 		if (surname.isEmpty()) {
-			throw new RowBuddyException("Surname has to be set");
+			throw new RowBuddyException("Nachname darf nicht leer sein");
 		}
 		this.surname = surname;
 	}
@@ -112,7 +113,7 @@ public class Member implements Serializable {
 	public void setBirthdate(Date birthdate) throws RowBuddyException {
 		if (birthdate.compareTo(new Date()) > 0) {
 			throw new RowBuddyException(
-					"birthday of the memeber has to be in the past");
+					"Geburtsdatum darf nicht in der Zukunft liegen");
 		}
 		this.birthdate = birthdate;
 	}
@@ -122,9 +123,6 @@ public class Member implements Serializable {
 	}
 
 	public void setEmail(String email) throws RowBuddyException {
-		if (email == "a") {
-			throw new RowBuddyException("email is not valid");
-		}
 		this.email = email;
 	}
 
@@ -175,7 +173,7 @@ public class Member implements Serializable {
 
 	public void setPublishedTrips(List<Trip> publishedTrips) {
 		if (publishedTrips == null) {
-			throw new NullPointerException("Published trips must not be null");
+			throw new NullPointerException("Favoriten duerfen nicht null sein");
 		}
 		this.publishedTrips = publishedTrips;
 	}
@@ -186,7 +184,7 @@ public class Member implements Serializable {
 
 	public void setRoles(List<Role> roles) {
 		if (roles == null) {
-			throw new NullPointerException("Roles must not be null");
+			throw new NullPointerException("Rolle darf nicht null sein");
 		}
 		this.roles = roles;
 	}
@@ -203,15 +201,15 @@ public class Member implements Serializable {
 	public String getFullName() {
 		return givenname + ", " + surname;
 	}
-	
-//	public boolean isAdmin(){
-//		for(Role r : roles){
-//			if(r.getName().equals(Role.RoleName.ADMIN)){
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
+
+	// public boolean isAdmin(){
+	// for(Role r : roles){
+	// if(r.getName().equals(Role.RoleName.ADMIN)){
+	// return true;
+	// }
+	// }
+	// return false;
+	// }
 
 	@Override
 	public int hashCode() {
