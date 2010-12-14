@@ -6,6 +6,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -31,13 +32,18 @@ public class AddRoutePresenter implements Presenter {
 
 		HasValue<String> getLengthKM();
 
+		void setMap(LatLng[] points);
+
+		LatLng[] getMap();
+
 		void reset();
 	}
 
 	private Display view = null;
 	private RouteRemoteServiceAsync routeService = null;
 	private EventBus eventBus;
-	private static Logger logger = Logger.getLogger(AddRoutePresenter.class.getName());
+	private static Logger logger = Logger.getLogger(AddRoutePresenter.class
+			.getName());
 
 	public AddRoutePresenter(Display view,
 			RouteRemoteServiceAsync routeService, EventBus eventBus) {
@@ -84,7 +90,7 @@ public class AddRoutePresenter implements Presenter {
 		Route route = new Route();
 		try {
 			route.setName(view.getName().getValue());
-			//TODO: searchMember and set
+			// TODO: searchMember and set
 			route.setLastEditor(null);
 			route.setLengthKM(Double.valueOf(view.getLengthKM().getValue()));
 			routeService.addRoute(route, action);
@@ -95,7 +101,7 @@ public class AddRoutePresenter implements Presenter {
 			message.setAttached(false);
 			eventBus.fireEvent(new StatusMessageEvent(message));
 			logger.warning(e.getMessage());
-			
+
 		}
 	}
 
