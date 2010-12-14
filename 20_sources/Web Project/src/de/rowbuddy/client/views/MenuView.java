@@ -35,6 +35,7 @@ public class MenuView extends Composite implements MenuDisplay {
 	private Anchor listPersonalTrips = new Anchor("Meine Fahrten");
 	private Anchor listPersonalOpenTrips = new Anchor("Meine offenen Fahrten");
 	private Anchor browseDamages = new Anchor("Schäden anzeigen");
+	private Anchor boatdamagesYear = new Anchor("Bootsschäden");
 	private DecoratedStackPanel menuPanel = new DecoratedStackPanel();
 	private HorizontalPanel route = getHeaderString("Route", images.map());
 	private Anchor logDamageBoat = new Anchor("Schaden registrieren");
@@ -54,22 +55,24 @@ public class MenuView extends Composite implements MenuDisplay {
 				getHeaderString("Statistiken", images.statistics())
 						.getElement().getString(), true);
 		menuPanel.add(createRouteMenu(), route.getElement().getString(), true);
-		SessionHolder.getSessionManager().getMember(new AsyncCallback<Member>() {
+		SessionHolder.getSessionManager().getMember(
+				new AsyncCallback<Member>() {
 
-			@Override
-			public void onSuccess(Member arg0) {
-				if (arg0.isInRole(Role.RoleName.ADMIN)) {
-					menuPanel.add(createMemberControl(),
-						getHeaderString("Mitgliederverwaltung", images.member())
-							.getElement().getString(), true);
-				} else {
-					browseDamages.setVisible(false);
-				}
-			}
+					@Override
+					public void onSuccess(Member arg0) {
+						if (arg0.isInRole(Role.RoleName.ADMIN)) {
+							menuPanel.add(
+									createMemberControl(),
+									getHeaderString("Mitgliederverwaltung",
+											images.member()).getElement()
+											.getString(), true);
+						}
+					}
 
-			@Override
-			public void onFailure(Throwable arg0) {}
-		});
+					@Override
+					public void onFailure(Throwable arg0) {
+					}
+				});
 		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.boat())
 				.getElement().getString(), true);
 
@@ -106,16 +109,30 @@ public class MenuView extends Composite implements MenuDisplay {
 	private Widget createBoatMenu() {
 		Anchor browseReservations = new Anchor("Reservierungen anzeigen");
 
-		FlexTable tb1 = new FlexTable();
+		final FlexTable tb1 = new FlexTable();
 		tb1.setWidget(0, 0, browseBoats);
 		tb1.setWidget(1, 0, browseReservations);
-		tb1.setWidget(2, 0, browseDamages);
-		tb1.setWidget(3, 0, logDamageBoat);
+		tb1.setWidget(2, 0, logDamageBoat);
+		SessionHolder.getSessionManager().getMember(
+				new AsyncCallback<Member>() {
+
+					@Override
+					public void onFailure(Throwable arg0) {
+					}
+
+					@Override
+					public void onSuccess(Member arg0) {
+						if (arg0.isInRole(Role.RoleName.ADMIN)) {
+							tb1.setWidget(3, 0, browseDamages);
+							tb1.getRowFormatter().setStyleName(3, "menuItem");
+						}
+					}
+
+				});
 
 		tb1.getRowFormatter().setStyleName(0, "menuItem");
 		tb1.getRowFormatter().setStyleName(1, "menuItem");
 		tb1.getRowFormatter().setStyleName(2, "menuItem");
-		tb1.getRowFormatter().setStyleName(3, "menuItem");
 
 		return tb1;
 	}
@@ -138,9 +155,8 @@ public class MenuView extends Composite implements MenuDisplay {
 	}
 
 	private Widget createStatistikMenu() {
-		FlexTable tb = new FlexTable();
+		final FlexTable tb = new FlexTable();
 
-		final Anchor boatdamagesYear = new Anchor("Bootsschäden");
 		Anchor clubactivityMonth = new Anchor("Aktivität - Monatsstatistik");
 		Anchor clubactivityWeekday = new Anchor("Aktivität - Tagesstatistik");
 		Anchor highscoreBoats = new Anchor("Boote - Jahresstatistik");
@@ -148,13 +164,27 @@ public class MenuView extends Composite implements MenuDisplay {
 		Anchor highscoreYear = new Anchor("Jahresstatistik");
 		Anchor popularRoutes = new Anchor("Beliebteste Routen");
 
-		tb.setWidget(0, 0, boatdamagesYear);
-		tb.setWidget(1, 0, clubactivityMonth);
-		tb.setWidget(2, 0, clubactivityWeekday);
-		tb.setWidget(3, 0, highscoreYear);
-		tb.setWidget(4, 0, highscoreMonth);
-		tb.setWidget(5, 0, highscoreBoats);
-		tb.setWidget(6, 0, popularRoutes);
+		tb.setWidget(0, 0, clubactivityMonth);
+		tb.setWidget(1, 0, clubactivityWeekday);
+		tb.setWidget(2, 0, highscoreYear);
+		tb.setWidget(3, 0, highscoreMonth);
+		tb.setWidget(4, 0, highscoreBoats);
+		tb.setWidget(5, 0, popularRoutes);
+
+		SessionHolder.getSessionManager().getMember(
+				new AsyncCallback<Member>() {
+
+					@Override
+					public void onSuccess(Member arg0) {
+						if (arg0.isInRole(Role.RoleName.ADMIN)) {
+							tb.setWidget(6, 0, boatdamagesYear);
+							tb.getRowFormatter().setStyleName(6, "menuItem");
+						}
+					}
+
+					@Override
+					public void onFailure(Throwable arg0) {}
+				});
 
 		tb.getRowFormatter().setStyleName(0, "menuItem");
 		tb.getRowFormatter().setStyleName(1, "menuItem");
@@ -162,20 +192,6 @@ public class MenuView extends Composite implements MenuDisplay {
 		tb.getRowFormatter().setStyleName(3, "menuItem");
 		tb.getRowFormatter().setStyleName(4, "menuItem");
 		tb.getRowFormatter().setStyleName(5, "menuItem");
-		tb.getRowFormatter().setStyleName(6, "menuItem");
-
-		SessionHolder.getSessionManager().getMember(new AsyncCallback<Member>() {
-
-			@Override
-			public void onSuccess(Member arg0) {
-				if (!arg0.isInRole(Role.RoleName.ADMIN)) {
-					boatdamagesYear.setVisible(false);
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable arg0) {}
-		});
 
 		return tb;
 	}
