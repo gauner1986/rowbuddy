@@ -227,6 +227,10 @@ public class Member implements Serializable {
 		return givenname + " " + surname;
 	}
 
+	public String getAddress() {
+		return street + ", " + zipCode + " " + city;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

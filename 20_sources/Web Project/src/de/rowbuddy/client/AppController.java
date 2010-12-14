@@ -20,6 +20,7 @@ import de.rowbuddy.client.events.EditRoutPresenterChanger;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.ListBoatsPresenterChanger;
 import de.rowbuddy.client.events.ListDamagePresenterChanger;
+import de.rowbuddy.client.events.ListMembersPresenterChanger;
 import de.rowbuddy.client.events.ListPersonalOpenTripsPresenterChanger;
 import de.rowbuddy.client.events.ListPersonalTripsPresenterChanger;
 import de.rowbuddy.client.events.ListRoutesPresenterChanger;
@@ -30,6 +31,7 @@ import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.StatusMessagePresenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
+import de.rowbuddy.client.services.MemberRemoteServiceAsync;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
 import de.rowbuddy.client.views.MenuView;
 import de.rowbuddy.client.views.MessageView;
@@ -39,6 +41,7 @@ public class AppController implements Presenter, EventListener {
 	private BoatRemoteServiceAsync boatService;
 	private RouteRemoteServiceAsync routeService;
 	private LogbookRemoteServiceAsync logbookService;
+	private MemberRemoteServiceAsync memberService;
 	private HasWidgets container;
 	private StatusMessagePresenter statusPresenter;
 	private Presenter menuPresenter;
@@ -46,11 +49,13 @@ public class AppController implements Presenter, EventListener {
 
 	public AppController(BoatRemoteServiceAsync boatService,
 			RouteRemoteServiceAsync routeService,
-			LogbookRemoteServiceAsync logbookService, SimpleEventBus eventBus,
+			LogbookRemoteServiceAsync logbookService,
+			MemberRemoteServiceAsync memberService, SimpleEventBus eventBus,
 			HasWidgets messageContainer, HasWidgets menuPanel) {
 		this.boatService = boatService;
 		this.routeService = routeService;
 		this.logbookService = logbookService;
+		this.memberService = memberService;
 		this.eventBus = eventBus;
 		this.statusPresenter = new StatusMessagePresenter(new MessageView(),
 				eventBus);
@@ -87,7 +92,8 @@ public class AppController implements Presenter, EventListener {
 				routeService));
 		eventHandlers.add(new ListRoutesPresenterChanger(container, eventBus,
 				routeService));
-		eventHandlers.add(new EditRoutPresenterChanger(container, eventBus, routeService));
+		eventHandlers.add(new EditRoutPresenterChanger(container, eventBus,
+				routeService));
 	}
 
 	private void bindLogbookEventHandlers() {
@@ -99,6 +105,11 @@ public class AppController implements Presenter, EventListener {
 
 	}
 
+	private void bindMemberEventHandlers() {
+		eventHandlers.add(new ListMembersPresenterChanger(memberService,
+				container, eventBus));
+	}
+
 	@Override
 	public void start(HasWidgets container) {
 		this.container = container;
@@ -106,6 +117,7 @@ public class AppController implements Presenter, EventListener {
 		bindBoatEventHandlers();
 		bindLogbookEventHandlers();
 		bindRoutEventHandlers();
+		bindMemberEventHandlers();
 
 		// register fot presenter changes
 		for (PresenterChanger eventHandler : eventHandlers) {

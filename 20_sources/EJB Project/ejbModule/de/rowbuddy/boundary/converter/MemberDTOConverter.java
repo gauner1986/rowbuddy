@@ -15,11 +15,13 @@ public class MemberDTOConverter extends DtoConverter<Member, MemberDTO> {
 		dto.setGivenname(dto.getGivenname());
 		dto.setId(dto.getId());
 		dto.setMemberId(dto.getMemberId());
-		dto.setPassword(entity.getPassword());
 		dto.setStreet(entity.getStreet());
 		dto.setSurname(entity.getSurname());
 		dto.setZipCode(entity.getZipCode());
+		dto.setPhone(entity.getPhone());
+		dto.setMobilePhone(entity.getMobilePhone());
+		dto.setFullName(entity.getFullName());
+		dto.setAddress(entity.getAddress());
 		return dto;
 	}
-
 }

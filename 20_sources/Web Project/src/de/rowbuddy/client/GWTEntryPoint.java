@@ -1,7 +1,5 @@
 package de.rowbuddy.client;
 
-//import java.util.logging.Logger;
-
 import java.util.logging.Logger;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -30,6 +28,8 @@ import de.rowbuddy.client.services.BoatRemoteService;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.services.LogbookRemoteService;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
+import de.rowbuddy.client.services.MemberRemoteService;
+import de.rowbuddy.client.services.MemberRemoteServiceAsync;
 import de.rowbuddy.client.services.RouteRemoteService;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
 import de.rowbuddy.entities.Member;
@@ -45,7 +45,6 @@ public class GWTEntryPoint implements EntryPoint {
 				load();
 			}
 		});
-
 	}
 
 	public void load() {
@@ -70,6 +69,13 @@ public class GWTEntryPoint implements EntryPoint {
 		logger.info("Service registerd: " + GWT.getHostPageBaseURL()
 				+ "RouteRemoteServiceImpl");
 
+		MemberRemoteServiceAsync memberService = (MemberRemoteServiceAsync) GWT
+				.create(MemberRemoteService.class);
+		((ServiceDefTarget) memberService).setServiceEntryPoint(GWT
+				.getHostPageBaseURL() + "MemberRemoteServiceImpl");
+		logger.info("Service registerd: " + GWT.getHostPageBaseURL()
+				+ "MemberRemoteServiceImpl");
+
 		HasWidgets mainPanel = initialMainPanel();
 		FlowPanel messagePanel = new FlowPanel();
 		SimpleEventBus eventBus = new SimpleEventBus();
@@ -80,12 +86,12 @@ public class GWTEntryPoint implements EntryPoint {
 				initalRootFlexTable(mainPanel, messagePanel, vPanel));
 
 		AppController controller = new AppController(boatService, routeService,
-				logbookService, eventBus, messagePanel, vPanel);
+				logbookService, memberService, eventBus, messagePanel, vPanel);
 
 		controller.start(mainPanel);
 		logger.info("Application started");
 	}
-	
+
 	private Widget initalRootFlexTable(HasWidgets mainPanel,
 			Widget messagePanel, VerticalPanel vPanel) {
 
@@ -109,54 +115,57 @@ public class GWTEntryPoint implements EntryPoint {
 
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setWidth("100%");
-		hPanel.setStylePrimaryName("logoHeader");	
-		
-		final Label loginLabel = new Label("Logged in: ");
-		SessionHolder.getSessionManager().getMember(new AsyncCallback<Member>() {
-			
-			@Override
-			public void onSuccess(Member arg0) {
-				loginLabel.setText(loginLabel.getText() + arg0.getEmail());
-			}
-			
-			@Override
-			public void onFailure(Throwable arg0) {
-				logger.info(arg0.getMessage());
-			}
-		});
+		hPanel.setStylePrimaryName("logoHeader");
 
-		Button logoutButton = new Button("Logout");
-		logoutButton.setStylePrimaryName("buttonExit buttonNegative");
-		logoutButton.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent arg0) {
-				SessionHolder.getSessionManager().logout(new AsyncCallback<Void>() {
+		final Label loginLabel = new Label("Logged in: ");
+		SessionHolder.getSessionManager().getMember(
+				new AsyncCallback<Member>() {
+
+					@Override
+					public void onSuccess(Member arg0) {
+						loginLabel.setText(loginLabel.getText()
+								+ arg0.getEmail());
+					}
 
 					@Override
 					public void onFailure(Throwable arg0) {
 						logger.info(arg0.getMessage());
-						
-					}
-
-					@Override
-					public void onSuccess(Void arg0) {
 					}
 				});
-				
-				Window.Location.assign(GWT.getHostPageBaseURL()+"Login.jsp");
+
+		Button logoutButton = new Button("Logout");
+		logoutButton.setStylePrimaryName("buttonExit buttonNegative");
+		logoutButton.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent arg0) {
+				SessionHolder.getSessionManager().logout(
+						new AsyncCallback<Void>() {
+
+							@Override
+							public void onFailure(Throwable arg0) {
+								logger.info(arg0.getMessage());
+
+							}
+
+							@Override
+							public void onSuccess(Void arg0) {
+							}
+						});
+
+				Window.Location.assign(GWT.getHostPageBaseURL() + "Login.jsp");
 			}
-			
+
 		});
 
-//		HorizontalPanel verticalPanel = new HorizontalPanel();
-//		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-//		verticalPanel.add(loginLabel);
-//		verticalPanel.add(logoutButton);
+		// HorizontalPanel verticalPanel = new HorizontalPanel();
+		// verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		// verticalPanel.add(loginLabel);
+		// verticalPanel.add(logoutButton);
 
-//		hPanel.add(verticalPanel);
+		// hPanel.add(verticalPanel);
 
-//		hPanel.setCellWidth(verticalPanel, "20%");
+		// hPanel.setCellWidth(verticalPanel, "20%");
 
 		hPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
@@ -174,9 +183,9 @@ public class GWTEntryPoint implements EntryPoint {
 		flexTable.setWidget(1, 0, vPanel);
 
 		// messagePanel.setStyleName("messages");
-//		DecoratorPanel panel = new DecoratorPanel();
-//
-//		panel.setWidget(messagePanel);
+		// DecoratorPanel panel = new DecoratorPanel();
+		//
+		// panel.setWidget(messagePanel);
 		flexTable.setWidget(1, 1, messagePanel);
 		// panel.setStylePrimaryName("messages");
 		flexTable.getCellFormatter().setStylePrimaryName(1, 0, "menuPanel");

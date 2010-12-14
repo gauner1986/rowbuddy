@@ -21,6 +21,10 @@
     <servlet-name>RouteRemoteServiceImpl</servlet-name>
     <servlet-class>de.rowbuddy.server.web.RouteRemoteServiceImpl</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>MemberRemoteServiceImpl</servlet-name>
+    <servlet-class>de.rowbuddy.server.web.MemberRemoteServiceImpl</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>SessionManagerImpl</servlet-name>
     <url-pattern>/SessionManagerImpl</url-pattern>
@@ -36,5 +40,9 @@
   <servlet-mapping>
     <servlet-name>RouteRemoteServiceImpl</servlet-name>
     <url-pattern>/RouteRemoteServiceImpl</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MemberRemoteServiceImpl</servlet-name>
+    <url-pattern>/MemberRemoteServiceImpl</url-pattern>
   </servlet-mapping>
 </web-app>

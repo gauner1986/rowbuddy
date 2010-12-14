@@ -13,13 +13,14 @@ public class MemberDTO implements Serializable {
 	private String surname = "";
 	private Date birthdate;
 	private String email = "";
-	private String password = "";
 	private boolean deleted = false;
 	private String street = "";
 	private String city = "";
 	private String zipCode = "";
-
-	// private Collection<Role> roles = new LinkedList<Role>();
+	private String phone = "";
+	private String mobilePhone = "";
+	private String fullName = "";
+	private String address = "";
 
 	public Long getId() {
 		return id;
@@ -69,14 +70,6 @@ public class MemberDTO implements Serializable {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public boolean isDeleted() {
 		return deleted;
 	}
@@ -107,6 +100,38 @@ public class MemberDTO implements Serializable {
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+
+	public void setMobilePhone(String mobilePhone) {
+		this.mobilePhone = mobilePhone;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getAddress() {
+		return address;
 	}
 
 }

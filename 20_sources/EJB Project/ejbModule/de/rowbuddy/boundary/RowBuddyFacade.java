@@ -14,16 +14,19 @@ import javax.persistence.Query;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.DamageDTO;
+import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.business.BoatManagement;
 import de.rowbuddy.business.Logbook;
 import de.rowbuddy.business.Logbook.ListType;
+import de.rowbuddy.business.MemberManagement;
 import de.rowbuddy.business.RouteManagement;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Role;
+import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.entities.Route;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.NotLoggedInException;
@@ -52,6 +55,10 @@ public class RowBuddyFacade {
 	private LogbookBoundary logbookBoundary;
 	@EJB
 	private RouteManagement routeManagement;
+	@EJB
+	private MemberManagement memberMgmt;
+	@EJB
+	private MemberBoundary memberBoundary;
 
 	/**
 	 * Default constructor.
@@ -203,6 +210,27 @@ public class RowBuddyFacade {
 
 	public boolean canEditRoute(Route route) {
 		return routeManagement.canEditRoute(route, member);
+	}
+
+	@AllowedRoles(values = { Role.RoleName.ADMIN })
+	public Member addMember(Member addMember, RoleName... roles)
+			throws RowBuddyException {
+		return memberMgmt.addMember(addMember, roles);
+	}
+
+	@AllowedRoles(values = { Role.RoleName.ADMIN })
+	public Member updateMember(Member member) throws RowBuddyException {
+		return memberMgmt.updateMember(member);
+	}
+
+	@AllowedRoles(values = { Role.RoleName.ADMIN })
+	public void importMembers(List<Member> members) throws RowBuddyException {
+		memberMgmt.importMembers(members);
+	}
+
+	@AllowedRoles(values = { Role.RoleName.ADMIN })
+	public List<MemberDTO> getMembers() {
+		return memberBoundary.getMembers();
 	}
 
 }

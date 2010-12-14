@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Widget;
 import de.rowbuddy.client.events.AddDamageEvent;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.ListDamageEvent;
+import de.rowbuddy.client.events.ListMembersEvent;
 import de.rowbuddy.client.events.ListPersonalOpenTripsEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEvent;
 import de.rowbuddy.client.events.ListRoutesEvent;
@@ -29,6 +30,8 @@ public class MenuPresenter implements Presenter {
 		public HasClickHandlers getListDamageButton();
 
 		public HasClickHandlers getAddDamage();
+
+		public HasClickHandlers getListMembers();
 
 		public Panel getRoutes();
 
@@ -100,8 +103,14 @@ public class MenuPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				// TODO Auto-generated method stub
 				eventBus.fireEvent(new AddDamageEvent());
+			}
+		});
+
+		view.getListMembers().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent arg0) {
+				eventBus.fireEvent(new ListMembersEvent());
 			}
 		});
 	}

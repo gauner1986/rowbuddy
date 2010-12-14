@@ -184,8 +184,10 @@ public class MemberManagement {
 		logger.info("Import Members: Finished");
 	}
 
-	public void addRole(Role role) {
-		em.persist(role);
+	public List<Member> getMembers() {
+		TypedQuery<Member> q = em.createQuery("SELECT m FROM Member m",
+				Member.class);
+		return q.getResultList();
 	}
 
 	private Member importMember(Member member) throws RowBuddyException {

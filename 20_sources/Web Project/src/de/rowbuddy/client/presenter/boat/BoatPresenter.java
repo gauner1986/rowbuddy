@@ -30,6 +30,7 @@ public class BoatPresenter implements Presenter {
 		void setData(Collection<BoatDTO> boats);
 
 		int getClickedRow(ClickEvent event);
+
 	}
 
 	private Display view;
