@@ -1,8 +1,11 @@
 package de.rowbuddy.client.views.route;
 
+import java.util.List;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -15,6 +18,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.route.EditRoutePresenter.Display;
 import de.rowbuddy.client.views.HeaderButtonView;
+import de.rowbuddy.entities.GpsPoint;
 
 public class EditRouteView extends HeaderButtonView implements Display {
 
@@ -28,6 +32,7 @@ public class EditRouteView extends HeaderButtonView implements Display {
 	private DialogBox box;
 	private Button deleteButton;
 	private Button dialogButton;
+	private final MapWidget map;
 	
 	public EditRouteView(){
 		super(PageTitles.ROUTE_EDIT);
@@ -63,6 +68,10 @@ public class EditRouteView extends HeaderButtonView implements Display {
 		routeTable.setText(3, 0, "Veränderbar:");
 		mutable = new CheckBox();
 		routeTable.setWidget(3, 1, mutable);
+		
+		map = new MapWidget();
+		routeTable.setWidget(4, 0, map);
+		routeTable.getFlexCellFormatter().setColSpan(4, 0, 2);
 		
 		box = new DialogBox(false, true);
 		box.setGlassEnabled(true);
@@ -139,6 +148,11 @@ public class EditRouteView extends HeaderButtonView implements Display {
 	@Override
 	public void closeDialog() {
 		box.hide();
+	}
+
+	@Override
+	public HasValue<List<GpsPoint>> getMap() {
+		return null;
 	}
 
 }

@@ -1,5 +1,6 @@
 package de.rowbuddy.client.presenter.route;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -18,6 +19,7 @@ import de.rowbuddy.client.model.StatusMessage;
 import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
+import de.rowbuddy.entities.GpsPoint;
 import de.rowbuddy.entities.Route;
 import de.rowbuddy.exceptions.RowBuddyException;
 
@@ -35,6 +37,8 @@ public class EditRoutePresenter implements Presenter {
 		HasValue<String> getDescription();
 
 		HasValue<Boolean> isMutable();
+		
+		HasValue<List<GpsPoint>> getMap();
 
 		Widget asWidget();
 
@@ -83,6 +87,7 @@ public class EditRoutePresenter implements Presenter {
 				view.getLength().setValue("" + route.getLengthKM());
 				view.getDescription().setValue(route.getShortDescription());
 				view.isMutable().setValue(route.isMutable());
+				view.getMap().setValue(route.getWayPoints());
 			}
 
 			@Override
@@ -114,57 +119,63 @@ public class EditRoutePresenter implements Presenter {
 		}
 		return success;
 	}
-	
-	private void bind(){
+
+	private void bind() {
 		view.getSubmitButton().addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent arg0) {
-				if(updateRoute()){
-					routeService.canEditRoute(route, new AsyncCallback<Boolean>() {
+				if (updateRoute()) {
+					routeService.canEditRoute(route,
+							new AsyncCallback<Boolean>() {
 
-						@Override
-						public void onFailure(Throwable arg0) {
-							logger.warning("Cannot update Route:" + arg0.getMessage());
-							StatusMessage message = new StatusMessage(false);
-							message.setStatus(Status.NEGATIVE);
-							message.setMessage("Fehler beim Ändern: "
-									+ arg0.getMessage());
-							eventBus.fireEvent(new StatusMessageEvent(message));
-						}
+								@Override
+								public void onFailure(Throwable arg0) {
+									logger.warning("Cannot update Route:"
+											+ arg0.getMessage());
+									StatusMessage message = new StatusMessage(
+											false);
+									message.setStatus(Status.NEGATIVE);
+									message.setMessage("Fehler beim ï¿½ndern: "
+											+ arg0.getMessage());
+									eventBus.fireEvent(new StatusMessageEvent(
+											message));
+								}
 
-						@Override
-						public void onSuccess(Boolean arg0) {
-							logger.info("Submit successful GoTo ListRoutes");
-							eventBus.fireEvent(new ListRoutesEvent());
-							StatusMessage message = new StatusMessage(false);
-							message.setStatus(Status.POSITIVE);
-							message.setMessage("Boot erfolgreich geändert");
-							eventBus.fireEvent(new StatusMessageEvent(message));
-						}
-					});
+								@Override
+								public void onSuccess(Boolean arg0) {
+									logger.info("Submit successful GoTo ListRoutes");
+									eventBus.fireEvent(new ListRoutesEvent());
+									StatusMessage message = new StatusMessage(
+											false);
+									message.setStatus(Status.POSITIVE);
+									message.setMessage("Boot erfolgreich geï¿½ndert");
+									eventBus.fireEvent(new StatusMessageEvent(
+											message));
+								}
+							});
 				}
 			}
 		});
-		
+
 		view.getCancelButton().addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent arg0) {
 				eventBus.fireEvent(new ListRoutesEvent());
 			}
 		});
-		
+
 		view.getPopUpButton().addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent arg0) {
 				view.showPopUp();
 			}
 		});
-		
+
 		view.getDeleteButton().addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent arg0) {
 				view.closeDialog();
