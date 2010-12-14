@@ -47,12 +47,12 @@
 </tr>
 <tr>
 	<td align="right">Email:</td>
-	<td align="center"><input type="text" name="email" style="width:150px;" /></td>
+	<td align="left"><input type="text" name="email" style="width:150px;" /></td>
 </tr>
 
 <tr>
 	<td align="right">Passwort:</td>
-	<td align="center"><input type="password" name="password" style="width:150px;"/></td>
+	<td align="left"><input type="password" name="password" style="width:150px;"/></td>
 </tr>
 <tr>
 	<td align="center" colspan="2"><input type="submit" value="Login" class="buttonLogin buttonPositive"/></td>
