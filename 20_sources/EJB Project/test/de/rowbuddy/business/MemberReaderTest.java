@@ -2,6 +2,7 @@ package de.rowbuddy.business;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.After;
@@ -35,7 +36,13 @@ public class MemberReaderTest extends EjbTestBase {
 		MemberReader reader = new MemberReader(fis);
 
 		// when
-		List<Member> members = reader.getMembers();
+		List<Member> members = new LinkedList<Member>();
+		Member member;
+		while ((member = reader.readMember()) != null) {
+			members.add(member);
+		}
+
+		memberMgmt.importMembers(members);
 		memberMgmt.importMembers(members);
 	}
 }

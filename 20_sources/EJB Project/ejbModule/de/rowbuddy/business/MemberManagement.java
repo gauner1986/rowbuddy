@@ -83,7 +83,7 @@ public class MemberManagement {
 			throws RowBuddyException {
 		String query = "SELECT m FROM Member m WHERE (m.email=:member) ";
 		if (exceptId != -1) {
-			query += "m.id!=:id";
+			query += " AND (NOT(m.id = :id))";
 		}
 
 		TypedQuery<Member> q = em.createQuery(query, Member.class);
@@ -104,9 +104,19 @@ public class MemberManagement {
 		}
 
 		// ensure that member exists
-		getMember(member.getId());
+		Member dbMember = getMember(member.getId());
 
-		em.merge(member);
+		// check that email is not used for other user
+		checkEmailExists(member.getEmail(), member.getId());
+
+		// set member properties
+		dbMember.setGivenname(member.getGivenname());
+		dbMember.setSurname(member.getSurname());
+		dbMember.setEmail(member.getEmail());
+		dbMember.setStreet(member.getStreet());
+		dbMember.setZipCode(member.getZipCode());
+		dbMember.setCity(member.getCity());
+		dbMember.setMemberId(member.getMemberId());
 
 		return member;
 	}
