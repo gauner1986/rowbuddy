@@ -433,3 +433,15 @@ body {
 .gwt-SuggestBoxPopup .suggestPopupContent {
 	background: white;
 }
+
+.LoginMask{
+	margin-top: 10%;
+	border: 3px solid #bbbbbb;
+	padding: 40px;
+	-moz-border-radius-topleft: 20px;
+	-khtml-border-radius-topleft: 20px;
+	-moz-border-radius-topright: 20px;
+	-khtml-border-radius-topright: 20px;
+	border-radius: 20px 20px 0px 0px;
+	border-spacing: 0 3;
+}
