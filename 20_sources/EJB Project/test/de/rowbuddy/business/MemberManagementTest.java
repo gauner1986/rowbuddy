@@ -23,22 +23,15 @@ public class MemberManagementTest extends EjbTestBase {
 	private Member member2;
 	private Member admin1;
 	private Member admin2;
-	
-	public MemberManagementTest(){
-		memberMgmt = Ejb.lookUp(MemberManagement.class, MemberManagement.class);
-		Role r = new Role();
-		try {
-			r.setName(RoleName.MEMBER);
-		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		memberMgmt.addRole(r);
-		memberMgmt = null;
+
+	public MemberManagementTest() {
 	}
 
 	@Before
 	public void setup() throws RowBuddyException {
+		memberMgmt = Ejb.lookUp(MemberManagement.class, MemberManagement.class);
+		memberMgmt.setupRoles();
+
 		member1 = new Member();
 		member1.setGivenname("Member1");
 		member1.setSurname("Schmitz");
@@ -54,25 +47,27 @@ public class MemberManagementTest extends EjbTestBase {
 		member2.setPassword("member2");
 		member2.setBirthdate(new Date(System.currentTimeMillis()));
 		member2.setMemberId("XDSADSF-222");
-
-		memberMgmt = Ejb.lookUp(MemberManagement.class, MemberManagement.class);
 	}
 
 	@After
 	public void tearDown() {
+		memberMgmt = null;
+
 		member1 = null;
 		member2 = null;
 	}
 
 	@Test
 	public void canAddMultipleMembers() throws RowBuddyException {
-		Member m1 = memberMgmt.addMember(member1);
-		Member m2 = memberMgmt.addMember(member2);
-		
-		for(Role r : m2.getRoles()){
+		Member m1 = memberMgmt.addMember(member1,
+				new RoleName[] { RoleName.MEMBER });
+		Member m2 = memberMgmt.addMember(member2,
+				new RoleName[] { RoleName.MEMBER });
+
+		for (Role r : m2.getRoles()) {
 			System.out.println(r);
 		}
-		for(Role r : m1.getRoles()){
+		for (Role r : m1.getRoles()) {
 			System.out.println(r);
 		}
 		assertThat(m1.getRoles(), equalsList(m2.getRoles()));

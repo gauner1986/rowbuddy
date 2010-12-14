@@ -11,8 +11,9 @@ import de.rowbuddy.entities.Member;
 
 public class MemberReader {
 
+	private static final String expectedHeader = "ID,Nachname,Name,Adresse,PLZ,Stadt,Telefon,Handy,Email";
+	private static final int NUMBER_OF_HEADER_FIELDS = 9;
 	private final BufferedReader reader;
-	private static final String expectedHeader = "NAME;VORNAME;EMAIL;STRASSE;PLZ;ORT;MEMBER-ID";
 	private int lineNumber = 0;
 
 	public MemberReader(InputStream is) throws IOException {
@@ -38,26 +39,32 @@ public class MemberReader {
 		}
 		lineNumber++;
 
-		StringTokenizer tok = new StringTokenizer(strLine, ";");
-		if (tok.countTokens() != 7) {
+		StringTokenizer tok = new StringTokenizer(strLine, ",");
+		if (tok.countTokens() != NUMBER_OF_HEADER_FIELDS) {
 			throw new IOException(String.format(
 					"Invalid number of tokens on line %d", lineNumber));
 		}
 
 		try {
 			Member m = new Member();
-			m.setSurname(tok.nextToken());
-			m.setGivenname(tok.nextToken());
-			m.setEmail(tok.nextToken());
-			m.setStreet(tok.nextToken());
-			m.setZipCode(tok.nextToken());
-			m.setCity(tok.nextToken());
-			m.setMemberId(tok.nextToken());
+			m.setMemberId(getString(tok.nextToken()));
+			m.setSurname(getString(tok.nextToken()));
+			m.setGivenname(getString(tok.nextToken()));
+			m.setStreet(getString(tok.nextToken()));
+			m.setZipCode(getString(tok.nextToken()));
+			m.setCity(getString(tok.nextToken()));
+			m.setPhone(getString(tok.nextToken()));
+			m.setMobilePhone(getString(tok.nextToken()));
+			m.setEmail(getString(tok.nextToken()));
 
 			return m;
 		} catch (Exception ex) {
 			throw new IOException(String.format(
 					"Invalid member format on line %d", lineNumber), ex);
 		}
+	}
+
+	private String getString(String s) {
+		return s.replace("\"", "");
 	}
 }

@@ -21,6 +21,7 @@ public class MemberReaderTest extends EjbTestBase {
 	@Before
 	public void setup() {
 		memberMgmt = Ejb.lookUp(MemberManagement.class, MemberManagement.class);
+		memberMgmt.setupRoles();
 	}
 
 	@After
@@ -32,7 +33,7 @@ public class MemberReaderTest extends EjbTestBase {
 	public void canImportMembers() throws IOException, RowBuddyException {
 
 		// given
-		FileInputStream fis = new FileInputStream("test/import.csv");
+		FileInputStream fis = new FileInputStream("test/crc.csv");
 		MemberReader reader = new MemberReader(fis);
 
 		// when

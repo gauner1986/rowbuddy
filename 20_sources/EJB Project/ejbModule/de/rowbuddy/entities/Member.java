@@ -43,6 +43,8 @@ public class Member implements Serializable {
 	private String street = "";
 	private String city = "";
 	private String zipCode = "";
+	private String phone = "";
+	private String mobilePhone = "";
 	@OneToMany
 	private List<Trip> publishedTrips = new LinkedList<Trip>();
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -167,6 +169,29 @@ public class Member implements Serializable {
 		this.zipCode = zipCode;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		if (phone == null) {
+			throw new NullPointerException("Telefonnummer darf nicht null sein");
+		}
+		this.phone = phone;
+	}
+
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+
+	public void setMobilePhone(String mobilePhone) {
+		if (mobilePhone == null) {
+			throw new NullPointerException(
+					"Mobilfunknummer darf nicht null sein");
+		}
+		this.mobilePhone = mobilePhone;
+	}
+
 	public List<Trip> getPublishedTrips() {
 		return publishedTrips;
 	}
@@ -201,15 +226,6 @@ public class Member implements Serializable {
 	public String getFullName() {
 		return givenname + " " + surname;
 	}
-
-	// public boolean isAdmin(){
-	// for(Role r : roles){
-	// if(r.getName().equals(Role.RoleName.ADMIN)){
-	// return true;
-	// }
-	// }
-	// return false;
-	// }
 
 	@Override
 	public int hashCode() {

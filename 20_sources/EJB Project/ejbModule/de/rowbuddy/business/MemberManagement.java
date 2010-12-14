@@ -32,27 +32,65 @@ public class MemberManagement {
 	public MemberManagement() {
 	}
 
-	public Member addMember(Member addMember) throws RowBuddyException {
+	public void setupRoles() {
+		try {
+			logger.info("Setting up Roles");
+			Role memberRole = getRoleForName(RoleName.MEMBER);
+			if (memberRole == null) {
+				memberRole = new Role();
+				memberRole.setName(RoleName.MEMBER);
+				em.persist(memberRole);
+				logger.info("Role MEMBER angelegt");
+			}
+			Role adminRole = getRoleForName(RoleName.ADMIN);
+			if (adminRole == null) {
+				adminRole = new Role();
+				adminRole.setName(RoleName.ADMIN);
+				em.persist(adminRole);
+				logger.info("Role ADMIN angelegt");
+			}
+		} catch (RowBuddyException ex) {
+			throw new RuntimeException(ex);
+		}
+	}
+
+	/**
+	 * Adds a member to the system
+	 * 
+	 * @param addMember
+	 *            the member which should be added
+	 * @param roles
+	 *            Roles to select
+	 * @return the new member
+	 * @throws RowBuddyException
+	 */
+	public Member addMember(Member addMember, RoleName... roles)
+			throws RowBuddyException {
 
 		if (addMember.getId() != null) {
-			throw new RowBuddyException("Mitglied darf keine Id haben");
+			throw new RowBuddyException(
+					"Member is not allowed to have a predefined id");
 		}
 
-		if (addMember.getRoles().size() == 0) {
-			try {
-				String query = "SELECT r FROM Role r WHERE (r.roleName = :role)";
-				TypedQuery<Role> q = em.createQuery(query, Role.class);
-				q.setParameter("role", RoleName.MEMBER);
-				Role r = q.getSingleResult();
-				LinkedList<Role> roles = new LinkedList<Role>();
-				roles.add(r);
-				addMember.setRoles(roles);
-			} catch (Exception e) {
-				logger.info(
-						"A Member default role could not be set up, omitting (probably no Roles in the database)",
-						e);
-			}
+		if (addMember.getRoles().size() != 0) {
+			throw new RowBuddyException("Rollen können so nicht gesetzt werden");
 		}
+
+		if (roles.length == 0) {
+			throw new RowBuddyException(
+					"Es muss zumindestens eine Rolle angegeben werden");
+		}
+
+		List<Role> roleList = new LinkedList<Role>();
+		for (RoleName role : roles) {
+			Role r = getRoleForName(role);
+			if (r == null) {
+				throw new RowBuddyException("Die Rolle existiert nicht");
+			}
+			roleList.add(r);
+		}
+
+		addMember.setRoles(roleList);
 
 		checkEmailExists(addMember.getEmail(), new Long(-1));
 
@@ -60,13 +98,24 @@ public class MemberManagement {
 		return addMember;
 	}
 
+	private Role getRoleForName(RoleName role) {
+		try {
+			String query = "SELECT r FROM Role r WHERE (r.roleName = :role)";
+			TypedQuery<Role> q = em.createQuery(query, Role.class);
+			q.setParameter("role", role);
+			return q.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		}
+	}
+
 	public Member getMember(Long id) throws RowBuddyException {
 		if (id == null) {
-			throw new RowBuddyException("Id darf nicht null sein");
+			throw new RowBuddyException("id must not be null");
 		}
 		Member member = em.find(Member.class, id);
 		if (member == null) {
-			throw new RowBuddyException("Das Mitglied existiert nicht");
+			throw new RowBuddyException("member was not found");
 		}
 		return member;
 	}
@@ -95,13 +144,13 @@ public class MemberManagement {
 		List<Member> sameEmailAsExistingMember = q.getResultList();
 		if (sameEmailAsExistingMember.size() > 0) {
 			throw new RowBuddyException(
-					"Die Email-Adresse wird bereits verwendet");
+					"A user with this emailadress already exists");
 		}
 	}
 
 	public Member updateMember(Member member) throws RowBuddyException {
 		if (member == null) {
-			throw new RowBuddyException("Mitglied darf nicht null sein");
+			throw new RowBuddyException("member must not be null");
 		}
 
 		// ensure that member exists
@@ -143,7 +192,7 @@ public class MemberManagement {
 		Member dbMember = getMemberByMemberId(member.getMemberId());
 		if (dbMember == null) {
 			logger.info("Import Members: Creating new Member");
-			return addMember(member);
+			return addMember(member, RoleName.MEMBER);
 		}
 		member.setId(dbMember.getId());
 		logger.info(String.format(

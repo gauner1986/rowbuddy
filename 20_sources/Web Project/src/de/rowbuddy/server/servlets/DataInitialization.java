@@ -22,12 +22,11 @@ import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.entities.GpsPoint;
 import de.rowbuddy.entities.Member;
-import de.rowbuddy.entities.Role;
+import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.entities.Route;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.entities.TripMember;
 import de.rowbuddy.entities.TripMemberType;
-import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 /**
@@ -58,6 +57,7 @@ public class DataInitialization extends HttpServlet {
 	@Override
 	public void init() {
 		try {
+			memberManagement.setupRoles();
 			Member member = createTestMember(true);
 			createTestRoutes(member);
 			createTestBoats(member);
@@ -67,25 +67,6 @@ public class DataInitialization extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	public void setupRoles() {
-		Role admin = new Role();
-		try {
-			admin.setName(RoleName.ADMIN);
-		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Role member = new Role();
-		try {
-			member.setName(RoleName.MEMBER);
-		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		memberManagement.addRole(admin);
-		memberManagement.addRole(member);
 	}
 
 	private void createTestRoutes(Member member) throws RowBuddyException {
@@ -188,7 +169,8 @@ public class DataInitialization extends HttpServlet {
 			testMember.setEmail("bla@bla.de");
 			testMember.setBirthdate(new Date(System.currentTimeMillis()));
 			testMember.setMemberId("XDSADSF-221");
-			memberManagement.addMember(testMember);
+			memberManagement.addMember(testMember,
+					new RoleName[] { RoleName.MEMBER });
 			return testMember;
 		} else {
 			Member testMember = new Member();
@@ -197,13 +179,8 @@ public class DataInitialization extends HttpServlet {
 			testMember.setPassword("bla");
 			testMember.setEmail("bla@bla.de");
 			testMember.setBirthdate(new Date(System.currentTimeMillis()));
-			testMember.setMemberId("XDSADSF-223");
-			LinkedList<Role> roles = new LinkedList<Role>();
-			Role r = new Role();
-			r.setName(Role.RoleName.ADMIN);
-			roles.add(r);
-			testMember.setRoles(roles);
-			Member toReturn = memberManagement.addMember(testMember);
+			Member toReturn = memberManagement.addMember(testMember,
+					new RoleName[] { RoleName.MEMBER, RoleName.ADMIN });
 			return toReturn;
 		}
 	}
