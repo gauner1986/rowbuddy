@@ -44,7 +44,7 @@ public class Route implements Serializable {
 
 	public void setId(Long id) {
 		if (id == null) {
-			throw new NullPointerException("Id cannot be null");
+			throw new NullPointerException("Id darf nicht null sein");
 		}
 		this.id = id;
 	}
@@ -55,7 +55,8 @@ public class Route implements Serializable {
 
 	public void setParentId(Long parentId) {
 		if (parentId == null) {
-			throw new NullPointerException("Parent id cannot be null");
+			throw new NullPointerException(
+					"Vorgaenger Version darf nicht null sein");
 		}
 		this.parentId = parentId;
 	}
@@ -66,10 +67,10 @@ public class Route implements Serializable {
 
 	public void setName(String name) throws RowBuddyException {
 		if (name == null) {
-			throw new NullPointerException("Name cannot be null");
+			throw new NullPointerException("Name darf nicht null sein");
 		}
 		if (name.isEmpty()) {
-			throw new RowBuddyException("Name has to be set");
+			throw new RowBuddyException("Name darf nicht leer sein");
 		}
 		this.name = name;
 	}
@@ -81,10 +82,12 @@ public class Route implements Serializable {
 	public void setShortDescription(String shortDescription)
 			throws RowBuddyException {
 		if (shortDescription == null) {
-			throw new NullPointerException("Short description cannot be null");
+			throw new NullPointerException(
+					"Kurz Beschreibung darf nicht null sein");
 		}
 		if (shortDescription.isEmpty()) {
-			throw new RowBuddyException("Short Description has to be set");
+			throw new RowBuddyException(
+					"Kurz Beschreibung darf nicht leer sein");
 		}
 		this.shortDescription = shortDescription;
 	}
@@ -99,7 +102,8 @@ public class Route implements Serializable {
 
 	public void setWayPoints(List<GpsPoint> wayPoints) throws RowBuddyException {
 		if (wayPoints == null) {
-			throw new NullPointerException("Waypoints cannot be null");
+			throw new NullPointerException(
+					"Koordinaten duerfen nicht null sein");
 		}
 		if (wayPoints.size() == 0) {
 			if (this.wayPoints.size() > 0) {
@@ -110,7 +114,8 @@ public class Route implements Serializable {
 			return;
 		}
 		if (wayPoints.size() < 2) {
-			throw new RowBuddyException("At least two waypoints are needed");
+			throw new RowBuddyException(
+					"Es muessen mindestens zwei Koordinaten angegeben werden");
 		}
 		// create copies to prevent existing way points from being edited
 		List<GpsPoint> copies = new LinkedList<GpsPoint>();
@@ -138,7 +143,7 @@ public class Route implements Serializable {
 	public void setLengthKM(double lengthKM) throws RowBuddyException {
 		if (lengthKM < 0) {
 			throw new RowBuddyException(
-					"length of route has to be at least 0 km");
+					"Die Routenlaenge muss groesser als 0 sein");
 		}
 		this.lengthKM = lengthKM;
 	}
@@ -161,10 +166,11 @@ public class Route implements Serializable {
 
 	public void validate() throws RowBuddyException {
 		if (name.trim().isEmpty()) {
-			throw new RowBuddyException("Name must not be empty");
+			throw new RowBuddyException("Name darf nicht leer sein");
 		}
 		if (lengthKM < 0) {
-			throw new RowBuddyException("Lenght must be at least 0 km");
+			throw new RowBuddyException(
+					"Die Routenlaenge muss groesser als 0 sein");
 		}
 	}
 
