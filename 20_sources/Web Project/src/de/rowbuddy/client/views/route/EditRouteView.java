@@ -3,7 +3,6 @@ package de.rowbuddy.client.views.route;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.maps.client.InfoWindowContent;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
 import com.google.gwt.maps.client.control.MapTypeControl;
@@ -74,11 +73,9 @@ public class EditRouteView extends HeaderButtonView implements Display {
 
 		map = new MapWidget();
 		map.setStylePrimaryName("mapWidget");
-		LatLng krefeldCity = LatLng.newInstance(51.3333333, 6.5666667);
+		LatLng krefeldCity = LatLng.newInstance(51.341256, 6.684687);
 		map.setCenter(krefeldCity, 13);
 		map.addOverlay(new Marker(krefeldCity));
-		map.getInfoWindow().open(map.getCenter(),
-				new InfoWindowContent("Krefelder City"));
 		routeTable.getFlexCellFormatter().setColSpan(4, 0, 2);
 		// Add some controls for the zoom level
 		map.addControl(new LargeMapControl());
@@ -165,11 +162,15 @@ public class EditRouteView extends HeaderButtonView implements Display {
 
 	@Override
 	public void setMap(LatLng[] points) {
-		map.clearOverlays();
-		for (LatLng point : points) {
-			map.addOverlay(new Marker(point));
+		if (points.length > 0) {
+			map.clearOverlays();
+			map.closeInfoWindow();
+			for (LatLng point : points) {
+				map.setCenter(point);
+				map.addOverlay(new Marker(point));
+			}
+			map.addOverlay(new Polyline(points));
 		}
-		map.addOverlay(new Polyline(points));
 	}
 
 	@Override

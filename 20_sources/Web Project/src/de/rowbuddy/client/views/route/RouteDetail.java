@@ -8,6 +8,7 @@ import com.google.gwt.maps.client.control.MapTypeControl;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.Polyline;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -65,11 +66,13 @@ public class RouteDetail extends HeaderButtonView implements Display {
 
 		map = new MapWidget();
 		map.setStylePrimaryName("mapWidget");
-		LatLng krefeldCity = LatLng.newInstance(51.3333333, 6.5666667);
+		LatLng krefeldCity = LatLng.newInstance(51.341256, 6.684687);
 		map.setCenter(krefeldCity, 13);
 		map.addOverlay(new Marker(krefeldCity));
-		map.getInfoWindow().open(map.getCenter(),
-				new InfoWindowContent("Krefelder City"));
+		map.getInfoWindow().open(
+				map.getCenter(),
+				new InfoWindowContent("Crefelder Ruder-Club<br>"
+						+ new Anchor("http://www.crefelder-rc.de/news.html")));
 		detailTable.getFlexCellFormatter().setColSpan(4, 0, 2);
 		// Add some controls for the zoom level
 		map.addControl(new LargeMapControl());
@@ -112,12 +115,15 @@ public class RouteDetail extends HeaderButtonView implements Display {
 
 	@Override
 	public void setMap(LatLng[] points) {
-		map.clearOverlays();
-		for (LatLng point : points) {
-			map.addOverlay(new Marker(point));
+		if (points.length > 0) {
+			map.clearOverlays();
+			map.closeInfoWindow();
+			for (LatLng point : points) {
+				map.setCenter(point);
+				map.addOverlay(new Marker(point));
+			}
+			map.addOverlay(new Polyline(points));
 		}
-		map.addOverlay(new Polyline(points));
-
 	}
 
 }
