@@ -72,7 +72,6 @@ public class AddRouteView extends HeaderButtonView implements Display {
 		// Add some controls for the zoom level
 		map.addControl(new LargeMapControl3D());
 		map.addControl(new MapTypeControl(true));
-		map.setGoogleBarEnabled(true);
 
 		routeTable
 				.setWidget(

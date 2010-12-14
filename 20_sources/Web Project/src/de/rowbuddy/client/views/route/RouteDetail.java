@@ -3,7 +3,7 @@ package de.rowbuddy.client.views.route;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.maps.client.InfoWindowContent;
 import com.google.gwt.maps.client.MapWidget;
-import com.google.gwt.maps.client.control.LargeMapControl;
+import com.google.gwt.maps.client.control.LargeMapControl3D;
 import com.google.gwt.maps.client.control.MapTypeControl;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
@@ -75,7 +75,7 @@ public class RouteDetail extends HeaderButtonView implements Display {
 						+ new Anchor("http://www.crefelder-rc.de/news.html")));
 		detailTable.getFlexCellFormatter().setColSpan(4, 0, 2);
 		// Add some controls for the zoom level
-		map.addControl(new LargeMapControl());
+		map.addControl(new LargeMapControl3D());
 		map.addControl(new MapTypeControl(true));
 
 		detailTable.setWidget(4, 0, map);
