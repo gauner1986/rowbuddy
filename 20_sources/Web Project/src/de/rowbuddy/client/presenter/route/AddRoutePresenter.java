@@ -1,12 +1,18 @@
 package de.rowbuddy.client.presenter.route;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.maps.client.MapWidget;
+import com.google.gwt.maps.client.event.MapClickHandler;
 import com.google.gwt.maps.client.geom.LatLng;
+import com.google.gwt.maps.client.overlay.Marker;
+import com.google.gwt.maps.client.overlay.Polyline;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -28,13 +34,9 @@ public class AddRoutePresenter implements Presenter {
 
 		HasValue<String> getName();
 
-		HasValue<String> getAuthor();
-
 		HasValue<String> getLengthKM();
 
-		void setMap(LatLng[] points);
-
-		LatLng[] getMap();
+		MapWidget getMap();
 
 		void reset();
 	}
@@ -44,12 +46,15 @@ public class AddRoutePresenter implements Presenter {
 	private EventBus eventBus;
 	private static Logger logger = Logger.getLogger(AddRoutePresenter.class
 			.getName());
+	private List<LatLng> points;
+	
 
 	public AddRoutePresenter(Display view,
 			RouteRemoteServiceAsync routeService, EventBus eventBus) {
 		this.view = view;
 		this.routeService = routeService;
 		this.eventBus = eventBus;
+		points = new ArrayList<LatLng>();
 	}
 
 	@Override
@@ -75,7 +80,7 @@ public class AddRoutePresenter implements Presenter {
 					public void onSuccess(Route arg0) {
 						logger.info("Route successful added; Reset View");
 						StatusMessage message = new StatusMessage();
-						message.setMessage("Route erfolgreich hinzugefügt");
+						message.setMessage("Route erfolgreich hinzugefï¿½gt");
 						message.setStatus(Status.POSITIVE);
 						message.setAttached(false);
 						eventBus.fireEvent(new StatusMessageEvent(message));
@@ -84,13 +89,23 @@ public class AddRoutePresenter implements Presenter {
 				});
 			}
 		});
+		
+		view.getMap().addMapClickHandler(new MapClickHandler() {
+			
+			@Override
+			public void onClick(MapClickEvent event) {
+				view.getMap().addOverlay(new Marker(event.getLatLng()));
+				points.add(event.getLatLng());
+				LatLng[] latLngs = new LatLng[points.size()];
+				view.getMap().addOverlay(new Polyline(points.toArray(latLngs)));
+			}
+		});
 	}
 
 	private void addRoute(AsyncCallback<Route> action) {
 		Route route = new Route();
 		try {
 			route.setName(view.getName().getValue());
-			// TODO: searchMember and set
 			route.setLastEditor(null);
 			route.setLengthKM(Double.valueOf(view.getLengthKM().getValue()));
 			routeService.addRoute(route, action);

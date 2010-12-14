@@ -89,12 +89,6 @@ public class AddRouteView extends HeaderButtonView implements Display {
 	}
 
 	@Override
-	public HasValue<String> getAuthor() {
-		// TODO Member
-		return null;
-	}
-
-	@Override
 	public HasValue<String> getLengthKM() {
 		return length;
 	}
@@ -109,15 +103,8 @@ public class AddRouteView extends HeaderButtonView implements Display {
 	}
 
 	@Override
-	public void setMap(LatLng[] points) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public LatLng[] getMap() {
-		// TODO Auto-generated method stub
-		return null;
+	public MapWidget getMap() {
+		return map;
 	}
 
 }
