@@ -85,10 +85,9 @@ public class RowBuddyFacade {
 		if (m == null)
 			throw new NotLoggedInException(
 				"Ihr Passwort und/oder der Benutzername sind inkorrekt.");
-
 		if (!m.getPassword().equals(member.getPassword())) {
 			throw new NotLoggedInException(
-					"Ihr Passwort und/oder der Benutzername sind inkorrekt.");
+					"Ihr Passwort und/oder der Benutzername sind inkorrekt.") ;
 		} else {
 			this.member = m;
 		}
