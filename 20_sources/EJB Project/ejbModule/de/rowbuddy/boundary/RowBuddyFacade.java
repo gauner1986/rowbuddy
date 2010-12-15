@@ -31,7 +31,6 @@ import de.rowbuddy.entities.Route;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
-import de.rowbuddy.util.EncryptionUtility;
 
 /**
  * Session Bean implementation class RowBuddyFacade
