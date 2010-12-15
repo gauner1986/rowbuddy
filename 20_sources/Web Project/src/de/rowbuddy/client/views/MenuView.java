@@ -39,7 +39,8 @@ public class MenuView extends Composite implements MenuDisplay {
 	private DecoratedStackPanel menuPanel = new DecoratedStackPanel();
 	private HorizontalPanel route = getHeaderString("Route", images.map());
 	private Anchor logDamageBoat = new Anchor("Schaden registrieren");
-	private Anchor listMembers = new Anchor("Member anzeigen");
+	private Anchor listMembers = new Anchor("Mitglieder anzeigen");
+	private Anchor importMembers = new Anchor("Mitglieder importieren");
 
 	public MenuView() {
 
@@ -229,7 +230,6 @@ public class MenuView extends Composite implements MenuDisplay {
 
 	private Widget createMemberControl() {
 		FlexTable tb = new FlexTable();
-		Anchor importMembers = new Anchor("Mitglieder importieren");
 
 		tb.setWidget(0, 0, listMembers);
 		tb.setWidget(1, 0, importMembers);
@@ -278,5 +278,10 @@ public class MenuView extends Composite implements MenuDisplay {
 	@Override
 	public HasClickHandlers getListMembers() {
 		return listMembers;
+	}
+
+	@Override
+	public HasClickHandlers getImportMembers() {
+		return importMembers;
 	}
 }

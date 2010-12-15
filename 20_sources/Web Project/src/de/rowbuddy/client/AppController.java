@@ -17,6 +17,7 @@ import de.rowbuddy.client.events.DetailsRoutePresenterChanger;
 import de.rowbuddy.client.events.EditBoatPresenterChanger;
 import de.rowbuddy.client.events.EditDamagePresenterChanger;
 import de.rowbuddy.client.events.EditRoutPresenterChanger;
+import de.rowbuddy.client.events.ImportMembersPresenterChanger;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.ListBoatsPresenterChanger;
 import de.rowbuddy.client.events.ListDamagePresenterChanger;
@@ -108,6 +109,8 @@ public class AppController implements Presenter, EventListener {
 	private void bindMemberEventHandlers() {
 		eventHandlers.add(new ListMembersPresenterChanger(memberService,
 				container, eventBus));
+		eventHandlers.add(new ImportMembersPresenterChanger(container,
+				eventBus, memberService));
 	}
 
 	@Override

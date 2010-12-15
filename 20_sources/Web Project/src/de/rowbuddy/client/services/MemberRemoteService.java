@@ -16,7 +16,7 @@ public interface MemberRemoteService extends RemoteService {
 
 	public Member updateMember(Member member) throws RowBuddyException;
 
-	public void importMembers(List<Member> members) throws RowBuddyException;
+	public Integer importMembers(String importData) throws RowBuddyException;
 
 	public List<MemberDTO> getMembers();
 

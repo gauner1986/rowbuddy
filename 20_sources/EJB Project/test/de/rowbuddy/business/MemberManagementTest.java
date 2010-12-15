@@ -36,7 +36,7 @@ public class MemberManagementTest extends EjbTestBase {
 		member1.setGivenname("Member1");
 		member1.setSurname("Schmitz");
 		member1.setEmail("member1@schmitz.de");
-		member1.setPassword("member1");
+		member1.setPasswordHash("member1");
 		member1.setBirthdate(new Date(System.currentTimeMillis()));
 		member1.setMemberId("XDSADSF-221");
 
@@ -44,7 +44,7 @@ public class MemberManagementTest extends EjbTestBase {
 		member2.setGivenname("Member2");
 		member2.setSurname("Schmitz");
 		member2.setEmail("member2@schmitz.de");
-		member2.setPassword("member2");
+		member2.setPasswordHash("member2");
 		member2.setBirthdate(new Date(System.currentTimeMillis()));
 		member2.setMemberId("XDSADSF-222");
 	}

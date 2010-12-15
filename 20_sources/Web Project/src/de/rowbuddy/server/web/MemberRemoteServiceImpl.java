@@ -25,8 +25,8 @@ public class MemberRemoteServiceImpl extends AbstractRemoteService implements
 	}
 
 	@Override
-	public void importMembers(List<Member> members) throws RowBuddyException {
-		getRowBuddyFacade().importMembers(members);
+	public Integer importMembers(String importData) throws RowBuddyException {
+		return getRowBuddyFacade().importMembers(importData);
 	}
 
 	@Override

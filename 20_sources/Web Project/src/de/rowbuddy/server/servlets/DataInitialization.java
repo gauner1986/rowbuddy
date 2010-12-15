@@ -165,22 +165,22 @@ public class DataInitialization extends HttpServlet {
 			Member testMember = new Member();
 			testMember.setGivenname("Jan");
 			testMember.setSurname("Trzeszkowski");
-			testMember.setPassword("bla");
 			testMember.setEmail("bla@bla.de");
 			testMember.setBirthdate(new Date(System.currentTimeMillis()));
 			testMember.setMemberId("XDSADSF-221");
-			memberManagement.addMember(testMember,
+			Member toReturn = memberManagement.addMember(testMember,
 					new RoleName[] { RoleName.MEMBER });
+			memberManagement.setPassword(toReturn.getId(), toReturn, "bla");
 			return testMember;
 		} else {
 			Member testMember = new Member();
 			testMember.setGivenname("Jan");
 			testMember.setSurname("Trzeszkowski");
-			testMember.setPassword("bla");
 			testMember.setEmail("bla@bla.de");
 			testMember.setBirthdate(new Date(System.currentTimeMillis()));
 			Member toReturn = memberManagement.addMember(testMember,
 					new RoleName[] { RoleName.MEMBER, RoleName.ADMIN });
+			memberManagement.setPassword(toReturn.getId(), toReturn, "bla");
 			return toReturn;
 		}
 	}

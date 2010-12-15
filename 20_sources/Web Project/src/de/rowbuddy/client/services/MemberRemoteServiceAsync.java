@@ -13,7 +13,7 @@ public interface MemberRemoteServiceAsync {
 	void addMember(Member addMember, RoleName[] roles,
 			AsyncCallback<Member> callback);
 
-	void importMembers(List<Member> members, AsyncCallback<Void> callback);
+	void importMembers(String importData, AsyncCallback<Integer> callback);
 
 	void updateMember(Member member, AsyncCallback<Member> callback);
 

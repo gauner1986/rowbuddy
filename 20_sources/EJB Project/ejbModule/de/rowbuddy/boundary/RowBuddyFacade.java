@@ -1,5 +1,7 @@
 package de.rowbuddy.boundary;
 
+import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -8,9 +10,9 @@ import javax.ejb.Stateful;
 import javax.interceptor.ExcludeClassInterceptors;
 import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+
+import com.sun.xml.bind.StringInputStream;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.DamageDTO;
@@ -21,6 +23,7 @@ import de.rowbuddy.business.BoatManagement;
 import de.rowbuddy.business.Logbook;
 import de.rowbuddy.business.Logbook.ListType;
 import de.rowbuddy.business.MemberManagement;
+import de.rowbuddy.business.MemberReader;
 import de.rowbuddy.business.RouteManagement;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
@@ -66,30 +69,9 @@ public class RowBuddyFacade {
 	}
 
 	@ExcludeClassInterceptors
-	public void login(Member member) throws NotLoggedInException {
-		if (member.getEmail() == null || member.getPassword() == null)
-			throw new NotLoggedInException(
-					"Sie haben keinen Benutzernamen und/oder Passwort angegeben.");
-
-		Query q = em
-				.createQuery("SELECT m FROM Member m WHERE m.email = :email");
-		q.setParameter("email", member.getEmail());
-		Member m = null;
-		try {
-			m = (Member) q.getSingleResult();
-		} catch (NoResultException nre) {
-			throw new NotLoggedInException(
-				"Ihr Passwort und/oder der Benutzername sind inkorrekt.");
-		}
-		if (m == null)
-			throw new NotLoggedInException(
-				"Ihr Passwort und/oder der Benutzername sind inkorrekt.");
-		if (!m.getPassword().equals(member.getPassword())) {
-			throw new NotLoggedInException(
-					"Ihr Passwort und/oder der Benutzername sind inkorrekt.") ;
-		} else {
-			this.member = m;
-		}
+	public void login(String email, String password)
+			throws NotLoggedInException {
+		this.member = memberMgmt.checkLogin(email, password);
 	}
 
 	public Member getMember() {
@@ -120,7 +102,7 @@ public class RowBuddyFacade {
 	}
 
 	@AllowedRoles(values = { Role.RoleName.ADMIN })
-	public Boat updateBoat(Boat updateBoat) throws RowBuddyException{
+	public Boat updateBoat(Boat updateBoat) throws RowBuddyException {
 		return boatManagement.updateBoat(updateBoat);
 	}
 
@@ -150,11 +132,13 @@ public class RowBuddyFacade {
 	}
 
 	public List<PersonalTripDTO> getPersonalTrips() {
-		return logbookBoundary.getPersonalTrips(this.member, ListType.All);
+		return logbookBoundary.getPersonalTrips(this.member,
+				ListType.All);
 	}
 
 	public List<PersonalTripDTO> getPersonalOpenTrips() {
-		return logbookBoundary.getPersonalTrips(this.member, ListType.OpenOnly);
+		return logbookBoundary.getPersonalTrips(this.member,
+				ListType.OpenOnly);
 	}
 
 	public List<DamageDTO> getOpenDamages() {
@@ -222,8 +206,21 @@ public class RowBuddyFacade {
 	}
 
 	@AllowedRoles(values = { Role.RoleName.ADMIN })
-	public void importMembers(List<Member> members) throws RowBuddyException {
-		memberMgmt.importMembers(members);
+	public int importMembers(String importData) throws RowBuddyException {
+
+		List<Member> members = new LinkedList<Member>();
+		try {
+			StringInputStream sis = new StringInputStream(importData);
+			MemberReader memberReader = new MemberReader(sis);
+			Member member;
+			while ((member = memberReader.readMember()) != null) {
+				members.add(member);
+			}
+		} catch (IOException ex) {
+			throw new RowBuddyException(ex.toString());
+		}
+		memberMgmt.importMembers(members, this.member);
+		return members.size();
 	}
 
 	@AllowedRoles(values = { Role.RoleName.ADMIN })

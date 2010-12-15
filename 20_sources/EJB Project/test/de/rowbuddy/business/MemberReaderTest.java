@@ -43,7 +43,7 @@ public class MemberReaderTest extends EjbTestBase {
 			members.add(member);
 		}
 
-		memberMgmt.importMembers(members);
-		memberMgmt.importMembers(members);
+		// memberMgmt.importMembers(members);
+		// memberMgmt.importMembers(members);
 	}
 }

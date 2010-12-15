@@ -19,7 +19,6 @@ import javax.persistence.UniqueConstraint;
 
 import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.exceptions.RowBuddyException;
-import de.rowbuddy.util.EncryptionUtility;
 
 /**
  * Entity implementation class for Entity: Member
@@ -39,7 +38,7 @@ public class Member implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date birthdate;
 	private String email = "";
-	private String password = "";
+	private String passwordHash = "";
 	private boolean deleted = false;
 	private String street = "";
 	private String city = "";
@@ -129,12 +128,12 @@ public class Member implements Serializable {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return this.password;
+	public String getPasswordHash() {
+		return this.passwordHash;
 	}
 
-	public void setPassword(String password) {
-		this.password = EncryptionUtility.encryptStringWithSHA2(password);
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
 	}
 
 	public boolean getDeleted() {

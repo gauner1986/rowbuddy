@@ -15,7 +15,9 @@ import com.sun.istack.logging.Logger;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Role;
 import de.rowbuddy.entities.Role.RoleName;
+import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
+import de.rowbuddy.util.EncryptionUtility;
 
 /**
  * Session Bean implementation class MemberManagement
@@ -171,7 +173,8 @@ public class MemberManagement {
 		return member;
 	}
 
-	public void importMembers(List<Member> members) throws RowBuddyException {
+	public void importMembers(List<Member> members, Member currentMember)
+			throws RowBuddyException {
 		int i = 0;
 		int count = members.size();
 		logger.info("Import Members: Start");
@@ -179,7 +182,7 @@ public class MemberManagement {
 		for (Member member : members) {
 			i++;
 			logger.info(String.format("Import Member: %d/%d", i, count));
-			importMember(member);
+			importMember(member, currentMember);
 		}
 		logger.info("Import Members: Finished");
 	}
@@ -190,17 +193,23 @@ public class MemberManagement {
 		return q.getResultList();
 	}
 
-	private Member importMember(Member member) throws RowBuddyException {
+	private Member importMember(Member member, Member currentMember)
+			throws RowBuddyException {
 		Member dbMember = getMemberByMemberId(member.getMemberId());
+
+		Member importedMember = null;
 		if (dbMember == null) {
 			logger.info("Import Members: Creating new Member");
-			return addMember(member, RoleName.MEMBER);
+			importedMember = addMember(member, RoleName.MEMBER);
+		} else {
+			member.setId(dbMember.getId());
+			logger.info(String.format(
+					"Import Members: Updating existing Member (%d)",
+					dbMember.getId()));
+			importedMember = updateMember(member);
 		}
-		member.setId(dbMember.getId());
-		logger.info(String.format(
-				"Import Members: Updating existing Member (%d)",
-				dbMember.getId()));
-		return updateMember(member);
+		setPassword(importedMember.getId(), currentMember, "test");
+		return importedMember;
 	}
 
 	private Member getMemberByMemberId(String memberId) {
@@ -213,5 +222,61 @@ public class MemberManagement {
 		} catch (NoResultException ex) {
 			return null;
 		}
+	}
+
+	private Member getMemberByEmail(String email) {
+		TypedQuery<Member> q = em.createQuery(
+				"SELECT m FROM Member m WHERE m.email = :email", Member.class);
+		q.setParameter("email", email);
+		try {
+			return q.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		}
+	}
+
+	public void setPassword(Long id, Member currentUser, String password)
+			throws RowBuddyException {
+		Member dbMember = getMember(id);
+
+		Member currentMember = currentUser;
+		if (em.contains(currentUser)) {
+			currentMember = em.getReference(Member.class, currentUser.getId());
+		}
+		if (!currentMember.equals(dbMember)) {
+			if (!currentMember.isInRole(RoleName.ADMIN)) {
+				throw new RowBuddyException(
+						"Dies darf nur der Member selbst oder ein Administrator");
+			}
+		}
+
+		String passwordHash = EncryptionUtility.encryptStringWithSHA2(password);
+		dbMember.setPasswordHash(passwordHash);
+	}
+
+	public Member checkLogin(String email, String password)
+			throws NotLoggedInException {
+
+		Member registeredMember = null;
+		try {
+			registeredMember = getMemberByEmail(email);
+			if (registeredMember == null) {
+				throw new Exception("Member wurde nicht gefunden");
+			}
+
+			String passwordHash = getPasswordHash(password);
+
+			if (!registeredMember.getPasswordHash().equals(passwordHash)) {
+				throw new Exception("Passwort stimmt nicht überein");
+			}
+		} catch (Exception ex) {
+			throw new NotLoggedInException(
+					"Ihr Passwort und/oder der Benutzername sind inkorrekt.");
+		}
+		return registeredMember;
+	}
+
+	private String getPasswordHash(String password) {
+		return EncryptionUtility.encryptStringWithSHA2(password);
 	}
 }

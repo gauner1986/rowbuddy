@@ -31,10 +31,7 @@
 	
 	if (!(email == null || password == null)) {
 		try{
-		Member member = new Member();
-		member.setEmail(email);
-		member.setPassword(password);
-		rbf.login(member);
+		rbf.login(email, password);
 		session.setAttribute("rbf",rbf);
         response.sendRedirect("welcomeGWT.html?gwt.codesvr=127.0.0.1:9997");
 		}catch(NotLoggedInException ex){

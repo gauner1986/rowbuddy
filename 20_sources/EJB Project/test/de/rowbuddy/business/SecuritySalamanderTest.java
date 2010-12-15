@@ -86,7 +86,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 			e1.printStackTrace();
 			fail();
 		}
-		member.setPassword(password);
+		member.setPasswordHash(password);
 		ArrayList<Role> roles = new ArrayList<Role>();
 		for (RoleName roleName : roleNames) {
 			Role role = new Role();
@@ -111,7 +111,8 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	@Test
 	public void canLogin() {
 		try {
-			rowBuddyFacade.login(adminMember);
+			rowBuddyFacade.login(adminMember.getEmail(),
+					adminMember.getPasswordHash());
 		} catch (NotLoggedInException nlie) {
 			fail("Member can't login");
 		}
@@ -123,7 +124,8 @@ public class SecuritySalamanderTest extends EjbTestBase {
 		Member falseMember = createTestMember("basfa@asfsa.de", "wrongpass",
 				new RoleName[] {}, "ID3");
 		try {
-			rowBuddyFacade.login(falseMember);
+			rowBuddyFacade.login(falseMember.getEmail(),
+					falseMember.getPasswordHash());
 			fail("Member can login anyway, where he shouldn't.");
 		} catch (NotLoggedInException nlie) {
 		}
@@ -135,7 +137,8 @@ public class SecuritySalamanderTest extends EjbTestBase {
 		Member falseMember = createTestMember("bla@bla2.de", "wrongpass",
 				new RoleName[] {}, "ID4");
 		try {
-			rowBuddyFacade.login(falseMember);
+			rowBuddyFacade.login(falseMember.getEmail(),
+					falseMember.getPasswordHash());
 			fail("Member can login anyway, where he shouldn't.");
 		} catch (NotLoggedInException e) {
 		}
@@ -145,7 +148,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	@Test
 	public void cannotLoginWithNoCredentials() {
 		try {
-			rowBuddyFacade.login(new Member());
+			rowBuddyFacade.login("", "");
 			fail("Member can login anyway, where he shouldn't.");
 		} catch (NotLoggedInException e) {
 		}
@@ -166,7 +169,8 @@ public class SecuritySalamanderTest extends EjbTestBase {
 
 	@Test(expected = NotLoggedInException.class)
 	public void canLogout() throws Exception {
-		rowBuddyFacade.login(adminMember);
+		rowBuddyFacade.login(adminMember.getEmail(),
+				adminMember.getPasswordHash());
 		rowBuddyFacade.logout();
 		assertFalse(rowBuddyFacade.isLoggedIn());
 		ejbHandler.execute(new Runnable() {
@@ -193,7 +197,7 @@ public class SecuritySalamanderTest extends EjbTestBase {
 
 	private void testGetBoatManagementAs(Member member) {
 		try {
-			rowBuddyFacade.login(member);
+			rowBuddyFacade.login(member.getEmail(), member.getPasswordHash());
 		} catch (NotLoggedInException e1) {
 			fail("Member couldn't log in");
 		}
@@ -212,7 +216,8 @@ public class SecuritySalamanderTest extends EjbTestBase {
 
 	@Test(expected = NotLoggedInException.class)
 	public void cannotUpdateBoatAsUser() throws Exception {
-		rowBuddyFacade.login(userMember);
+		rowBuddyFacade.login(userMember.getEmail(),
+				userMember.getPasswordHash());
 		assertTrue(rowBuddyFacade.isLoggedIn());
 		rowBuddyFacade.updateBoat(new Boat());
 	}
@@ -220,7 +225,8 @@ public class SecuritySalamanderTest extends EjbTestBase {
 	@Test
 	public void canUpdateBoatAsAdmin() {
 		try {
-			rowBuddyFacade.login(adminMember);
+			rowBuddyFacade.login(adminMember.getEmail(),
+					adminMember.getPasswordHash());
 			assertTrue(rowBuddyFacade.isLoggedIn());
 		} catch (NotLoggedInException e) {
 			e.printStackTrace();
