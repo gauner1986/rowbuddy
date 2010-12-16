@@ -2,76 +2,120 @@ package de.rowbuddy.boundary.dtos;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+import de.rowbuddy.entities.Role;
+import de.rowbuddy.entities.Role.RoleName;
+import de.rowbuddy.entities.Trip;
+import de.rowbuddy.exceptions.RowBuddyException;
 
 public class MemberDTO implements Serializable {
 
 	private static final long serialVersionUID = 535672769853512601L;
-
 	private Long id = null;
 	private String memberId = "";
 	private String givenname = "";
 	private String surname = "";
 	private Date birthdate;
 	private String email = "";
+	private String passwordHash = "";
 	private boolean deleted = false;
 	private String street = "";
 	private String city = "";
 	private String zipCode = "";
 	private String phone = "";
 	private String mobilePhone = "";
-	private String fullName = "";
-	private String address = "";
+	private List<Trip> publishedTrips = new LinkedList<Trip>();
+	private List<Role> roles = new LinkedList<Role>();
+
+	public MemberDTO() {
+	}
 
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Long id) {
+		if (id == null) {
+			throw new NullPointerException("Id darf nicht null sein");
+		}
 		this.id = id;
 	}
 
 	public String getMemberId() {
-		return memberId;
+		return this.memberId;
 	}
 
-	public void setMemberId(String memberId) {
+	public void setMemberId(String memberId) throws RowBuddyException {
+		if (memberId == null) {
+			throw new NullPointerException(
+					"Mitgliedsnummer darf nicht null sein");
+		}
+		if (memberId.isEmpty()) {
+			throw new RowBuddyException("Mitgliedsnummer darf nicht leer sein");
+		}
 		this.memberId = memberId;
 	}
 
 	public String getGivenname() {
-		return givenname;
+		return this.givenname;
 	}
 
-	public void setGivenname(String givenname) {
+	public void setGivenname(String givenname) throws RowBuddyException {
+		if (givenname == null) {
+			throw new NullPointerException("Vorname darf nicht null sein");
+		}
+		if (givenname.isEmpty()) {
+			throw new RowBuddyException("Vorname darf nicht leer sein");
+		}
 		this.givenname = givenname;
 	}
 
 	public String getSurname() {
-		return surname;
+		return this.surname;
 	}
 
-	public void setSurname(String surname) {
+	public void setSurname(String surname) throws RowBuddyException {
+		if (surname == null) {
+			throw new NullPointerException("Nachname darf nicht null sein");
+		}
+		if (surname.isEmpty()) {
+			throw new RowBuddyException("Nachname darf nicht leer sein");
+		}
 		this.surname = surname;
 	}
 
 	public Date getBirthdate() {
-		return birthdate;
+		return this.birthdate;
 	}
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(Date birthdate) throws RowBuddyException {
+		if (birthdate.compareTo(new Date()) > 0) {
+			throw new RowBuddyException(
+					"Geburtsdatum darf nicht in der Zukunft liegen");
+		}
 		this.birthdate = birthdate;
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email) throws RowBuddyException {
 		this.email = email;
 	}
 
-	public boolean isDeleted() {
-		return deleted;
+	public String getPasswordHash() {
+		return this.passwordHash;
+	}
+
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
+	}
+
+	public boolean getDeleted() {
+		return this.deleted;
 	}
 
 	public void setDeleted(boolean deleted) {
@@ -79,7 +123,7 @@ public class MemberDTO implements Serializable {
 	}
 
 	public String getStreet() {
-		return street;
+		return this.street;
 	}
 
 	public void setStreet(String street) {
@@ -87,7 +131,7 @@ public class MemberDTO implements Serializable {
 	}
 
 	public String getCity() {
-		return city;
+		return this.city;
 	}
 
 	public void setCity(String city) {
@@ -95,27 +139,11 @@ public class MemberDTO implements Serializable {
 	}
 
 	public String getZipCode() {
-		return zipCode;
+		return this.zipCode;
 	}
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
-	}
-
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
-	public String getMobilePhone() {
-		return mobilePhone;
-	}
-
-	public void setMobilePhone(String mobilePhone) {
-		this.mobilePhone = mobilePhone;
 	}
 
 	public String getPhone() {
@@ -123,15 +151,87 @@ public class MemberDTO implements Serializable {
 	}
 
 	public void setPhone(String phone) {
+		if (phone == null) {
+			throw new NullPointerException("Telefonnummer darf nicht null sein");
+		}
 		this.phone = phone;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+
+	public void setMobilePhone(String mobilePhone) {
+		if (mobilePhone == null) {
+			throw new NullPointerException(
+					"Mobilfunknummer darf nicht null sein");
+		}
+		this.mobilePhone = mobilePhone;
+	}
+
+	public List<Trip> getPublishedTrips() {
+		return publishedTrips;
+	}
+
+	public void setPublishedTrips(List<Trip> publishedTrips) {
+		if (publishedTrips == null) {
+			throw new NullPointerException("Favoriten duerfen nicht null sein");
+		}
+		this.publishedTrips = publishedTrips;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		if (roles == null) {
+			throw new NullPointerException("Rolle darf nicht null sein");
+		}
+		this.roles = roles;
+	}
+
+	public boolean isInRole(RoleName roleName) {
+		for (Role r : roles) {
+			if (r.getName().equals(roleName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public String getFullName() {
+		return givenname + " " + surname;
 	}
 
 	public String getAddress() {
-		return address;
+		return street + ", " + zipCode + " " + city;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		MemberDTO other = (MemberDTO) obj;
+		if (id != other.id) {
+			return false;
+		}
+		return true;
 	}
 
 }

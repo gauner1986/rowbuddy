@@ -7,6 +7,7 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.events.AbstractEvent;
 import de.rowbuddy.client.events.AddBoatPresenterChanger;
 import de.rowbuddy.client.events.AddDamagePresenterChanger;
@@ -46,10 +47,12 @@ public class AppController implements Presenter, EventListener {
 	private HasWidgets container;
 	private StatusMessagePresenter statusPresenter;
 	private Presenter menuPresenter;
+	private MemberDTO sessionMember;
 	private List<PresenterChanger> eventHandlers = new LinkedList<PresenterChanger>();
 
 	public AppController(SimpleEventBus eventBus,
-			HasWidgets messageContainer, HasWidgets menuPanel) {
+			HasWidgets messageContainer, HasWidgets menuPanel, MemberDTO sessionMember) {
+		this.sessionMember = sessionMember;
 		this.boatService = ServiceHolderFactory.getBoatService();
 		this.routeService = ServiceHolderFactory.getRouteService();
 		this.logbookService = ServiceHolderFactory.getLogbookService();
@@ -64,50 +67,50 @@ public class AppController implements Presenter, EventListener {
 
 	private void bindBoatEventHandlers() {
 		eventHandlers.add(new ListBoatsPresenterChanger(eventBus, container,
-				boatService));
+				boatService, sessionMember));
 		eventHandlers.add(new DetailsBoatPresenterChanger(eventBus, container,
-				boatService));
+				boatService, sessionMember));
 		eventHandlers.add(new AddBoatPresenterChanger(container, eventBus,
-				boatService));
+				boatService, sessionMember));
 		eventHandlers.add(new AddDamagePresenterChanger(container, eventBus,
-				boatService));
+				boatService, sessionMember));
 		eventHandlers.add(new DetailsDamagePresenterChanger(container,
-				eventBus, boatService));
+				eventBus, boatService, sessionMember));
 		eventHandlers.add(new EditDamagePresenterChanger(container, eventBus,
-				boatService));
+				boatService, sessionMember));
 
 		eventHandlers.add(new EditBoatPresenterChanger(container, eventBus,
-				boatService));
+				boatService, sessionMember));
 
 		eventHandlers.add(new ListDamagePresenterChanger(container, eventBus,
-				boatService));
+				boatService, sessionMember));
 	}
 
 	private void bindRoutEventHandlers() {
 		eventHandlers.add(new DetailsRoutePresenterChanger(eventBus, container,
-				routeService));
+				routeService,sessionMember));
 		eventHandlers.add(new AddRoutePresenterChanger(container, eventBus,
-				routeService));
+				routeService,sessionMember));
 		eventHandlers.add(new ListRoutesPresenterChanger(container, eventBus,
-				routeService));
+				routeService,sessionMember));
 		eventHandlers.add(new EditRoutPresenterChanger(container, eventBus,
-				routeService));
+				routeService,sessionMember));
 	}
 
 	private void bindLogbookEventHandlers() {
 
 		eventHandlers.add(new ListPersonalTripsPresenterChanger(container,
-				eventBus, logbookService));
+				eventBus, logbookService,sessionMember));
 		eventHandlers.add(new ListPersonalOpenTripsPresenterChanger(container,
-				eventBus, logbookService));
+				eventBus, logbookService,sessionMember));
 
 	}
 
 	private void bindMemberEventHandlers() {
 		eventHandlers.add(new ListMembersPresenterChanger(memberService,
-				container, eventBus));
+				container, eventBus, sessionMember));
 		eventHandlers.add(new ImportMembersPresenterChanger(container,
-				eventBus, memberService));
+				eventBus, memberService,sessionMember));
 	}
 
 	@Override

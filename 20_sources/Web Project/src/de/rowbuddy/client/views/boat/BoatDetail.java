@@ -96,26 +96,8 @@ public class BoatDetail extends HeaderButtonView implements Display {
 		vPanel.add(bar);
 		vPanel.add(detailTable);
 		setContent(vPanel);
-		setPermissions();
 	}
 	
-	private void setPermissions() {
-		ServiceHolderFactory.getSessionManager().getMember(
-				new AsyncCallback<Member>() {
-
-					@Override
-					public void onSuccess(Member arg0) {
-						if(!arg0.isInRole(Role.RoleName.ADMIN)){
-							editButton.setVisible(false);
-						}
-					}
-
-					@Override
-					public void onFailure(Throwable arg0) {
-						Window.alert("error");
-					}
-				});
-	}
 
 	@Override
 	public void setName(String name) {

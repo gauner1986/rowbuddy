@@ -52,7 +52,7 @@ public class GWTEntryPoint implements EntryPoint {
 		RootPanel.get("Main").add(
 				initalRootFlexTable(mainPanel, messagePanel, vPanel));
 
-		AppController controller = new AppController(eventBus, messagePanel, vPanel);
+		AppController controller = new AppController(eventBus, messagePanel, vPanel, ServiceHolderFactory.getSessionMember());
 
 		controller.start(mainPanel);
 		logger.info("Application started");

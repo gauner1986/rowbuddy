@@ -4,6 +4,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.ListPersonalTripsPresenter;
 import de.rowbuddy.client.presenter.ListPersonalTripsPresenter.ListType;
@@ -16,8 +17,8 @@ public class ListPersonalOpenTripsPresenterChanger extends PresenterChanger {
 	private final LogbookRemoteServiceAsync logbookService;
 
 	public ListPersonalOpenTripsPresenterChanger(HasWidgets targetWidget,
-			EventBus eventBus, LogbookRemoteServiceAsync logbookService) {
-		super(targetWidget, eventBus);
+			EventBus eventBus, LogbookRemoteServiceAsync logbookService, MemberDTO member) {
+		super(targetWidget, eventBus, member);
 		this.logbookService = logbookService;
 	}
 

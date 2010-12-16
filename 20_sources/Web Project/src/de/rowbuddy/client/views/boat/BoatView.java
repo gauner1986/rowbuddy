@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
@@ -41,30 +42,6 @@ public class BoatView extends HeaderButtonView implements BoatPresenter.Display 
 		scrollPanel.add(boatTable);
 		scrollPanel.setStyleName("scollTable");
 		setContent(scrollPanel);
-		setPermissions();
-	}
-
-	private void setPermissions() {
-		ServiceHolderFactory.getSessionManager().getMember(
-				new AsyncCallback<Member>() {
-
-					@Override
-					public void onSuccess(Member arg0) {
-						if(!arg0.isInRole(Role.RoleName.ADMIN)){
-							Logger logger = Logger.getLogger(BoatView.class.getName());
-							logger.info(""+arg0.getRoles().size());
-							for(Role r : arg0.getRoles()){
-								logger.info(r.getName().toString());
-							}
-							addButton.setVisible(false);
-						}
-					}
-
-					@Override
-					public void onFailure(Throwable arg0) {
-						Window.alert("error");
-					}
-				});
 	}
 
 	@Override
@@ -131,6 +108,11 @@ public class BoatView extends HeaderButtonView implements BoatPresenter.Display 
 	@Override
 	public HasClickHandlers getTable() {
 		return boatTable;
+	}
+
+	@Override
+	public UIObject getUiAddButton() {
+		return addButton;
 	}
 
 }

@@ -6,6 +6,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
+import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.services.BoatRemoteService;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.services.LogbookRemoteService;
@@ -16,7 +17,6 @@ import de.rowbuddy.client.services.RouteRemoteService;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
 import de.rowbuddy.client.services.SessionManager;
 import de.rowbuddy.client.services.SessionManagerAsync;
-import de.rowbuddy.entities.Member;
 
 public class ServiceHolderFactory {
 
@@ -28,9 +28,9 @@ public class ServiceHolderFactory {
 	private static LogbookRemoteServiceAsync logbookService = null;
 	private static RouteRemoteServiceAsync routeService = null;
 	private static MemberRemoteServiceAsync memberService = null;
-	private static Member sessionMember = null;
+	private static MemberDTO sessionMember = null;
 
-	public static Member getSessionMember() {
+	public static MemberDTO getSessionMember() {
 		return sessionMember;
 	}
 
@@ -92,10 +92,10 @@ public class ServiceHolderFactory {
 	
 	public static void fetchSessionMember(final Runnable run){
 		ServiceHolderFactory.getSessionManager().getMember(
-			new AsyncCallback<Member>() {
+			new AsyncCallback<MemberDTO>() {
 
 				@Override
-				public void onSuccess(Member arg0) {
+				public void onSuccess(MemberDTO arg0) {
 					sessionMember = arg0;
 					logger.info("Member fetched");
 					run.run();

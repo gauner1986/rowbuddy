@@ -90,8 +90,7 @@ public class AddRouteView extends HeaderButtonView implements Display {
 		return this;
 	}
 
-	@Override
-	public HasClickHandlers getAddButton() {
+	public Button getAddButton() {
 		return addButton;
 	}
 
@@ -120,7 +119,7 @@ public class AddRouteView extends HeaderButtonView implements Display {
 	}
 
 	@Override
-	public HasClickHandlers getResetButton() {
+	public Button getResetButton() {
 		return resetButton;
 	}
 

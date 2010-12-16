@@ -4,6 +4,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.member.ImportMembersPresenter;
 import de.rowbuddy.client.services.MemberRemoteServiceAsync;
@@ -14,8 +15,8 @@ public class ImportMembersPresenterChanger extends PresenterChanger {
 	private final MemberRemoteServiceAsync memberService;
 
 	public ImportMembersPresenterChanger(HasWidgets targetWidget,
-			EventBus eventBus, MemberRemoteServiceAsync memberService) {
-		super(targetWidget, eventBus);
+			EventBus eventBus, MemberRemoteServiceAsync memberService, MemberDTO member) {
+		super(targetWidget, eventBus, member);
 
 		this.memberService = memberService;
 	}

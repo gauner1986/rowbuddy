@@ -2,10 +2,10 @@ package de.rowbuddy.client.services;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 
-import de.rowbuddy.entities.Member;
+import de.rowbuddy.boundary.dtos.MemberDTO;
 
 public interface SessionManager extends RemoteService {
-	public Member getMember();
+	public MemberDTO getMember();
 	
 	public void logout();
 }

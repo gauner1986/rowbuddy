@@ -7,7 +7,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
@@ -20,11 +19,8 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.images.Images;
 import de.rowbuddy.client.presenter.MenuPresenter.MenuDisplay;
-import de.rowbuddy.entities.Member;
-import de.rowbuddy.entities.Role;
 
 public class MenuView extends Composite implements MenuDisplay {
 
@@ -57,24 +53,11 @@ public class MenuView extends Composite implements MenuDisplay {
 				getHeaderString("Statistiken", images.statistics())
 						.getElement().getString(), true);
 		menuPanel.add(createRouteMenu(), route.getElement().getString(), true);
-		ServiceHolderFactory.getSessionManager().getMember(
-				new AsyncCallback<Member>() {
-
-					@Override
-					public void onSuccess(Member arg0) {
-						if (arg0.isInRole(Role.RoleName.ADMIN)) {
-							menuPanel.add(
-									createMemberControl(),
-									getHeaderString("Mitgliederverwaltung",
-											images.member()).getElement()
-											.getString(), true);
-						}
-					}
-
-					@Override
-					public void onFailure(Throwable arg0) {
-					}
-				});
+		menuPanel.add(
+			createMemberControl(),
+			getHeaderString("Mitgliederverwaltung",
+					images.member()).getElement()
+					.getString(), true);
 		menuPanel.add(createBoatMenu(), getHeaderString("Boote", images.boat())
 				.getElement().getString(), true);
 
@@ -115,23 +98,8 @@ public class MenuView extends Composite implements MenuDisplay {
 		tb1.setWidget(0, 0, browseBoats);
 		tb1.setWidget(1, 0, browseReservations);
 		tb1.setWidget(2, 0, logDamageBoat);
-		ServiceHolderFactory.getSessionManager().getMember(
-				new AsyncCallback<Member>() {
-
-					@Override
-					public void onFailure(Throwable arg0) {
-					}
-
-					@Override
-					public void onSuccess(Member arg0) {
-						if (arg0.isInRole(Role.RoleName.ADMIN)) {
-							tb1.setWidget(3, 0, browseDamages);
-							tb1.getRowFormatter().setStyleName(3, "menuItem");
-						}
-					}
-
-				});
-
+		tb1.setWidget(3, 0, browseDamages);
+		tb1.getRowFormatter().setStyleName(3, "menuItem");
 		tb1.getRowFormatter().setStyleName(0, "menuItem");
 		tb1.getRowFormatter().setStyleName(1, "menuItem");
 		tb1.getRowFormatter().setStyleName(2, "menuItem");
@@ -172,23 +140,8 @@ public class MenuView extends Composite implements MenuDisplay {
 		tb.setWidget(3, 0, highscoreMonth);
 		tb.setWidget(4, 0, highscoreBoats);
 		tb.setWidget(5, 0, popularRoutes);
-
-		ServiceHolderFactory.getSessionManager().getMember(
-				new AsyncCallback<Member>() {
-
-					@Override
-					public void onSuccess(Member arg0) {
-						if (arg0.isInRole(Role.RoleName.ADMIN)) {
-							tb.setWidget(6, 0, boatdamagesYear);
-							tb.getRowFormatter().setStyleName(6, "menuItem");
-						}
-					}
-
-					@Override
-					public void onFailure(Throwable arg0) {
-					}
-				});
-
+		tb.setWidget(6, 0, boatdamagesYear);
+		tb.getRowFormatter().setStyleName(6, "menuItem");
 		tb.getRowFormatter().setStyleName(0, "menuItem");
 		tb.getRowFormatter().setStyleName(1, "menuItem");
 		tb.getRowFormatter().setStyleName(2, "menuItem");

@@ -12,6 +12,7 @@ import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.FadeAnimation;
 import de.rowbuddy.client.presenter.Presenter;
 
@@ -27,8 +28,10 @@ public abstract class PresenterChanger implements EventHandler,
 			.getLogger(PresenterChanger.class.getName());
 	private final List<EventListener> listeners = new LinkedList<EventListener>();
 	protected final EventBus eventBus;
+	protected MemberDTO member;
 
-	public PresenterChanger(HasWidgets targetWidget, EventBus eventBus) {
+	public PresenterChanger(HasWidgets targetWidget, EventBus eventBus, MemberDTO member) {
+		this.member = member;
 		this.targetWidget = targetWidget;
 		this.eventBus = eventBus;
 

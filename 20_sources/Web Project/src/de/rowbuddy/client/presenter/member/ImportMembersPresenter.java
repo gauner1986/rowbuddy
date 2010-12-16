@@ -57,7 +57,7 @@ public class ImportMembersPresenter implements Presenter {
 							public void onSuccess(Integer membersImported) {
 								StatusMessage message = new StatusMessage();
 								message.setMessage(membersImported
-										+ " Member erfolgreich importiert");
+										+ " MemberDTO erfolgreich importiert");
 								message.setStatus(Status.POSITIVE);
 								message.setAttached(false);
 								eventBus.fireEvent(new ListMembersEvent());

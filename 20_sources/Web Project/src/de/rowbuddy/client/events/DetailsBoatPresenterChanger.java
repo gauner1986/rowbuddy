@@ -4,6 +4,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.boat.BoatDetailPresenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
@@ -14,8 +15,8 @@ public class DetailsBoatPresenterChanger extends PresenterChanger {
 	private final BoatRemoteServiceAsync boatService;
 
 	public DetailsBoatPresenterChanger(EventBus eventBus, HasWidgets target,
-			BoatRemoteServiceAsync boatService) {
-		super(target, eventBus);
+			BoatRemoteServiceAsync boatService, MemberDTO member) {
+		super(target, eventBus, member);
 		this.boatService = boatService;
 	}
 

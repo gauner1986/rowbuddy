@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 
 import com.sun.xml.bind.StringInputStream;
 
+import de.rowbuddy.boundary.converter.MemberDTOConverter;
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.DamageDTO;
 import de.rowbuddy.boundary.dtos.MemberDTO;
@@ -61,6 +62,7 @@ public class RowBuddyFacade {
 	private MemberManagement memberMgmt;
 	@EJB
 	private MemberBoundary memberBoundary;
+	private MemberDTOConverter memberConv = new MemberDTOConverter();
 
 	/**
 	 * Default constructor.
@@ -74,8 +76,8 @@ public class RowBuddyFacade {
 		this.member = memberMgmt.checkLogin(email, password);
 	}
 
-	public Member getMember() {
-		return member;
+	public MemberDTO getMember() {
+		return memberConv.getDto(member);
 	}
 
 	@ExcludeClassInterceptors
