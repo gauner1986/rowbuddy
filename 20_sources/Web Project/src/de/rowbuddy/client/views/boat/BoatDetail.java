@@ -4,22 +4,18 @@ import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DecoratedTabBar;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabBar;
+import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.presenter.boat.BoatDetailPresenter.Display;
 import de.rowbuddy.client.views.HeaderButtonView;
-import de.rowbuddy.entities.Member;
-import de.rowbuddy.entities.Role;
 
 public class BoatDetail extends HeaderButtonView implements Display {
 
@@ -170,6 +166,12 @@ public class BoatDetail extends HeaderButtonView implements Display {
 		damagesTable.setText(reservationIndex, 1, member);
 		damagesTable.setText(reservationIndex, 2, logger);
 		reservationIndex++;
+	}
+
+
+	@Override
+	public UIObject getUiEditButton() {
+		return editButton;
 	}
 
 }

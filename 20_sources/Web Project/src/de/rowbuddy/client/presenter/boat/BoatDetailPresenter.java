@@ -11,8 +11,10 @@ import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.events.EditBoatEvent;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
@@ -23,6 +25,7 @@ import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.entities.BoatReservation;
+import de.rowbuddy.entities.Role.RoleName;
 
 public class BoatDetailPresenter implements Presenter {
 
@@ -34,6 +37,8 @@ public class BoatDetailPresenter implements Presenter {
 		void setCoxed(boolean value);
 
 		void setLocked(boolean value);
+		
+		UIObject getUiEditButton();
 
 		HasClickHandlers getEditButton();
 
@@ -56,9 +61,11 @@ public class BoatDetailPresenter implements Presenter {
 			.getName());
 	private Long id;
 	private EventBus eventBus;
+	private MemberDTO member;
 
 	public BoatDetailPresenter(Display view, BoatRemoteServiceAsync service,
-			EventBus eventBus, Long id) {
+			EventBus eventBus, Long id, MemberDTO member) {
+		this.member = member;
 		this.view = view;
 		this.service = service;
 		this.id = id;
@@ -68,9 +75,15 @@ public class BoatDetailPresenter implements Presenter {
 	@Override
 	public void start(HasWidgets container) {
 		bind();
+		setPermissions();
 		container.clear();
 		container.add(view.asWidget());
 		fetchBoat();
+	}
+	
+	private void setPermissions(){
+		if(!member.isInRole(RoleName.ADMIN))
+			view.getUiEditButton().setVisible(false);
 	}
 
 	private void fetchBoat() {

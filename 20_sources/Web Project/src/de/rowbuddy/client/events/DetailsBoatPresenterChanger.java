@@ -30,7 +30,7 @@ public class DetailsBoatPresenterChanger extends PresenterChanger {
 	public Presenter createPresenter(AbstractEvent<?> event) {
 		DetailsBoatEvent e = (DetailsBoatEvent) event;
 		return new BoatDetailPresenter(new BoatDetail(), boatService, eventBus,
-				e.getId());
+				e.getId(), member);
 	}
 
 	@Override
