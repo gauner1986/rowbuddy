@@ -161,7 +161,7 @@ public class EditRoutePresenter implements Presenter {
 									StatusMessage message = new StatusMessage(
 											false);
 									message.setStatus(Status.NEGATIVE);
-									message.setMessage("Fehler beim ï¿½ndern: "
+									message.setMessage("Fehler beim Ändern: "
 											+ arg0.getMessage());
 									eventBus.fireEvent(new StatusMessageEvent(
 											message));
@@ -174,7 +174,7 @@ public class EditRoutePresenter implements Presenter {
 									StatusMessage message = new StatusMessage(
 											false);
 									message.setStatus(Status.POSITIVE);
-									message.setMessage("Boot erfolgreich geï¿½ndert");
+									message.setMessage("Route erfolgreich geändert");
 									eventBus.fireEvent(new StatusMessageEvent(
 											message));
 								}
@@ -220,14 +220,14 @@ public class EditRoutePresenter implements Presenter {
 					public void onSuccess(Void arg0) {
 						eventBus.fireEvent(new ListBoatsEvent());
 						StatusMessage msg = new StatusMessage(false);
-						msg.setMessage("Route deleted");
+						msg.setMessage("Route gelöscht");
 						msg.setStatus(Status.POSITIVE);
 						eventBus.fireEvent(new StatusMessageEvent(msg));
 					}
 				});
 			}
 		});
-		
+
 		view.getMap().addMapClickHandler(new MapClickHandler() {
 
 			@Override
@@ -263,7 +263,7 @@ public class EditRoutePresenter implements Presenter {
 			}
 		});
 	}
-	
+
 	private double calcDistance() {
 		double lengthInMeter = 0.0;
 		if (points.size() > 1) {
