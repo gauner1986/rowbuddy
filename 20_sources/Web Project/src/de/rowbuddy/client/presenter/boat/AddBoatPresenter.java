@@ -81,6 +81,11 @@ public class AddBoatPresenter implements Presenter {
 					@Override
 					public void onFailure(Throwable arg0) {
 						logger.severe("Cannot add boat: " + arg0.getMessage());
+						StatusMessage message = new StatusMessage();
+						message.setMessage(arg0.getMessage());
+						message.setStatus(Status.NEGATIVE);
+						message.setAttached(false);
+						eventBus.fireEvent(new StatusMessageEvent(message));
 					}
 				});
 			}
