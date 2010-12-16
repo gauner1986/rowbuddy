@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.SessionHolder;
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.images.Images;
 import de.rowbuddy.client.presenter.MenuPresenter.MenuDisplay;
 import de.rowbuddy.entities.Member;
@@ -57,7 +57,7 @@ public class MenuView extends Composite implements MenuDisplay {
 				getHeaderString("Statistiken", images.statistics())
 						.getElement().getString(), true);
 		menuPanel.add(createRouteMenu(), route.getElement().getString(), true);
-		SessionHolder.getSessionManager().getMember(
+		ServiceHolderFactory.getSessionManager().getMember(
 				new AsyncCallback<Member>() {
 
 					@Override
@@ -115,7 +115,7 @@ public class MenuView extends Composite implements MenuDisplay {
 		tb1.setWidget(0, 0, browseBoats);
 		tb1.setWidget(1, 0, browseReservations);
 		tb1.setWidget(2, 0, logDamageBoat);
-		SessionHolder.getSessionManager().getMember(
+		ServiceHolderFactory.getSessionManager().getMember(
 				new AsyncCallback<Member>() {
 
 					@Override
@@ -173,7 +173,7 @@ public class MenuView extends Composite implements MenuDisplay {
 		tb.setWidget(4, 0, highscoreBoats);
 		tb.setWidget(5, 0, popularRoutes);
 
-		SessionHolder.getSessionManager().getMember(
+		ServiceHolderFactory.getSessionManager().getMember(
 				new AsyncCallback<Member>() {
 
 					@Override

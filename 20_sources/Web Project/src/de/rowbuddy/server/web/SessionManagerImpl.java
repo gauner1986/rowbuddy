@@ -30,18 +30,38 @@ public class SessionManagerImpl extends AbstractRemoteService implements Session
 		Member rawMember = getRowBuddyFacade().getMember();
 		Member convMember = new Member();
 		
+		convMember.setId(rawMember.getId());
+		
 		try {
 			convMember.setEmail(rawMember.getEmail());
+			convMember.setBirthdate(rawMember.getBirthdate());
+			convMember.setCity(rawMember.getCity());
+			convMember.setDeleted(rawMember.getDeleted());
+			convMember.setGivenname(rawMember.getGivenname());
+			convMember.setMemberId(rawMember.getMemberId());
+			convMember.setMobilePhone(rawMember.getMobilePhone());
+			convMember.setPasswordHash(rawMember.getPasswordHash());
+			convMember.setPhone(rawMember.getPhone());
+			convMember.setStreet(rawMember.getStreet());
+			convMember.setSurname(rawMember.getSurname());
+			convMember.setZipCode(rawMember.getZipCode());
 		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		convMember.setPublishedTrips(new LinkedList<Trip>());
+		LinkedList<Trip> trips = new LinkedList<Trip>();
+		for(Trip t : rawMember.getPublishedTrips()){
+			trips.add(t);
+		}
+		
+		convMember.setPublishedTrips(trips);
+		
+		
 		LinkedList<Role> roleList = new LinkedList<Role>();
 		for(Role r: rawMember.getRoles()){
 			roleList.add(r);
 		}
+		
 		convMember.setRoles(roleList);
 		return convMember;
 	}

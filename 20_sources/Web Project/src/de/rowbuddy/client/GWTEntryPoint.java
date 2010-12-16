@@ -10,7 +10,6 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.maps.client.Maps;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
@@ -24,16 +23,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.services.BoatRemoteService;
-import de.rowbuddy.client.services.BoatRemoteServiceAsync;
-import de.rowbuddy.client.services.LogbookRemoteService;
-import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
-import de.rowbuddy.client.services.MemberRemoteService;
-import de.rowbuddy.client.services.MemberRemoteServiceAsync;
-import de.rowbuddy.client.services.RouteRemoteService;
-import de.rowbuddy.client.services.RouteRemoteServiceAsync;
-import de.rowbuddy.entities.Member;
-
 public class GWTEntryPoint implements EntryPoint {
 
 	private static Logger logger = Logger.getLogger(GWTEntryPoint.class
@@ -42,40 +31,18 @@ public class GWTEntryPoint implements EntryPoint {
 	public void onModuleLoad() {
 		Maps.loadMapsApi("", "2", false, new Runnable() {
 			public void run() {
-				load();
+				ServiceHolderFactory.fetchSessionMember(new Runnable() {
+					
+					@Override
+					public void run() {
+						load();
+					}
+				});
 			}
 		});
 	}
 
 	public void load() {
-		BoatRemoteServiceAsync boatService = (BoatRemoteServiceAsync) GWT
-				.create(BoatRemoteService.class);
-		((ServiceDefTarget) boatService).setServiceEntryPoint(GWT
-				.getHostPageBaseURL() + "BoatRemoteServiceImpl");
-		logger.info("Service registerd: " + GWT.getHostPageBaseURL()
-				+ "BoatRemoteServiceImpl");
-
-		LogbookRemoteServiceAsync logbookService = (LogbookRemoteServiceAsync) GWT
-				.create(LogbookRemoteService.class);
-		((ServiceDefTarget) logbookService).setServiceEntryPoint(GWT
-				.getHostPageBaseURL() + "LogbookRemoteServiceImpl");
-		logger.info("Service registerd: " + GWT.getHostPageBaseURL()
-				+ "LogbookRemoteServiceImpl");
-
-		RouteRemoteServiceAsync routeService = (RouteRemoteServiceAsync) GWT
-				.create(RouteRemoteService.class);
-		((ServiceDefTarget) routeService).setServiceEntryPoint(GWT
-				.getHostPageBaseURL() + "RouteRemoteServiceImpl");
-		logger.info("Service registerd: " + GWT.getHostPageBaseURL()
-				+ "RouteRemoteServiceImpl");
-
-		MemberRemoteServiceAsync memberService = (MemberRemoteServiceAsync) GWT
-				.create(MemberRemoteService.class);
-		((ServiceDefTarget) memberService).setServiceEntryPoint(GWT
-				.getHostPageBaseURL() + "MemberRemoteServiceImpl");
-		logger.info("Service registerd: " + GWT.getHostPageBaseURL()
-				+ "MemberRemoteServiceImpl");
-
 		HasWidgets mainPanel = initialMainPanel();
 		FlowPanel messagePanel = new FlowPanel();
 		SimpleEventBus eventBus = new SimpleEventBus();
@@ -85,8 +52,7 @@ public class GWTEntryPoint implements EntryPoint {
 		RootPanel.get("Main").add(
 				initalRootFlexTable(mainPanel, messagePanel, vPanel));
 
-		AppController controller = new AppController(boatService, routeService,
-				logbookService, memberService, eventBus, messagePanel, vPanel);
+		AppController controller = new AppController(eventBus, messagePanel, vPanel);
 
 		controller.start(mainPanel);
 		logger.info("Application started");
@@ -117,21 +83,7 @@ public class GWTEntryPoint implements EntryPoint {
 		hPanel.setWidth("100%");
 		hPanel.setStylePrimaryName("logoHeader");
 
-		final Label loginLabel = new Label("Logged in: ");
-		SessionHolder.getSessionManager().getMember(
-				new AsyncCallback<Member>() {
-
-					@Override
-					public void onSuccess(Member arg0) {
-						loginLabel.setText(loginLabel.getText()
-								+ arg0.getEmail());
-					}
-
-					@Override
-					public void onFailure(Throwable arg0) {
-						logger.info(arg0.getMessage());
-					}
-				});
+		Label loginLabel = new Label("Logged in: "+ServiceHolderFactory.getSessionMember().getEmail());
 
 		Button logoutButton = new Button("Logout");
 		logoutButton.setStylePrimaryName("buttonExit buttonNegative");
@@ -139,21 +91,20 @@ public class GWTEntryPoint implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				SessionHolder.getSessionManager().logout(
+				ServiceHolderFactory.getSessionManager().logout(
 						new AsyncCallback<Void>() {
 
 							@Override
 							public void onFailure(Throwable arg0) {
 								logger.info(arg0.getMessage());
-
 							}
 
 							@Override
 							public void onSuccess(Void arg0) {
+								Window.Location.assign(GWT.getHostPageBaseURL() + "Login.jsp");
 							}
 						});
-
-				Window.Location.assign(GWT.getHostPageBaseURL() + "Login.jsp");
+				//Window.Location.assign(GWT.getHostPageBaseURL() + "Login.jsp");
 			}
 
 		});

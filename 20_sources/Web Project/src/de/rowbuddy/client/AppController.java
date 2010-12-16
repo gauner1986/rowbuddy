@@ -48,15 +48,12 @@ public class AppController implements Presenter, EventListener {
 	private Presenter menuPresenter;
 	private List<PresenterChanger> eventHandlers = new LinkedList<PresenterChanger>();
 
-	public AppController(BoatRemoteServiceAsync boatService,
-			RouteRemoteServiceAsync routeService,
-			LogbookRemoteServiceAsync logbookService,
-			MemberRemoteServiceAsync memberService, SimpleEventBus eventBus,
+	public AppController(SimpleEventBus eventBus,
 			HasWidgets messageContainer, HasWidgets menuPanel) {
-		this.boatService = boatService;
-		this.routeService = routeService;
-		this.logbookService = logbookService;
-		this.memberService = memberService;
+		this.boatService = ServiceHolderFactory.getBoatService();
+		this.routeService = ServiceHolderFactory.getRouteService();
+		this.logbookService = ServiceHolderFactory.getLogbookService();
+		this.memberService = ServiceHolderFactory.getMemberService();
 		this.eventBus = eventBus;
 		this.statusPresenter = new StatusMessagePresenter(new MessageView(),
 				eventBus);

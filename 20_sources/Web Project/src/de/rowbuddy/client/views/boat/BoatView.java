@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.SessionHolder;
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.presenter.boat.BoatPresenter;
 import de.rowbuddy.client.views.HeaderButtonView;
 import de.rowbuddy.entities.Member;
@@ -45,7 +45,7 @@ public class BoatView extends HeaderButtonView implements BoatPresenter.Display 
 	}
 
 	private void setPermissions() {
-		SessionHolder.getSessionManager().getMember(
+		ServiceHolderFactory.getSessionManager().getMember(
 				new AsyncCallback<Member>() {
 
 					@Override
