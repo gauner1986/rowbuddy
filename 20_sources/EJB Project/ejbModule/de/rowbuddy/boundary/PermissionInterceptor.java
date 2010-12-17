@@ -10,7 +10,7 @@ import de.rowbuddy.entities.Role;
 import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.exceptions.NotLoggedInException;
 
-public class SecuritySalamander {
+public class PermissionInterceptor {
 	
 	@AroundInvoke
 	public Object checkAuth(InvocationContext ic) throws Exception{

@@ -39,7 +39,7 @@ import de.rowbuddy.exceptions.RowBuddyException;
 /**
  * Session Bean implementation class RowBuddyFacade
  */
-@Interceptors(SecuritySalamander.class)
+@Interceptors(PermissionInterceptor.class)
 @Stateful
 @LocalBean
 public class RowBuddyFacade {

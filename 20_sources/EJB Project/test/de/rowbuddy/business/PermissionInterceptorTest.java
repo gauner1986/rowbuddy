@@ -20,8 +20,9 @@ import de.rowbuddy.exceptions.RowBuddyException;
 import de.rowbuddy.util.Ejb;
 import de.rowbuddy.util.EjbExceptionHandler;
 import de.rowbuddy.util.EjbTestBase;
+import de.rowbuddy.util.EncryptionUtility;
 
-public class SecuritySalamanderTest extends EjbTestBase {
+public class PermissionInterceptorTest extends EjbTestBase {
 
 	private Member attachedAdminMember;
 	private Member adminMember;
@@ -86,7 +87,8 @@ public class SecuritySalamanderTest extends EjbTestBase {
 			e1.printStackTrace();
 			fail();
 		}
-		member.setPasswordHash(password);
+		member.setPasswordHash(EncryptionUtility
+				.encryptStringWithSHA2(password));
 		ArrayList<Role> roles = new ArrayList<Role>();
 		for (RoleName roleName : roleNames) {
 			Role role = new Role();
