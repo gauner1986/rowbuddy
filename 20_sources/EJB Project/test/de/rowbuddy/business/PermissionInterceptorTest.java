@@ -113,8 +113,7 @@ public class PermissionInterceptorTest extends EjbTestBase {
 	@Test
 	public void canLogin() {
 		try {
-			rowBuddyFacade.login(adminMember.getEmail(),
-					adminMember.getPasswordHash());
+			rowBuddyFacade.login(adminMember.getEmail(), "secret");
 		} catch (NotLoggedInException nlie) {
 			fail("Member can't login");
 		}
@@ -199,7 +198,7 @@ public class PermissionInterceptorTest extends EjbTestBase {
 
 	private void testGetBoatManagementAs(Member member) {
 		try {
-			rowBuddyFacade.login(member.getEmail(), member.getPasswordHash());
+			rowBuddyFacade.login(member.getEmail(), "secret");
 		} catch (NotLoggedInException e1) {
 			fail("Member couldn't log in");
 		}
@@ -227,8 +226,7 @@ public class PermissionInterceptorTest extends EjbTestBase {
 	@Test
 	public void canUpdateBoatAsAdmin() {
 		try {
-			rowBuddyFacade.login(adminMember.getEmail(),
-					adminMember.getPasswordHash());
+			rowBuddyFacade.login(adminMember.getEmail(), "secret");
 			assertTrue(rowBuddyFacade.isLoggedIn());
 		} catch (NotLoggedInException e) {
 			e.printStackTrace();
