@@ -21,7 +21,6 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.ServiceHolderFactory;
-import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.ListRoutesEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;

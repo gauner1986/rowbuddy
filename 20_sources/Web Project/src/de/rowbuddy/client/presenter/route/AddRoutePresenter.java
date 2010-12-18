@@ -94,7 +94,7 @@ public class AddRoutePresenter implements Presenter {
 						logger.info("Route successful added; Reset View");
 						eventBus.fireEvent(new ListRoutesEvent());
 						StatusMessage message = new StatusMessage();
-						message.setMessage("Route erfolgreich hinzugef�gt");
+						message.setMessage("Route erfolgreich hinzugefügt");
 						message.setStatus(Status.POSITIVE);
 						message.setAttached(false);
 						eventBus.fireEvent(new StatusMessageEvent(message));

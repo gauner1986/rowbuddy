@@ -1,6 +1,5 @@
 package de.rowbuddy.client.views.route;
 
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.maps.client.MapOptions;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl3D;

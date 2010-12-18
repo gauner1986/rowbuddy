@@ -74,7 +74,7 @@ public class AddDamagePresenter implements Presenter {
 				if (boat == null) {
 					StatusMessage message = new StatusMessage(false);
 					message.setStatus(Status.NEGATIVE);
-					message.setMessage("Es muss ein Boot ausgew�hlt sein");
+					message.setMessage("Es muss ein Boot ausgewählt sein");
 					eventBus.fireEvent(new StatusMessageEvent(message));
 				} else {
 					BoatDamage damage = new BoatDamage();
@@ -105,7 +105,7 @@ public class AddDamagePresenter implements Presenter {
 										StatusMessage message = new StatusMessage(
 												false);
 										message.setStatus(Status.POSITIVE);
-										message.setMessage("Schaden erfolgreich hinzugef�gt");
+										message.setMessage("Schaden erfolgreich hinzugefügt");
 										eventBus.fireEvent(new ListDamageEvent());
 										eventBus.fireEvent(new StatusMessageEvent(
 												message));

@@ -1,12 +1,9 @@
 package de.rowbuddy.client.views.boat;
 
 import java.util.Collection;
-import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -17,11 +14,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.presenter.boat.BoatPresenter;
 import de.rowbuddy.client.views.HeaderButtonView;
-import de.rowbuddy.entities.Member;
-import de.rowbuddy.entities.Role;
 
 public class BoatView extends HeaderButtonView implements BoatPresenter.Display {
 

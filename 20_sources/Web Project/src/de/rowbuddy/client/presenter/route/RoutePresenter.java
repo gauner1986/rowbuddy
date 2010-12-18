@@ -16,7 +16,6 @@ import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.AddRouteEvent;
 import de.rowbuddy.client.events.DetailsRouteEvent;
 import de.rowbuddy.client.presenter.Presenter;
-import de.rowbuddy.client.presenter.boat.BoatPresenter;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
 import de.rowbuddy.entities.Route;
 
