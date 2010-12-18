@@ -178,6 +178,7 @@ public class DataInitialization extends HttpServlet {
 			testMember.setSurname("Trzeszkowski");
 			testMember.setEmail("bla@bla.de");
 			testMember.setBirthdate(new Date(System.currentTimeMillis()));
+			testMember.setMemberId("XDSADSF-222");
 			Member toReturn = memberManagement.addMember(testMember,
 					new RoleName[] { RoleName.MEMBER, RoleName.ADMIN });
 			memberManagement.setPassword(toReturn.getId(), toReturn, "bla");
