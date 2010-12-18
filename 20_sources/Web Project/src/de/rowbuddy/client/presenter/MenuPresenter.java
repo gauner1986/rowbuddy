@@ -31,22 +31,6 @@ public class MenuPresenter implements Presenter {
 		public void setMenuItems(List<MenuItem> menuItems);
 		
 		public List<MenuItem> getMenu();
-		
-//		public HasClickHandlers getListBoatButton();
-//
-//		public HasClickHandlers getListPersonalTripsButton();
-//
-//		public HasClickHandlers getListPersonalOpenTripsButton();
-//
-//		public HasClickHandlers getListDamageButton();
-//
-//		public HasClickHandlers getAddDamage();
-//
-//		public HasClickHandlers getListMembers();
-//
-//		public HasClickHandlers getImportMembers();
-//
-//		public Panel getRoutes();
 
 		public Widget asWidget();
 	}
@@ -141,68 +125,5 @@ public class MenuPresenter implements Presenter {
 				}
 			});
 		}
-//		view.getListBoatButton().addClickHandler(new ClickHandler() {
-//			@Override
-//			public void onClick(ClickEvent arg0) {
-//				eventBus.fireEvent(new ListBoatsEvent());
-//			}
-//		});
-//
-//		view.getRoutes().addHandler(new ClickHandler() {
-//
-//			@Override
-//			public void onClick(ClickEvent arg0) {
-//				logger.info("click ListroutesEvent");
-//				eventBus.fireEvent(new ListRoutesEvent());
-//			}
-//		}, ClickEvent.getType());
-//
-//		view.getListPersonalTripsButton().addClickHandler(new ClickHandler() {
-//
-//			@Override
-//			public void onClick(ClickEvent arg0) {
-//				eventBus.fireEvent(new ListPersonalTripsEvent());
-//			}
-//		});
-//
-//		view.getListPersonalOpenTripsButton().addClickHandler(
-//				new ClickHandler() {
-//
-//					@Override
-//					public void onClick(ClickEvent arg0) {
-//						eventBus.fireEvent(new ListPersonalOpenTripsEvent());
-//					}
-//				});
-//
-//		view.getListDamageButton().addClickHandler(new ClickHandler() {
-//
-//			@Override
-//			public void onClick(ClickEvent arg0) {
-//				eventBus.fireEvent(new ListDamageEvent());
-//			}
-//		});
-//
-//		view.getAddDamage().addClickHandler(new ClickHandler() {
-//
-//			@Override
-//			public void onClick(ClickEvent arg0) {
-//				eventBus.fireEvent(new AddDamageEvent());
-//			}
-//		});
-//
-//		view.getListMembers().addClickHandler(new ClickHandler() {
-//			@Override
-//			public void onClick(ClickEvent arg0) {
-//				eventBus.fireEvent(new ListMembersEvent());
-//			}
-//		});
-//
-//		view.getImportMembers().addClickHandler(new ClickHandler() {
-//
-//			@Override
-//			public void onClick(ClickEvent arg0) {
-//				eventBus.fireEvent(new ImportMembersEvent());
-//			}
-//		});
 	}
 }
