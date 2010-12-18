@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="rowBuddyDesign.css" type="text/css">
-<link rel="SHORTCUT ICON" href="/icons/favicon.ico" type="image/x-icon">
+<link rel="SHORTCUT ICON" href="icons/favicon.ico" type="image/x-icon">
 <title>Login</title>
 </head>
 <body>
