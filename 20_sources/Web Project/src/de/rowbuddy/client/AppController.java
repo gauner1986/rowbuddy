@@ -61,7 +61,7 @@ public class AppController implements Presenter, EventListener {
 		this.statusPresenter = new StatusMessagePresenter(new MessageView(),
 				eventBus);
 		statusPresenter.start(messageContainer);
-		menuPresenter = new MenuPresenter(new MenuView(), eventBus);
+		menuPresenter = new MenuPresenter(new MenuView(), eventBus, sessionMember);
 		menuPresenter.start(menuPanel);
 	}
 

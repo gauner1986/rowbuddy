@@ -1,10 +1,14 @@
 package de.rowbuddy.client.views.items;
 
-public class MenuSubItem {
+import de.rowbuddy.client.events.AbstractEvent;
+import de.rowbuddy.client.views.items.handlers.HasClickMenuHandlers;
+
+public class MenuSubItem extends HasClickMenuHandlers{
 	private String title;
 	private int id;
 	
-	public MenuSubItem(int id, String title){
+	public MenuSubItem(int id, String title, AbstractEvent associatedEvent){
+		super(associatedEvent);
 		this.id = id;
 		this.title = title;
 	}

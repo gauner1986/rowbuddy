@@ -24,8 +24,8 @@ public class ImportMembersView extends HeaderButtonView implements
 		addButton(startImportButton);
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("Fügen Sie die zu importierenden Daten in das Textfeld ein und klicken Sie auf den Button 'Import starten'. ");
-		sb.append("Die Daten müssen kommagetrennt sein und mit der Zeile 'ID,Nachname,Name,Adresse,PLZ,Stadt,Telefon,Handy,Email' anfangen");
+		sb.append("FÃ¼gen Sie die zu importierenden Daten in das Textfeld ein und klicken Sie auf den Button 'Import starten'. ");
+		sb.append("Die Daten mÃ¼ssen kommagetrennt sein und mit der Zeile 'ID,Nachname,Name,Adresse,PLZ,Stadt,Telefon,Handy,Email' anfangen");
 
 		Label label = new Label();
 		label.setText(sb.toString());

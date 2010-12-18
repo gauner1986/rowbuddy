@@ -5,13 +5,17 @@ import java.util.List;
 
 import com.google.gwt.resources.client.ImageResource;
 
-public class MenuItem {
+import de.rowbuddy.client.events.AbstractEvent;
+import de.rowbuddy.client.views.items.handlers.HasClickMenuHandlers;
+
+public class MenuItem extends HasClickMenuHandlers {
 	private int id;
 	private String title;
 	private List<MenuSubItem> subItems = new ArrayList<MenuSubItem>();
 	private ImageResource image;
 	
-	public MenuItem(int id, String title, ImageResource image){
+	public MenuItem(int id, String title, ImageResource image, AbstractEvent associatedEvent){
+		super(associatedEvent);
 		this.id = id;
 		this.title = title;
 		this.image = image;
@@ -44,6 +48,5 @@ public class MenuItem {
 	public List<MenuSubItem> getSubItems() {
 		return subItems;
 	}
-
 
 }
