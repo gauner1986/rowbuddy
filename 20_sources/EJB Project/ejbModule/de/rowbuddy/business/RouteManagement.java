@@ -188,6 +188,11 @@ public class RouteManagement {
 		}
 
 		route.setDeleted(true);
+
+		if (!em.contains(deleter)) {
+			deleter = em
+					.getReference(Member.class, deleter.getId());
+		}
 		route.setLastEditor(deleter);
 	}
 
