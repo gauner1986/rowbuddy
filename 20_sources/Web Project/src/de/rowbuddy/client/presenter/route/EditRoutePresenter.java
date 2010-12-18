@@ -224,9 +224,9 @@ public class EditRoutePresenter implements Presenter {
 
 					@Override
 					public void onSuccess(Void arg0) {
-						eventBus.fireEvent(new ListBoatsEvent());
+						eventBus.fireEvent(new ListRoutesEvent());
 						StatusMessage msg = new StatusMessage(false);
-						msg.setMessage("Route gel�scht");
+						msg.setMessage("Route gelöscht");
 						msg.setStatus(Status.POSITIVE);
 						eventBus.fireEvent(new StatusMessageEvent(msg));
 					}
