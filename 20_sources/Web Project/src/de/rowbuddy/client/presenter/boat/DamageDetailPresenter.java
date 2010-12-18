@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.EditDamageEvent;
 import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
@@ -95,6 +96,7 @@ public class DamageDetailPresenter implements Presenter {
 
 			@Override
 			public void onFailure(Throwable arg0) {
+				ServiceHolderFactory.handleSessionFailure(arg0);
 				logger.severe(arg0.getMessage());
 				eventBus.fireEvent(new ListDamageEvent());
 				StatusMessage message = new StatusMessage(false);

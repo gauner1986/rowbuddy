@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
@@ -87,6 +88,7 @@ public class EditBoatPresenter implements Presenter {
 
 			@Override
 			public void onFailure(Throwable arg0) {
+				ServiceHolderFactory.handleSessionFailure(arg0);
 				logger.severe("Cannot fetch boat:" + arg0.getMessage());
 				eventBus.fireEvent(new ListBoatsEvent());
 				StatusMessage message = new StatusMessage(false);
@@ -141,6 +143,7 @@ public class EditBoatPresenter implements Presenter {
 
 						@Override
 						public void onFailure(Throwable arg0) {
+							ServiceHolderFactory.handleSessionFailure(arg0);
 							logger.warning("Cannout update Boat:"
 									+ arg0.getMessage());
 							StatusMessage message = new StatusMessage(false);
@@ -180,6 +183,7 @@ public class EditBoatPresenter implements Presenter {
 
 					@Override
 					public void onFailure(Throwable arg0) {
+						ServiceHolderFactory.handleSessionFailure(arg0);
 						logger.severe("Cannot delete boat: "
 								+ arg0.getMessage());
 						StatusMessage msg = new StatusMessage(false);

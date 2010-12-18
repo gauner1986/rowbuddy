@@ -12,6 +12,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.AddRouteEvent;
 import de.rowbuddy.client.events.DetailsRouteEvent;
 import de.rowbuddy.client.presenter.Presenter;
@@ -84,6 +85,7 @@ public class RoutePresenter implements Presenter {
 
 			@Override
 			public void onFailure(Throwable arg0) {
+				ServiceHolderFactory.handleSessionFailure(arg0);
 				logger.severe("Cannot get routes:" + arg0.getMessage());
 			}
 

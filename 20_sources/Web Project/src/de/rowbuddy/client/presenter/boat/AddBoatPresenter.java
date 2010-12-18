@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
@@ -80,6 +81,7 @@ public class AddBoatPresenter implements Presenter {
 
 					@Override
 					public void onFailure(Throwable arg0) {
+						ServiceHolderFactory.handleSessionFailure(arg0);
 						logger.severe("Cannot add boat: " + arg0.getMessage());
 						StatusMessage message = new StatusMessage();
 						message.setMessage(arg0.getMessage());
@@ -118,6 +120,7 @@ public class AddBoatPresenter implements Presenter {
 
 					@Override
 					public void onFailure(Throwable arg0) {
+						ServiceHolderFactory.handleSessionFailure(arg0);
 						logger.severe(arg0.getMessage());
 						StatusMessage message = new StatusMessage();
 						message.setMessage(arg0.getMessage());

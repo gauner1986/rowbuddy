@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
@@ -73,7 +74,7 @@ public class AddDamagePresenter implements Presenter {
 				if (boat == null) {
 					StatusMessage message = new StatusMessage(false);
 					message.setStatus(Status.NEGATIVE);
-					message.setMessage("Es muss ein Boot ausgewŠhlt sein");
+					message.setMessage("Es muss ein Boot ausgewï¿½hlt sein");
 					eventBus.fireEvent(new StatusMessageEvent(message));
 				} else {
 					BoatDamage damage = new BoatDamage();
@@ -90,6 +91,7 @@ public class AddDamagePresenter implements Presenter {
 
 									@Override
 									public void onFailure(Throwable arg0) {
+										ServiceHolderFactory.handleSessionFailure(arg0);
 										StatusMessage message = new StatusMessage(
 												false);
 										message.setStatus(Status.NEGATIVE);
@@ -103,7 +105,7 @@ public class AddDamagePresenter implements Presenter {
 										StatusMessage message = new StatusMessage(
 												false);
 										message.setStatus(Status.POSITIVE);
-										message.setMessage("Schaden erfolgreich hinzugefŸgt");
+										message.setMessage("Schaden erfolgreich hinzugefï¿½gt");
 										eventBus.fireEvent(new ListDamageEvent());
 										eventBus.fireEvent(new StatusMessageEvent(
 												message));

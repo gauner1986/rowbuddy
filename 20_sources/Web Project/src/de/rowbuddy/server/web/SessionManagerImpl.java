@@ -6,6 +6,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.services.SessionManager;
+import de.rowbuddy.exceptions.NotLoggedInException;
 
 /**
  * Servlet implementation class SessionManaager
@@ -22,11 +23,19 @@ public class SessionManagerImpl extends AbstractRemoteService implements
 		super();
 	}
 
-	public MemberDTO getMember() {
+	public MemberDTO getMember() throws NotLoggedInException {
+		try{
 		return getRowBuddyFacade().getMember();
+		} catch(NullPointerException e){
+			throw new NotLoggedInException();
+		}
 	}
 
-	public void logout() {
+	public void logout() throws NotLoggedInException {
+		try{
 		getRowBuddyFacade().logout();
+		} catch(NullPointerException e){
+			throw new NotLoggedInException();
+		}
 	}
 }

@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.ListRoutesEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
@@ -117,6 +118,7 @@ public class EditRoutePresenter implements Presenter {
 
 			@Override
 			public void onFailure(Throwable arg0) {
+				ServiceHolderFactory.handleSessionFailure(arg0);
 				logger.severe("Cannot fetch route:" + arg0.getMessage());
 				eventBus.fireEvent(new ListRoutesEvent());
 				StatusMessage message = new StatusMessage(false);
@@ -162,6 +164,7 @@ public class EditRoutePresenter implements Presenter {
 
 								@Override
 								public void onFailure(Throwable arg0) {
+									ServiceHolderFactory.handleSessionFailure(arg0);
 									logger.warning("Cannot update Route:"
 											+ arg0.getMessage());
 									StatusMessage message = new StatusMessage(
@@ -214,6 +217,7 @@ public class EditRoutePresenter implements Presenter {
 
 					@Override
 					public void onFailure(Throwable arg0) {
+						ServiceHolderFactory.handleSessionFailure(arg0);
 						logger.severe("Cannot delete boat: "
 								+ arg0.getMessage());
 						StatusMessage msg = new StatusMessage(false);

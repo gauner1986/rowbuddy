@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListRoutesEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
@@ -84,6 +85,7 @@ public class AddRoutePresenter implements Presenter {
 
 					@Override
 					public void onFailure(Throwable arg0) {
+						ServiceHolderFactory.handleSessionFailure(arg0);
 						logger.severe("Cannot add route: " + arg0.getMessage());
 					}
 
@@ -92,7 +94,7 @@ public class AddRoutePresenter implements Presenter {
 						logger.info("Route successful added; Reset View");
 						eventBus.fireEvent(new ListRoutesEvent());
 						StatusMessage message = new StatusMessage();
-						message.setMessage("Route erfolgreich hinzugefügt");
+						message.setMessage("Route erfolgreich hinzugefï¿½gt");
 						message.setStatus(Status.POSITIVE);
 						message.setAttached(false);
 						eventBus.fireEvent(new StatusMessageEvent(message));

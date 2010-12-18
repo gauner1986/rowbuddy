@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.RemoteService;
 
 import de.rowbuddy.entities.Route;
+import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 public interface RouteRemoteService extends RemoteService {
@@ -19,6 +20,6 @@ public interface RouteRemoteService extends RemoteService {
 
 	public void deleteRoute(Long id) throws RowBuddyException;
 
-	public boolean canEditRoute(Route route);
+	public boolean canEditRoute(Route route) throws NotLoggedInException;
 
 }

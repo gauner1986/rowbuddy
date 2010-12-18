@@ -3,6 +3,7 @@ package de.rowbuddy.client;
 import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
@@ -17,6 +18,7 @@ import de.rowbuddy.client.services.RouteRemoteService;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
 import de.rowbuddy.client.services.SessionManager;
 import de.rowbuddy.client.services.SessionManagerAsync;
+import de.rowbuddy.exceptions.NotLoggedInException;
 
 public class ServiceHolderFactory {
 
@@ -103,6 +105,7 @@ public class ServiceHolderFactory {
 
 				@Override
 				public void onFailure(Throwable arg0) {
+					handleSessionFailure(arg0);
 					logger.severe("Failed to fetch member");
 					logger.info(arg0.getMessage());
 				}
@@ -118,6 +121,12 @@ public class ServiceHolderFactory {
 			return sessionManager;
 		} else {
 			return sessionManager;
+		}
+	}
+	
+	public static void handleSessionFailure(Throwable arg0){
+		if(arg0 instanceof NotLoggedInException){
+			Window.Location.assign(GWT.getHostPageBaseURL() + "Login.jsp");
 		}
 	}
 

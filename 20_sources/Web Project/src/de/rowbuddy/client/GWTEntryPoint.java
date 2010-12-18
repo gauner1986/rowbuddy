@@ -96,6 +96,7 @@ public class GWTEntryPoint implements EntryPoint {
 
 							@Override
 							public void onFailure(Throwable arg0) {
+								ServiceHolderFactory.handleSessionFailure(arg0);
 								logger.info(arg0.getMessage());
 							}
 

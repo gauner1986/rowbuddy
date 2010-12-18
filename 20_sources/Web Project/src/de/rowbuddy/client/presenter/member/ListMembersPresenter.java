@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.MemberRemoteServiceAsync;
 
@@ -64,7 +65,9 @@ public class ListMembersPresenter implements Presenter {
 
 			@Override
 			public void onFailure(Throwable arg0) {
-				Window.alert("error");
+				ServiceHolderFactory.handleSessionFailure(arg0);
+				logger.severe(arg0.getMessage());
+				//Window.alert("error");
 			}
 		});
 	}

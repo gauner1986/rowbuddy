@@ -8,6 +8,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListMembersEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
@@ -67,6 +68,7 @@ public class ImportMembersPresenter implements Presenter {
 
 							@Override
 							public void onFailure(Throwable arg0) {
+								ServiceHolderFactory.handleSessionFailure(arg0);
 								StatusMessage message = new StatusMessage();
 								message.setMessage(arg0.getMessage());
 								message.setStatus(Status.NEGATIVE);

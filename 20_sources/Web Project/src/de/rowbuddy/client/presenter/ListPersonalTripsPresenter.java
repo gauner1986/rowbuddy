@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.LogRowedTripEvent;
 import de.rowbuddy.client.events.StartTripEvent;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
@@ -101,6 +102,7 @@ public class ListPersonalTripsPresenter implements Presenter {
 			break;
 		}
 	}
+	
 
 	private void fetchPersonalTrips() {
 		logbook.getPersonalTrips(new AsyncCallback<List<PersonalTripDTO>>() {
@@ -112,7 +114,8 @@ public class ListPersonalTripsPresenter implements Presenter {
 
 			@Override
 			public void onFailure(Throwable arg0) {
-				Window.alert(arg0.toString());
+				ServiceHolderFactory.handleSessionFailure(arg0);
+				//Window.alert(arg0.toString());
 			}
 		});
 	}
@@ -127,7 +130,9 @@ public class ListPersonalTripsPresenter implements Presenter {
 
 			@Override
 			public void onFailure(Throwable arg0) {
-				Window.alert(arg0.toString());
+				ServiceHolderFactory.handleSessionFailure(arg0);
+				logger.severe(arg0.getMessage());
+				//Window.alert(arg0.toString());
 			}
 		});
 	}

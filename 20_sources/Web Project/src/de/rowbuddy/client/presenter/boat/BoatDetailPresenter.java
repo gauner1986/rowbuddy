@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.EditBoatEvent;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
@@ -111,6 +112,7 @@ public class BoatDetailPresenter implements Presenter {
 
 			@Override
 			public void onFailure(Throwable arg0) {
+				ServiceHolderFactory.handleSessionFailure(arg0);
 				logger.severe(arg0.getMessage());
 				eventBus.fireEvent(new ListBoatsEvent());
 				StatusMessage message = new StatusMessage(false);

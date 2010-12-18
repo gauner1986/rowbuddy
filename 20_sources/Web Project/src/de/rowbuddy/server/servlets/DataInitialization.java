@@ -58,7 +58,7 @@ public class DataInitialization extends HttpServlet {
 	public void init() {
 		try {
 			memberManagement.setupRoles();
-			Member member = createTestMember(true);
+			Member member = createTestMember(false);
 			createTestRoutes(member);
 			createTestBoats(member);
 			createTestTrips(member);

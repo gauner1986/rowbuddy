@@ -11,6 +11,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.EditRouteEvent;
 import de.rowbuddy.client.events.ListRoutesEvent;
 import de.rowbuddy.client.presenter.Presenter;
@@ -84,6 +85,7 @@ public class RouteDetailPresenter implements Presenter {
 
 			@Override
 			public void onFailure(Throwable arg0) {
+				ServiceHolderFactory.handleSessionFailure(arg0);
 				logger.severe(arg0.getMessage());
 			}
 		});

@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.DamageDTO;
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.DetailsDamageEvent;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
@@ -78,6 +79,7 @@ public class ListDamagePresenter implements Presenter {
 
 			@Override
 			public void onFailure(Throwable arg0) {
+				ServiceHolderFactory.handleSessionFailure(arg0);
 				logger.severe(arg0.getMessage());
 			}
 		};

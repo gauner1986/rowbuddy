@@ -8,10 +8,11 @@ import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.DamageDTO;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
+import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 public interface BoatRemoteService extends RemoteService {
-	public List<BoatDTO> getBoatOverview();
+	public List<BoatDTO> getBoatOverview() throws NotLoggedInException;
 
 	public void addBoat(Boat boat) throws Exception;
 
@@ -21,15 +22,15 @@ public interface BoatRemoteService extends RemoteService {
 
 	public void deleteBoat(Long id) throws Exception;
 
-	public List<DamageDTO> getOpenDamages();
+	public List<DamageDTO> getOpenDamages() throws NotLoggedInException;
 
-	public List<DamageDTO> getAllDamages();
+	public List<DamageDTO> getAllDamages() throws NotLoggedInException;
 
 	public BoatDamage getDamage(Long id) throws Exception;
 
-	public void updateDamage(BoatDamage damage);
+	public void updateDamage(BoatDamage damage) throws NotLoggedInException;
 
-	public List<BoatDTO> search(String query);
+	public List<BoatDTO> search(String query) throws NotLoggedInException;
 
 	void addDamage(BoatDamage damage, Long boatId) throws RowBuddyException;
 }

@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Role.RoleName;
+import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 public interface MemberRemoteService extends RemoteService {
@@ -18,6 +19,6 @@ public interface MemberRemoteService extends RemoteService {
 
 	public Integer importMembers(String importData) throws RowBuddyException;
 
-	public List<MemberDTO> getMembers();
+	public List<MemberDTO> getMembers() throws NotLoggedInException;
 
 }

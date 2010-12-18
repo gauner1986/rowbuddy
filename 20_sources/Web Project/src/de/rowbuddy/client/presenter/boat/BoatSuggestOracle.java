@@ -9,6 +9,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.SuggestOracle;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
+import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
 public class BoatSuggestOracle extends SuggestOracle {
@@ -72,6 +73,7 @@ public class BoatSuggestOracle extends SuggestOracle {
 
 			@Override
 			public void onFailure(Throwable arg0) {
+				ServiceHolderFactory.handleSessionFailure(arg0);
 			}
 		});
 	}
