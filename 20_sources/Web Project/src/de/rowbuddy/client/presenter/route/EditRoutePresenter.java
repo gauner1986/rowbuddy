@@ -95,7 +95,7 @@ public class EditRoutePresenter implements Presenter {
 			@Override
 			public void onSuccess(Route arg0) {
 				route = arg0;
-				logger.info("Route feteched! id:" + route.getId());
+				logger.info("Route feteched! id:" + route.getId()); 	
 				view.getName().setValue(route.getName());
 				view.getLength().setValue("" + route.getLengthKM());
 				view.getDescription().setValue(route.getShortDescription());
@@ -134,6 +134,12 @@ public class EditRoutePresenter implements Presenter {
 			route.setLengthKM(Double.parseDouble(view.getLength().getValue()));
 			route.setShortDescription(view.getDescription().getValue());
 			route.setMutable(view.isMutable().getValue());
+			List<GpsPoint> wayPoints = new LinkedList<GpsPoint>();
+			for (LatLng latlng : points) {
+				wayPoints.add(new GpsPoint(latlng.getLatitude(), latlng
+						.getLongitude()));
+			}
+			route.setWayPoints(wayPoints);
 			logger.info("Update route with id:" + route.getId());
 			success = true;
 		} catch (RowBuddyException ex) {
@@ -151,8 +157,8 @@ public class EditRoutePresenter implements Presenter {
 			@Override
 			public void onClick(ClickEvent arg0) {
 				if (updateRoute()) {
-					routeService.canEditRoute(route,
-							new AsyncCallback<Boolean>() {
+					routeService.editRoute(route,
+							new AsyncCallback<Route>() {
 
 								@Override
 								public void onFailure(Throwable arg0) {
@@ -161,20 +167,20 @@ public class EditRoutePresenter implements Presenter {
 									StatusMessage message = new StatusMessage(
 											false);
 									message.setStatus(Status.NEGATIVE);
-									message.setMessage("Fehler beim Ändern: "
+									message.setMessage("Fehler beim ï¿½ndern: "
 											+ arg0.getMessage());
 									eventBus.fireEvent(new StatusMessageEvent(
 											message));
 								}
 
 								@Override
-								public void onSuccess(Boolean arg0) {
+								public void onSuccess(Route arg0) {
 									logger.info("Submit successful GoTo ListRoutes");
 									eventBus.fireEvent(new ListRoutesEvent());
 									StatusMessage message = new StatusMessage(
 											false);
 									message.setStatus(Status.POSITIVE);
-									message.setMessage("Route erfolgreich geändert");
+									message.setMessage("Route erfolgreich geÃ¤ndert");
 									eventBus.fireEvent(new StatusMessageEvent(
 											message));
 								}
@@ -220,7 +226,7 @@ public class EditRoutePresenter implements Presenter {
 					public void onSuccess(Void arg0) {
 						eventBus.fireEvent(new ListBoatsEvent());
 						StatusMessage msg = new StatusMessage(false);
-						msg.setMessage("Route gelöscht");
+						msg.setMessage("Route gelï¿½scht");
 						msg.setStatus(Status.POSITIVE);
 						eventBus.fireEvent(new StatusMessageEvent(msg));
 					}
