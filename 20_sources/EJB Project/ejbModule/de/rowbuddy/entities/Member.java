@@ -124,7 +124,7 @@ public class Member implements Serializable {
 		return this.email;
 	}
 
-	public void setEmail(String email) throws RowBuddyException {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 

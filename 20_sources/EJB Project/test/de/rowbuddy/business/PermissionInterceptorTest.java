@@ -81,12 +81,7 @@ public class PermissionInterceptorTest extends EjbTestBase {
 	private Member createTestMember(String username, String password,
 			RoleName[] roleNames, String mId) {
 		Member member = new Member();
-		try {
-			member.setEmail(username);
-		} catch (RowBuddyException e1) {
-			e1.printStackTrace();
-			fail();
-		}
+		member.setEmail(username);
 		member.setPasswordHash(EncryptionUtility
 				.encryptStringWithSHA2(password));
 		ArrayList<Role> roles = new ArrayList<Role>();

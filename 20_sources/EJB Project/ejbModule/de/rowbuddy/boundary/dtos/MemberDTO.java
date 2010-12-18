@@ -7,8 +7,6 @@ import java.util.List;
 
 import de.rowbuddy.entities.Role;
 import de.rowbuddy.entities.Role.RoleName;
-import de.rowbuddy.entities.Trip;
-import de.rowbuddy.exceptions.RowBuddyException;
 
 public class MemberDTO implements Serializable {
 
@@ -19,14 +17,12 @@ public class MemberDTO implements Serializable {
 	private String surname = "";
 	private Date birthdate;
 	private String email = "";
-	private String passwordHash = "";
 	private boolean deleted = false;
 	private String street = "";
 	private String city = "";
 	private String zipCode = "";
 	private String phone = "";
 	private String mobilePhone = "";
-	private List<Trip> publishedTrips = new LinkedList<Trip>();
 	private List<Role> roles = new LinkedList<Role>();
 
 	public MemberDTO() {
@@ -37,9 +33,6 @@ public class MemberDTO implements Serializable {
 	}
 
 	public void setId(Long id) {
-		if (id == null) {
-			throw new NullPointerException("Id darf nicht null sein");
-		}
 		this.id = id;
 	}
 
@@ -47,14 +40,7 @@ public class MemberDTO implements Serializable {
 		return this.memberId;
 	}
 
-	public void setMemberId(String memberId) throws RowBuddyException {
-		if (memberId == null) {
-			throw new NullPointerException(
-					"Mitgliedsnummer darf nicht null sein");
-		}
-		if (memberId.isEmpty()) {
-			throw new RowBuddyException("Mitgliedsnummer darf nicht leer sein");
-		}
+	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
 
@@ -62,13 +48,7 @@ public class MemberDTO implements Serializable {
 		return this.givenname;
 	}
 
-	public void setGivenname(String givenname) throws RowBuddyException {
-		if (givenname == null) {
-			throw new NullPointerException("Vorname darf nicht null sein");
-		}
-		if (givenname.isEmpty()) {
-			throw new RowBuddyException("Vorname darf nicht leer sein");
-		}
+	public void setGivenname(String givenname) {
 		this.givenname = givenname;
 	}
 
@@ -76,13 +56,7 @@ public class MemberDTO implements Serializable {
 		return this.surname;
 	}
 
-	public void setSurname(String surname) throws RowBuddyException {
-		if (surname == null) {
-			throw new NullPointerException("Nachname darf nicht null sein");
-		}
-		if (surname.isEmpty()) {
-			throw new RowBuddyException("Nachname darf nicht leer sein");
-		}
+	public void setSurname(String surname) {
 		this.surname = surname;
 	}
 
@@ -90,11 +64,7 @@ public class MemberDTO implements Serializable {
 		return this.birthdate;
 	}
 
-	public void setBirthdate(Date birthdate) throws RowBuddyException {
-		if (birthdate.compareTo(new Date()) > 0) {
-			throw new RowBuddyException(
-					"Geburtsdatum darf nicht in der Zukunft liegen");
-		}
+	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
 
@@ -102,16 +72,8 @@ public class MemberDTO implements Serializable {
 		return this.email;
 	}
 
-	public void setEmail(String email) throws RowBuddyException {
+	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPasswordHash() {
-		return this.passwordHash;
-	}
-
-	public void setPasswordHash(String passwordHash) {
-		this.passwordHash = passwordHash;
 	}
 
 	public boolean getDeleted() {
@@ -151,9 +113,6 @@ public class MemberDTO implements Serializable {
 	}
 
 	public void setPhone(String phone) {
-		if (phone == null) {
-			throw new NullPointerException("Telefonnummer darf nicht null sein");
-		}
 		this.phone = phone;
 	}
 
@@ -162,22 +121,7 @@ public class MemberDTO implements Serializable {
 	}
 
 	public void setMobilePhone(String mobilePhone) {
-		if (mobilePhone == null) {
-			throw new NullPointerException(
-					"Mobilfunknummer darf nicht null sein");
-		}
 		this.mobilePhone = mobilePhone;
-	}
-
-	public List<Trip> getPublishedTrips() {
-		return publishedTrips;
-	}
-
-	public void setPublishedTrips(List<Trip> publishedTrips) {
-		if (publishedTrips == null) {
-			throw new NullPointerException("Favoriten duerfen nicht null sein");
-		}
-		this.publishedTrips = publishedTrips;
 	}
 
 	public List<Role> getRoles() {
@@ -185,9 +129,6 @@ public class MemberDTO implements Serializable {
 	}
 
 	public void setRoles(List<Role> roles) {
-		if (roles == null) {
-			throw new NullPointerException("Rolle darf nicht null sein");
-		}
 		this.roles = roles;
 	}
 
