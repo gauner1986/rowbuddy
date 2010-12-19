@@ -24,4 +24,9 @@ public class MemberBoundary {
 		return memberConverter.getList(members);
 	}
 
+	public List<MemberDTO> searchMember(String search) {
+		List<Member> members = memberMgmt.searchMember(search);
+		return memberConverter.getList(members);
+	}
+
 }

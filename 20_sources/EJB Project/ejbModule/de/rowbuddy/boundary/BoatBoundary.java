@@ -43,4 +43,9 @@ public class BoatBoundary {
 		List<Boat> boats = boatManagement.searchBoat(search);
 		return dtoConverter.getList(boats);
 	}
+
+	public List<BoatDTO> searchBoatNotLocked(String search) {
+		List<Boat> boats = boatManagement.searchBoatNotLocked(search);
+		return dtoConverter.getList(boats);
+	}
 }

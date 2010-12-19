@@ -8,12 +8,16 @@ import javax.ejb.Stateless;
 
 import de.rowbuddy.boundary.converter.PersonalTripDTOConverter;
 import de.rowbuddy.boundary.converter.TripDTOConverter;
+import de.rowbuddy.boundary.converter.TripMemberDTOConverter;
+import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
+import de.rowbuddy.boundary.dtos.TripMemberDTO;
 import de.rowbuddy.business.Logbook;
 import de.rowbuddy.business.Logbook.ListType;
 import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Trip;
+import de.rowbuddy.entities.TripMember;
 
 @Stateless
 @LocalBean

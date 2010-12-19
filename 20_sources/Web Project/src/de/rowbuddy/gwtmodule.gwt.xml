@@ -7,8 +7,10 @@
 	<set-property name="gwt.logging.logLevel" value="ALL"/> 
     <set-property name="gwt.logging.enabled" value="TRUE"/>
 	 <inherits name="de.rowbuddy.Core" />
-	    <source path="client"  />
+	    <source path="client"  ></source>
 	<entry-point class="de.rowbuddy.client.GWTEntryPoint" />
 	
 	<inherits name="com.google.gwt.user.AsyncProxy"/>
+	<inherits name="com.google.gwt.widgetideas.WidgetIdeas" />   
+	<inherits name="com.google.gwt.libideas.LibIdeas" />
 </module>

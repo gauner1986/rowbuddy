@@ -145,6 +145,16 @@ public class BoatManagement {
 		return q.getResultList();
 	}
 
+	public List<Boat> searchBoatNotLocked(String search) {
+		TypedQuery<Boat> q = em
+				.createQuery(
+
+						"SELECT b FROM Boat b WHERE lower(b.name) like :searchString AND b.deleted=false AND b.locked=false",
+						Boat.class);
+		q.setParameter("searchString", "%" + search.toLowerCase() + "%");
+		return q.getResultList();
+	}
+
 	public BoatDamage getDamage(Long id) throws RowBuddyException {
 		if (id == null) {
 			throw new RowBuddyException("Id muss angegeben werden");

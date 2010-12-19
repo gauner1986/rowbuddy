@@ -138,7 +138,7 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 	@Override
 	public List<BoatDTO> search(String query) throws NotLoggedInException {
 		try{
-		return getRowBuddyFacade().search(query);
+		return getRowBuddyFacade().searchBoat(query);
 		} catch (NullPointerException e){
 			throw new NotLoggedInException("rowBuddyFacade = null");
 		}

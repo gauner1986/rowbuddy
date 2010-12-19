@@ -27,6 +27,7 @@ import de.rowbuddy.client.events.ListMembersPresenterChanger;
 import de.rowbuddy.client.events.ListPersonalOpenTripsPresenterChanger;
 import de.rowbuddy.client.events.ListPersonalTripsPresenterChanger;
 import de.rowbuddy.client.events.ListRoutesPresenterChanger;
+import de.rowbuddy.client.events.LogRowedTripPresenterChanger;
 import de.rowbuddy.client.events.PresenterChanger;
 import de.rowbuddy.client.events.PresenterChanger.EventListener;
 import de.rowbuddy.client.presenter.MenuPresenter;
@@ -101,6 +102,8 @@ public class AppController implements Presenter, EventListener {
 
 	private void bindLogbookEventHandlers() {
 
+		eventHandlers.add(new LogRowedTripPresenterChanger(container,
+				eventBus, logbookService));
 		eventHandlers.add(new ListPersonalTripsPresenterChanger(container,
 				eventBus, logbookService, sessionMember));
 		eventHandlers.add(new ListPersonalOpenTripsPresenterChanger(container,

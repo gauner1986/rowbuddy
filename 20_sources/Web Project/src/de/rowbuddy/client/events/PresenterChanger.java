@@ -28,7 +28,7 @@ public abstract class PresenterChanger implements EventHandler,
 			.getLogger(PresenterChanger.class.getName());
 	private final List<EventListener> listeners = new LinkedList<EventListener>();
 	protected final EventBus eventBus;
-	protected MemberDTO member;
+	protected static MemberDTO member;
 
 	public PresenterChanger(HasWidgets targetWidget, EventBus eventBus, MemberDTO member) {
 		this.member = member;

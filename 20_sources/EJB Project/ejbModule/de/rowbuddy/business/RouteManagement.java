@@ -221,4 +221,12 @@ public class RouteManagement {
 
 		return false;
 	}
+	
+	public List<Route> searchRoute(String search) {
+		TypedQuery<Route> q = em.createQuery(
+				"SELECT r FROM Route r WHERE lower(r.name) like :searchString AND r.deleted=false",
+				Route.class);
+		q.setParameter("searchString", "%" + search.toLowerCase() + "%");
+		return q.getResultList();
+	}
 }

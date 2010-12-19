@@ -19,7 +19,9 @@ import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.DamageDTO;
 import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
+import de.rowbuddy.boundary.dtos.RouteDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
+import de.rowbuddy.boundary.dtos.TripMemberDTO;
 import de.rowbuddy.business.BoatManagement;
 import de.rowbuddy.business.Logbook;
 import de.rowbuddy.business.Logbook.ListType;
@@ -33,6 +35,7 @@ import de.rowbuddy.entities.Role;
 import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.entities.Route;
 import de.rowbuddy.entities.Trip;
+import de.rowbuddy.entities.TripMember;
 import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
 
@@ -62,6 +65,9 @@ public class RowBuddyFacade {
 	private MemberManagement memberMgmt;
 	@EJB
 	private MemberBoundary memberBoundary;
+	@EJB
+	private RouteBoundary routeBoundary;
+	
 	private MemberDTOConverter memberConv = new MemberDTOConverter();
 
 	/**
@@ -113,8 +119,22 @@ public class RowBuddyFacade {
 		boatManagement.deleteBoat(id);
 	}
 
-	public void logRowedTrip(Trip rowedTrip) throws RowBuddyException {
-		logbook.logRowedTrip(rowedTrip, this.member);
+	public void logRowedTrip(TripDTO rowedTrip, long boatId, long routeId, List<TripMemberDTO> tripMembersDTO) throws RowBuddyException {
+		Trip trip = new Trip();
+		trip.setEndDate(rowedTrip.getEndDate());
+		trip.setStartDate(rowedTrip.getStartDate());
+		trip.setFinished(true);
+		trip.setBoat(getBoat(boatId));
+		trip.setRoute(getRoute(routeId));
+		List<TripMember> tripMembers = new LinkedList<TripMember>();
+		for (TripMemberDTO dto : tripMembersDTO) {
+			TripMember tm = new TripMember();
+			tm.setMember(memberMgmt.getMember(dto.getMember().getId()));
+			tm.setTripMemberType(dto.getTripMemberType());
+			tripMembers.add(tm);
+		}
+		trip.setTripMembers(tripMembers);
+		logbook.logRowedTrip(trip, this.member);
 	}
 
 	public void startTrip(Trip startedTrip) throws RowBuddyException {
@@ -161,8 +181,20 @@ public class RowBuddyFacade {
 		}
 	}
 
-	public List<BoatDTO> search(String search) {
+	public List<BoatDTO> searchBoat(String search) {
 		return boatBoundary.searchBoat(search);
+	}
+
+	public List<BoatDTO> searchBoatNotLocked(String search) {
+		return boatBoundary.searchBoatNotLocked(search);
+	}
+
+	public List<RouteDTO> searchRoute(String search) {
+		return routeBoundary.searchRoute(search);
+	}
+
+	public List<MemberDTO> searchMember(String search) {
+		return memberBoundary.searchMember(search);
 	}
 
 	public void addDamage(BoatDamage damage, Long boatId)

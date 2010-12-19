@@ -279,4 +279,12 @@ public class MemberManagement {
 	private String getPasswordHash(String password) {
 		return EncryptionUtility.encryptStringWithSHA2(password);
 	}
+	
+	public List<Member> searchMember(String search) {
+		TypedQuery<Member> q = em.createQuery(
+				"SELECT m FROM Member m WHERE (lower(m.givenname) like :searchString OR lower(m.surname) like :searchString) AND m.deleted=false",
+				Member.class);
+		q.setParameter("searchString", "%" + search.toLowerCase() + "%");
+		return q.getResultList();
+	}
 }

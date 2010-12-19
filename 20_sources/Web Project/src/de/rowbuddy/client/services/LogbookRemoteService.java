@@ -4,15 +4,17 @@ import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 
+import de.rowbuddy.boundary.dtos.BoatDTO;
+import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
+import de.rowbuddy.boundary.dtos.RouteDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
+import de.rowbuddy.boundary.dtos.TripMemberDTO;
 import de.rowbuddy.entities.Trip;
 import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 public interface LogbookRemoteService extends RemoteService {
-
-	public void logRowedTrip(Trip rowedTrip) throws RowBuddyException, NotLoggedInException;
 
 	public void startTrip(Trip startedTrip) throws RowBuddyException, NotLoggedInException;
 
@@ -25,5 +27,14 @@ public interface LogbookRemoteService extends RemoteService {
 	public List<PersonalTripDTO> getPersonalTrips() throws NotLoggedInException;
 
 	public List<PersonalTripDTO> getPersonalOpenTrips() throws NotLoggedInException;
+
+	List<MemberDTO> searchMember(String query);
+
+	List<RouteDTO> searchRoute(String query);
+
+	List<BoatDTO> searchBoat(String query);
+
+	void logRowedTrip(TripDTO trip, long boatId, long routeId,
+			List<TripMemberDTO> tripMembers);
 
 }

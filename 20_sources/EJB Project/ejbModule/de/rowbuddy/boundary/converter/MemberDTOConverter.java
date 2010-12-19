@@ -10,6 +10,7 @@ public class MemberDTOConverter extends DtoConverter<Member, MemberDTO> {
 
 	@Override
 	public MemberDTO getDto(Member entity) {
+
 		MemberDTO convMember = new MemberDTO();
 
 		convMember.setId(entity.getId());
