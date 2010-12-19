@@ -6,9 +6,9 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.presenter.Presenter;
-import de.rowbuddy.client.presenter.boat.BoatPresenter;
+import de.rowbuddy.client.presenter.boat.ListBoatsPresenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
-import de.rowbuddy.client.views.boat.BoatView;
+import de.rowbuddy.client.views.boat.ListBoatsView;
 
 public class ListBoatsPresenterChanger extends PresenterChanger {
 
@@ -32,7 +32,7 @@ public class ListBoatsPresenterChanger extends PresenterChanger {
 
 	@Override
 	public Presenter createPresenter(AbstractEvent<?> event) {
-		return new BoatPresenter(this.boatService, new BoatView(), eventBus, member);
+		return new ListBoatsPresenter(this.boatService, new ListBoatsView(), eventBus, member);
 	}
 
 	@Override

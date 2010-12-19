@@ -22,7 +22,7 @@ import de.rowbuddy.client.events.DetailsDamageEvent;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
-public class ListDamagePresenter implements Presenter {
+public class ListDamagesPresenter implements Presenter {
 
 	public interface Display {
 		HasValueChangeHandlers<Boolean> historyEnabled();
@@ -42,12 +42,12 @@ public class ListDamagePresenter implements Presenter {
 	private Display view;
 	private BoatRemoteServiceAsync service;
 	private EventBus eventBus;
-	private Logger logger = Logger.getLogger(ListDamagePresenter.class
+	private Logger logger = Logger.getLogger(ListDamagesPresenter.class
 			.getName());
 	private List<DamageDTO> fetchedDamages;
 	private DateTimeFormat dtf;
 
-	public ListDamagePresenter(Display view, BoatRemoteServiceAsync service,
+	public ListDamagesPresenter(Display view, BoatRemoteServiceAsync service,
 			EventBus eventBus) {
 		this.view = view;
 		this.service = service;

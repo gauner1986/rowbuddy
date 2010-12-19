@@ -14,15 +14,15 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.presenter.boat.BoatPresenter;
+import de.rowbuddy.client.presenter.boat.ListBoatsPresenter;
 import de.rowbuddy.client.views.HeaderButtonView;
 
-public class BoatView extends HeaderButtonView implements BoatPresenter.Display {
+public class ListBoatsView extends HeaderButtonView implements ListBoatsPresenter.Display {
 
 	private Button addButton;
 	private FlexTable boatTable;
 
-	public BoatView() {
+	public ListBoatsView() {
 		super(PageTitles.BOAT_OVERVIEW);
 
 		addButton = new Button("Boot Hinzufügen");

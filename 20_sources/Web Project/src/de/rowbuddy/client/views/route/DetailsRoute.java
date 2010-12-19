@@ -16,10 +16,10 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.presenter.route.RouteDetailPresenter.Display;
+import de.rowbuddy.client.presenter.route.DetailsRoutePresenter.Display;
 import de.rowbuddy.client.views.HeaderButtonView;
 
-public class RouteDetail extends HeaderButtonView implements Display {
+public class DetailsRoute extends HeaderButtonView implements Display {
 
 	VerticalPanel vPanel;
 	private FlexTable detailTable;
@@ -31,7 +31,7 @@ public class RouteDetail extends HeaderButtonView implements Display {
 	private Button cancelButton;
 	private final MapWidget map;
 
-	public RouteDetail() {
+	public DetailsRoute() {
 		super(PageTitles.ROUTE_DETAIL);
 
 		vPanel = new VerticalPanel();

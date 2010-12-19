@@ -19,7 +19,7 @@ import de.rowbuddy.client.services.RouteRemoteServiceAsync;
 import de.rowbuddy.entities.GpsPoint;
 import de.rowbuddy.entities.Route;
 
-public class RouteDetailPresenter implements Presenter {
+public class DetailsRoutePresenter implements Presenter {
 
 	public interface Display {
 		void setName(String name);
@@ -41,12 +41,12 @@ public class RouteDetailPresenter implements Presenter {
 
 	private Display view;
 	private RouteRemoteServiceAsync routeService;
-	private static Logger logger = Logger.getLogger(RouteDetailPresenter.class
+	private static Logger logger = Logger.getLogger(DetailsRoutePresenter.class
 			.getName());
 	private Long id;
 	private EventBus eventBus;
 
-	public RouteDetailPresenter(Display view,
+	public DetailsRoutePresenter(Display view,
 			RouteRemoteServiceAsync routeService, EventBus eventBus, Long id) {
 		this.view = view;
 		this.routeService = routeService;

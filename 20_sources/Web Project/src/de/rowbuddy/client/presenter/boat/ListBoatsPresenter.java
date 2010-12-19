@@ -22,7 +22,7 @@ import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.Role.RoleName;
 
-public class BoatPresenter implements Presenter {
+public class ListBoatsPresenter implements Presenter {
 	public interface Display {
 		Widget asWidget();
 		
@@ -43,10 +43,10 @@ public class BoatPresenter implements Presenter {
 	private EventBus eventBus;
 	private List<BoatDTO> fetchedBoats;
 	private MemberDTO sessionMember;
-	private static Logger logger = Logger.getLogger(BoatPresenter.class
+	private static Logger logger = Logger.getLogger(ListBoatsPresenter.class
 			.getName());
 
-	public BoatPresenter(BoatRemoteServiceAsync boatService, Display view,
+	public ListBoatsPresenter(BoatRemoteServiceAsync boatService, Display view,
 			EventBus eventBus, MemberDTO member) {
 		this.sessionMember = member;
 		this.view = view;

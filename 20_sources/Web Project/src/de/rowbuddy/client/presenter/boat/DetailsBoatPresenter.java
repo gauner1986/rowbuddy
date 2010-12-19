@@ -28,7 +28,7 @@ import de.rowbuddy.entities.BoatDamage;
 import de.rowbuddy.entities.BoatReservation;
 import de.rowbuddy.entities.Role.RoleName;
 
-public class BoatDetailPresenter implements Presenter {
+public class DetailsBoatPresenter implements Presenter {
 
 	public interface Display {
 		void setName(String name);
@@ -58,13 +58,13 @@ public class BoatDetailPresenter implements Presenter {
 
 	private Display view;
 	private BoatRemoteServiceAsync service;
-	private static Logger logger = Logger.getLogger(BoatDetailPresenter.class
+	private static Logger logger = Logger.getLogger(DetailsBoatPresenter.class
 			.getName());
 	private Long id;
 	private EventBus eventBus;
 	private MemberDTO member;
 
-	public BoatDetailPresenter(Display view, BoatRemoteServiceAsync service,
+	public DetailsBoatPresenter(Display view, BoatRemoteServiceAsync service,
 			EventBus eventBus, Long id, MemberDTO member) {
 		this.member = member;
 		this.view = view;

@@ -11,16 +11,16 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.presenter.route.RoutePresenter.Display;
+import de.rowbuddy.client.presenter.route.ListRoutesPresenter.Display;
 import de.rowbuddy.client.views.HeaderButtonView;
 import de.rowbuddy.entities.Route;
 
-public class RouteView extends HeaderButtonView implements Display {
+public class ListRoutesView extends HeaderButtonView implements Display {
 
 	private Button addButton;
 	private FlexTable routeTable;
 
-	public RouteView() {
+	public ListRoutesView() {
 		super(PageTitles.ROUTE_OVERVIEW);
 
 		addButton = new Button("Route hinzufügen");

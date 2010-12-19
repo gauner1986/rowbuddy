@@ -14,10 +14,10 @@ import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.presenter.boat.BoatDetailPresenter.Display;
+import de.rowbuddy.client.presenter.boat.DetailsBoatPresenter.Display;
 import de.rowbuddy.client.views.HeaderButtonView;
 
-public class BoatDetail extends HeaderButtonView implements Display {
+public class DetailsBoatView extends HeaderButtonView implements Display {
 
 	VerticalPanel vPanel;
 	private FlexTable detailTable;
@@ -32,9 +32,9 @@ public class BoatDetail extends HeaderButtonView implements Display {
 	private TabBar bar;
 	private int damageIndex = 1;
 	private int reservationIndex = 1;
-	private Logger logger = Logger.getLogger(BoatDetail.class.getName());
+	private Logger logger = Logger.getLogger(DetailsBoatView.class.getName());
 
-	public BoatDetail() {
+	public DetailsBoatView() {
 		super(PageTitles.BOAT_DETAIL);
 
 		vPanel = new VerticalPanel();

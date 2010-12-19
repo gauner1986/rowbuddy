@@ -7,16 +7,16 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasValue;
 
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.presenter.boat.DamageDetailPresenter.Display;
+import de.rowbuddy.client.presenter.boat.DetailDamagePresenter.Display;
 import de.rowbuddy.client.views.HeaderButtonView;
 
-public class DamageDetailView extends HeaderButtonView implements Display {
+public class DetailsDamageView extends HeaderButtonView implements Display {
 	private Button editButton;
 	private Button cancelButton;
 	private FlexTable content;
 	private CheckBox box;
 
-	public DamageDetailView() {
+	public DetailsDamageView() {
 		super(PageTitles.BOAT_DAMAGE_DETAIL);
 		editButton = new Button("Schaden bearbeiten");
 		cancelButton = new Button("Abbrechen");

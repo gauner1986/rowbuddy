@@ -6,9 +6,9 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.presenter.Presenter;
-import de.rowbuddy.client.presenter.route.RouteDetailPresenter;
+import de.rowbuddy.client.presenter.route.DetailsRoutePresenter;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
-import de.rowbuddy.client.views.route.RouteDetail;
+import de.rowbuddy.client.views.route.DetailsRoute;
 
 public class DetailsRoutePresenterChanger extends PresenterChanger {
 	
@@ -28,7 +28,7 @@ public class DetailsRoutePresenterChanger extends PresenterChanger {
 	@Override
 	public Presenter createPresenter(AbstractEvent<?> event) {
 		DetailsRouteEvent e = (DetailsRouteEvent) event;
-		return new RouteDetailPresenter(new RouteDetail(), routeService, eventBus, e.getId());
+		return new DetailsRoutePresenter(new DetailsRoute(), routeService, eventBus, e.getId());
 	}
 
 	@Override

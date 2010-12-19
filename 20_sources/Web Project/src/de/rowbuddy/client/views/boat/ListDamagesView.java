@@ -10,16 +10,16 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.presenter.boat.ListDamagePresenter.Display;
+import de.rowbuddy.client.presenter.boat.ListDamagesPresenter.Display;
 import de.rowbuddy.client.views.HeaderButtonView;
 
-public class DamageView extends HeaderButtonView implements Display{
+public class ListDamagesView extends HeaderButtonView implements Display{
 
 	private CheckBox checkBox;
 	private FlexTable damageTable;
 	int index = 1;
 	
-	public DamageView(){
+	public ListDamagesView(){
 		super(PageTitles.BOAT_DAMAGES);
 
 		checkBox = new CheckBox("Alle Schäden");

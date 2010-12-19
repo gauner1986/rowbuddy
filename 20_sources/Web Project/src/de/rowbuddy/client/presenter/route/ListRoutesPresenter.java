@@ -19,7 +19,7 @@ import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
 import de.rowbuddy.entities.Route;
 
-public class RoutePresenter implements Presenter {
+public class ListRoutesPresenter implements Presenter {
 
 	public interface Display {
 		Widget asWidget();
@@ -37,9 +37,9 @@ public class RoutePresenter implements Presenter {
 	private RouteRemoteServiceAsync routeService;
 	private EventBus eventBus;
 	private List<Route> fetchedRoutes;
-	private static Logger logger = Logger.getLogger(RoutePresenter.class.getName());
+	private static Logger logger = Logger.getLogger(ListRoutesPresenter.class.getName());
 
-	public RoutePresenter(RouteRemoteServiceAsync routeService, Display view,
+	public ListRoutesPresenter(RouteRemoteServiceAsync routeService, Display view,
 			EventBus eventBus) {
 		this.view = view;
 		this.routeService = routeService;

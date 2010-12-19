@@ -6,9 +6,9 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.presenter.Presenter;
-import de.rowbuddy.client.presenter.boat.DamageDetailPresenter;
+import de.rowbuddy.client.presenter.boat.DetailDamagePresenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
-import de.rowbuddy.client.views.boat.DamageDetailView;
+import de.rowbuddy.client.views.boat.DetailsDamageView;
 
 public class DetailsDamagePresenterChanger extends PresenterChanger {
 
@@ -29,7 +29,7 @@ public class DetailsDamagePresenterChanger extends PresenterChanger {
 	@Override
 	public Presenter createPresenter(AbstractEvent<?> event) {
 		DetailsDamageEvent e = (DetailsDamageEvent) event;
-		return new DamageDetailPresenter(e.getId(), new DamageDetailView(),
+		return new DetailDamagePresenter(e.getId(), new DetailsDamageView(),
 				boatService, eventBus);
 	}
 

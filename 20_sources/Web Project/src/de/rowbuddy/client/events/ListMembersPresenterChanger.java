@@ -8,7 +8,7 @@ import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.member.ListMembersPresenter;
 import de.rowbuddy.client.services.MemberRemoteServiceAsync;
-import de.rowbuddy.client.views.member.ListMembers;
+import de.rowbuddy.client.views.member.ListMembersView;
 
 public class ListMembersPresenterChanger extends PresenterChanger {
 
@@ -27,7 +27,7 @@ public class ListMembersPresenterChanger extends PresenterChanger {
 
 	@Override
 	public Presenter createPresenter(AbstractEvent<?> event) {
-		return new ListMembersPresenter(memberService, new ListMembers(),
+		return new ListMembersPresenter(memberService, new ListMembersView(),
 				eventBus);
 	}
 

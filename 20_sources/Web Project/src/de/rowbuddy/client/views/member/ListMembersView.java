@@ -14,12 +14,12 @@ import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.presenter.member.ListMembersPresenter;
 import de.rowbuddy.client.views.HeaderButtonView;
 
-public class ListMembers extends HeaderButtonView implements
+public class ListMembersView extends HeaderButtonView implements
 		ListMembersPresenter.Display {
 
 	private FlexTable memberTable;
 
-	public ListMembers() {
+	public ListMembersView() {
 		super(PageTitles.MEMBER_OVERVIEW);
 
 		memberTable = new FlexTable();
