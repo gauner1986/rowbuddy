@@ -68,7 +68,6 @@ public class RouteDetail extends HeaderButtonView implements Display {
 		map.setStylePrimaryName("mapWidget");
 		LatLng krefeldCity = LatLng.newInstance(51.341256, 6.684687);
 		map.setCenter(krefeldCity, 13);
-		map.addOverlay(new Marker(krefeldCity));
 		map.getInfoWindow().open(
 				map.getCenter(),
 				new InfoWindowContent("Crefelder Ruder-Club<br>"

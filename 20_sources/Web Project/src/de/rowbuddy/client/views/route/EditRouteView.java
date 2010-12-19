@@ -79,7 +79,6 @@ public class EditRouteView extends HeaderButtonView implements Display {
 		LatLng krefeldCity = LatLng.newInstance(51.341256, 6.684687);
 		map = new MapWidget(krefeldCity, 13, options);
 		map.setStylePrimaryName("mapWidget");
-		map.addOverlay(new Marker(krefeldCity));
 		routeTable.getFlexCellFormatter().setColSpan(4, 0, 2);
 		routeTable.getFlexCellFormatter().setColSpan(5, 0, 2);
 		// Add some controls for the zoom level

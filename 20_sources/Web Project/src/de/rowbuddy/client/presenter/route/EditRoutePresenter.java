@@ -100,6 +100,7 @@ public class EditRoutePresenter implements Presenter {
 				view.getLength().setValue("" + route.getLengthKM());
 				view.getDescription().setValue(route.getShortDescription());
 				view.isMutable().setValue(route.isMutable());
+				logger.info("WayPoints: " + arg0.getWayPoints().size());
 
 				if (!arg0.getWayPoints().isEmpty()) {
 					LatLng[] points = new LatLng[arg0.getWayPoints().size()];
