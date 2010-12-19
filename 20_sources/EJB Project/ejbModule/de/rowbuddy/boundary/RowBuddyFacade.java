@@ -134,13 +134,11 @@ public class RowBuddyFacade {
 	}
 
 	public List<PersonalTripDTO> getPersonalTrips() {
-		return logbookBoundary.getPersonalTrips(this.member,
-				ListType.All);
+		return logbookBoundary.getPersonalTrips(this.member, ListType.All);
 	}
 
 	public List<PersonalTripDTO> getPersonalOpenTrips() {
-		return logbookBoundary.getPersonalTrips(this.member,
-				ListType.OpenOnly);
+		return logbookBoundary.getPersonalTrips(this.member, ListType.OpenOnly);
 	}
 
 	public List<DamageDTO> getOpenDamages() {
@@ -228,6 +226,10 @@ public class RowBuddyFacade {
 	@AllowedRoles(values = { Role.RoleName.ADMIN })
 	public List<MemberDTO> getMembers() {
 		return memberBoundary.getMembers();
+	}
+
+	public Member getMember(Long id) throws RowBuddyException {
+		return memberMgmt.getMember(id);
 	}
 
 }

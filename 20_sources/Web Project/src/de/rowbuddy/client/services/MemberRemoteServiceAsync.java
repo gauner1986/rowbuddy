@@ -19,4 +19,6 @@ public interface MemberRemoteServiceAsync {
 
 	void getMembers(AsyncCallback<List<MemberDTO>> callback);
 
+	void getMember(Long id, AsyncCallback<Member> callback);
+
 }

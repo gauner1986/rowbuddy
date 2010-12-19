@@ -14,6 +14,7 @@ import de.rowbuddy.client.events.AddDamagePresenterChanger;
 import de.rowbuddy.client.events.AddRoutePresenterChanger;
 import de.rowbuddy.client.events.DetailsBoatPresenterChanger;
 import de.rowbuddy.client.events.DetailsDamagePresenterChanger;
+import de.rowbuddy.client.events.DetailsMemberPresenterChanger;
 import de.rowbuddy.client.events.DetailsRoutePresenterChanger;
 import de.rowbuddy.client.events.EditBoatPresenterChanger;
 import de.rowbuddy.client.events.EditDamagePresenterChanger;
@@ -50,8 +51,8 @@ public class AppController implements Presenter, EventListener {
 	private MemberDTO sessionMember;
 	private List<PresenterChanger> eventHandlers = new LinkedList<PresenterChanger>();
 
-	public AppController(SimpleEventBus eventBus,
-			HasWidgets messageContainer, HasWidgets menuPanel, MemberDTO sessionMember) {
+	public AppController(SimpleEventBus eventBus, HasWidgets messageContainer,
+			HasWidgets menuPanel, MemberDTO sessionMember) {
 		this.sessionMember = sessionMember;
 		this.boatService = ServiceHolderFactory.getBoatService();
 		this.routeService = ServiceHolderFactory.getRouteService();
@@ -61,7 +62,8 @@ public class AppController implements Presenter, EventListener {
 		this.statusPresenter = new StatusMessagePresenter(new MessageView(),
 				eventBus);
 		statusPresenter.start(messageContainer);
-		menuPresenter = new MenuPresenter(new MenuView(), eventBus, sessionMember);
+		menuPresenter = new MenuPresenter(new MenuView(), eventBus,
+				sessionMember);
 		menuPresenter.start(menuPanel);
 	}
 
@@ -88,21 +90,21 @@ public class AppController implements Presenter, EventListener {
 
 	private void bindRoutEventHandlers() {
 		eventHandlers.add(new DetailsRoutePresenterChanger(eventBus, container,
-				routeService,sessionMember));
+				routeService, sessionMember));
 		eventHandlers.add(new AddRoutePresenterChanger(container, eventBus,
-				routeService,sessionMember));
+				routeService, sessionMember));
 		eventHandlers.add(new ListRoutesPresenterChanger(container, eventBus,
-				routeService,sessionMember));
+				routeService, sessionMember));
 		eventHandlers.add(new EditRoutPresenterChanger(container, eventBus,
-				routeService,sessionMember));
+				routeService, sessionMember));
 	}
 
 	private void bindLogbookEventHandlers() {
 
 		eventHandlers.add(new ListPersonalTripsPresenterChanger(container,
-				eventBus, logbookService,sessionMember));
+				eventBus, logbookService, sessionMember));
 		eventHandlers.add(new ListPersonalOpenTripsPresenterChanger(container,
-				eventBus, logbookService,sessionMember));
+				eventBus, logbookService, sessionMember));
 
 	}
 
@@ -110,7 +112,9 @@ public class AppController implements Presenter, EventListener {
 		eventHandlers.add(new ListMembersPresenterChanger(memberService,
 				container, eventBus, sessionMember));
 		eventHandlers.add(new ImportMembersPresenterChanger(container,
-				eventBus, memberService,sessionMember));
+				eventBus, memberService, sessionMember));
+		eventHandlers.add(new DetailsMemberPresenterChanger(container,
+				eventBus, memberService, sessionMember));
 	}
 
 	@Override

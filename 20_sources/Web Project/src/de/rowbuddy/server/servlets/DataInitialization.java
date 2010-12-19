@@ -51,7 +51,6 @@ public class DataInitialization extends HttpServlet {
 	 */
 	public DataInitialization() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -59,6 +58,7 @@ public class DataInitialization extends HttpServlet {
 		try {
 			memberManagement.setupRoles();
 			Member member = createTestMember(false);
+			createTestMember(true);
 			createTestRoutes(member);
 			createTestBoats(member);
 			createTestTrips(member);
@@ -174,9 +174,9 @@ public class DataInitialization extends HttpServlet {
 			return testMember;
 		} else {
 			Member testMember = new Member();
-			testMember.setGivenname("Jan");
-			testMember.setSurname("Trzeszkowski");
-			testMember.setEmail("bla@bla.de");
+			testMember.setGivenname("Peter");
+			testMember.setSurname("Admin");
+			testMember.setEmail("admin@bla.de");
 			testMember.setBirthdate(new Date(System.currentTimeMillis()));
 			testMember.setMemberId("XDSADSF-222");
 			Member toReturn = memberManagement.addMember(testMember,

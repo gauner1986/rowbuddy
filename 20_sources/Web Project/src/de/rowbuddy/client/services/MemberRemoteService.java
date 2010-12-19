@@ -21,4 +21,6 @@ public interface MemberRemoteService extends RemoteService {
 
 	public List<MemberDTO> getMembers() throws NotLoggedInException;
 
+	public Member getMember(Long id) throws RowBuddyException;
+
 }

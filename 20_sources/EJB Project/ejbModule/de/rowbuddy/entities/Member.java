@@ -36,7 +36,7 @@ public class Member implements Serializable {
 	private String givenname = "";
 	private String surname = "";
 	@Temporal(TemporalType.DATE)
-	private Date birthdate;
+	private Date birthdate = null;
 	private String email = "";
 	private String passwordHash = "";
 	private boolean deleted = false;
