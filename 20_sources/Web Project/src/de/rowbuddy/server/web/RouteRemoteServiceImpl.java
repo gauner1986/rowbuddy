@@ -21,11 +21,7 @@ public class RouteRemoteServiceImpl extends AbstractRemoteService implements
 
 	@Override
 	public Route addRoute(Route newRoute) throws RowBuddyException {
-		try{
 		return makeSerlizable(getRowBuddyFacade().addRoute(newRoute));
-		} catch(NullPointerException e){
-			throw new NotLoggedInException();
-		}
 	}
 
 	private Route makeSerlizable(Route route) throws RowBuddyException {
@@ -39,50 +35,30 @@ public class RouteRemoteServiceImpl extends AbstractRemoteService implements
 	@Override
 	public List<Route> getRouteList() throws RowBuddyException {
 		List<Route> routes = new LinkedList<Route>();
-		try{
 		for (Route route : getRowBuddyFacade().getRouteList()) {
 			routes.add(makeSerlizable(route));
-		}
-		} catch(NullPointerException e){
-			throw new NotLoggedInException();
 		}
 		return routes;
 	}
 
 	@Override
 	public Route editRoute(Route route) throws RowBuddyException {
-		try{
 		return makeSerlizable(getRowBuddyFacade().editRoute(route));
-		} catch(NullPointerException e){
-			throw new NotLoggedInException();
-		}
 	}
 
 	@Override
 	public Route getRoute(Long id) throws RowBuddyException {
-		try{
 		return makeSerlizable(getRowBuddyFacade().getRoute(id));
-		} catch(NullPointerException e){
-			throw new NotLoggedInException();
-		}
 	}
 
 	@Override
 	public void deleteRoute(Long id) throws RowBuddyException {
-		try{
 		getRowBuddyFacade().deleteRoute(id);
-		} catch(NullPointerException e){
-			throw new NotLoggedInException();
-		}
 	}
 
 	@Override
 	public boolean canEditRoute(Route route) throws NotLoggedInException {
-		try{
 		return getRowBuddyFacade().canEditRoute(route);
-		} catch(NullPointerException e){
-			throw new NotLoggedInException();
-		}
 	}
 
 }

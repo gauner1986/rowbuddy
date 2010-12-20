@@ -24,18 +24,10 @@ public class SessionManagerImpl extends AbstractRemoteService implements
 	}
 
 	public MemberDTO getMember() throws NotLoggedInException {
-		try{
 		return getRowBuddyFacade().getMember();
-		} catch(NullPointerException e){
-			throw new NotLoggedInException();
-		}
 	}
 
 	public void logout() throws NotLoggedInException {
-		try{
 		getRowBuddyFacade().logout();
-		} catch(NullPointerException e){
-			throw new NotLoggedInException();
-		}
 	}
 }

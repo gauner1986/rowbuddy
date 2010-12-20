@@ -10,6 +10,7 @@ import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.boundary.dtos.TripMemberDTO;
 import de.rowbuddy.client.services.LogbookRemoteService;
 import de.rowbuddy.entities.Trip;
+import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
 import de.rowbuddy.server.web.AbstractRemoteService;
 
@@ -29,7 +30,7 @@ public class LogbookRemoteServiceImpl extends AbstractRemoteService implements
 	}
 
 	@Override
-	public List<TripDTO> getOpenTrips() {
+	public List<TripDTO> getOpenTrips() throws NotLoggedInException {
 		return getRowBuddyFacade().getOpenTrips();
 	}
 
@@ -55,27 +56,27 @@ public class LogbookRemoteServiceImpl extends AbstractRemoteService implements
 	}
 
 	@Override
-	public List<PersonalTripDTO> getPersonalTrips() {
+	public List<PersonalTripDTO> getPersonalTrips() throws NotLoggedInException {
 		return getRowBuddyFacade().getPersonalTrips();
 	}
 
 	@Override
-	public List<PersonalTripDTO> getPersonalOpenTrips() {
+	public List<PersonalTripDTO> getPersonalOpenTrips() throws NotLoggedInException {
 		return getRowBuddyFacade().getPersonalOpenTrips();
 	}
 
 	@Override
-	public List<RouteDTO> searchRoute(String query) {
+	public List<RouteDTO> searchRoute(String query) throws NotLoggedInException {
 		return getRowBuddyFacade().searchRoute(query);
 	}
 
 	@Override
-	public List<MemberDTO> searchMember(String query) {
+	public List<MemberDTO> searchMember(String query) throws NotLoggedInException {
 		return getRowBuddyFacade().searchMember(query);
 	}
 
 	@Override
-	public List<BoatDTO> searchBoat(String query) {
+	public List<BoatDTO> searchBoat(String query) throws NotLoggedInException {
 		return getRowBuddyFacade().searchBoatNotLocked(query);
 	}
 

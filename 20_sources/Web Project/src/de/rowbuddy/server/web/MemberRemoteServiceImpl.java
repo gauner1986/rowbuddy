@@ -20,49 +20,29 @@ public class MemberRemoteServiceImpl extends AbstractRemoteService implements
 	@Override
 	public Member addMember(Member addMember, RoleName... roles)
 			throws RowBuddyException {
-		try {
-			return getRowBuddyFacade().addMember(addMember, roles);
-		} catch (NullPointerException e) {
-			throw new NotLoggedInException();
-		}
+		return getRowBuddyFacade().addMember(addMember, roles);
 	}
 
 	@Override
 	public Member updateMember(Member member) throws RowBuddyException {
-		try {
-			return getRowBuddyFacade().updateMember(member);
-		} catch (NullPointerException e) {
-			throw new NotLoggedInException();
-		}
+		return getRowBuddyFacade().updateMember(member);
 	}
 
 	@Override
 	public Integer importMembers(String importData) throws RowBuddyException {
-		try {
-			return getRowBuddyFacade().importMembers(importData);
-		} catch (NullPointerException e) {
-			throw new NotLoggedInException();
-		}
+		return getRowBuddyFacade().importMembers(importData);
 	}
 
 	@Override
 	public List<MemberDTO> getMembers() throws NotLoggedInException {
-		try {
-			return getRowBuddyFacade().getMembers();
-		} catch (NullPointerException e) {
-			throw new NotLoggedInException();
-		}
+		return getRowBuddyFacade().getMembers();
 	}
 
 	@Override
 	public Member getMember(Long id) throws RowBuddyException {
-		try {
-			Member member = getRowBuddyFacade().getMember(id);
-			member.setPublishedTrips(new ArrayList<Trip>());
-			member.setRoles(new ArrayList<Role>());
-			return member;
-		} catch (NullPointerException e) {
-			throw new NotLoggedInException();
-		}
+		Member member = getRowBuddyFacade().getMember(id);
+		member.setPublishedTrips(new ArrayList<Trip>());
+		member.setRoles(new ArrayList<Role>());
+		return member;
 	}
 }

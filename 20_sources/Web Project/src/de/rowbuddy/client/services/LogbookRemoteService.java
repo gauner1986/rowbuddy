@@ -28,11 +28,11 @@ public interface LogbookRemoteService extends RemoteService {
 
 	public List<PersonalTripDTO> getPersonalOpenTrips() throws NotLoggedInException;
 
-	List<MemberDTO> searchMember(String query);
+	List<MemberDTO> searchMember(String query) throws NotLoggedInException;
 
-	List<RouteDTO> searchRoute(String query);
+	List<RouteDTO> searchRoute(String query) throws NotLoggedInException;
 
-	List<BoatDTO> searchBoat(String query);
+	List<BoatDTO> searchBoat(String query) throws NotLoggedInException;
 
 	void logRowedTrip(TripDTO trip, long boatId, long routeId,
 			List<TripMemberDTO> tripMembers);
