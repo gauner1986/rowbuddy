@@ -57,8 +57,7 @@ public class DataInitialization extends HttpServlet {
 	public void init() {
 		try {
 			memberManagement.setupRoles();
-			Member member = createTestMember(false);
-			createTestMember(true);
+			Member member = createTestMember();
 			createTestRoutes(member);
 			createTestBoats(member);
 			createTestTrips(member);
@@ -160,30 +159,39 @@ public class DataInitialization extends HttpServlet {
 		logbook.logRowedTrip(trip2, member);
 	}
 
-	private Member createTestMember(boolean admin) throws RowBuddyException {
-		if (!admin) {
-			Member testMember = new Member();
-			testMember.setGivenname("Jan");
-			testMember.setSurname("Trzeszkowski");
-			testMember.setEmail("bla@bla.de");
-			testMember.setBirthdate(new Date(System.currentTimeMillis()));
-			testMember.setMemberId("XDSADSF-221");
-			Member toReturn = memberManagement.addMember(testMember,
-					new RoleName[] { RoleName.MEMBER });
-			memberManagement.setPassword(toReturn.getId(), toReturn, "bla");
-			return testMember;
-		} else {
-			Member testMember = new Member();
-			testMember.setGivenname("Peter");
-			testMember.setSurname("Admin");
-			testMember.setEmail("admin@bla.de");
-			testMember.setBirthdate(new Date(System.currentTimeMillis()));
-			testMember.setMemberId("XDSADSF-222");
-			Member toReturn = memberManagement.addMember(testMember,
-					new RoleName[] { RoleName.MEMBER, RoleName.ADMIN });
-			memberManagement.setPassword(toReturn.getId(), toReturn, "bla");
-			return toReturn;
-		}
+	private Member createTestMember() throws RowBuddyException {
+		Member testMember2 = new Member();
+		testMember2.setGivenname("Peter");
+		testMember2.setSurname("B");
+		testMember2.setEmail("p@benger.de");
+		testMember2.setBirthdate(new Date(System.currentTimeMillis()));
+		testMember2.setMemberId("XDSADSF-223");
+		testMember2 = memberManagement.addMember(testMember2,
+				new RoleName[] { RoleName.MEMBER });
+		memberManagement.setPassword(testMember2.getId(), testMember2, "test");
+
+		Member testMember = new Member();
+		testMember.setGivenname("Jan");
+		testMember.setSurname("Trzeszkowski");
+		testMember.setEmail("user@rowbuddy.de");
+		testMember.setBirthdate(new Date(System.currentTimeMillis()));
+		testMember.setMemberId("XDSADSF-221");
+		testMember = memberManagement.addMember(testMember,
+				new RoleName[] { RoleName.MEMBER });
+		memberManagement.setPassword(testMember.getId(), testMember, "test");
+
+		Member adminMember = new Member();
+		adminMember.setGivenname("Peter");
+		adminMember.setSurname("Admin");
+		adminMember.setEmail("admin@rowbuddy.de");
+		adminMember.setBirthdate(new Date(System.currentTimeMillis()));
+		adminMember.setMemberId("XDSADSF-222");
+
+		adminMember = memberManagement.addMember(adminMember, new RoleName[] {
+				RoleName.MEMBER, RoleName.ADMIN });
+		memberManagement.setPassword(adminMember.getId(), adminMember, "test");
+
+		return adminMember;
 	}
 
 	/**
