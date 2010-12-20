@@ -68,7 +68,7 @@ public class ListPersonalTripsView extends HeaderButtonView implements
 		tripTable.setText(0, 2, "Startzeit");
 		tripTable.setText(0, 3, "Endzeit");
 		tripTable.getRowFormatter().setStyleName(0, "boatTableHeader");
-
+		tripTable.setCellPadding(5);
 	}
 
 	@Override
