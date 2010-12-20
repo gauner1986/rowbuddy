@@ -57,7 +57,7 @@ public class DataInitialization extends HttpServlet {
 	public void init() {
 		try {
 			memberManagement.setupRoles();
-			Member member = createTestMember(true);
+			Member member = createTestMember(false);
 			createTestMember(true);
 			createTestRoutes(member);
 			createTestBoats(member);
@@ -161,14 +161,6 @@ public class DataInitialization extends HttpServlet {
 	}
 
 	private Member createTestMember(boolean admin) throws RowBuddyException {
-		Member testMember2 = new Member();
-		testMember2.setGivenname("Peter");
-		testMember2.setSurname("B");
-		testMember2.setEmail("p@benger.de");
-		testMember2.setBirthdate(new Date(System.currentTimeMillis()));
-		testMember2.setMemberId("XDSADSF-223");
-		Member toReturn2 = memberManagement.addMember(testMember2, new RoleName[] { RoleName.MEMBER });
-		memberManagement.setPassword(toReturn2.getId(), toReturn2, "bla");
 		if (!admin) {
 			Member testMember = new Member();
 			testMember.setGivenname("Jan");
