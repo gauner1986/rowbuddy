@@ -112,6 +112,7 @@ public class LogRowedTripPresenter implements Presenter {
 			public void onValueChange(ValueChangeEvent<String> arg0) {
 				MemberDTO member = memberOracle.getSuggestion(view.getMemberName().getValue());
 				if(member != null) {
+					view.getMemberName().setValue("");
 					TripMemberDTO tm = new TripMemberDTO();
 					tm.setMember(member);
 					for (TripMemberDTO dto : tripMembers) {
@@ -136,7 +137,6 @@ public class LogRowedTripPresenter implements Presenter {
 					}
 					tm.setTripMemberType(TripMemberType.Rower);
 					tripMembers.add(tm);
-					view.getMemberName().setValue("");
 					
 					updateTripMemberList();
 				}

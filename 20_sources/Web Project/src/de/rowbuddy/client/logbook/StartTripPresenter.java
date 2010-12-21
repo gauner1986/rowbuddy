@@ -110,6 +110,7 @@ public class StartTripPresenter implements Presenter {
 				MemberDTO member = memberOracle.getSuggestion(view.getMemberName().getValue());
 				
 				if(member != null) {
+					view.getMemberName().setValue("");
 					TripMemberDTO tm = new TripMemberDTO();
 					tm.setMember(member);
 					for (TripMemberDTO dto : tripMembers) {
@@ -134,7 +135,6 @@ public class StartTripPresenter implements Presenter {
 					}
 					tm.setTripMemberType(TripMemberType.Rower);
 					tripMembers.add(tm);
-					view.getMemberName().setValue("");
 					
 					updateTripMemberList();		
 				}
