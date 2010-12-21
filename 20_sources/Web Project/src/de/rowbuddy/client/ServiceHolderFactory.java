@@ -25,7 +25,7 @@ import de.rowbuddy.exceptions.NotLoggedInException;
 public class ServiceHolderFactory {
 
 	private static Logger logger = Logger.getLogger(GWTEntryPoint.class
-		.getName());
+			.getName());
 
 	private static SessionManagerAsync sessionManager = null;
 	private static BoatRemoteServiceAsync boatService = null;
@@ -39,109 +39,90 @@ public class ServiceHolderFactory {
 		return sessionMember;
 	}
 
+	private static <Sync, Async> Async createService(Class<Sync> syncType,
+			Class<Async> asyncType, String serverImplementation) {
+		Async service = GWT.create(syncType);
+		((ServiceDefTarget) service).setServiceEntryPoint(GWT
+				.getHostPageBaseURL() + serverImplementation);
+		logger.info("Service registerd: " + GWT.getHostPageBaseURL()
+				+ serverImplementation);
+		return service;
+	}
+
 	public static BoatRemoteServiceAsync getBoatService() {
 		if (boatService == null) {
-			boatService = (BoatRemoteServiceAsync) GWT
-				.create(BoatRemoteService.class);
-			((ServiceDefTarget) boatService).setServiceEntryPoint(GWT
-				.getHostPageBaseURL() + "BoatRemoteServiceImpl");
-			logger.info("Service registerd: " + GWT.getHostPageBaseURL()
-					+ "BoatRemoteServiceImpl");
-			return boatService;
-		} else {
-			return boatService;
+			boatService = createService(BoatRemoteService.class,
+					BoatRemoteServiceAsync.class, "BoatRemoteServiceImpl");
 		}
+		return boatService;
 	}
 
 	public static LogbookRemoteServiceAsync getLogbookService() {
 		if (logbookService == null) {
-			logbookService = (LogbookRemoteServiceAsync) GWT
-				.create(LogbookRemoteService.class);
-			((ServiceDefTarget) logbookService).setServiceEntryPoint(GWT
-				.getHostPageBaseURL() + "LogbookRemoteServiceImpl");
-			logger.info("Service registerd: " + GWT.getHostPageBaseURL()
-					+ "LogbookRemoteServiceImpl");
-			return logbookService;
-		} else {
-			return logbookService;
+			logbookService = createService(LogbookRemoteService.class,
+					LogbookRemoteServiceAsync.class, "LogbookRemoteServiceImpl");
 		}
+		return logbookService;
 	}
 
 	public static RouteRemoteServiceAsync getRouteService() {
 		if (routeService == null) {
-			routeService = (RouteRemoteServiceAsync) GWT
-				.create(RouteRemoteService.class);
-			((ServiceDefTarget) routeService).setServiceEntryPoint(GWT
-				.getHostPageBaseURL() + "RouteRemoteServiceImpl");
-			logger.info("Service registerd: " + GWT.getHostPageBaseURL()
-					+ "RouteRemoteServiceImpl");
-			return routeService;
-		} else {
-			return routeService;
+			routeService = createService(RouteRemoteService.class,
+					RouteRemoteServiceAsync.class, "RouteRemoteServiceImpl");
 		}
+		return routeService;
+
 	}
 
 	public static MemberRemoteServiceAsync getMemberService() {
 		if (memberService == null) {
-			memberService = (MemberRemoteServiceAsync) GWT
-				.create(MemberRemoteService.class);
-			((ServiceDefTarget) memberService).setServiceEntryPoint(GWT
-				.getHostPageBaseURL() + "MemberRemoteServiceImpl");
-			logger.info("Service registerd: " + GWT.getHostPageBaseURL()
-					+ "MemberRemoteServiceImpl");
-			return memberService;
-		} else {
-			return memberService;
+			memberService = createService(MemberRemoteService.class,
+					MemberRemoteServiceAsync.class, "MemberRemoteServiceImpl");
 		}
-	}
+		return memberService;
 
+	}
 
 	public static StatisticRemoteServiceAsync getStatisticService() {
 		if (statisticService == null) {
-			statisticService = (StatisticRemoteServiceAsync) GWT.create(StatisticRemoteService.class);
-			((ServiceDefTarget) statisticService).setServiceEntryPoint(GWT
-				.getHostPageBaseURL() + "StatisticRemoteServiceImpl");
-			logger.info("Service registerd: " + GWT.getHostPageBaseURL()
-					+ "StatisticRemoteServiceImpl");
-			return statisticService;
-		} else {
-			return statisticService;
+			statisticService = createService(StatisticRemoteService.class,
+					StatisticRemoteServiceAsync.class,
+					"StatisticRemoteServiceImpl");
 		}
-	}
-	public static void fetchSessionMember(final Runnable run){
-		ServiceHolderFactory.getSessionManager().getMember(
-			new AsyncCallback<MemberDTO>() {
-
-				@Override
-				public void onSuccess(MemberDTO arg0) {
-					sessionMember = arg0;
-					logger.info("Member fetched");
-					run.run();
-				}
-
-				@Override
-				public void onFailure(Throwable arg0) {
-					handleSessionFailure(arg0);
-					logger.severe("Failed to fetch member");
-					logger.info(arg0.getMessage());
-				}
-			});
+		return statisticService;
 	}
 
 	public static SessionManagerAsync getSessionManager() {
 		if (sessionManager == null) {
-			sessionManager = (SessionManagerAsync) GWT
-				.create(SessionManager.class);
-			((ServiceDefTarget) sessionManager).setServiceEntryPoint(GWT
-				.getHostPageBaseURL() + "SessionManagerImpl");
-			return sessionManager;
-		} else {
-			return sessionManager;
+			sessionManager = createService(SessionManager.class,
+					SessionManagerAsync.class, "SessionManagerImpl");
 		}
+		return sessionManager;
+
 	}
-	
-	public static void handleSessionFailure(Throwable arg0){
-		if(arg0 instanceof NotLoggedInException){
+
+	public static void fetchSessionMember(final Runnable run) {
+		ServiceHolderFactory.getSessionManager().getMember(
+				new AsyncCallback<MemberDTO>() {
+
+					@Override
+					public void onSuccess(MemberDTO arg0) {
+						sessionMember = arg0;
+						logger.info("Member fetched");
+						run.run();
+					}
+
+					@Override
+					public void onFailure(Throwable arg0) {
+						handleSessionFailure(arg0);
+						logger.severe("Failed to fetch member");
+						logger.info(arg0.getMessage());
+					}
+				});
+	}
+
+	public static void handleSessionFailure(Throwable arg0) {
+		if (arg0 instanceof NotLoggedInException) {
 			Window.Location.assign(GWT.getHostPageBaseURL() + "Login.jsp");
 		}
 	}
