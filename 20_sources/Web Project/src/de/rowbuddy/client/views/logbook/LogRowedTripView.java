@@ -7,7 +7,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Label;
@@ -16,7 +15,6 @@ import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.widgetideas.client.event.ChangeEvent;
 import com.google.gwt.widgetideas.client.event.ChangeHandler;
 import com.google.gwt.widgetideas.datepicker.client.DateTimePicker;
@@ -57,7 +55,7 @@ public class LogRowedTripView extends HeaderButtonView implements
 		boatName = new TextBox();
 		memberName = new TextBox();
 		routeName = new TextBox();
-		addButton = new Button("Hinzuf&uuml;gen");
+		addButton = new Button("Hinzuf√ºgen");
 		addButton.setStylePrimaryName("buttonApply buttonPositive");
 		cancelButton = new Button("Abbrechen");
 		cancelButton.setStylePrimaryName("buttonCancel buttonNegative");
@@ -73,7 +71,7 @@ public class LogRowedTripView extends HeaderButtonView implements
 
 		content.setText(2, 0, "Mitglied(er):");
 		content.setWidget(2, 1, memberName);
-		
+
 		multiBox = new ListBox(true);
 		multiBox.ensureDebugId("cwListBox-multiBox");
 		multiBox.setWidth("155px");
@@ -83,35 +81,37 @@ public class LogRowedTripView extends HeaderButtonView implements
 		multiBoxPanel.setSpacing(4);
 		multiBoxPanel.add(multiBox);
 		content.setWidget(3, 1, multiBoxPanel);
-		
+
 		startDate = new DateTimePicker(true);
-	    startDate.setWidth("200px");
-	    startDate.getDatePicker().setSelectedDate(new Date(System.currentTimeMillis()));
-	    startDate.getTimePicker().setDateTime(new Date(System.currentTimeMillis()));
-	    
-	    startDate.getDatePicker().addChangeHandler(new ChangeHandler<Date>() {
+		startDate.setWidth("200px");
+		startDate.getDatePicker().setSelectedDate(
+				new Date(System.currentTimeMillis()));
+		startDate.getTimePicker().setDateTime(
+				new Date(System.currentTimeMillis()));
+
+		startDate.getDatePicker().addChangeHandler(new ChangeHandler<Date>() {
 			@Override
 			public void onChange(ChangeEvent<Date> event) {
 				updateDateLabel(STARTDATE);
 				updateEndDate();
 			}
 		});
-	    startDate.getTimePicker().addChangeHandler(new ChangeHandler<Date>() {
+		startDate.getTimePicker().addChangeHandler(new ChangeHandler<Date>() {
 			@Override
 			public void onChange(ChangeEvent<Date> event) {
 				updateDateLabel(STARTDATE);
 				updateEndDate();
 			}
 		});
-	    updateDateLabel(STARTDATE);
+		updateDateLabel(STARTDATE);
 		startDateLabel.setStyleName("sandbox-Date");
-	    
-	    content.setHTML(5, 0, "Startzeit:");
-	    content.setWidget(5, 1, startDateLabel);
-	    startDateLabel.addClickHandler(new ClickHandler() {			
+
+		content.setHTML(5, 0, "Startzeit:");
+		content.setWidget(5, 1, startDateLabel);
+		startDateLabel.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent arg0) {
-				if(startDateVisible) {
+				if (startDateVisible) {
 					content.setText(4, 1, "");
 					startDateVisible = false;
 				} else {
@@ -120,32 +120,34 @@ public class LogRowedTripView extends HeaderButtonView implements
 				}
 			}
 		});
-		
+
 		endDate = new DateTimePicker(true);
 		endDate.setWidth("200px");
-		endDate.getDatePicker().setSelectedDate(new Date(System.currentTimeMillis()));
-		endDate.getTimePicker().setDateTime(new Date(System.currentTimeMillis()));
-    
-	    endDate.getDatePicker().addChangeHandler(new ChangeHandler<Date>() {
+		endDate.getDatePicker().setSelectedDate(
+				new Date(System.currentTimeMillis()));
+		endDate.getTimePicker().setDateTime(
+				new Date(System.currentTimeMillis()));
+
+		endDate.getDatePicker().addChangeHandler(new ChangeHandler<Date>() {
 			@Override
 			public void onChange(ChangeEvent<Date> event) {
 				updateDateLabel(ENDDATE);
 			}
 		});
-	    endDate.getTimePicker().addChangeHandler(new ChangeHandler<Date>() {
+		endDate.getTimePicker().addChangeHandler(new ChangeHandler<Date>() {
 			@Override
 			public void onChange(ChangeEvent<Date> event) {
 				updateDateLabel(ENDDATE);
 			}
 		});
-	    updateDateLabel(ENDDATE);
-	    endDateLabel.setStyleName("sandbox-Date");
-	    content.setHTML(7, 0, "Endzeit:");
-	    content.setWidget(7, 1, endDateLabel);
-	    endDateLabel.addClickHandler(new ClickHandler() {			
+		updateDateLabel(ENDDATE);
+		endDateLabel.setStyleName("sandbox-Date");
+		content.setHTML(7, 0, "Endzeit:");
+		content.setWidget(7, 1, endDateLabel);
+		endDateLabel.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent arg0) {
-				if(endDateVisible) {
+				if (endDateVisible) {
 					content.setText(6, 1, "");
 					endDateVisible = false;
 				} else {
@@ -154,44 +156,46 @@ public class LogRowedTripView extends HeaderButtonView implements
 				}
 			}
 		});
-	    
 
-		content.setText(3, 3, "Die erste ausgewählte Person ist sofern vorhanden der Steuermann.");	    
-		
+		content.setText(3, 3,
+				"Die erste ausgewÔøΩhlte Person ist sofern vorhanden der Steuermann.");
+
 		setContent(content);
 	}
-	
+
 	public void setBoatInformation(String name, boolean coxed, int rowers) {
-		if(coxed) {
-			content.setText(1,2, "Gesteuert: ja");
+		if (coxed) {
+			content.setText(1, 2, "Gesteuert: ja");
 		} else {
-			content.setText(1,2, "Gesteuert: nein");			
+			content.setText(1, 2, "Gesteuert: nein");
 		}
-		content.setText(2, 2, "Bootsplätze: "+rowers);
+		content.setText(2, 2, "Bootspl√§tze: " + rowers);
 	}
-	
+
 	public void setRouteInformation(double length) {
-		content.setText(0, 2, "Streckenlänge: "+length+" km");
+		content.setText(0, 2, "Streckenl√§nge: " + length + " km");
 	}
-	
+
 	private void updateDateLabel(int label) {
 		switch (label) {
 		case STARTDATE:
-		  	  startDateLabel.setText(DateTimeFormat.getMediumDateTimeFormat().format(startDate.getDate()));			
+			startDateLabel.setText(DateTimeFormat.getMediumDateTimeFormat()
+					.format(startDate.getDate()));
 			break;
 		case ENDDATE:
-		  	  endDateLabel.setText(DateTimeFormat.getMediumDateTimeFormat().format(endDate.getDate()));			
+			endDateLabel.setText(DateTimeFormat.getMediumDateTimeFormat()
+					.format(endDate.getDate()));
 			break;
 		}
 	}
-	
+
 	private void updateEndDate() {
 		endDate.getDatePicker().setSelectedDate(startDate.getDate());
 		endDate.getTimePicker().setDateTime(startDate.getDate());
 		content.setWidget(6, 1, endDate);
 		updateDateLabel(ENDDATE);
 	}
-	
+
 	@Override
 	public void showTripMembers(String[] tripMembers) {
 		multiBox.clear();
@@ -224,7 +228,7 @@ public class LogRowedTripView extends HeaderButtonView implements
 	public HasValue<String> getMemberName() {
 		return member;
 	}
-	
+
 	@Override
 	public SuggestBox getMember() {
 		return member;
