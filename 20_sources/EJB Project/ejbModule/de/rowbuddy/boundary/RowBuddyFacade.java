@@ -264,6 +264,8 @@ public class RowBuddyFacade {
 			}
 		} catch (IOException ex) {
 			throw new RowBuddyException(ex.toString());
+		} catch (NullPointerException ex) {
+			throw new RowBuddyException("Bitte Daten zum Importieren einfügen.");
 		}
 		memberMgmt.importMembers(members, this.member);
 		return members.size();
