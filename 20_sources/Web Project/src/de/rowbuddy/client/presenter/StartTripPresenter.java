@@ -121,7 +121,7 @@ public class StartTripPresenter implements Presenter {
 					if (boat == null) {
 						StatusMessage message = new StatusMessage(false);
 						message.setStatus(Status.NEGATIVE);
-						message.setMessage("Es muss ein Boot ausgew둯lt sein");
+						message.setMessage("Es muss ein Boot ausgew채hlt sein");
 						eventBus.fireEvent(new StatusMessageEvent(message));
 					} else {
 						int maxPlacesInBoat = boat.getNumberOfSeats();
@@ -211,14 +211,14 @@ public class StartTripPresenter implements Presenter {
 		if (boat == null) {
 			StatusMessage message = new StatusMessage(false);
 			message.setStatus(Status.NEGATIVE);
-			message.setMessage("Es muss ein Boot ausgew둯lt sein");
+			message.setMessage("Es muss ein Boot ausgew채hlt sein");
 			eventBus.fireEvent(new StatusMessageEvent(message));
 		} else {
 			RouteDTO route = routeOracle.getSuggestion(view.getRouteName().getValue());
 			if (route == null) {
 				StatusMessage message = new StatusMessage(false);
 				message.setStatus(Status.NEGATIVE);
-				message.setMessage("Es muss eine Route ausgew둯lt sein");
+				message.setMessage("Es muss eine Route ausgew채hlt sein");
 				eventBus.fireEvent(new StatusMessageEvent(message));
 			} else {
 				MemberDTO member = memberOracle.getSuggestion(view.getMemberName().getValue());
@@ -226,7 +226,7 @@ public class StartTripPresenter implements Presenter {
 				if (member == null) {
 					StatusMessage message = new StatusMessage(false);
 					message.setStatus(Status.NEGATIVE);
-					message.setMessage("Es muss ein Ruderer ausgew둯lt sein");
+					message.setMessage("Es muss ein Ruderer ausgew채hlt sein");
 					eventBus.fireEvent(new StatusMessageEvent(message));
 				} else {
 					TripDTO trip = new TripDTO();
@@ -251,7 +251,7 @@ public class StartTripPresenter implements Presenter {
 								StatusMessage message = new StatusMessage(
 										false);
 								message.setStatus(Status.POSITIVE);
-								message.setMessage("Trip erfolgreich hinzugef웗t");
+								message.setMessage("Trip erfolgreich hinzugef체gt");
 								eventBus.fireEvent(new ListPersonalTripsEvent());
 								eventBus.fireEvent(new StatusMessageEvent(
 										message));
