@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
-import de.rowbuddy.client.ServerCallHandler;
+import de.rowbuddy.client.ServerRequestHandler;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.DetailsMemberEvent;
@@ -66,7 +66,7 @@ public class ListMembersPresenter implements Presenter {
 	}
 
 	private void fetchMembers() {
-		memberService.getMembers(new ServerCallHandler<List<MemberDTO>>(eventBus, "Member-Liste anzeigen", null, null) {
+		memberService.getMembers(new ServerRequestHandler<List<MemberDTO>>(eventBus, "Member-Liste anzeigen", null, null) {
 			@Override
 			public void onSuccess(List<MemberDTO> arg0) {
 				fetchedMembers = arg0;

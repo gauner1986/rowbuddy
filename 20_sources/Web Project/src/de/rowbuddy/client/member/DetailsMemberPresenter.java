@@ -9,7 +9,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.ServerCallHandler;
+import de.rowbuddy.client.ServerRequestHandler;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.events.ListMembersEvent;
 import de.rowbuddy.client.services.MemberRemoteServiceAsync;
@@ -61,7 +61,7 @@ public class DetailsMemberPresenter implements Presenter {
 	}
 
 	private void fetchMember() {
-		service.getMember(id, new ServerCallHandler<Member>(eventBus, "Member Details anzeigen", null, new ListMembersEvent()) {
+		service.getMember(id, new ServerRequestHandler<Member>(eventBus, "Member Details anzeigen", null, new ListMembersEvent()) {
 			@Override
 			public void onSuccess(Member arg0) {
 				member = arg0;

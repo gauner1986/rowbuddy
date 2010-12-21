@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.ServerCallHandler;
+import de.rowbuddy.client.ServerRequestHandler;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.events.ListRoutesEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
@@ -159,7 +159,7 @@ public class AddRoutePresenter implements Presenter {
 			route.setWayPoints(wayPoints);
 			route.validate();
 
-			routeService.addRoute(route, new ServerCallHandler<Route>(
+			routeService.addRoute(route, new ServerRequestHandler<Route>(
 					eventBus, "Route hinzufügen", new ListRoutesEvent(), null));
 
 		} catch (Exception e) {

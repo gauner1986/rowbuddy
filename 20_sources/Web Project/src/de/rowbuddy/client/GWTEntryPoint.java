@@ -95,7 +95,7 @@ public class GWTEntryPoint implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent arg0) {
 				ServiceHolderFactory.getSessionManager().logout(
-						new ServerCallHandler<Void>(eventBus, "Logout", null,
+						new ServerRequestHandler<Void>(eventBus, "Logout", null,
 								null) {
 							@Override
 							public void onSuccess(Void arg0) {

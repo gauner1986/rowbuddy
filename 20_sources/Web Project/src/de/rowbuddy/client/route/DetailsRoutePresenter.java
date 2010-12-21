@@ -10,7 +10,7 @@ import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.ServerCallHandler;
+import de.rowbuddy.client.ServerRequestHandler;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.events.EditRouteEvent;
 import de.rowbuddy.client.events.ListRoutesEvent;
@@ -62,7 +62,7 @@ public class DetailsRoutePresenter implements Presenter {
 	}
 
 	private void fetchRoute() {
-		routeService.getRoute(id, new ServerCallHandler<Route>(eventBus,
+		routeService.getRoute(id, new ServerRequestHandler<Route>(eventBus,
 				"Route ansehen", null, new ListRoutesEvent()) {
 
 			@Override

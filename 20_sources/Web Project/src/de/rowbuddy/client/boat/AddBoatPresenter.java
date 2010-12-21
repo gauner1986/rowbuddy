@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.ServerCallHandler;
+import de.rowbuddy.client.ServerRequestHandler;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
@@ -66,7 +66,7 @@ public class AddBoatPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				addBoat(new ServerCallHandler<Void>(eventBus, "Boot anlegen",
+				addBoat(new ServerRequestHandler<Void>(eventBus, "Boot anlegen",
 						new ListBoatsEvent(), null));
 			}
 		});
@@ -83,7 +83,7 @@ public class AddBoatPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				addBoat(new ServerCallHandler<Void>(eventBus, "Boot anlegen",
+				addBoat(new ServerRequestHandler<Void>(eventBus, "Boot anlegen",
 						null, null) {
 					@Override
 					public void onSuccess(Void arg0) {

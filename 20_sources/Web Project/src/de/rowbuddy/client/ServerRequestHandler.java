@@ -13,17 +13,17 @@ import de.rowbuddy.client.model.StatusMessage;
 import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.exceptions.NotLoggedInException;
 
-public class ServerCallHandler<ReturnType> implements
+public class ServerRequestHandler<ReturnType> implements
 		AsyncCallback<ReturnType> {
 
 	private String action;
 	private GwtEvent<?> successEvent;
 	private GwtEvent<?> failEvent;
 	private EventBus eventBus;
-	private static Logger logger = Logger.getLogger(ServerCallHandler.class
+	private static Logger logger = Logger.getLogger(ServerRequestHandler.class
 			.toString());
 
-	public ServerCallHandler(EventBus eventBus, String action,
+	public ServerRequestHandler(EventBus eventBus, String action,
 			GwtEvent<?> successEvent, GwtEvent<?> failEvent) {
 		this.eventBus = eventBus;
 		this.action = action;

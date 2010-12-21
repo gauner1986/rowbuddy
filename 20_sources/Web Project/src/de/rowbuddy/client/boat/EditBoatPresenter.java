@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.ServerCallHandler;
+import de.rowbuddy.client.ServerRequestHandler;
 import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
@@ -74,7 +74,7 @@ public class EditBoatPresenter implements Presenter {
 
 	private void fetchBoat() {
 		logger.info("Get Boat id:" + id);
-		boatService.getBoat(id, new ServerCallHandler<Boat>(eventBus,
+		boatService.getBoat(id, new ServerRequestHandler<Boat>(eventBus,
 				"Boot laden", null, new ListBoatsEvent()) {
 			@Override
 			public void onSuccess(Boat arg0) {

@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
-import de.rowbuddy.client.ServerCallHandler;
+import de.rowbuddy.client.ServerRequestHandler;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
@@ -85,7 +85,7 @@ public class EditDamagePresenter implements Presenter {
 						logger.info("service null");
 					}
 					
-					service.updateDamage(damage, new ServerCallHandler<Void>(eventBus, "Schaden aktualisieren", new ListDamageEvent(), null));
+					service.updateDamage(damage, new ServerRequestHandler<Void>(eventBus, "Schaden aktualisieren", new ListDamageEvent(), null));
 					
 //					service.updateDamage(damage, new AsyncCallback<Void>() {
 //
@@ -139,7 +139,7 @@ public class EditDamagePresenter implements Presenter {
 
 	private void fetchDamage() {
 		
-		service.getDamage(id, new ServerCallHandler<BoatDamage>(eventBus, "Schaden anzeigen", null, new ListDamageEvent()){
+		service.getDamage(id, new ServerRequestHandler<BoatDamage>(eventBus, "Schaden anzeigen", null, new ListDamageEvent()){
 			@Override
 			public void onSuccess(BoatDamage arg0) {
 				damage = arg0;
