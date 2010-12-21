@@ -12,8 +12,8 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.FailHandleCallback;
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
@@ -66,30 +66,8 @@ public class AddBoatPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				addBoat(new AsyncCallback<Void>() {
-
-					@Override
-					public void onSuccess(Void arg0) {
-						logger.info("Boat successful added; GoTo ListBoat");
-						eventBus.fireEvent(new ListBoatsEvent());
-						StatusMessage message = new StatusMessage();
-						message.setMessage("Boot erfolgreich hinzugefügt");
-						message.setStatus(Status.POSITIVE);
-						message.setAttached(false);
-						eventBus.fireEvent(new StatusMessageEvent(message));
-					}
-
-					@Override
-					public void onFailure(Throwable arg0) {
-						ServiceHolderFactory.handleSessionFailure(arg0);
-						logger.severe("Cannot add boat: " + arg0.getMessage());
-						StatusMessage message = new StatusMessage();
-						message.setMessage(arg0.getMessage());
-						message.setStatus(Status.NEGATIVE);
-						message.setAttached(false);
-						eventBus.fireEvent(new StatusMessageEvent(message));
-					}
-				});
+				addBoat(new FailHandleCallback<Void>(eventBus, "Boot anlegen",
+						new ListBoatsEvent(), null));
 			}
 		});
 
@@ -105,28 +83,12 @@ public class AddBoatPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				addBoat(new AsyncCallback<Void>() {
-
+				addBoat(new FailHandleCallback<Void>(eventBus, "Boot anlegen",
+						null, null) {
 					@Override
 					public void onSuccess(Void arg0) {
-						logger.info("Boat successful added; Reset View");
-						StatusMessage message = new StatusMessage();
-						message.setMessage("Boot erfolgreich hinzugefügt");
-						message.setStatus(Status.POSITIVE);
-						message.setAttached(false);
-						eventBus.fireEvent(new StatusMessageEvent(message));
+						super.onSuccess(arg0);
 						view.reset();
-					}
-
-					@Override
-					public void onFailure(Throwable arg0) {
-						ServiceHolderFactory.handleSessionFailure(arg0);
-						logger.severe(arg0.getMessage());
-						StatusMessage message = new StatusMessage();
-						message.setMessage(arg0.getMessage());
-						message.setStatus(Status.NEGATIVE);
-						message.setAttached(false);
-						eventBus.fireEvent(new StatusMessageEvent(message));
 					}
 				});
 			}
