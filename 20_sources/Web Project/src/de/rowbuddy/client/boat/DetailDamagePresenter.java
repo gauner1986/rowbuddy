@@ -6,18 +6,14 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.FailHandleCallback;
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.EditDamageEvent;
 import de.rowbuddy.client.events.ListDamageEvent;
-import de.rowbuddy.client.events.StatusMessageEvent;
-import de.rowbuddy.client.model.StatusMessage;
-import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.BoatDamage;
 
@@ -83,8 +79,8 @@ public class DetailDamagePresenter implements Presenter {
 	}
 
 	private void fetchDamage() {
-		service.getDamage(id, new AsyncCallback<BoatDamage>() {
-
+		
+		service.getDamage(id, new FailHandleCallback<BoatDamage>(eventBus, "Schaden-Details anzeigen", null, new ListDamageEvent()) {
 			@Override
 			public void onSuccess(BoatDamage arg0) {
 				damage = arg0;
@@ -92,17 +88,6 @@ public class DetailDamagePresenter implements Presenter {
 				view.setDescription(damage.getDamageDescription());
 				view.setAdditionalInformation(damage.getAdditionalInformation());
 				view.getFixed().setValue(damage.isFixed());
-			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				ServiceHolderFactory.handleSessionFailure(arg0);
-				logger.severe(arg0.getMessage());
-				eventBus.fireEvent(new ListDamageEvent());
-				StatusMessage message = new StatusMessage(false);
-				message.setStatus(Status.NEGATIVE);
-				message.setMessage("Schaden existiert nicht mehr");
-				eventBus.fireEvent(new StatusMessageEvent(message));
 			}
 		});
 	}

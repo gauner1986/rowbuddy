@@ -6,15 +6,14 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
+import de.rowbuddy.client.FailHandleCallback;
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
@@ -85,30 +84,33 @@ public class EditDamagePresenter implements Presenter {
 					if (service == null) {
 						logger.info("service null");
 					}
-					service.updateDamage(damage, new AsyncCallback<Void>() {
-
-						@Override
-						public void onSuccess(Void arg0) {
-							eventBus.fireEvent(new ListDamageEvent());
-							StatusMessage msg = new StatusMessage(false);
-							msg.setStatus(Status.POSITIVE);
-							msg.setMessage("Schaden erfolgreich bearbeitet");
-							eventBus.fireEvent(new StatusMessageEvent(msg));
-							eventBus.fireEvent(new ListDamageEvent());
-						}
-
-						@Override
-						public void onFailure(Throwable arg0) {
-							ServiceHolderFactory.handleSessionFailure(arg0);
-							logger.info("Cannot update");
-							logger.severe(arg0.getMessage());
-							StatusMessage msg = new StatusMessage(false);
-							msg.setStatus(Status.NEGATIVE);
-							msg.setMessage(arg0.getMessage());
-							arg0.printStackTrace();
-							eventBus.fireEvent(new StatusMessageEvent(msg));
-						}
-					});
+					
+					service.updateDamage(damage, new FailHandleCallback<Void>(eventBus, "Schaden aktualisieren", new ListDamageEvent(), null));
+					
+//					service.updateDamage(damage, new AsyncCallback<Void>() {
+//
+//						@Override
+//						public void onSuccess(Void arg0) {
+//							eventBus.fireEvent(new ListDamageEvent());
+//							StatusMessage msg = new StatusMessage(false);
+//							msg.setStatus(Status.POSITIVE);
+//							msg.setMessage("Schaden erfolgreich bearbeitet");
+//							eventBus.fireEvent(new StatusMessageEvent(msg));
+//							eventBus.fireEvent(new ListDamageEvent());
+//						}
+//
+//						@Override
+//						public void onFailure(Throwable arg0) {
+//							ServiceHolderFactory.handleSessionFailure(arg0);
+//							logger.info("Cannot update");
+//							logger.severe(arg0.getMessage());
+//							StatusMessage msg = new StatusMessage(false);
+//							msg.setStatus(Status.NEGATIVE);
+//							msg.setMessage(arg0.getMessage());
+//							arg0.printStackTrace();
+//							eventBus.fireEvent(new StatusMessageEvent(msg));
+//						}
+//					});
 				} catch (RowBuddyException ex) {
 					StatusMessage msg = new StatusMessage(false);
 					msg.setStatus(Status.NEGATIVE);
@@ -136,8 +138,8 @@ public class EditDamagePresenter implements Presenter {
 	}
 
 	private void fetchDamage() {
-		service.getDamage(id, new AsyncCallback<BoatDamage>() {
-
+		
+		service.getDamage(id, new FailHandleCallback<BoatDamage>(eventBus, "Schaden anzeigen", null, new ListDamageEvent()){
 			@Override
 			public void onSuccess(BoatDamage arg0) {
 				damage = arg0;
@@ -147,18 +149,31 @@ public class EditDamagePresenter implements Presenter {
 						damage.getAdditionalInformation());
 				view.getFixed().setValue(damage.isFixed());
 			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				ServiceHolderFactory.handleSessionFailure(arg0);
-				logger.severe(arg0.getMessage());
-				eventBus.fireEvent(new ListDamageEvent());
-				StatusMessage message = new StatusMessage(false);
-				message.setStatus(Status.NEGATIVE);
-				message.setMessage("Schaden existiert nicht");
-				eventBus.fireEvent(new StatusMessageEvent(message));
-			}
 		});
+		
+//		service.getDamage(id, new AsyncCallback<BoatDamage>() {
+//
+//			@Override
+//			public void onSuccess(BoatDamage arg0) {
+//				damage = arg0;
+//				view.getBoatName().setValue(damage.getBoat().getName());
+//				view.getDescription().setValue(damage.getDamageDescription());
+//				view.getAddInformation().setValue(
+//						damage.getAdditionalInformation());
+//				view.getFixed().setValue(damage.isFixed());
+//			}
+//
+//			@Override
+//			public void onFailure(Throwable arg0) {
+//				ServiceHolderFactory.handleSessionFailure(arg0);
+//				logger.severe(arg0.getMessage());
+//				eventBus.fireEvent(new ListDamageEvent());
+//				StatusMessage message = new StatusMessage(false);
+//				message.setStatus(Status.NEGATIVE);
+//				message.setMessage("Schaden existiert nicht");
+//				eventBus.fireEvent(new StatusMessageEvent(message));
+//			}
+//		});
 	}
 
 }

@@ -6,15 +6,14 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
+import de.rowbuddy.client.FailHandleCallback;
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
@@ -85,32 +84,10 @@ public class AddDamagePresenter implements Presenter {
 								.getValue());
 						damage.setFixed(false);
 						damage.setLogDate(new Date(System.currentTimeMillis()));
+						
+						
+						service.addDamage(damage, boat.getId(), new FailHandleCallback<Void>(eventBus, "Schaden hinzufügen", null, new ListDamageEvent()));
 
-						service.addDamage(damage, boat.getId(),
-								new AsyncCallback<Void>() {
-
-									@Override
-									public void onFailure(Throwable arg0) {
-										ServiceHolderFactory.handleSessionFailure(arg0);
-										StatusMessage message = new StatusMessage(
-												false);
-										message.setStatus(Status.NEGATIVE);
-										message.setMessage(arg0.getMessage());
-										eventBus.fireEvent(new StatusMessageEvent(
-												message));
-									}
-
-									@Override
-									public void onSuccess(Void arg0) {
-										StatusMessage message = new StatusMessage(
-												false);
-										message.setStatus(Status.POSITIVE);
-										message.setMessage("Schaden erfolgreich hinzugefügt");
-										eventBus.fireEvent(new ListDamageEvent());
-										eventBus.fireEvent(new StatusMessageEvent(
-												message));
-									}
-								});
 					} catch (RowBuddyException ex) {
 						StatusMessage message = new StatusMessage(false);
 						message.setStatus(Status.NEGATIVE);

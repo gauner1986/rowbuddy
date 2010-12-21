@@ -12,13 +12,12 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.DamageDTO;
+import de.rowbuddy.client.FailHandleCallback;
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.DetailsDamageEvent;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
@@ -64,8 +63,7 @@ public class ListDamagesPresenter implements Presenter {
 	}
 
 	private void fetchDamages(boolean allDamages) {
-		AsyncCallback<List<DamageDTO>> callback = new AsyncCallback<List<DamageDTO>>() {
-
+		FailHandleCallback<List<DamageDTO>> callback = new FailHandleCallback<List<DamageDTO>>(eventBus, "Schäden auflisten", null, null){
 			@Override
 			public void onSuccess(List<DamageDTO> arg0) {
 				fetchedDamages = arg0;
@@ -76,13 +74,27 @@ public class ListDamagesPresenter implements Presenter {
 							dtf.format(damage.getDate()), damage.isFixed());
 				}
 			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				ServiceHolderFactory.handleSessionFailure(arg0);
-				logger.severe(arg0.getMessage());
-			}
 		};
+		
+//		AsyncCallback<List<DamageDTO>> callback = new AsyncCallback<List<DamageDTO>>() {
+//
+//			@Override
+//			public void onSuccess(List<DamageDTO> arg0) {
+//				fetchedDamages = arg0;
+//				view.clear();
+//
+//				for (DamageDTO damage : fetchedDamages) {
+//					view.addDamageRow(damage.getBootName(), damage.getMember(),
+//							dtf.format(damage.getDate()), damage.isFixed());
+//				}
+//			}
+//
+//			@Override
+//			public void onFailure(Throwable arg0) {
+//				ServiceHolderFactory.handleSessionFailure(arg0);
+//				logger.severe(arg0.getMessage());
+//			}
+//		};
 		if (allDamages) {
 			service.getAllDamages(callback);
 		} else {
