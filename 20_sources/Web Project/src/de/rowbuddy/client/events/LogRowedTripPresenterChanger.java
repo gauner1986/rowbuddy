@@ -5,11 +5,11 @@ import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.presenter.LogRowedTripPresenter;
-import de.rowbuddy.client.presenter.Presenter;
+import de.rowbuddy.client.Presenter;
+import de.rowbuddy.client.logbook.LogRowedTripPresenter;
+import de.rowbuddy.client.logbook.LogRowedTripView;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
-import de.rowbuddy.client.views.logbook.LogRowedTripView;
 
 public class LogRowedTripPresenterChanger extends PresenterChanger {
 

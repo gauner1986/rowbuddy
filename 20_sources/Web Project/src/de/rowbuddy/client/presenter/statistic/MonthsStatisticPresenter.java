@@ -8,8 +8,8 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.MonthsStatisticDTO;
+import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.ServiceHolderFactory;
-import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.StatisticRemoteServiceAsync;
 
 public class MonthsStatisticPresenter implements Presenter {

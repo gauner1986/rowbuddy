@@ -1,17 +1,17 @@
-#Tue Dec 21 12:25:18 CET 2010
+#Tue Dec 21 13:14:02 CET 2010
 eclipse.preferences.version=1
 encoding//src/de/rowbuddy/client/GWTEntryPoint.java=UTF-8
 encoding//src/de/rowbuddy/client/PageTitles.java=UTF-8
-encoding//src/de/rowbuddy/client/presenter/boat/AddBoatPresenter.java=UTF-8
-encoding//src/de/rowbuddy/client/presenter/boat/EditBoatPresenter.java=UTF-8
-encoding//src/de/rowbuddy/client/presenter/boat/ListDamagesPresenter.java=UTF-8
-encoding//src/de/rowbuddy/client/presenter/route/EditRoutePresenter.java=UTF-8
-encoding//src/de/rowbuddy/client/views/MenuView.java=UTF-8
-encoding//src/de/rowbuddy/client/views/boat/AddBoatView.java=UTF-8
-encoding//src/de/rowbuddy/client/views/boat/DetailsBoatView.java=UTF-8
-encoding//src/de/rowbuddy/client/views/boat/EditBoatView.java=UTF-8
-encoding//src/de/rowbuddy/client/views/boat/ListBoatsView.java=UTF-8
-encoding//src/de/rowbuddy/client/views/boat/ListDamagesView.java=UTF-8
-encoding//src/de/rowbuddy/client/views/member/ListMembersView.java=UTF-8
+encoding//src/de/rowbuddy/client/boat/AddBoatPresenter.java=UTF-8
+encoding//src/de/rowbuddy/client/boat/AddBoatView.java=UTF-8
+encoding//src/de/rowbuddy/client/boat/DetailsBoatView.java=UTF-8
+encoding//src/de/rowbuddy/client/boat/EditBoatPresenter.java=UTF-8
+encoding//src/de/rowbuddy/client/boat/EditBoatView.java=UTF-8
+encoding//src/de/rowbuddy/client/boat/ListBoatsView.java=UTF-8
+encoding//src/de/rowbuddy/client/boat/ListDamagesPresenter.java=UTF-8
+encoding//src/de/rowbuddy/client/boat/ListDamagesView.java=UTF-8
+encoding//src/de/rowbuddy/client/member/ListMembersView.java=UTF-8
+encoding//src/de/rowbuddy/client/menu/MenuView.java=UTF-8
+encoding//src/de/rowbuddy/client/route/EditRoutePresenter.java=UTF-8
 encoding//src/de/rowbuddy/server/servlets/DataInitialization.java=UTF-8
 encoding/<project>=UTF-8

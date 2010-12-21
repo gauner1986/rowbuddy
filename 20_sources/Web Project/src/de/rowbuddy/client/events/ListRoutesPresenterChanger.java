@@ -5,10 +5,10 @@ import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
-import de.rowbuddy.client.presenter.Presenter;
-import de.rowbuddy.client.presenter.route.ListRoutesPresenter;
+import de.rowbuddy.client.Presenter;
+import de.rowbuddy.client.route.ListRoutesPresenter;
+import de.rowbuddy.client.route.ListRoutesView;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
-import de.rowbuddy.client.views.route.ListRoutesView;
 
 public class ListRoutesPresenterChanger extends PresenterChanger {
 

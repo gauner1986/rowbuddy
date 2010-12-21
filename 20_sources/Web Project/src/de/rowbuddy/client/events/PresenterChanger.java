@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.FadeAnimation;
-import de.rowbuddy.client.presenter.Presenter;
+import de.rowbuddy.client.Presenter;
 
 public abstract class PresenterChanger implements EventHandler,
 		ValueChangeHandler<String> {

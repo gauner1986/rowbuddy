@@ -6,11 +6,11 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.presenter.ListPersonalTripsPresenter;
-import de.rowbuddy.client.presenter.ListPersonalTripsPresenter.ListType;
-import de.rowbuddy.client.presenter.Presenter;
+import de.rowbuddy.client.Presenter;
+import de.rowbuddy.client.logbook.ListPersonalTripsPresenter;
+import de.rowbuddy.client.logbook.ListPersonalTripsView;
+import de.rowbuddy.client.logbook.ListPersonalTripsPresenter.ListType;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
-import de.rowbuddy.client.views.logbook.ListPersonalTripsView;
 
 public class ListPersonalOpenTripsPresenterChanger extends PresenterChanger {
 

@@ -4,7 +4,6 @@ import com.google.gwt.animation.client.Animation;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.presenter.Presenter;
 
 public class FadeAnimation extends Animation {
 

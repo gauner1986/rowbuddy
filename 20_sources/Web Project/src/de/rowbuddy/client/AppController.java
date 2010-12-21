@@ -32,16 +32,13 @@ import de.rowbuddy.client.events.MonthsStatisticPresenterChanger;
 import de.rowbuddy.client.events.PresenterChanger;
 import de.rowbuddy.client.events.PresenterChanger.EventListener;
 import de.rowbuddy.client.events.StartTripPresenterChanger;
-import de.rowbuddy.client.presenter.MenuPresenter;
-import de.rowbuddy.client.presenter.Presenter;
-import de.rowbuddy.client.presenter.StatusMessagePresenter;
+import de.rowbuddy.client.menu.MenuPresenter;
+import de.rowbuddy.client.menu.MenuView;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 import de.rowbuddy.client.services.MemberRemoteServiceAsync;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
 import de.rowbuddy.client.services.StatisticRemoteServiceAsync;
-import de.rowbuddy.client.views.MenuView;
-import de.rowbuddy.client.views.MessageView;
 
 public class AppController implements Presenter, EventListener {
 	private SimpleEventBus eventBus;

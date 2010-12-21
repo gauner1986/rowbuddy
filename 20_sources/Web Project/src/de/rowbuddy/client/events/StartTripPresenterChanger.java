@@ -5,10 +5,10 @@ import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.client.PageTitles;
-import de.rowbuddy.client.presenter.StartTripPresenter;
-import de.rowbuddy.client.presenter.Presenter;
+import de.rowbuddy.client.Presenter;
+import de.rowbuddy.client.logbook.StartTripPresenter;
+import de.rowbuddy.client.logbook.StartTripView;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
-import de.rowbuddy.client.views.logbook.StartTripView;
 
 public class StartTripPresenterChanger extends PresenterChanger {
 

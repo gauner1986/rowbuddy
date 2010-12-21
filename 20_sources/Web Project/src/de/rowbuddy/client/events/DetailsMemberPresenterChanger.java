@@ -5,10 +5,10 @@ import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
-import de.rowbuddy.client.presenter.Presenter;
-import de.rowbuddy.client.presenter.member.DetailsMemberPresenter;
+import de.rowbuddy.client.Presenter;
+import de.rowbuddy.client.member.DetailsMemberPresenter;
+import de.rowbuddy.client.member.DetailsMemberView;
 import de.rowbuddy.client.services.MemberRemoteServiceAsync;
-import de.rowbuddy.client.views.member.DetailsMemberView;
 
 public class DetailsMemberPresenterChanger extends PresenterChanger {
 
