@@ -51,7 +51,7 @@ public class FailHandleCallback<ReturnType> implements
 
 	@Override
 	public void onSuccess(ReturnType arg0) {
-		logger.severe("Aktion erfolgreich: " + action);
+		logger.info("Aktion erfolgreich: " + action);
 		if (successEvent != null) {
 			eventBus.fireEvent(successEvent);
 		}
