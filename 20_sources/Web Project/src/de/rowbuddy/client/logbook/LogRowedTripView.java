@@ -10,6 +10,7 @@ import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.SuggestBox;
@@ -92,6 +93,7 @@ public class LogRowedTripView extends HeaderButtonView implements
 		ft2.setWidget(1,0, setCoxButton);
 		
 		content.setWidget(3, 2, ft2);
+		content.getFlexCellFormatter().setVerticalAlignment(3, 2, HasVerticalAlignment.ALIGN_TOP);
 		
 		DateTimeFormat dateFormat = DateTimeFormat
 				.getFormat(PredefinedFormat.DATE_MEDIUM);
