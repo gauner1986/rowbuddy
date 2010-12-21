@@ -11,10 +11,10 @@ public class StatisticRemoteServiceImpl extends AbstractRemoteService implements
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public MonthsStatisticDTO getMonthsStatistic(int year) throws RowBuddyException {
+	public MonthsStatisticDTO getMonthsStatistic(int year) throws RowBuddyException, NotLoggedInException {
 		System.out.println("StatisticRemoteServiceImpl");
 		try {
-		return getRowBuddyFacade().getMonthsStatistic(year);
+			return getRowBuddyFacade().getMonthsStatistic(year);
 		} catch (NullPointerException e) {
 			throw new NotLoggedInException();
 		}
