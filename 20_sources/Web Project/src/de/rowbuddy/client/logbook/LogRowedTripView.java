@@ -72,12 +72,13 @@ public class LogRowedTripView extends HeaderButtonView implements
 
 		multiBox = new ListBox(true);
 		multiBox.ensureDebugId("cwListBox-multiBox");
-		multiBox.setWidth("155px");
+		multiBox.setWidth("100%");
 		multiBox.setVisibleItemCount(10);
 
 		VerticalPanel multiBoxPanel = new VerticalPanel();
 		multiBoxPanel.setSpacing(4);
 		multiBoxPanel.add(multiBox);
+		multiBoxPanel.setWidth("100%");
 		content.setWidget(3, 1, multiBoxPanel);
 		
 		FlexTable ft2 = new FlexTable();

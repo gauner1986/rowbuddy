@@ -445,6 +445,7 @@ body {
 }
 
 .gwt-SuggestBox {
+	width: 100%;
 	padding: 2px;
 }
 
@@ -454,6 +455,10 @@ body {
 
 .gwt-SuggestBoxPopup .suggestPopupContent {
 	background: white;
+}
+
+.gwt-TextArea{
+	width: 100%;
 }
 
 .LoginMask{
