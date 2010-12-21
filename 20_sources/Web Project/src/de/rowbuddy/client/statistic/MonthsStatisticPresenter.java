@@ -43,8 +43,7 @@ public class MonthsStatisticPresenter implements Presenter {
 		fetchData();
 	}
 
-	private void fetchData() {
-		System.out.println("##fetchData() start");		
+	private void fetchData() {	
 		statisitcService.getMonthsStatistic(2010, new AsyncCallback<MonthsStatisticDTO>() {
 
 			@Override

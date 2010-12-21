@@ -27,14 +27,12 @@ public class PermissionInterceptor {
 				for(RoleName role : allowed.values()){
 					for(Role mrole : member.getRoles()){
 						if(mrole.getName().equals(role)){
-							System.out.println("User '"+member.getEmail()+"' is authenticated with role '"+role+"'");
 							return ic.proceed();
 						}
 					}
 				}
 				throw new NotLoggedInException("You're not allowed to use this method"); // we did not return before, so we are not allowed to use the method.
 			} else { // allow everyone by default
-				System.out.println("User '"+member.getEmail()+"' is authenticated with the default role");
 				return ic.proceed();
 			}
 		}	

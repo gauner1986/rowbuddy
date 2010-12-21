@@ -14,7 +14,6 @@ public class MonthsStatisticView extends HeaderButtonView implements
 	
 	public MonthsStatisticView(String pageTitle) {
 		super(pageTitle);
-		System.out.println("#MonthsStatisticView");
 
 		content = new FlexTable();
 				
