@@ -28,8 +28,10 @@ import de.rowbuddy.client.events.ListPersonalOpenTripsPresenterChanger;
 import de.rowbuddy.client.events.ListPersonalTripsPresenterChanger;
 import de.rowbuddy.client.events.ListRoutesPresenterChanger;
 import de.rowbuddy.client.events.LogRowedTripPresenterChanger;
+import de.rowbuddy.client.events.MonthsStatisticPresenterChanger;
 import de.rowbuddy.client.events.PresenterChanger;
 import de.rowbuddy.client.events.PresenterChanger.EventListener;
+import de.rowbuddy.client.events.StartTripPresenterChanger;
 import de.rowbuddy.client.presenter.MenuPresenter;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.presenter.StatusMessagePresenter;
@@ -37,6 +39,7 @@ import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 import de.rowbuddy.client.services.MemberRemoteServiceAsync;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
+import de.rowbuddy.client.services.StatisticRemoteServiceAsync;
 import de.rowbuddy.client.views.MenuView;
 import de.rowbuddy.client.views.MessageView;
 
@@ -46,6 +49,7 @@ public class AppController implements Presenter, EventListener {
 	private RouteRemoteServiceAsync routeService;
 	private LogbookRemoteServiceAsync logbookService;
 	private MemberRemoteServiceAsync memberService;
+	private StatisticRemoteServiceAsync statisticService;
 	private HasWidgets container;
 	private StatusMessagePresenter statusPresenter;
 	private Presenter menuPresenter;
@@ -59,6 +63,7 @@ public class AppController implements Presenter, EventListener {
 		this.routeService = ServiceHolderFactory.getRouteService();
 		this.logbookService = ServiceHolderFactory.getLogbookService();
 		this.memberService = ServiceHolderFactory.getMemberService();
+		this.statisticService = ServiceHolderFactory.getStatisticService();
 		this.eventBus = eventBus;
 		this.statusPresenter = new StatusMessagePresenter(new MessageView(),
 				eventBus);
@@ -104,6 +109,8 @@ public class AppController implements Presenter, EventListener {
 
 		eventHandlers.add(new LogRowedTripPresenterChanger(container,
 				eventBus, logbookService));
+		eventHandlers.add(new StartTripPresenterChanger(container,
+				eventBus, logbookService));
 		eventHandlers.add(new ListPersonalTripsPresenterChanger(container,
 				eventBus, logbookService, sessionMember));
 		eventHandlers.add(new ListPersonalOpenTripsPresenterChanger(container,
@@ -120,6 +127,11 @@ public class AppController implements Presenter, EventListener {
 				eventBus, memberService, sessionMember));
 	}
 
+	private void bindStatisticEventHandlers() {
+		eventHandlers.add(new MonthsStatisticPresenterChanger(container,
+				eventBus, statisticService));
+	}
+
 	@Override
 	public void start(HasWidgets container) {
 		this.container = container;
@@ -128,6 +140,7 @@ public class AppController implements Presenter, EventListener {
 		bindLogbookEventHandlers();
 		bindRoutEventHandlers();
 		bindMemberEventHandlers();
+		bindStatisticEventHandlers();
 
 		// register fot presenter changes
 		for (PresenterChanger eventHandler : eventHandlers) {

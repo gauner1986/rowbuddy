@@ -20,4 +20,5 @@ public interface PageTitles {
 	public final String ROUTE_EDIT = "Route bearbeiten";
 	public final String MEMBER_OVERVIEW = "Mitgliederübersicht";
 	public final String MEMBER_IMPORT = "Mitglieder importieren";
+	public final String STATISTIC_MONTHS = "Monatsstatistik";
 }

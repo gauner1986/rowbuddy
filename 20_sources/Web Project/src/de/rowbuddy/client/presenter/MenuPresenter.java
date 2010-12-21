@@ -19,6 +19,8 @@ import de.rowbuddy.client.events.ListPersonalOpenTripsEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEvent;
 import de.rowbuddy.client.events.ListRoutesEvent;
 import de.rowbuddy.client.events.LogRowedTripEvent;
+import de.rowbuddy.client.events.MonthsStatisticEvent;
+import de.rowbuddy.client.events.StartTripEvent;
 import de.rowbuddy.client.images.Images;
 import de.rowbuddy.client.views.items.MenuItem;
 import de.rowbuddy.client.views.items.MenuSubItem;
@@ -54,12 +56,12 @@ public class MenuPresenter implements Presenter {
 	
 	private void createMenuItems(boolean admin){
 		MenuItem fahrtenbuch = new MenuItem(0, "Fahrtenbuch", images.logBook(),null);
-		fahrtenbuch.getSubItems().add(new MenuSubItem(0, "Nachtrag speichern",new LogRowedTripEvent()));
-		//fahrtenbuch.getSubItems().add(new MenuSubItem(0, "Neue Fahrt beginnen",new ListPersonalTripsEvent()));
-		fahrtenbuch.getSubItems().add(new MenuSubItem(1, "Meine Fahrten",new ListPersonalTripsEvent()));
-		fahrtenbuch.getSubItems().add(new MenuSubItem(2, "Fahrtenübersicht",null));
-		fahrtenbuch.getSubItems().add(new MenuSubItem(3, "Offene Fahrten",null));
-		fahrtenbuch.getSubItems().add(new MenuSubItem(4, "Meine offenen Fahrten", new ListPersonalOpenTripsEvent()));
+		fahrtenbuch.getSubItems().add(new MenuSubItem(0, "Nachtrag speichern", new LogRowedTripEvent()));
+		fahrtenbuch.getSubItems().add(new MenuSubItem(1, "Neue Fahrt beginnen", new StartTripEvent()));
+		fahrtenbuch.getSubItems().add(new MenuSubItem(2, "Meine Fahrten", new ListPersonalTripsEvent()));
+		fahrtenbuch.getSubItems().add(new MenuSubItem(3, "Fahrtenübersicht", null));
+		fahrtenbuch.getSubItems().add(new MenuSubItem(4, "Offene Fahrten", null));
+		fahrtenbuch.getSubItems().add(new MenuSubItem(5, "Meine offenen Fahrten", new ListPersonalOpenTripsEvent()));
 		
 		MenuItem profil = new MenuItem(1, "Profil", images.profil(),null);
 		profil.getSubItems().add(new MenuSubItem(0, "Meine geruderten Routen",null));
@@ -72,7 +74,7 @@ public class MenuPresenter implements Presenter {
 		statistiken.getSubItems().add(new MenuSubItem(0, "Aktivität - Monatsstatistik",null));
 		statistiken.getSubItems().add(new MenuSubItem(1, "Aktivität - Tagesstatistik",null));
 		statistiken.getSubItems().add(new MenuSubItem(2, "Boote - Jahresstatistik",null));
-		statistiken.getSubItems().add(new MenuSubItem(3, "Monatsstatistik",null));
+		statistiken.getSubItems().add(new MenuSubItem(3, "Monatsstatistik", new MonthsStatisticEvent()));
 		statistiken.getSubItems().add(new MenuSubItem(4, "Jahresstatistik",null));
 		statistiken.getSubItems().add(new MenuSubItem(5, "Beliebteste Routen",null));
 		statistiken.getSubItems().add(new MenuSubItem(6, "Bootsschäden",null));

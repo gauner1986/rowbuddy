@@ -18,6 +18,7 @@ import de.rowbuddy.boundary.converter.MemberDTOConverter;
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.DamageDTO;
 import de.rowbuddy.boundary.dtos.MemberDTO;
+import de.rowbuddy.boundary.dtos.MonthsStatisticDTO;
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
 import de.rowbuddy.boundary.dtos.RouteDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
@@ -137,8 +138,21 @@ public class RowBuddyFacade {
 		logbook.logRowedTrip(trip, this.member);
 	}
 
-	public void startTrip(Trip startedTrip) throws RowBuddyException {
-		logbook.startTrip(startedTrip, this.member);
+	public void startTrip(TripDTO rowedTrip, long boatId, long routeId, List<TripMemberDTO> tripMembersDTO) throws RowBuddyException {
+		Trip trip = new Trip();
+		trip.setStartDate(rowedTrip.getStartDate());
+		trip.setFinished(true);
+		trip.setBoat(getBoat(boatId));
+		trip.setRoute(getRoute(routeId));
+		List<TripMember> tripMembers = new LinkedList<TripMember>();
+		for (TripMemberDTO dto : tripMembersDTO) {
+			TripMember tm = new TripMember();
+			tm.setMember(memberMgmt.getMember(dto.getMember().getId()));
+			tm.setTripMemberType(dto.getTripMemberType());
+			tripMembers.add(tm);
+		}
+		trip.setTripMembers(tripMembers);
+		logbook.startTrip(trip, this.member);
 	}
 
 	public Trip getTrip(Long id) throws RowBuddyException {
@@ -262,6 +276,27 @@ public class RowBuddyFacade {
 
 	public Member getMember(Long id) throws RowBuddyException {
 		return memberMgmt.getMember(id);
+	}
+	
+	public MonthsStatisticDTO getMonthsStatistic(int year) {
+		// TODO get from StatisticManagement
+		System.out.println("RowBUddyFacade");
+		MonthsStatisticDTO dto = new MonthsStatisticDTO();
+		int[] months =  new int[12];
+		months[1] = 1;
+		months[2] = 2;
+		months[3] = 30;
+		months[4] = 4;
+		months[5] = 5;
+		months[6] = 6;
+		months[7] = 7;
+		months[8] = 8;
+		months[9] = 9;
+		months[10] = 10;
+		months[11] = 11;
+		months[12] = 12;
+		dto.setMonths(months);
+		return dto;
 	}
 
 }

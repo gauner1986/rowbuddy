@@ -20,13 +20,8 @@ public class LogbookRemoteServiceImpl extends AbstractRemoteService implements
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void startTrip(Trip startedTrip) {
-		try {
-			getRowBuddyFacade().startTrip(startedTrip);
-		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void startTrip(TripDTO trip, long boatId, long routeId, List<TripMemberDTO> tripMembers) throws RowBuddyException {
+		getRowBuddyFacade().startTrip(trip, boatId, routeId, tripMembers);
 	}
 
 	@Override
@@ -81,13 +76,7 @@ public class LogbookRemoteServiceImpl extends AbstractRemoteService implements
 	}
 
 	@Override
-	public void logRowedTrip(TripDTO trip, long boatId, long routeId, List<TripMemberDTO> tripMembers) {
-		try {
-			getRowBuddyFacade().logRowedTrip(trip, boatId, routeId, tripMembers);
-		} catch (RowBuddyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public void logRowedTrip(TripDTO trip, long boatId, long routeId, List<TripMemberDTO> tripMembers) throws RowBuddyException {
+		getRowBuddyFacade().logRowedTrip(trip, boatId, routeId, tripMembers);		
 	}
 }

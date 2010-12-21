@@ -14,7 +14,6 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.Widget;
@@ -24,6 +23,7 @@ import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.boundary.dtos.RouteDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.boundary.dtos.TripMemberDTO;
+import de.rowbuddy.client.events.ListPersonalOpenTripsEvent;
 import de.rowbuddy.client.events.ListPersonalTripsEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
@@ -32,10 +32,14 @@ import de.rowbuddy.client.presenter.logbook.BoatSuggestOracle;
 import de.rowbuddy.client.presenter.logbook.MemberSuggestOracle;
 import de.rowbuddy.client.presenter.logbook.RouteSuggestOracle;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
+import de.rowbuddy.entities.Boat;
+import de.rowbuddy.entities.Member;
+import de.rowbuddy.entities.Route;
 import de.rowbuddy.entities.Trip;
+import de.rowbuddy.entities.TripMember;
 import de.rowbuddy.entities.TripMemberType;
 
-public class LogRowedTripPresenter implements Presenter {
+public class StartTripPresenter implements Presenter {
 
 	public interface Display {
 		Widget asWidget();
@@ -57,22 +61,16 @@ public class LogRowedTripPresenter implements Presenter {
 		HasValue<String> getMemberName();
 		
 		SuggestBox getMember();
-
-		Date getStartDate();
-
-		Date getEndDate();
 		
 		public void showTripMembers(String[] tripMembers);
 
-		ListBox getListBox();
-
 		void setBoatInformation(String name, boolean coxed, int numberOfSeats);
-
-		void setRouteInformation(double lengthKM);
+		
+		void setRouteInformation(double lenght);
 
 	}
 
-	private static Logger logger = Logger.getLogger(LogRowedTripPresenter.class.getName());
+	private static Logger logger = Logger.getLogger(StartTripPresenter.class.getName());
 	private Display view;
 	private LogbookRemoteServiceAsync logbookService;
 	private EventBus eventBus;
@@ -81,7 +79,7 @@ public class LogRowedTripPresenter implements Presenter {
 	private MemberSuggestOracle memberOracle;
 	private List<TripMemberDTO> tripMembers;
 
-	public LogRowedTripPresenter(LogbookRemoteServiceAsync service,
+	public StartTripPresenter(LogbookRemoteServiceAsync service,
 			EventBus eventBus, Display view) {
 		this.view = view;
 		this.logbookService = service;
@@ -176,7 +174,7 @@ public class LogRowedTripPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				logRowedTrip(new AsyncCallback<Trip>() {
+				startTrip(new AsyncCallback<Trip>() {
 
 					@Override
 					public void onFailure(Throwable arg0) {
@@ -186,9 +184,9 @@ public class LogRowedTripPresenter implements Presenter {
 					@Override
 					public void onSuccess(Trip arg0) {
 						logger.info("Trip successful logged; Reset View");
-						eventBus.fireEvent(new ListPersonalTripsEvent());
+						eventBus.fireEvent(new ListPersonalOpenTripsEvent());
 						StatusMessage message = new StatusMessage();
-						message.setMessage("Fahrt erfolgreich eingetragen");
+						message.setMessage("Fahrt erfolgreich gestartet");
 						message.setStatus(Status.POSITIVE);
 						message.setAttached(false);
 						eventBus.fireEvent(new StatusMessageEvent(message));
@@ -207,7 +205,7 @@ public class LogRowedTripPresenter implements Presenter {
 
 	}
 
-	private void logRowedTrip(AsyncCallback<Trip> action) {
+	private void startTrip(AsyncCallback<Trip> action) {
 		
 		BoatDTO boat = boatOracle.getSuggestion(view.getBoatName().getValue());
 		if (boat == null) {
@@ -234,8 +232,7 @@ public class LogRowedTripPresenter implements Presenter {
 					TripDTO trip = new TripDTO();
 					try {
 						trip.setFinished(true);
-						trip.setStartDate(view.getStartDate());
-						trip.setEndDate(view.getEndDate());
+						trip.setStartDate(new Date(System.currentTimeMillis()));
 						logbookService.logRowedTrip(trip, boat.getId(), route.getId(), this.tripMembers , 
 								new AsyncCallback<Void>() {
 

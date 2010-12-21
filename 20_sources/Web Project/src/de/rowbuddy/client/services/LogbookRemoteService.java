@@ -16,7 +16,8 @@ import de.rowbuddy.exceptions.RowBuddyException;
 
 public interface LogbookRemoteService extends RemoteService {
 
-	public void startTrip(Trip startedTrip) throws RowBuddyException, NotLoggedInException;
+	public void startTrip(TripDTO trip, long boatId, long routeId,
+			List<TripMemberDTO> tripMembers) throws RowBuddyException, NotLoggedInException;
 
 	public List<TripDTO> getOpenTrips() throws NotLoggedInException;
 
@@ -35,6 +36,6 @@ public interface LogbookRemoteService extends RemoteService {
 	List<BoatDTO> searchBoat(String query) throws NotLoggedInException;
 
 	void logRowedTrip(TripDTO trip, long boatId, long routeId,
-			List<TripMemberDTO> tripMembers);
+			List<TripMemberDTO> tripMembers) throws RowBuddyException, NotLoggedInException;
 
 }

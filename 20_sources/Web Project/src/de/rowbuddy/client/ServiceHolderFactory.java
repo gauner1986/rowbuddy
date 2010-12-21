@@ -18,6 +18,8 @@ import de.rowbuddy.client.services.RouteRemoteService;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
 import de.rowbuddy.client.services.SessionManager;
 import de.rowbuddy.client.services.SessionManagerAsync;
+import de.rowbuddy.client.services.StatisticRemoteService;
+import de.rowbuddy.client.services.StatisticRemoteServiceAsync;
 import de.rowbuddy.exceptions.NotLoggedInException;
 
 public class ServiceHolderFactory {
@@ -30,6 +32,7 @@ public class ServiceHolderFactory {
 	private static LogbookRemoteServiceAsync logbookService = null;
 	private static RouteRemoteServiceAsync routeService = null;
 	private static MemberRemoteServiceAsync memberService = null;
+	private static StatisticRemoteServiceAsync statisticService = null;
 	private static MemberDTO sessionMember = null;
 
 	public static MemberDTO getSessionMember() {
@@ -91,7 +94,20 @@ public class ServiceHolderFactory {
 			return memberService;
 		}
 	}
-	
+
+
+	public static StatisticRemoteServiceAsync getStatisticService() {
+		if (statisticService == null) {
+			statisticService = (StatisticRemoteServiceAsync) GWT.create(StatisticRemoteService.class);
+			((ServiceDefTarget) statisticService).setServiceEntryPoint(GWT
+				.getHostPageBaseURL() + "StatisticRemoteServiceImpl");
+			logger.info("Service registerd: " + GWT.getHostPageBaseURL()
+					+ "StatisticRemoteServiceImpl");
+			return statisticService;
+		} else {
+			return statisticService;
+		}
+	}
 	public static void fetchSessionMember(final Runnable run){
 		ServiceHolderFactory.getSessionManager().getMember(
 			new AsyncCallback<MemberDTO>() {

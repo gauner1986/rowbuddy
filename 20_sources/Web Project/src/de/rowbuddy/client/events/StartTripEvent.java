@@ -1,18 +1,18 @@
 package de.rowbuddy.client.events;
 
-import com.google.gwt.event.shared.GwtEvent;
+public class StartTripEvent extends
+	AbstractEvent<StartTripPresenterChanger> {
 
-public class StartTripEvent extends GwtEvent<StartTripEventHandler> {
-
-	public static Type<StartTripEventHandler> TYPE = new Type<StartTripEventHandler>();
-
+	public static Type<StartTripPresenterChanger> TYPE = new Type<StartTripPresenterChanger>();
+	public static final String HISTORY_IDENTIFIER = "StartTrip";
+	
 	@Override
-	protected void dispatch(StartTripEventHandler arg0) {
-		arg0.onStartTripEvent(this);
-	}
-
-	@Override
-	public Type<StartTripEventHandler> getAssociatedType() {
+	public Type<StartTripPresenterChanger> getAssociatedType() {
 		return TYPE;
+	}
+	
+	@Override
+	public String toHistoryItem() {
+		return HISTORY_IDENTIFIER;
 	}
 }
