@@ -9,7 +9,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.maps.client.Maps;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
@@ -25,6 +24,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class GWTEntryPoint implements EntryPoint {
 
+	private SimpleEventBus eventBus;
+
 	private static Logger logger = Logger.getLogger(GWTEntryPoint.class
 			.getName());
 
@@ -32,7 +33,7 @@ public class GWTEntryPoint implements EntryPoint {
 		Maps.loadMapsApi("", "2", false, new Runnable() {
 			public void run() {
 				ServiceHolderFactory.fetchSessionMember(new Runnable() {
-					
+
 					@Override
 					public void run() {
 						load();
@@ -45,14 +46,15 @@ public class GWTEntryPoint implements EntryPoint {
 	public void load() {
 		HasWidgets mainPanel = initialMainPanel();
 		FlowPanel messagePanel = new FlowPanel();
-		SimpleEventBus eventBus = new SimpleEventBus();
+		eventBus = new SimpleEventBus();
 
 		VerticalPanel vPanel = new VerticalPanel();
 
 		RootPanel.get("Main").add(
 				initalRootFlexTable(mainPanel, messagePanel, vPanel));
 
-		AppController controller = new AppController(eventBus, messagePanel, vPanel, ServiceHolderFactory.getSessionMember());
+		AppController controller = new AppController(eventBus, messagePanel,
+				vPanel, ServiceHolderFactory.getSessionMember());
 
 		controller.start(mainPanel);
 		logger.info("Application started");
@@ -83,7 +85,8 @@ public class GWTEntryPoint implements EntryPoint {
 		hPanel.setWidth("100%");
 		hPanel.setStylePrimaryName("logoHeader");
 
-		Label loginLabel = new Label("Logged in: "+ServiceHolderFactory.getSessionMember().getEmail());
+		Label loginLabel = new Label("Logged in: "
+				+ ServiceHolderFactory.getSessionMember().getEmail());
 
 		Button logoutButton = new Button("Logout");
 		logoutButton.setStylePrimaryName("buttonExit buttonNegative");
@@ -92,22 +95,15 @@ public class GWTEntryPoint implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent arg0) {
 				ServiceHolderFactory.getSessionManager().logout(
-						new AsyncCallback<Void>() {
-
-							@Override
-							public void onFailure(Throwable arg0) {
-								ServiceHolderFactory.handleSessionFailure(arg0);
-								logger.info(arg0.getMessage());
-							}
-
+						new FailHandleCallback<Void>(eventBus, "Logout", null,
+								null) {
 							@Override
 							public void onSuccess(Void arg0) {
-								Window.Location.assign(GWT.getHostPageBaseURL() + "Login.jsp");
+								Window.Location.assign(GWT.getHostPageBaseURL()
+										+ "Login.jsp");
 							}
 						});
-				//Window.Location.assign(GWT.getHostPageBaseURL() + "Login.jsp");
 			}
-
 		});
 
 		// HorizontalPanel verticalPanel = new HorizontalPanel();
