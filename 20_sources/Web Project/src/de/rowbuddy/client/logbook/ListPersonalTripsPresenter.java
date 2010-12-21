@@ -8,13 +8,12 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
+import de.rowbuddy.client.FailHandleCallback;
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.LogRowedTripEvent;
 import de.rowbuddy.client.events.StartTripEvent;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
@@ -102,37 +101,25 @@ public class ListPersonalTripsPresenter implements Presenter {
 			break;
 		}
 	}
-	
 
 	private void fetchPersonalTrips() {
-		logbook.getPersonalTrips(new AsyncCallback<List<PersonalTripDTO>>() {
+		logbook.getPersonalTrips(new FailHandleCallback<List<PersonalTripDTO>>(
+				eventBus, "Meine Fahrten laden", null, null) {
 
-			@Override
-			public void onSuccess(List<PersonalTripDTO> arg0) {
-				view.setData(arg0);
-			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				ServiceHolderFactory.handleSessionFailure(arg0);
-				//Window.alert(arg0.toString());
-			}
+			public void onSuccess(java.util.List<PersonalTripDTO> arg0) {
+				fetchedTrips = arg0;
+				view.setData(fetchedTrips);
+			};
 		});
 	}
 
 	private void fetchPersonalOpenTrips() {
-		logbook.getPersonalOpenTrips(new AsyncCallback<List<PersonalTripDTO>>() {
-
+		logbook.getPersonalOpenTrips(new FailHandleCallback<List<PersonalTripDTO>>(
+				eventBus, "Meine offenen Fahrten laden", null, null) {
 			@Override
 			public void onSuccess(List<PersonalTripDTO> arg0) {
+				fetchedTrips = arg0;
 				view.setData(arg0);
-			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				ServiceHolderFactory.handleSessionFailure(arg0);
-				logger.severe(arg0.getMessage());
-				//Window.alert(arg0.toString());
 			}
 		});
 	}
