@@ -33,8 +33,7 @@ public class FailHandleCallback<ReturnType> implements
 
 	@Override
 	public void onFailure(Throwable failure) {
-		logger.severe("Aktion fehlgeschlagen: " + action + ": "
-				+ failure.toString());
+		logger.severe(action + ": " + failure.toString());
 		if (failure instanceof NotLoggedInException) {
 			Window.Location.assign(GWT.getHostPageBaseURL() + "Login.jsp");
 			return;
@@ -43,8 +42,7 @@ public class FailHandleCallback<ReturnType> implements
 			eventBus.fireEvent(failEvent);
 		}
 		StatusMessage message = new StatusMessage();
-		message.setMessage("Aktion fehlgeschlagen: " + action + ": "
-				+ failure.getMessage());
+		message.setMessage(action + ": " + failure.getMessage());
 		message.setStatus(Status.NEGATIVE);
 		message.setAttached(false);
 
@@ -58,7 +56,7 @@ public class FailHandleCallback<ReturnType> implements
 			eventBus.fireEvent(successEvent);
 		}
 		StatusMessage message = new StatusMessage();
-		message.setMessage("Aktion erfolgreich: " + action);
+		message.setMessage(action + " erfolgreich");
 		message.setStatus(Status.POSITIVE);
 		message.setAttached(false);
 		eventBus.fireEvent(new StatusMessageEvent(message));
