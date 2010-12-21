@@ -255,9 +255,7 @@ public class LogRowedTripPresenter implements Presenter {
 				message.setMessage("Es muss eine Route ausgewählt sein");
 				eventBus.fireEvent(new StatusMessageEvent(message));
 			} else {
-				MemberDTO member = memberOracle.getSuggestion(view.getMemberName().getValue());
-				
-				if (member == null) {
+				if (tripMembers.size() == 0) {
 					StatusMessage message = new StatusMessage(false);
 					message.setStatus(Status.NEGATIVE);
 					message.setMessage("Es muss ein Ruderer ausgewählt sein");
