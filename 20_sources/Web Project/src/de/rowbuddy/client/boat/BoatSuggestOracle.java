@@ -5,11 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.SuggestOracle;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
-import de.rowbuddy.client.ServiceHolderFactory;
+import de.rowbuddy.client.ServerRequestHandler;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 
 public class BoatSuggestOracle extends SuggestOracle {
@@ -56,7 +55,8 @@ public class BoatSuggestOracle extends SuggestOracle {
 	public void requestSuggestions(Request req, Callback arg1) {
 		this.request = req;
 		this.callback = arg1;
-		service.search(req.getQuery(), new AsyncCallback<List<BoatDTO>>() {
+		service.search(req.getQuery(), new ServerRequestHandler<List<BoatDTO>>(
+				null, "Boote suchen", null, null) {
 
 			@Override
 			public void onSuccess(List<BoatDTO> arg0) {
@@ -69,11 +69,6 @@ public class BoatSuggestOracle extends SuggestOracle {
 				}
 				resp.setSuggestions(suggs);
 				callback.onSuggestionsReady(request, resp);
-			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				ServiceHolderFactory.handleSessionFailure(arg0);
 			}
 		});
 	}
