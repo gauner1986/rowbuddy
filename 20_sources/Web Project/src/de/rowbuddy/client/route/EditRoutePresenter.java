@@ -15,19 +15,16 @@ import com.google.gwt.maps.client.event.MapRightClickHandler;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.Polyline;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.FailHandleCallback;
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.DetailsRouteEvent;
 import de.rowbuddy.client.events.ListRoutesEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
-import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
 import de.rowbuddy.entities.GpsPoint;
 import de.rowbuddy.entities.Route;
@@ -150,30 +147,10 @@ public class EditRoutePresenter implements Presenter {
 			@Override
 			public void onClick(ClickEvent arg0) {
 				if (updateRoute()) {
-					routeService.editRoute(route, new AsyncCallback<Route>() {
-
-						@Override
-						public void onFailure(Throwable arg0) {
-							ServiceHolderFactory.handleSessionFailure(arg0);
-							logger.warning("Cannot update Route:"
-									+ arg0.getMessage());
-							StatusMessage message = new StatusMessage(false);
-							message.setStatus(Status.NEGATIVE);
-							message.setMessage("Fehler beim �ndern: "
-									+ arg0.getMessage());
-							eventBus.fireEvent(new StatusMessageEvent(message));
-						}
-
-						@Override
-						public void onSuccess(Route arg0) {
-							logger.info("Submit successful GoTo ListRoutes");
-							eventBus.fireEvent(new ListRoutesEvent());
-							StatusMessage message = new StatusMessage(false);
-							message.setStatus(Status.POSITIVE);
-							message.setMessage("Route erfolgreich geändert");
-							eventBus.fireEvent(new StatusMessageEvent(message));
-						}
-					});
+					routeService.editRoute(route,
+							new FailHandleCallback<Route>(eventBus,
+									"Route speichern", new ListRoutesEvent(),
+									null));
 				}
 			}
 		});
@@ -199,28 +176,9 @@ public class EditRoutePresenter implements Presenter {
 			@Override
 			public void onClick(ClickEvent arg0) {
 				view.closeDialog();
-				routeService.deleteRoute(id, new AsyncCallback<Void>() {
-
-					@Override
-					public void onFailure(Throwable arg0) {
-						ServiceHolderFactory.handleSessionFailure(arg0);
-						logger.severe("Cannot delete boat: "
-								+ arg0.getMessage());
-						StatusMessage msg = new StatusMessage(false);
-						msg.setMessage(arg0.getMessage());
-						msg.setStatus(Status.NEGATIVE);
-						eventBus.fireEvent(new StatusMessageEvent(msg));
-					}
-
-					@Override
-					public void onSuccess(Void arg0) {
-						eventBus.fireEvent(new ListRoutesEvent());
-						StatusMessage msg = new StatusMessage(false);
-						msg.setMessage("Route gelöscht");
-						msg.setStatus(Status.POSITIVE);
-						eventBus.fireEvent(new StatusMessageEvent(msg));
-					}
-				});
+				routeService
+						.deleteRoute(id, new FailHandleCallback<Void>(eventBus,
+								"Route löschen", new ListRoutesEvent(), null));
 			}
 		});
 
