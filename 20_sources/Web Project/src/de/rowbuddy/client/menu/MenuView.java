@@ -76,6 +76,9 @@ public class MenuView extends Composite implements MenuDisplay {
 	}
 	
 	private boolean checkAllMenuSubItemEventsNull(MenuItem item){
+		if(item.getAssociatedEvent()!=null&&item.getSubItems().size()==0)
+			return false;
+		
 		int overall = item.getSubItems().size();
 		int nullCount = 0;
 		for(MenuSubItem m : item.getSubItems()){
