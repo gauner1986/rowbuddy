@@ -15,14 +15,13 @@ import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.Polyline;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.FailHandleCallback;
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListRoutesEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
@@ -43,9 +42,9 @@ public class AddRoutePresenter implements Presenter {
 		HasValue<String> getName();
 
 		HasValue<String> getLengthKM();
-		
+
 		HasValue<Boolean> isMutable();
-		
+
 		HasValue<String> getShortDescription();
 
 		MapWidget getMap();
@@ -81,26 +80,7 @@ public class AddRoutePresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				addRoute(new AsyncCallback<Route>() {
-
-					@Override
-					public void onFailure(Throwable arg0) {
-						ServiceHolderFactory.handleSessionFailure(arg0);
-						logger.severe("Cannot add route: " + arg0.getMessage());
-					}
-
-					@Override
-					public void onSuccess(Route arg0) {
-						logger.info("Route successful added; Reset View");
-						eventBus.fireEvent(new ListRoutesEvent());
-						StatusMessage message = new StatusMessage();
-						message.setMessage("Route erfolgreich hinzugefügt");
-						message.setStatus(Status.POSITIVE);
-						message.setAttached(false);
-						eventBus.fireEvent(new StatusMessageEvent(message));
-						view.reset();
-					}
-				});
+				addRoute();
 			}
 		});
 
@@ -162,7 +142,8 @@ public class AddRoutePresenter implements Presenter {
 		return Math.round((lengthInMeter / 1000.0) * 100.) / 100.;
 	}
 
-	private void addRoute(AsyncCallback<Route> action) {
+	private void addRoute() {
+
 		Route route = new Route();
 		try {
 			route.setName(view.getName().getValue());
@@ -177,7 +158,10 @@ public class AddRoutePresenter implements Presenter {
 			}
 			route.setWayPoints(wayPoints);
 			route.validate();
-			routeService.addRoute(route, action);
+
+			routeService.addRoute(route, new FailHandleCallback<Route>(
+					eventBus, "Route hinzufügen", new ListRoutesEvent(), null));
+
 		} catch (Exception e) {
 			StatusMessage message = new StatusMessage();
 			message.setMessage(e.getMessage());
