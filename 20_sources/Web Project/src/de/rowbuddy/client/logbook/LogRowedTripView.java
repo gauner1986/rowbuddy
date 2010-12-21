@@ -2,22 +2,19 @@ package de.rowbuddy.client.logbook;
 
 import java.util.Date;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.widgetideas.client.event.ChangeEvent;
-import com.google.gwt.widgetideas.client.event.ChangeHandler;
-import com.google.gwt.widgetideas.datepicker.client.DateTimePicker;
+import com.google.gwt.user.datepicker.client.DateBox;
 
 import de.rowbuddy.client.HeaderButtonView;
 
@@ -33,21 +30,19 @@ public class LogRowedTripView extends HeaderButtonView implements
 	private SuggestBox route;
 	private SuggestBox member;
 	private SuggestBox boat;
-	private final DateTimePicker startDate;
-	private final DateTimePicker endDate;
-	private boolean startDateVisible = false;
-	private boolean endDateVisible = false;
-
+	private DateBox startDate;
+	private DateBox endDate;
+	private Date startTime;
+	private Date endTime;
+	private TextBox startEdit;
+	private TextBox endEdit;
 	private final ListBox multiBox;
+	private DateTimeFormat timeDf = DateTimeFormat.getFormat("HH:mm");
 
-	private static final int STARTDATE = 0;
-	private static final int ENDDATE = 1;
-	private Label startDateLabel = new Label();
-	private Label endDateLabel = new Label();
-
-	@SuppressWarnings("deprecation")
 	public LogRowedTripView(String pageTitle) {
 		super(pageTitle);
+		startTime = new Date(System.currentTimeMillis());
+		endTime = new Date(System.currentTimeMillis() + 10000);
 
 		content = new FlexTable();
 		routeName = new TextBox();
@@ -80,81 +75,36 @@ public class LogRowedTripView extends HeaderButtonView implements
 		multiBoxPanel.setSpacing(4);
 		multiBoxPanel.add(multiBox);
 		content.setWidget(3, 1, multiBoxPanel);
+		DateTimeFormat dateFormat = DateTimeFormat
+				.getFormat(PredefinedFormat.DATE_MEDIUM);
 
-		startDate = new DateTimePicker(true);
-		startDate.setWidth("200px");
-		startDate.getDatePicker().setSelectedDate(
-				new Date(System.currentTimeMillis()));
-		startDate.getTimePicker().setDateTime(
-				new Date(System.currentTimeMillis()));
+		startDate = new DateBox();
+		startDate.setValue(new Date(System.currentTimeMillis()));
+		startDate.setFormat(new DateBox.DefaultFormat(dateFormat));
 
-		startDate.getDatePicker().addChangeHandler(new ChangeHandler<Date>() {
-			@Override
-			public void onChange(ChangeEvent<Date> event) {
-				updateDateLabel(STARTDATE);
-				updateEndDate();
-			}
-		});
-		startDate.getTimePicker().addChangeHandler(new ChangeHandler<Date>() {
-			@Override
-			public void onChange(ChangeEvent<Date> event) {
-				updateDateLabel(STARTDATE);
-				updateEndDate();
-			}
-		});
-		updateDateLabel(STARTDATE);
-		startDateLabel.setStyleName("sandbox-Date");
+		endDate = new DateBox();
+		endDate.setValue(new Date(System.currentTimeMillis()));
+		endDate.setFormat(new DateBox.DefaultFormat(dateFormat));
 
 		content.setHTML(5, 0, "Startzeit:");
-		content.setWidget(5, 1, startDateLabel);
-		startDateLabel.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent arg0) {
-				if (startDateVisible) {
-					content.setText(4, 1, "");
-					startDateVisible = false;
-				} else {
-					content.setWidget(4, 1, startDate);
-					startDateVisible = true;
-				}
-			}
-		});
+		HorizontalPanel startPanel = new HorizontalPanel();
+		content.setWidget(5, 1, startPanel);
+		startPanel.add(startDate);
 
-		endDate = new DateTimePicker(true);
-		endDate.setWidth("200px");
-		endDate.getDatePicker().setSelectedDate(
-				new Date(System.currentTimeMillis()));
-		endDate.getTimePicker().setDateTime(
-				new Date(System.currentTimeMillis()));
+		startEdit = new TextBox();
+		startEdit.setText(timeDf.format(startTime));
+		startPanel.add(startEdit);
 
-		endDate.getDatePicker().addChangeHandler(new ChangeHandler<Date>() {
-			@Override
-			public void onChange(ChangeEvent<Date> event) {
-				updateDateLabel(ENDDATE);
-			}
-		});
-		endDate.getTimePicker().addChangeHandler(new ChangeHandler<Date>() {
-			@Override
-			public void onChange(ChangeEvent<Date> event) {
-				updateDateLabel(ENDDATE);
-			}
-		});
-		updateDateLabel(ENDDATE);
-		endDateLabel.setStyleName("sandbox-Date");
+		HorizontalPanel endPanel = new HorizontalPanel();
+
 		content.setHTML(7, 0, "Endzeit:");
-		content.setWidget(7, 1, endDateLabel);
-		endDateLabel.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent arg0) {
-				if (endDateVisible) {
-					content.setText(6, 1, "");
-					endDateVisible = false;
-				} else {
-					content.setWidget(6, 1, endDate);
-					endDateVisible = true;
-				}
-			}
-		});
+
+		content.setWidget(7, 1, endPanel);
+
+		endEdit = new TextBox();
+		endEdit.setText(timeDf.format(endTime));
+		endPanel.add(endDate);
+		endPanel.add(endEdit);
 
 		content.setText(3, 2,
 				"Die erste ausgewählte Person ist sofern vorhanden der Steuermann.");
@@ -172,26 +122,6 @@ public class LogRowedTripView extends HeaderButtonView implements
 
 	public void setRouteInformation(double length) {
 		content.setText(0, 2, "Streckenlänge: " + length + " km");
-	}
-
-	private void updateDateLabel(int label) {
-		switch (label) {
-		case STARTDATE:
-			startDateLabel.setText(DateTimeFormat.getMediumDateTimeFormat()
-					.format(startDate.getDate()));
-			break;
-		case ENDDATE:
-			endDateLabel.setText(DateTimeFormat.getMediumDateTimeFormat()
-					.format(endDate.getDate()));
-			break;
-		}
-	}
-
-	private void updateEndDate() {
-		endDate.getDatePicker().setSelectedDate(startDate.getDate());
-		endDate.getTimePicker().setDateTime(startDate.getDate());
-		content.setWidget(6, 1, endDate);
-		updateDateLabel(ENDDATE);
 	}
 
 	@Override
@@ -233,16 +163,6 @@ public class LogRowedTripView extends HeaderButtonView implements
 	}
 
 	@Override
-	public Date getStartDate() {
-		return startDate.getDate();
-	}
-
-	@Override
-	public Date getEndDate() {
-		return endDate.getDate();
-	}
-
-	@Override
 	public ListBox getListBox() {
 		return multiBox;
 	}
@@ -263,6 +183,24 @@ public class LogRowedTripView extends HeaderButtonView implements
 	public void setMemberOracle(SuggestOracle oracle) {
 		member = new SuggestBox(oracle, memberName);
 		content.setWidget(2, 1, member);
+	}
+
+	@Override
+	public Date getStartDate() {
+		startTime = timeDf.parse(startEdit.getValue());
+		return mergeDateTime(startDate.getValue(), startTime);
+	}
+
+	@Override
+	public Date getEndDate() {
+		endTime = timeDf.parse(endEdit.getText());
+		return mergeDateTime(endDate.getValue(), endTime);
+	}
+
+	private Date mergeDateTime(Date date, Date time) {
+		DateTimeFormat dateDf = DateTimeFormat.getFormat("dd.MM.yyyy");
+		DateTimeFormat mergedDf = DateTimeFormat.getFormat("dd.MM.yyyy HH:mm");
+		return mergedDf.parse(dateDf.format(date) + " " + timeDf.format(time));
 	}
 
 }
