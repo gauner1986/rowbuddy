@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.BoatDTO;
-import de.rowbuddy.client.FailHandleCallback;
+import de.rowbuddy.client.ServerCallHandler;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
@@ -86,7 +86,7 @@ public class AddDamagePresenter implements Presenter {
 						damage.setLogDate(new Date(System.currentTimeMillis()));
 						
 						
-						service.addDamage(damage, boat.getId(), new FailHandleCallback<Void>(eventBus, "Schaden hinzufügen", null, new ListDamageEvent()));
+						service.addDamage(damage, boat.getId(), new ServerCallHandler<Void>(eventBus, "Schaden hinzufügen", null, new ListDamageEvent()));
 
 					} catch (RowBuddyException ex) {
 						StatusMessage message = new StatusMessage(false);

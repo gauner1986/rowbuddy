@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.PersonalTripDTO;
-import de.rowbuddy.client.FailHandleCallback;
+import de.rowbuddy.client.ServerCallHandler;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.events.LogRowedTripEvent;
 import de.rowbuddy.client.events.StartTripEvent;
@@ -103,7 +103,7 @@ public class ListPersonalTripsPresenter implements Presenter {
 	}
 
 	private void fetchPersonalTrips() {
-		logbook.getPersonalTrips(new FailHandleCallback<List<PersonalTripDTO>>(
+		logbook.getPersonalTrips(new ServerCallHandler<List<PersonalTripDTO>>(
 				eventBus, "Meine Fahrten laden", null, null) {
 
 			public void onSuccess(java.util.List<PersonalTripDTO> arg0) {
@@ -114,7 +114,7 @@ public class ListPersonalTripsPresenter implements Presenter {
 	}
 
 	private void fetchPersonalOpenTrips() {
-		logbook.getPersonalOpenTrips(new FailHandleCallback<List<PersonalTripDTO>>(
+		logbook.getPersonalOpenTrips(new ServerCallHandler<List<PersonalTripDTO>>(
 				eventBus, "Meine offenen Fahrten laden", null, null) {
 			@Override
 			public void onSuccess(List<PersonalTripDTO> arg0) {

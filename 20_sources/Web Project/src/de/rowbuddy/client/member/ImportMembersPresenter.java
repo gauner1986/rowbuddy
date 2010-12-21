@@ -7,7 +7,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.FailHandleCallback;
+import de.rowbuddy.client.ServerCallHandler;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.events.ListMembersEvent;
 import de.rowbuddy.client.services.MemberRemoteServiceAsync;
@@ -47,7 +47,7 @@ public class ImportMembersPresenter implements Presenter {
 			public void onClick(ClickEvent arg0) {
 				String importData = view.getImportData();
 
-				memberService.importMembers(importData, new FailHandleCallback<Integer>(eventBus, "Mitglieder importieren", new ListMembersEvent(), null));
+				memberService.importMembers(importData, new ServerCallHandler<Integer>(eventBus, "Mitglieder importieren", new ListMembersEvent(), null));
 				
 //				memberService.importMembers(importData,
 //						new AsyncCallback<Integer>() {

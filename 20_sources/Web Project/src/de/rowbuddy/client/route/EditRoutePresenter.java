@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.FailHandleCallback;
+import de.rowbuddy.client.ServerCallHandler;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.events.DetailsRouteEvent;
 import de.rowbuddy.client.events.ListRoutesEvent;
@@ -90,7 +90,7 @@ public class EditRoutePresenter implements Presenter {
 	private void fetchRoute() {
 
 		logger.info("Get Route id:" + id);
-		routeService.getRouteForEdit(id, new FailHandleCallback<Route>(
+		routeService.getRouteForEdit(id, new ServerCallHandler<Route>(
 				eventBus, "Route bearbeiten", null, new DetailsRouteEvent(id)) {
 
 			public void onSuccess(Route arg0) {
@@ -148,7 +148,7 @@ public class EditRoutePresenter implements Presenter {
 			public void onClick(ClickEvent arg0) {
 				if (updateRoute()) {
 					routeService.editRoute(route,
-							new FailHandleCallback<Route>(eventBus,
+							new ServerCallHandler<Route>(eventBus,
 									"Route speichern", new ListRoutesEvent(),
 									null));
 				}
@@ -177,7 +177,7 @@ public class EditRoutePresenter implements Presenter {
 			public void onClick(ClickEvent arg0) {
 				view.closeDialog();
 				routeService
-						.deleteRoute(id, new FailHandleCallback<Void>(eventBus,
+						.deleteRoute(id, new ServerCallHandler<Void>(eventBus,
 								"Route löschen", new ListRoutesEvent(), null));
 			}
 		});

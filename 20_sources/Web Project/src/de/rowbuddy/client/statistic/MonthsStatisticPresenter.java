@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.MonthsStatisticDTO;
-import de.rowbuddy.client.FailHandleCallback;
+import de.rowbuddy.client.ServerCallHandler;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.services.StatisticRemoteServiceAsync;
 
@@ -45,7 +45,7 @@ public class MonthsStatisticPresenter implements Presenter {
 
 	private void fetchData() {
 		statisitcService.getMonthsStatistic(2010,
-				new FailHandleCallback<MonthsStatisticDTO>(eventBus,
+				new ServerCallHandler<MonthsStatisticDTO>(eventBus,
 						"Monatsstatistik", null, null) {
 
 					@Override

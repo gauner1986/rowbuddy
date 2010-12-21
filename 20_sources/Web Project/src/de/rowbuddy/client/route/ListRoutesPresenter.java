@@ -11,7 +11,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.FailHandleCallback;
+import de.rowbuddy.client.ServerCallHandler;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.events.AddRouteEvent;
 import de.rowbuddy.client.events.DetailsRouteEvent;
@@ -80,7 +80,7 @@ public class ListRoutesPresenter implements Presenter {
 	}
 
 	private void fetchRoutes() {
-		routeService.getRouteList(new FailHandleCallback<List<Route>>(eventBus,
+		routeService.getRouteList(new ServerCallHandler<List<Route>>(eventBus,
 				"Routen laden", null, null) {
 			@Override
 			public void onSuccess(List<Route> arg0) {

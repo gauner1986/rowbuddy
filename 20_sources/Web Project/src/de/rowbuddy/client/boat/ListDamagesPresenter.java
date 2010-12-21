@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.DamageDTO;
-import de.rowbuddy.client.FailHandleCallback;
+import de.rowbuddy.client.ServerCallHandler;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.events.DetailsDamageEvent;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
@@ -63,7 +63,7 @@ public class ListDamagesPresenter implements Presenter {
 	}
 
 	private void fetchDamages(boolean allDamages) {
-		FailHandleCallback<List<DamageDTO>> callback = new FailHandleCallback<List<DamageDTO>>(eventBus, "Schäden auflisten", null, null){
+		ServerCallHandler<List<DamageDTO>> callback = new ServerCallHandler<List<DamageDTO>>(eventBus, "Schäden auflisten", null, null){
 			@Override
 			public void onSuccess(List<DamageDTO> arg0) {
 				fetchedDamages = arg0;

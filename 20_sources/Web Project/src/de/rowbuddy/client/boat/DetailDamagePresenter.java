@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.FailHandleCallback;
+import de.rowbuddy.client.ServerCallHandler;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.events.EditDamageEvent;
 import de.rowbuddy.client.events.ListDamageEvent;
@@ -80,7 +80,7 @@ public class DetailDamagePresenter implements Presenter {
 
 	private void fetchDamage() {
 		
-		service.getDamage(id, new FailHandleCallback<BoatDamage>(eventBus, "Schaden-Details anzeigen", null, new ListDamageEvent()) {
+		service.getDamage(id, new ServerCallHandler<BoatDamage>(eventBus, "Schaden-Details anzeigen", null, new ListDamageEvent()) {
 			@Override
 			public void onSuccess(BoatDamage arg0) {
 				damage = arg0;
