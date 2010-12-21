@@ -3,6 +3,8 @@ package de.rowbuddy.client.logbook;
 import java.util.Date;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.user.client.ui.Button;
@@ -81,6 +83,14 @@ public class LogRowedTripView extends HeaderButtonView implements
 		startDate = new DateBox();
 		startDate.setValue(new Date(System.currentTimeMillis()));
 		startDate.setFormat(new DateBox.DefaultFormat(dateFormat));
+		startDate.getDatePicker().addValueChangeHandler(
+				new ValueChangeHandler<Date>() {
+
+					@Override
+					public void onValueChange(ValueChangeEvent<Date> arg0) {
+						endDate.setValue(arg0.getValue());
+					}
+				});
 
 		endDate = new DateBox();
 		endDate.setValue(new Date(System.currentTimeMillis()));
