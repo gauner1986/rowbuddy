@@ -23,6 +23,8 @@ public class MonthsStatisticView extends HeaderButtonView implements
 	@Override
 	public void setData(final MonthsStatisticDTO statistic) {	
 		statisticView = new SafeHtml() {
+			private static final long serialVersionUID = 1694242349406888212L;
+
 			@Override
 			public String asString() {
 				int maxValue= 0;
