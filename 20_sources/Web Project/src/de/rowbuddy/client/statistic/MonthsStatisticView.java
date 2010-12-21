@@ -5,7 +5,6 @@ import com.google.gwt.user.client.ui.FlexTable;
 
 import de.rowbuddy.boundary.dtos.MonthsStatisticDTO;
 import de.rowbuddy.client.HeaderButtonView;
-import de.rowbuddy.client.presenter.statistic.MonthsStatisticPresenter;
 
 public class MonthsStatisticView extends HeaderButtonView implements
 	MonthsStatisticPresenter.Display {
@@ -19,7 +18,8 @@ public class MonthsStatisticView extends HeaderButtonView implements
 
 		content = new FlexTable();
 		MonthsStatisticDTO dto = new MonthsStatisticDTO();
-		dto.setMonths(new int[]{150, 200, 349, 344, 235, 456, 327, 438, 259, 510, 411, 312});
+		int[] ar = {150, 200, 349, 344, 235, 456, 327, 438, 259, 510, 411, 312};
+		dto.setMonths(ar);
 		setData(dto);
 				
 		setContent(content);
@@ -31,17 +31,21 @@ public class MonthsStatisticView extends HeaderButtonView implements
 		
 		statisticView = new SafeHtml() {
 			@Override
-			public String asString() {// TODO form values
+			public String asString() {
 				int maxValue= 0;
 				for (int monthValue : statistic.getMonths()) {
 					if(monthValue > maxValue) {
 						maxValue = monthValue;
 					}
 				}
-				String values = statistic.getMonths().toString();
-				values = values.replace(" ", "");
+				String values = "";
+				for (int monthValue : statistic.getMonths()) {
+					values += monthValue+" ";
+				}
+				values = values.trim();
+				values = values.replace(" ", ",");
 				String valuesStriked = values.replace(",", "|");
-				return "<img src='http://chart.apis.google.com/chart?chxl=0:|J|F|M|A|M|J|J|A|S|O|N|D|1:|"+valuesStriked+"&chxr=0,0,"+maxValue+"&chxs=0,676767,11.833,0,l,676767|1,676767,11.5,0,lt,676767&chxt=x,x&chbh=a&chs=440x220&cht=bvs&chco=336699&chds=0,20&chd=t:"+values+"&chma=0,0,0,10' width='440' height='220' alt='' />";
+				return "<img src='http://chart.apis.google.com/chart?chxl=0:|J|F|M|A|M|J|J|A|S|O|N|D|1:|"+valuesStriked+"&chxr=0,0,"+maxValue+"&chxs=0,676767,11.833,0,l,676767|1,676767,11.5,0,lt,676767&chxt=x,x&chbh=a&chs=440x220&cht=bvs&chco=336699&chds=0,"+maxValue+"&chd=t:"+values+"&chma=0,0,0,10' width='440' height='220' alt='' />";
 			}
 		};
 		content.setHTML(0, 1, this.statisticView);

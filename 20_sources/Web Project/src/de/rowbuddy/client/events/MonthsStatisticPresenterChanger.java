@@ -6,8 +6,8 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 import de.rowbuddy.client.PageTitles;
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.presenter.statistic.MonthsStatisticPresenter;
 import de.rowbuddy.client.services.StatisticRemoteServiceAsync;
+import de.rowbuddy.client.statistic.MonthsStatisticPresenter;
 import de.rowbuddy.client.statistic.MonthsStatisticView;
 
 public class MonthsStatisticPresenterChanger extends PresenterChanger {

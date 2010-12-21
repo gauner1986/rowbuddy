@@ -280,22 +280,10 @@ public class RowBuddyFacade {
 	
 	public MonthsStatisticDTO getMonthsStatistic(int year) {
 		// TODO get from StatisticManagement
-		System.out.println("RowBUddyFacade");
+		System.out.println("RowBuddyFacade");
 		MonthsStatisticDTO dto = new MonthsStatisticDTO();
-		int[] months =  new int[12];
-		months[1] = 1;
-		months[2] = 2;
-		months[3] = 30;
-		months[4] = 4;
-		months[5] = 5;
-		months[6] = 6;
-		months[7] = 7;
-		months[8] = 8;
-		months[9] = 9;
-		months[10] = 10;
-		months[11] = 11;
-		months[12] = 12;
-		dto.setMonths(months);
+		int[] ar = {150, 200, 349, 344, 235, 456, 327, 438, 259, 510, 411, 312};
+		dto.setMonths(ar);
 		return dto;
 	}
 

@@ -1,4 +1,4 @@
-package de.rowbuddy.client.presenter.statistic;
+package de.rowbuddy.client.statistic;
 
 import java.util.logging.Logger;
 
