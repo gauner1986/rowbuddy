@@ -11,31 +11,31 @@ import de.rowbuddy.boundary.dtos.RouteDTO;
 import de.rowbuddy.boundary.dtos.TripDTO;
 import de.rowbuddy.boundary.dtos.TripMemberDTO;
 import de.rowbuddy.entities.Trip;
-import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 public interface LogbookRemoteService extends RemoteService {
 
 	public void startTrip(TripDTO trip, long boatId, long routeId,
-			List<TripMemberDTO> tripMembers) throws RowBuddyException, NotLoggedInException;
+			List<TripMemberDTO> tripMembers) throws RowBuddyException;
 
-	public List<TripDTO> getOpenTrips() throws NotLoggedInException;
+	public List<TripDTO> getOpenTrips() throws RowBuddyException;
 
-	public void finishTrip(Trip openTrip) throws RowBuddyException, NotLoggedInException;
+	public void finishTrip(Trip openTrip) throws RowBuddyException;
 
-	public Trip getTrip(Long id) throws RowBuddyException, NotLoggedInException;
+	public Trip getTrip(Long id) throws RowBuddyException;
 
-	public List<PersonalTripDTO> getPersonalTrips() throws NotLoggedInException;
+	public List<PersonalTripDTO> getPersonalTrips() throws RowBuddyException;
 
-	public List<PersonalTripDTO> getPersonalOpenTrips() throws NotLoggedInException;
+	public List<PersonalTripDTO> getPersonalOpenTrips()
+			throws RowBuddyException;
 
-	List<MemberDTO> searchMember(String query) throws NotLoggedInException;
+	List<MemberDTO> searchMember(String query) throws RowBuddyException;
 
-	List<RouteDTO> searchRoute(String query) throws NotLoggedInException;
+	List<RouteDTO> searchRoute(String query) throws RowBuddyException;
 
-	List<BoatDTO> searchBoat(String query) throws NotLoggedInException;
+	List<BoatDTO> searchBoat(String query) throws RowBuddyException;
 
 	void logRowedTrip(TripDTO trip, long boatId, long routeId,
-			List<TripMemberDTO> tripMembers) throws RowBuddyException, NotLoggedInException;
+			List<TripMemberDTO> tripMembers) throws RowBuddyException;
 
 }

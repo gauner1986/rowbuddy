@@ -22,22 +22,24 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public List<BoatDTO> getBoatOverview() throws NotLoggedInException{
+	public List<BoatDTO> getBoatOverview() throws RowBuddyException {
 		return getRowBuddyFacade().getBoatOverview();
 	}
 
 	@Override
-	public void addBoat(Boat boat) throws RowBuddyException, NotLoggedInException {
+	public void addBoat(Boat boat) throws RowBuddyException,
+			NotLoggedInException {
 		getRowBuddyFacade().addBoat(boat);
 	}
 
 	@Override
-	public void updateBoat(Boat boat) throws RowBuddyException, NotLoggedInException {
+	public void updateBoat(Boat boat) throws RowBuddyException,
+			NotLoggedInException {
 		getRowBuddyFacade().updateBoat(boat);
 	}
 
 	@Override
-	public Boat getBoat(Long id) throws RowBuddyException, NotLoggedInException {
+	public Boat getBoat(Long id) throws RowBuddyException {
 		Boat boat = null;
 		boat = getRowBuddyFacade().getBoat(id);
 
@@ -57,7 +59,7 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 		boat.setBoatReservations(reservations);
 
 		return boat;
-		
+
 	}
 
 	@Override
@@ -66,12 +68,12 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 	}
 
 	@Override
-	public List<DamageDTO> getOpenDamages() throws NotLoggedInException {
+	public List<DamageDTO> getOpenDamages() throws RowBuddyException {
 		return getRowBuddyFacade().getOpenDamages();
 	}
 
 	@Override
-	public List<DamageDTO> getAllDamages() throws NotLoggedInException {
+	public List<DamageDTO> getAllDamages() throws RowBuddyException {
 		return getRowBuddyFacade().getAllDamages();
 	}
 
@@ -81,11 +83,10 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 		damage = getRowBuddyFacade().getDamage(id);
 		damage.getLogger().setPublishedTrips(new LinkedList<Trip>());
 		damage.getLogger().setRoles(new LinkedList<Role>());
-		damage.getBoat().setBoatReservations(
-					new LinkedList<BoatReservation>());
+		damage.getBoat().setBoatReservations(new LinkedList<BoatReservation>());
 		damage.getBoat().setBoatDamages(new LinkedList<BoatDamage>());
 		return damage;
-		
+
 	}
 
 	@Override
@@ -100,7 +101,7 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 	}
 
 	@Override
-	public List<BoatDTO> search(String query) throws NotLoggedInException {
+	public List<BoatDTO> search(String query) throws RowBuddyException {
 		return getRowBuddyFacade().searchBoat(query);
 	}
 }

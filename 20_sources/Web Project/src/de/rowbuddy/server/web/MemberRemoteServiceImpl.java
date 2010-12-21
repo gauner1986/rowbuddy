@@ -9,7 +9,6 @@ import de.rowbuddy.entities.Member;
 import de.rowbuddy.entities.Role;
 import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.entities.Trip;
-import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 public class MemberRemoteServiceImpl extends AbstractRemoteService implements
@@ -34,7 +33,7 @@ public class MemberRemoteServiceImpl extends AbstractRemoteService implements
 	}
 
 	@Override
-	public List<MemberDTO> getMembers() throws NotLoggedInException {
+	public List<MemberDTO> getMembers() throws RowBuddyException {
 		return getRowBuddyFacade().getMembers();
 	}
 

@@ -8,7 +8,6 @@ import de.rowbuddy.entities.GpsPoint;
 import de.rowbuddy.entities.Role;
 import de.rowbuddy.entities.Route;
 import de.rowbuddy.entities.Trip;
-import de.rowbuddy.exceptions.NotLoggedInException;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 public class RouteRemoteServiceImpl extends AbstractRemoteService implements
@@ -57,7 +56,7 @@ public class RouteRemoteServiceImpl extends AbstractRemoteService implements
 	}
 
 	@Override
-	public boolean canEditRoute(Route route) throws NotLoggedInException {
+	public boolean canEditRoute(Route route) throws RowBuddyException {
 		return getRowBuddyFacade().canEditRoute(route);
 	}
 
