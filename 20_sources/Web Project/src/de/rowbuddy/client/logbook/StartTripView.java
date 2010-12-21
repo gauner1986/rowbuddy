@@ -71,7 +71,7 @@ public class StartTripView extends HeaderButtonView implements
 		ft2.setWidget(0, 0, deleteTripMemberButton);
 		
 		setCoxButton = new Button("Als Steuermann setzen");
-		setCoxButton.setStylePrimaryName("buttonApply buttonNeutral");		
+		setCoxButton.setStylePrimaryName("buttonApply buttonRegular");		
 		ft2.setWidget(1,0, setCoxButton);
 		
 		content.setWidget(3, 2, ft2);
