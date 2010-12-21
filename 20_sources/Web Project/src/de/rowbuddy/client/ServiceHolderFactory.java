@@ -36,36 +36,37 @@ public class ServiceHolderFactory {
 		return sessionMember;
 	}
 
-	private static <Sync, Async> Async createService(Class<Sync> syncType,
-			Class<Async> asyncType, String serverImplementation) {
-		Async service = GWT.create(syncType);
-		((ServiceDefTarget) service).setServiceEntryPoint(GWT
-				.getHostPageBaseURL() + serverImplementation);
+	private static void registerService(ServiceDefTarget service,
+			String serverImplementation) {
+		service.setServiceEntryPoint(GWT.getHostPageBaseURL()
+				+ serverImplementation);
 		logger.info("Service registerd: " + GWT.getHostPageBaseURL()
 				+ serverImplementation);
-		return service;
 	}
 
 	public static BoatRemoteServiceAsync getBoatService() {
 		if (boatService == null) {
-			boatService = createService(BoatRemoteService.class,
-					BoatRemoteServiceAsync.class, "BoatRemoteServiceImpl");
+			boatService = GWT.create(BoatRemoteService.class);
+			registerService((ServiceDefTarget) boatService,
+					"BoatRemoteServiceImpl");
 		}
 		return boatService;
 	}
 
 	public static LogbookRemoteServiceAsync getLogbookService() {
 		if (logbookService == null) {
-			logbookService = createService(LogbookRemoteService.class,
-					LogbookRemoteServiceAsync.class, "LogbookRemoteServiceImpl");
+			logbookService = GWT.create(LogbookRemoteService.class);
+			registerService((ServiceDefTarget) logbookService,
+					"LogbookRemoteServiceImpl");
 		}
 		return logbookService;
 	}
 
 	public static RouteRemoteServiceAsync getRouteService() {
 		if (routeService == null) {
-			routeService = createService(RouteRemoteService.class,
-					RouteRemoteServiceAsync.class, "RouteRemoteServiceImpl");
+			routeService = GWT.create(RouteRemoteService.class);
+			registerService((ServiceDefTarget) routeService,
+					"RouteRemoteServiceImpl");
 		}
 		return routeService;
 
@@ -73,8 +74,9 @@ public class ServiceHolderFactory {
 
 	public static MemberRemoteServiceAsync getMemberService() {
 		if (memberService == null) {
-			memberService = createService(MemberRemoteService.class,
-					MemberRemoteServiceAsync.class, "MemberRemoteServiceImpl");
+			memberService = GWT.create(MemberRemoteService.class);
+			registerService((ServiceDefTarget) memberService,
+					"MemberRemoteServiceImpl");
 		}
 		return memberService;
 
@@ -82,8 +84,8 @@ public class ServiceHolderFactory {
 
 	public static StatisticRemoteServiceAsync getStatisticService() {
 		if (statisticService == null) {
-			statisticService = createService(StatisticRemoteService.class,
-					StatisticRemoteServiceAsync.class,
+			statisticService = GWT.create(StatisticRemoteService.class);
+			registerService((ServiceDefTarget) statisticService,
 					"StatisticRemoteServiceImpl");
 		}
 		return statisticService;
@@ -91,8 +93,9 @@ public class ServiceHolderFactory {
 
 	public static SessionManagerAsync getSessionManager() {
 		if (sessionManager == null) {
-			sessionManager = createService(SessionManager.class,
-					SessionManagerAsync.class, "SessionManagerImpl");
+			sessionManager = GWT.create(SessionManager.class);
+			registerService((ServiceDefTarget) sessionManager,
+					"SessionManagerImpl");
 		}
 		return sessionManager;
 
