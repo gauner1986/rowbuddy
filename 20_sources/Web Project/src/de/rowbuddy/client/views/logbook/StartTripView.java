@@ -1,10 +1,8 @@
 package de.rowbuddy.client.views.logbook;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.SuggestBox;
@@ -27,7 +25,7 @@ public class StartTripView extends HeaderButtonView implements
 	private SuggestBox route;
 	private SuggestBox member;
 	private SuggestBox boat;
-	
+
 	private final ListBox multiBox;
 
 	@SuppressWarnings("deprecation")
@@ -55,7 +53,7 @@ public class StartTripView extends HeaderButtonView implements
 
 		content.setText(2, 0, "Mitglied(er):");
 		content.setWidget(2, 1, memberName);
-		
+
 		multiBox = new ListBox(true);
 		multiBox.ensureDebugId("cwListBox-multiBox");
 		multiBox.setWidth("155px");
@@ -64,26 +62,27 @@ public class StartTripView extends HeaderButtonView implements
 		VerticalPanel multiBoxPanel = new VerticalPanel();
 		multiBoxPanel.setSpacing(4);
 		multiBoxPanel.add(multiBox);
-		content.setWidget(3, 1, multiBoxPanel);		
+		content.setWidget(3, 1, multiBoxPanel);
 
-		content.setText(3, 3, "Die erste ausgewählte Person ist sofern vorhanden der Steuermann.");
-				
+		content.setText(3, 3,
+				"Die erste ausgew√§hlte Person ist sofern vorhanden der Steuermann.");
+
 		setContent(content);
 	}
-	
+
 	public void setBoatInformation(String name, boolean coxed, int rowers) {
-		if(coxed) {
-			content.setText(1,2, "Gesteuert: ja");
+		if (coxed) {
+			content.setText(1, 2, "Gesteuert: ja");
 		} else {
-			content.setText(1,2, "Gesteuert: nein");			
+			content.setText(1, 2, "Gesteuert: nein");
 		}
-		content.setText(2, 2, "Bootsplätze: "+rowers);
+		content.setText(2, 2, "Bootspl#tze: " + rowers);
 	}
-	
+
 	public void setRouteInformation(double length) {
-		content.setText(0, 2, "Streckenlänge: "+length+" km");
+		content.setText(0, 2, "Streckenl√§nge: " + length + " km");
 	}
-	
+
 	@Override
 	public void showTripMembers(String[] tripMembers) {
 		multiBox.clear();
@@ -116,7 +115,7 @@ public class StartTripView extends HeaderButtonView implements
 	public HasValue<String> getMemberName() {
 		return member;
 	}
-	
+
 	@Override
 	public SuggestBox getMember() {
 		return member;
