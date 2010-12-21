@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.Presenter;
+import de.rowbuddy.client.ServerCallHandler;
 import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
@@ -73,8 +74,8 @@ public class EditBoatPresenter implements Presenter {
 
 	private void fetchBoat() {
 		logger.info("Get Boat id:" + id);
-		boatService.getBoat(id, new AsyncCallback<Boat>() {
-
+		boatService.getBoat(id, new ServerCallHandler<Boat>(eventBus,
+				"Boot laden", null, new ListBoatsEvent()) {
 			@Override
 			public void onSuccess(Boat arg0) {
 				boat = arg0;
@@ -84,17 +85,6 @@ public class EditBoatPresenter implements Presenter {
 						String.valueOf(boat.getNumberOfSeats()));
 				view.isCoxed().setValue(boat.isCoxed());
 				view.isLocked().setValue(boat.isLocked());
-			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				ServiceHolderFactory.handleSessionFailure(arg0);
-				logger.severe("Cannot fetch boat:" + arg0.getMessage());
-				eventBus.fireEvent(new ListBoatsEvent());
-				StatusMessage message = new StatusMessage(false);
-				message.setStatus(Status.NEGATIVE);
-				message.setMessage("Boot existiert nicht");
-				eventBus.fireEvent(new StatusMessageEvent(message));
 			}
 		});
 	}
