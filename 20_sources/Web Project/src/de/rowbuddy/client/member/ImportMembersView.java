@@ -2,6 +2,7 @@ package de.rowbuddy.client.member;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -26,11 +27,11 @@ public class ImportMembersView extends HeaderButtonView implements
 		sb.append("Fügen Sie die zu importierenden Daten in das Textfeld ein und klicken Sie auf den Button 'Import starten'. ");
 		sb.append("Die Daten müssen kommagetrennt sein und mit der Zeile 'ID,Nachname,Name,Adresse,PLZ,Stadt,Telefon,Handy,Email' anfangen");
 
-		Label label = new Label();
-		label.setText(sb.toString());
+		HTML label = new HTML(sb.toString());
 
 		textArea = new TextArea();
 		textArea.setVisibleLines(15);
+		textArea.setWidth("100%");
 
 		VerticalPanel vPanel = new VerticalPanel();
 		vPanel.add(label);
