@@ -13,6 +13,17 @@ import de.rowbuddy.client.model.StatusMessage;
 import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.exceptions.NotLoggedInException;
 
+/**
+ * This class decorates the standard GWT AsyncCallback class with the ability to
+ * display result messages in the status bar of the application. Furthermore it
+ * is possible to specify events to be fired on a successful or a failure
+ * request.
+ * 
+ * @author Georg Fleischer
+ * 
+ * @param <ReturnType>
+ *            The returntype of the callback
+ */
 public class ServerRequestHandler<ReturnType> implements
 		AsyncCallback<ReturnType> {
 
