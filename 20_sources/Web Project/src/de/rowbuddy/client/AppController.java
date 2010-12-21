@@ -20,11 +20,11 @@ import de.rowbuddy.client.events.EditBoatPresenterChanger;
 import de.rowbuddy.client.events.EditDamagePresenterChanger;
 import de.rowbuddy.client.events.EditRoutPresenterChanger;
 import de.rowbuddy.client.events.ImportMembersPresenterChanger;
-import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.ListBoatsPresenterChanger;
 import de.rowbuddy.client.events.ListDamagePresenterChanger;
 import de.rowbuddy.client.events.ListMembersPresenterChanger;
 import de.rowbuddy.client.events.ListPersonalOpenTripsPresenterChanger;
+import de.rowbuddy.client.events.ListPersonalTripsEvent;
 import de.rowbuddy.client.events.ListPersonalTripsPresenterChanger;
 import de.rowbuddy.client.events.ListRoutesPresenterChanger;
 import de.rowbuddy.client.events.LogRowedTripPresenterChanger;
@@ -148,7 +148,7 @@ public class AppController implements Presenter, EventListener {
 		}
 
 		if (History.getToken().equals("")) {
-			eventBus.fireEvent(new ListBoatsEvent());
+			eventBus.fireEvent(new ListPersonalTripsEvent());
 			// TODO welcome page
 		} else {
 			History.fireCurrentHistoryState();
