@@ -89,7 +89,7 @@ public class BoatRemoteServiceImpl extends AbstractRemoteService implements
 	}
 
 	@Override
-	public void updateDamage(BoatDamage damage) throws NotLoggedInException {
+	public void updateDamage(BoatDamage damage) throws RowBuddyException {
 		getRowBuddyFacade().updateDamage(damage);
 	}
 

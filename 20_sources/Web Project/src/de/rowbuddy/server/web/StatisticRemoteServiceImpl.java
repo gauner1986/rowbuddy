@@ -12,11 +12,6 @@ public class StatisticRemoteServiceImpl extends AbstractRemoteService implements
 
 	@Override
 	public MonthsStatisticDTO getMonthsStatistic(int year) throws RowBuddyException, NotLoggedInException {
-		System.out.println("StatisticRemoteServiceImpl");
-		try {
 			return getRowBuddyFacade().getMonthsStatistic(year);
-		} catch (NullPointerException e) {
-			throw new NotLoggedInException();
-		}
 	}
 }

@@ -17,18 +17,12 @@ public class MonthsStatisticView extends HeaderButtonView implements
 		System.out.println("#MonthsStatisticView");
 
 		content = new FlexTable();
-		MonthsStatisticDTO dto = new MonthsStatisticDTO();
-		int[] ar = {150, 200, 349, 344, 235, 456, 327, 438, 259, 510, 411, 312};
-		dto.setMonths(ar);
-		setData(dto);
 				
 		setContent(content);
 	}
 
 	@Override
-	public void setData(final MonthsStatisticDTO statistic) {
-		System.out.println("setting DATA");
-		
+	public void setData(final MonthsStatisticDTO statistic) {	
 		statisticView = new SafeHtml() {
 			@Override
 			public String asString() {

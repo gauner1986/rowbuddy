@@ -1,7 +1,5 @@
 package de.rowbuddy.client.statistic;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.logging.Logger;
 
 import com.google.gwt.event.shared.EventBus;
@@ -51,15 +49,12 @@ public class MonthsStatisticPresenter implements Presenter {
 
 			@Override
 			public void onSuccess(MonthsStatisticDTO arg0) {
-				System.out.println("##fetchData().onSuccess()");
 				months = arg0;
 				view.setData(months);
-				logger.info("Statistic fetched");
 			}
 
 			@Override
 			public void onFailure(Throwable arg0) {
-				System.out.println("##fetchData().onFailure()");
 				ServiceHolderFactory.handleSessionFailure(arg0);
 				logger.severe(arg0.getMessage());
 				// Window.alert("error");

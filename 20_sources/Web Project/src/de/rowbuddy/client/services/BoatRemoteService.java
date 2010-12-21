@@ -28,7 +28,7 @@ public interface BoatRemoteService extends RemoteService {
 
 	public BoatDamage getDamage(Long id) throws Exception;
 
-	public void updateDamage(BoatDamage damage) throws NotLoggedInException;
+	public void updateDamage(BoatDamage damage) throws RowBuddyException;
 
 	public List<BoatDTO> search(String query) throws NotLoggedInException;
 
