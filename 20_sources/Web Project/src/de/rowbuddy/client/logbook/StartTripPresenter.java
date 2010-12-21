@@ -267,7 +267,7 @@ public class StartTripPresenter implements Presenter {
 					try {
 						trip.setFinished(true);
 						trip.setStartDate(new Date(System.currentTimeMillis()));
-						logbookService.logRowedTrip(trip, boat.getId(), route.getId(), this.tripMembers , 
+						logbookService.startTrip(trip, boat.getId(), route.getId(), this.tripMembers , 
 								new AsyncCallback<Void>() {
 
 							@Override
