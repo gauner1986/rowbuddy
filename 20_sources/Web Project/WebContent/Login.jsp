@@ -35,8 +35,8 @@
 						try {
 							rbf.login(email, password);
 							session.setAttribute("rbf", rbf);
-							response.sendRedirect("welcomeGWT.html?gwt.codesvr=127.0.0.1:9997");
-							//response.sendRedirect("welcomeGWT.html");
+							response.sendRedirect("index.html?gwt.codesvr=127.0.0.1:9997");
+							//response.sendRedirect("index.html");
 						} catch (NotLoggedInException ex) {
 				%> <%=ex.getMessage()%> <%
  	}
