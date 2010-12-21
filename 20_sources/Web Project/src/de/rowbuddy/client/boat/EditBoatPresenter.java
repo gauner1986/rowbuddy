@@ -6,18 +6,15 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.ServerRequestHandler;
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
-import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.exceptions.RowBuddyException;
@@ -148,28 +145,8 @@ public class EditBoatPresenter implements Presenter {
 			@Override
 			public void onClick(ClickEvent arg0) {
 				view.closeDialog();
-				boatService.deleteBoat(id, new AsyncCallback<Void>() {
-
-					@Override
-					public void onFailure(Throwable arg0) {
-						ServiceHolderFactory.handleSessionFailure(arg0);
-						logger.severe("Cannot delete boat: "
-								+ arg0.getMessage());
-						StatusMessage msg = new StatusMessage(false);
-						msg.setMessage(arg0.getMessage());
-						msg.setStatus(Status.NEGATIVE);
-						eventBus.fireEvent(new StatusMessageEvent(msg));
-					}
-
-					@Override
-					public void onSuccess(Void arg0) {
-						eventBus.fireEvent(new ListBoatsEvent());
-						StatusMessage msg = new StatusMessage(false);
-						msg.setMessage("Boat deleted");
-						msg.setStatus(Status.POSITIVE);
-						eventBus.fireEvent(new StatusMessageEvent(msg));
-					}
-				});
+				boatService.deleteBoat(id, new ServerRequestHandler<Void>(
+						eventBus, "Boot löschen", new ListBoatsEvent(), null));
 			}
 		});
 	}

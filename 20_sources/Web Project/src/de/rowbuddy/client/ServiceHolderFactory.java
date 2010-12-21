@@ -3,8 +3,6 @@ package de.rowbuddy.client;
 import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
@@ -20,7 +18,6 @@ import de.rowbuddy.client.services.SessionManager;
 import de.rowbuddy.client.services.SessionManagerAsync;
 import de.rowbuddy.client.services.StatisticRemoteService;
 import de.rowbuddy.client.services.StatisticRemoteServiceAsync;
-import de.rowbuddy.exceptions.NotLoggedInException;
 
 public class ServiceHolderFactory {
 
@@ -103,7 +100,8 @@ public class ServiceHolderFactory {
 
 	public static void fetchSessionMember(final Runnable run) {
 		ServiceHolderFactory.getSessionManager().getMember(
-				new AsyncCallback<MemberDTO>() {
+				new ServerRequestHandler<MemberDTO>(null,
+						"Eingeloggten Member laden", null, null) {
 
 					@Override
 					public void onSuccess(MemberDTO arg0) {
@@ -111,20 +109,6 @@ public class ServiceHolderFactory {
 						logger.info("Member fetched");
 						run.run();
 					}
-
-					@Override
-					public void onFailure(Throwable arg0) {
-						handleSessionFailure(arg0);
-						logger.severe("Failed to fetch member");
-						logger.info(arg0.getMessage());
-					}
 				});
 	}
-
-	public static void handleSessionFailure(Throwable arg0) {
-		if (arg0 instanceof NotLoggedInException) {
-			Window.Location.assign(GWT.getHostPageBaseURL() + "Login.jsp");
-		}
-	}
-
 }
