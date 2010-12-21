@@ -11,7 +11,6 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.ListBox;
@@ -244,7 +243,7 @@ public class LogRowedTripPresenter implements Presenter {
 		view.showTripMembers(tms);
 	}
 
-	private void logRowedTrip(AsyncCallback<Void> action) {
+	private void logRowedTrip(ServerRequestHandler<Void> action) {
 
 		BoatDTO boat = boatOracle.getSuggestion(view.getBoatName().getValue());
 		if (boat == null) {
