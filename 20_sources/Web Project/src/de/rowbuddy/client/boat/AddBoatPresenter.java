@@ -7,13 +7,12 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.rowbuddy.client.ServerRequestHandler;
 import de.rowbuddy.client.Presenter;
+import de.rowbuddy.client.ServerRequestHandler;
 import de.rowbuddy.client.events.ListBoatsEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
@@ -66,8 +65,8 @@ public class AddBoatPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				addBoat(new ServerRequestHandler<Void>(eventBus, "Boot anlegen",
-						new ListBoatsEvent(), null));
+				addBoat(new ServerRequestHandler<Void>(eventBus,
+						"Boot anlegen", new ListBoatsEvent(), null));
 			}
 		});
 
@@ -83,8 +82,8 @@ public class AddBoatPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				addBoat(new ServerRequestHandler<Void>(eventBus, "Boot anlegen",
-						null, null) {
+				addBoat(new ServerRequestHandler<Void>(eventBus,
+						"Boot anlegen", null, null) {
 					@Override
 					public void onSuccess(Void arg0) {
 						super.onSuccess(arg0);
@@ -95,7 +94,7 @@ public class AddBoatPresenter implements Presenter {
 		});
 	}
 
-	private void addBoat(AsyncCallback<Void> action) {
+	private void addBoat(ServerRequestHandler<Void> action) {
 		Boat boat = new Boat();
 		boat.setCoxed(view.isCoxed().getValue());
 		try {

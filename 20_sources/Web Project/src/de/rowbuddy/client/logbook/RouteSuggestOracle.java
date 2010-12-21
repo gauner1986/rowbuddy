@@ -5,16 +5,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.SuggestOracle;
 
 import de.rowbuddy.boundary.dtos.RouteDTO;
+import de.rowbuddy.client.ServerRequestHandler;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 
 public class RouteSuggestOracle extends SuggestOracle {
 
 	private LogbookRemoteServiceAsync service;
-	private Logger logger = Logger.getLogger(RouteSuggestOracle.class.getName());
+	private Logger logger = Logger
+			.getLogger(RouteSuggestOracle.class.getName());
 	// private List<ItemSuggestion> suggestions;
 	private HashMap<String, RouteDTO> suggestions;
 	private Request request;
@@ -55,24 +56,22 @@ public class RouteSuggestOracle extends SuggestOracle {
 	public void requestSuggestions(Request req, Callback arg1) {
 		this.request = req;
 		this.callback = arg1;
-		service.searchRoute(req.getQuery(), new AsyncCallback<List<RouteDTO>>() {
+		service.searchRoute(req.getQuery(),
+				new ServerRequestHandler<List<RouteDTO>>(null, "Routen suchen",
+						null, null) {
 
-			@Override
-			public void onSuccess(List<RouteDTO> arg0) {
-				SuggestOracle.Response resp = new SuggestOracle.Response();
-				logger.info("New suggestions received!");
-				List<Suggestion> suggs = new LinkedList<SuggestOracle.Suggestion>();
-				for (RouteDTO route : arg0) {
-					suggestions.put(route.getName(), route);
-					suggs.add(new ItemSuggestion(route.getName()));
-				}
-				resp.setSuggestions(suggs);
-				callback.onSuggestionsReady(request, resp);
-			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-			}
-		});
+					@Override
+					public void onSuccess(List<RouteDTO> arg0) {
+						SuggestOracle.Response resp = new SuggestOracle.Response();
+						logger.info("New suggestions received!");
+						List<Suggestion> suggs = new LinkedList<SuggestOracle.Suggestion>();
+						for (RouteDTO route : arg0) {
+							suggestions.put(route.getName(), route);
+							suggs.add(new ItemSuggestion(route.getName()));
+						}
+						resp.setSuggestions(suggs);
+						callback.onSuggestionsReady(request, resp);
+					}
+				});
 	}
 }
