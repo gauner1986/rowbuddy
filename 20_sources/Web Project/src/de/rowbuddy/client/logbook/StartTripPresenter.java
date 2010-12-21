@@ -31,11 +31,7 @@ import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
 import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
-import de.rowbuddy.entities.Boat;
-import de.rowbuddy.entities.Member;
-import de.rowbuddy.entities.Route;
 import de.rowbuddy.entities.Trip;
-import de.rowbuddy.entities.TripMember;
 import de.rowbuddy.entities.TripMemberType;
 
 public class StartTripPresenter implements Presenter {
@@ -102,7 +98,6 @@ public class StartTripPresenter implements Presenter {
 		bind();
 	}
 
-	@SuppressWarnings("deprecation")
 	private void bind() {
 		view.setRouteOracle(routeOracle);
 		view.setMemberOracle(memberOracle);

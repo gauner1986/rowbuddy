@@ -29,7 +29,6 @@ public class StartTripView extends HeaderButtonView implements
 
 	private final ListBox multiBox;
 
-	@SuppressWarnings("deprecation")
 	public StartTripView(String pageTitle) {
 		super(pageTitle);
 

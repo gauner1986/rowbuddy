@@ -3,7 +3,6 @@ package de.rowbuddy.client.logbook;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.SuggestOracle;
@@ -14,8 +13,6 @@ import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
 public class MemberSuggestOracle extends SuggestOracle {
 
 	private LogbookRemoteServiceAsync service;
-	private Logger logger = Logger.getLogger(MemberSuggestOracle.class.getName());
-	// private List<ItemSuggestion> suggestions;
 	private HashMap<String, MemberDTO> suggestions;
 	private Request request;
 	private Callback callback;
