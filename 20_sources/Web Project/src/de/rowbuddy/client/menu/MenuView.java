@@ -46,6 +46,7 @@ public class MenuView extends Composite implements MenuDisplay {
 				if(m.getSubItems().get(i).getAssociatedEvent() != null){
 					tb1.getRowFormatter().setStyleName(i, "menuItem");
 				} else {
+					tb1.getWidget(i, 0).setStyleName("crossedMenuItem");
 					tb1.getRowFormatter().setStyleName(i, "crossedMenuItem");
 				}
 

@@ -6,16 +6,12 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.FailHandleCallback;
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListMembersEvent;
-import de.rowbuddy.client.events.StatusMessageEvent;
-import de.rowbuddy.client.model.StatusMessage;
-import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.services.MemberRemoteServiceAsync;
 import de.rowbuddy.entities.Member;
 
@@ -65,23 +61,11 @@ public class DetailsMemberPresenter implements Presenter {
 	}
 
 	private void fetchMember() {
-		service.getMember(id, new AsyncCallback<Member>() {
-
+		service.getMember(id, new FailHandleCallback<Member>(eventBus, "Member Details anzeigen", null, new ListMembersEvent()) {
 			@Override
 			public void onSuccess(Member arg0) {
 				member = arg0;
 				view.setMember(member);
-			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				ServiceHolderFactory.handleSessionFailure(arg0);
-				logger.severe(arg0.getMessage());
-				eventBus.fireEvent(new ListMembersEvent());
-				StatusMessage message = new StatusMessage(false);
-				message.setStatus(Status.NEGATIVE);
-				message.setMessage("Member existiert nicht mehr");
-				eventBus.fireEvent(new StatusMessageEvent(message));
 			}
 		});
 	}

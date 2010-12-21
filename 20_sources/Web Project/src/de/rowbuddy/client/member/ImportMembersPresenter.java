@@ -4,16 +4,12 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.FailHandleCallback;
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListMembersEvent;
-import de.rowbuddy.client.events.StatusMessageEvent;
-import de.rowbuddy.client.model.StatusMessage;
-import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.services.MemberRemoteServiceAsync;
 
 public class ImportMembersPresenter implements Presenter {
@@ -51,32 +47,34 @@ public class ImportMembersPresenter implements Presenter {
 			public void onClick(ClickEvent arg0) {
 				String importData = view.getImportData();
 
-				memberService.importMembers(importData,
-						new AsyncCallback<Integer>() {
-
-							@Override
-							public void onSuccess(Integer membersImported) {
-								StatusMessage message = new StatusMessage();
-								message.setMessage(membersImported
-										+ " MemberDTO erfolgreich importiert");
-								message.setStatus(Status.POSITIVE);
-								message.setAttached(false);
-								eventBus.fireEvent(new ListMembersEvent());
-								eventBus.fireEvent(new StatusMessageEvent(
-										message));
-							}
-
-							@Override
-							public void onFailure(Throwable arg0) {
-								ServiceHolderFactory.handleSessionFailure(arg0);
-								StatusMessage message = new StatusMessage();
-								message.setMessage(arg0.getMessage());
-								message.setStatus(Status.NEGATIVE);
-								message.setAttached(false);
-								eventBus.fireEvent(new StatusMessageEvent(
-										message));
-							}
-						});
+				memberService.importMembers(importData, new FailHandleCallback<Integer>(eventBus, "Mitglieder importieren", new ListMembersEvent(), null));
+				
+//				memberService.importMembers(importData,
+//						new AsyncCallback<Integer>() {
+//
+//							@Override
+//							public void onSuccess(Integer membersImported) {
+//								StatusMessage message = new StatusMessage();
+//								message.setMessage(membersImported
+//										+ " MemberDTO erfolgreich importiert");
+//								message.setStatus(Status.POSITIVE);
+//								message.setAttached(false);
+//								eventBus.fireEvent(new ListMembersEvent());
+//								eventBus.fireEvent(new StatusMessageEvent(
+//										message));
+//							}
+//
+//							@Override
+//							public void onFailure(Throwable arg0) {
+//								ServiceHolderFactory.handleSessionFailure(arg0);
+//								StatusMessage message = new StatusMessage();
+//								message.setMessage(arg0.getMessage());
+//								message.setStatus(Status.NEGATIVE);
+//								message.setAttached(false);
+//								eventBus.fireEvent(new StatusMessageEvent(
+//										message));
+//							}
+//						});
 			}
 		});
 

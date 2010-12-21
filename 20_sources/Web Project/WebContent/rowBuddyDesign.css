@@ -309,6 +309,10 @@ body {
 }
 
 .crossedMenuItem {
+	font-size: small;
+	text-decoration: none;
+	color: #336699;
+	padding-left: 10px;
 	text-decoration: line-through;
 	height: 25px;
 }

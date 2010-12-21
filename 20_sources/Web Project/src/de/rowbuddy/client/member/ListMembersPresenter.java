@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
+import de.rowbuddy.client.FailHandleCallback;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.DetailsMemberEvent;
@@ -65,22 +66,30 @@ public class ListMembersPresenter implements Presenter {
 	}
 
 	private void fetchMembers() {
-		memberService.getMembers(new AsyncCallback<List<MemberDTO>>() {
-
+		memberService.getMembers(new FailHandleCallback<List<MemberDTO>>(eventBus, "Member-Liste anzeigen", null, null) {
 			@Override
 			public void onSuccess(List<MemberDTO> arg0) {
 				fetchedMembers = arg0;
 				view.setData(fetchedMembers);
 				logger.info("Members fetched");
 			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				ServiceHolderFactory.handleSessionFailure(arg0);
-				logger.severe(arg0.getMessage());
-				// Window.alert("error");
-			}
 		});
+//		memberService.getMembers(new AsyncCallback<List<MemberDTO>>() {
+//
+//			@Override
+//			public void onSuccess(List<MemberDTO> arg0) {
+//				fetchedMembers = arg0;
+//				view.setData(fetchedMembers);
+//				logger.info("Members fetched");
+//			}
+//
+//			@Override
+//			public void onFailure(Throwable arg0) {
+//				ServiceHolderFactory.handleSessionFailure(arg0);
+//				logger.severe(arg0.getMessage());
+//				// Window.alert("error");
+//			}
+//		});
 	}
 
 }
