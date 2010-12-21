@@ -9,19 +9,15 @@ import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.ServiceHolderFactory;
+import de.rowbuddy.client.ServerRequestHandler;
 import de.rowbuddy.client.events.EditBoatEvent;
 import de.rowbuddy.client.events.ListBoatsEvent;
-import de.rowbuddy.client.events.StatusMessageEvent;
-import de.rowbuddy.client.model.StatusMessage;
-import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.Boat;
 import de.rowbuddy.entities.BoatDamage;
@@ -38,7 +34,7 @@ public class DetailsBoatPresenter implements Presenter {
 		void setCoxed(boolean value);
 
 		void setLocked(boolean value);
-		
+
 		UIObject getUiEditButton();
 
 		HasClickHandlers getEditButton();
@@ -81,14 +77,15 @@ public class DetailsBoatPresenter implements Presenter {
 		container.add(view.asWidget());
 		fetchBoat();
 	}
-	
-	private void setPermissions(){
-		if(!member.isInRole(RoleName.ADMIN))
+
+	private void setPermissions() {
+		if (!member.isInRole(RoleName.ADMIN))
 			view.getUiEditButton().setVisible(false);
 	}
 
 	private void fetchBoat() {
-		service.getBoat(id, new AsyncCallback<Boat>() {
+		service.getBoat(id, new ServerRequestHandler<Boat>(eventBus,
+				"Boot anzeigen", null, new ListBoatsEvent()) {
 
 			@Override
 			public void onSuccess(Boat arg0) {
@@ -108,17 +105,6 @@ public class DetailsBoatPresenter implements Presenter {
 							reservation.getUntil().toString(), reservation
 									.getReserver().getFullName());
 				}
-			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				ServiceHolderFactory.handleSessionFailure(arg0);
-				logger.severe(arg0.getMessage());
-				eventBus.fireEvent(new ListBoatsEvent());
-				StatusMessage message = new StatusMessage(false);
-				message.setStatus(Status.NEGATIVE);
-				message.setMessage("Boot existiert nicht");
-				eventBus.fireEvent(new StatusMessageEvent(message));
 			}
 		});
 	}

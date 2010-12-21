@@ -119,31 +119,10 @@ public class EditBoatPresenter implements Presenter {
 			@Override
 			public void onClick(ClickEvent arg0) {
 				if (updateBoat()) {
-					boatService.updateBoat(boat, new AsyncCallback<Void>() {
-
-						@Override
-						public void onSuccess(Void arg0) {
-							logger.info("Submit successful GoTo ListBoats");
-							eventBus.fireEvent(new ListBoatsEvent());
-							StatusMessage message = new StatusMessage(false);
-							message.setStatus(Status.POSITIVE);
-							message.setMessage("Boot erfolgreich geändert");
-							eventBus.fireEvent(new StatusMessageEvent(message));
-						}
-
-						@Override
-						public void onFailure(Throwable arg0) {
-							ServiceHolderFactory.handleSessionFailure(arg0);
-							logger.warning("Cannout update Boat:"
-									+ arg0.getMessage());
-							StatusMessage message = new StatusMessage(false);
-							message.setStatus(Status.NEGATIVE);
-							message.setMessage("Fehler beim Ändern: "
-									+ arg0.getMessage());
-							eventBus.fireEvent(new StatusMessageEvent(message));
-						}
-					});
-
+					boatService.updateBoat(boat,
+							new ServerRequestHandler<Void>(eventBus,
+									"Boot speichern", new ListBoatsEvent(),
+									null));
 				}
 			}
 		});
