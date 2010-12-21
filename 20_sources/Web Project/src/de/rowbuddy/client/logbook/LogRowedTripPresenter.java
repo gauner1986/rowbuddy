@@ -148,6 +148,9 @@ public class LogRowedTripPresenter implements Presenter {
 			public void onValueChange(ValueChangeEvent<String> arg0) {
 				BoatDTO boat = boatOracle.getSuggestion(view.getBoatName().getValue());
 				if (boat != null) {
+					for (TripMemberDTO dto : tripMembers) {
+						dto.setTripMemberType(TripMemberType.Rower);
+					}
 					view.setBoatInformation(boat.getName(), boat.isCoxed(), boat.getNumberOfSeats());
 				}
 			}
