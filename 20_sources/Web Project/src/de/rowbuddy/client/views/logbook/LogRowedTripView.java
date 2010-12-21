@@ -158,7 +158,7 @@ public class LogRowedTripView extends HeaderButtonView implements
 		});
 
 		content.setText(3, 2,
-				"Die erste ausgew�hlte Person ist sofern vorhanden der Steuermann.");
+				"Die erste ausgewählte Person ist sofern vorhanden der Steuermann.");
 		setContent(content);
 	}
 
