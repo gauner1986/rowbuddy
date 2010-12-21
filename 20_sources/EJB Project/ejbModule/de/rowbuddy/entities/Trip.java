@@ -59,9 +59,6 @@ public class Trip implements Serializable {
 	}
 
 	public void setStartDate(Date newStartDate) {
-		if (newStartDate == null) {
-			throw new NullPointerException("Anfangsdatum darf nicht null sein");
-		}
 		this.startDate = newStartDate;
 	}
 
@@ -74,9 +71,6 @@ public class Trip implements Serializable {
 	}
 
 	public void setEndDate(Date newEndDate) {
-		if (newEndDate == null) {
-			throw new NullPointerException("Enddatum darf nicht null sein");
-		}
 		this.endDate = newEndDate;
 	}
 
