@@ -31,7 +31,6 @@ import de.rowbuddy.client.events.StatusMessageEvent;
 import de.rowbuddy.client.model.StatusMessage;
 import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.services.LogbookRemoteServiceAsync;
-import de.rowbuddy.entities.Trip;
 import de.rowbuddy.entities.TripMemberType;
 
 public class LogRowedTripPresenter implements Presenter {
@@ -183,7 +182,7 @@ public class LogRowedTripPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent arg0) {
-				logRowedTrip(new ServerRequestHandler<Trip>(eventBus,
+				logRowedTrip(new ServerRequestHandler<Void>(eventBus,
 						"Fahrt eintragen", new ListPersonalTripsEvent(), null));
 			}
 		});
@@ -245,7 +244,7 @@ public class LogRowedTripPresenter implements Presenter {
 		view.showTripMembers(tms);
 	}
 
-	private void logRowedTrip(AsyncCallback<Trip> action) {
+	private void logRowedTrip(AsyncCallback<Void> action) {
 
 		BoatDTO boat = boatOracle.getSuggestion(view.getBoatName().getValue());
 		if (boat == null) {
@@ -274,30 +273,7 @@ public class LogRowedTripPresenter implements Presenter {
 						trip.setStartDate(view.getStartDate());
 						trip.setEndDate(view.getEndDate());
 						logbookService.logRowedTrip(trip, boat.getId(),
-								route.getId(), this.tripMembers,
-								new AsyncCallback<Void>() {
-
-									@Override
-									public void onFailure(Throwable arg0) {
-										StatusMessage message = new StatusMessage(
-												false);
-										message.setStatus(Status.NEGATIVE);
-										message.setMessage(arg0.getMessage());
-										eventBus.fireEvent(new StatusMessageEvent(
-												message));
-									}
-
-									@Override
-									public void onSuccess(Void arg0) {
-										StatusMessage message = new StatusMessage(
-												false);
-										message.setStatus(Status.POSITIVE);
-										message.setMessage("Trip erfolgreich hinzugefügt");
-										eventBus.fireEvent(new ListPersonalTripsEvent());
-										eventBus.fireEvent(new StatusMessageEvent(
-												message));
-									}
-								});
+								route.getId(), this.tripMembers, action);
 					} catch (Exception e) {
 						StatusMessage message = new StatusMessage();
 						message.setMessage(e.getMessage());
