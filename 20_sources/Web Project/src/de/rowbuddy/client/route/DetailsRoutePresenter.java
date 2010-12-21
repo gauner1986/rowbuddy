@@ -7,12 +7,11 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.maps.client.geom.LatLng;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.FailHandleCallback;
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.EditRouteEvent;
 import de.rowbuddy.client.events.ListRoutesEvent;
 import de.rowbuddy.client.services.RouteRemoteServiceAsync;
@@ -63,7 +62,8 @@ public class DetailsRoutePresenter implements Presenter {
 	}
 
 	private void fetchRoute() {
-		routeService.getRoute(id, new AsyncCallback<Route>() {
+		routeService.getRoute(id, new FailHandleCallback<Route>(eventBus,
+				"Route ansehen", null, new ListRoutesEvent()) {
 
 			@Override
 			public void onSuccess(Route arg0) {
@@ -81,12 +81,6 @@ public class DetailsRoutePresenter implements Presenter {
 					}
 					view.setMap(points);
 				}
-			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				ServiceHolderFactory.handleSessionFailure(arg0);
-				logger.severe(arg0.getMessage());
 			}
 		});
 	}
