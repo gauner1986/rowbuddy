@@ -14,6 +14,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.Widget;
@@ -62,9 +63,15 @@ public class StartTripPresenter implements Presenter {
 		
 		public void showTripMembers(String[] tripMembers);
 
+		ListBox getListBox();
+
 		void setBoatInformation(String name, boolean coxed, int numberOfSeats);
 		
 		void setRouteInformation(double lenght);
+
+		HasClickHandlers getDeleteTripMemberButton();
+
+		HasClickHandlers getSetCoxButton();
 
 	}
 
@@ -105,48 +112,35 @@ public class StartTripPresenter implements Presenter {
 			
 			@Override
 			public void onValueChange(ValueChangeEvent<String> arg0) {
-				if(memberOracle.getNumberOfSuggestions() == 1) {
-					MemberDTO member = memberOracle.getSuggestion(view.getMemberName().getValue());
-					
-					TripMemberDTO tm = new TripMemberDTO();
-					tm.setMember(member);
-					for (TripMemberDTO dto : tripMembers) {
-						if(dto.getMember().getId() == member.getId()) {
-							return;
-						}
-					}
-					BoatDTO boat = boatOracle.getSuggestion(view.getBoatName().getValue());
-					if (boat == null) {
-						StatusMessage message = new StatusMessage(false);
-						message.setStatus(Status.NEGATIVE);
-						message.setMessage("Es muss ein Boot ausgewählt sein");
-						eventBus.fireEvent(new StatusMessageEvent(message));
-					} else {
-						int maxPlacesInBoat = boat.getNumberOfSeats();
-						if(boat.isCoxed()) {
-							++maxPlacesInBoat;
-						}
-						if (tripMembers.size() >= maxPlacesInBoat ) {
-							return;
-						}
-					}
-					if(boat.isCoxed() && tripMembers.isEmpty()) {
-						tm.setTripMemberType(TripMemberType.Cox);
-					} else {
-						tm.setTripMemberType(TripMemberType.Rower);
-					}
-					tripMembers.add(tm);
-					view.getMemberName().setValue("");
-				}
-				String[] tms = new String[tripMembers.size()];
-				for (int i = 0; i< tripMembers.size(); i++) {
-					tms[i] = tripMembers.get(i).getMember().getFullName();
-					if(tripMembers.get(i).getTripMemberType().equals(TripMemberType.Cox)) {
-						tms[i] += " (Cox)";
-					}
-				}
-				view.showTripMembers(tms);
+				MemberDTO member = memberOracle.getSuggestion(view.getMemberName().getValue());
 				
+				TripMemberDTO tm = new TripMemberDTO();
+				tm.setMember(member);
+				for (TripMemberDTO dto : tripMembers) {
+					if(dto.getMember().getId() == member.getId()) {
+						return;
+					}
+				}
+				BoatDTO boat = boatOracle.getSuggestion(view.getBoatName().getValue());
+				if (boat == null) {
+					StatusMessage message = new StatusMessage(false);
+					message.setStatus(Status.NEGATIVE);
+					message.setMessage("Es muss ein Boot ausgewählt sein");
+					eventBus.fireEvent(new StatusMessageEvent(message));
+				} else {
+					int maxPlacesInBoat = boat.getNumberOfSeats();
+					if(boat.isCoxed()) {
+						++maxPlacesInBoat;
+					}
+					if (tripMembers.size() >= maxPlacesInBoat ) {
+						return;
+					}
+				}
+				tm.setTripMemberType(TripMemberType.Rower);
+				tripMembers.add(tm);
+				view.getMemberName().setValue("");
+				
+				updateTripMemberList();				
 			}
 		});
 		
@@ -200,9 +194,52 @@ public class StartTripPresenter implements Presenter {
 				eventBus.fireEvent(new ListPersonalTripsEvent());
 			}
 		});
+		
+		view.getDeleteTripMemberButton().addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				int index = view.getListBox().getSelectedIndex();
+				if (index != -1) {
+					tripMembers.remove(index);
+				}
+				updateTripMemberList();
+			}
+		});
+		
+		view.getSetCoxButton().addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent arg0) {
+				BoatDTO boat = boatOracle.getSuggestion(view.getBoatName().getValue());
+				if (boat == null || !boat.isCoxed()) {
+					StatusMessage message = new StatusMessage(false);
+					message.setStatus(Status.NEGATIVE);
+					message.setMessage("Es muss ein Boot mit Steuerplatz ausgewählt sein");
+					eventBus.fireEvent(new StatusMessageEvent(message));
+				} else {
+					int index = view.getListBox().getSelectedIndex();
+					if (index != -1) {
+						for (TripMemberDTO dto : tripMembers) {
+							dto.setTripMemberType(TripMemberType.Rower);
+						}
+						tripMembers.get(index).setTripMemberType(TripMemberType.Cox);
+					}
+					updateTripMemberList();
+				}
+			}
+		});
 
 	}
-
+	
+	private void updateTripMemberList() {
+		String[] tms = new String[tripMembers.size()];
+		for (int i = 0; i< tripMembers.size(); i++) {
+			tms[i] = tripMembers.get(i).getMember().getFullName();
+			if(tripMembers.get(i).getTripMemberType().equals(TripMemberType.Cox)) {
+				tms[i] += " (Cox)";
+			}
+		}
+		view.showTripMembers(tms);
+	}
 	private void startTrip(AsyncCallback<Trip> action) {
 		
 		BoatDTO boat = boatOracle.getSuggestion(view.getBoatName().getValue());

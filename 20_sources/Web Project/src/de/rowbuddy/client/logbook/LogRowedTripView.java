@@ -29,6 +29,8 @@ public class LogRowedTripView extends HeaderButtonView implements
 	private TextBox boatName;
 	private Button addButton;
 	private Button cancelButton;
+	private Button deleteTripMemberButton;
+	private Button setCoxButton;
 	private SuggestBox route;
 	private SuggestBox member;
 	private SuggestBox boat;
@@ -77,6 +79,19 @@ public class LogRowedTripView extends HeaderButtonView implements
 		multiBoxPanel.setSpacing(4);
 		multiBoxPanel.add(multiBox);
 		content.setWidget(3, 1, multiBoxPanel);
+		
+		FlexTable ft2 = new FlexTable();
+		
+		deleteTripMemberButton = new Button("TripMember löschen");
+		deleteTripMemberButton.setStylePrimaryName("buttonCancel buttonNegative");		
+		ft2.setWidget(0, 0, deleteTripMemberButton);
+		
+		setCoxButton = new Button("Als Steuermann setzen");
+		setCoxButton.setStylePrimaryName("buttonApply buttonNeutral");		
+		ft2.setWidget(1,0, setCoxButton);
+		
+		content.setWidget(3, 2, ft2);
+		
 		DateTimeFormat dateFormat = DateTimeFormat
 				.getFormat(PredefinedFormat.DATE_MEDIUM);
 
@@ -115,9 +130,6 @@ public class LogRowedTripView extends HeaderButtonView implements
 		endEdit.setText(timeDf.format(endTime));
 		endPanel.add(endDate);
 		endPanel.add(endEdit);
-
-		content.setText(3, 2,
-				"Die erste ausgewählte Person ist sofern vorhanden der Steuermann.");
 		setContent(content);
 	}
 
@@ -196,6 +208,16 @@ public class LogRowedTripView extends HeaderButtonView implements
 	}
 
 	@Override
+	public HasClickHandlers getDeleteTripMemberButton() {
+		return deleteTripMemberButton;
+	}
+
+	@Override
+	public HasClickHandlers getSetCoxButton() {
+		return setCoxButton;
+	}
+
+	@Override
 	public Date getStartDate() {
 		startTime = timeDf.parse(startEdit.getValue());
 		return mergeDateTime(startDate.getValue(), startTime);
@@ -212,5 +234,4 @@ public class LogRowedTripView extends HeaderButtonView implements
 		DateTimeFormat mergedDf = DateTimeFormat.getFormat("dd.MM.yyyy HH:mm");
 		return mergedDf.parse(dateDf.format(date) + " " + timeDf.format(time));
 	}
-
 }

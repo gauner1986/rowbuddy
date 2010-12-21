@@ -21,6 +21,8 @@ public class StartTripView extends HeaderButtonView implements
 	private TextBox boatName;
 	private Button addButton;
 	private Button cancelButton;
+	private Button deleteTripMemberButton;
+	private Button setCoxButton;
 	private SuggestBox route;
 	private SuggestBox member;
 	private SuggestBox boat;
@@ -62,9 +64,18 @@ public class StartTripView extends HeaderButtonView implements
 		multiBoxPanel.setSpacing(4);
 		multiBoxPanel.add(multiBox);
 		content.setWidget(3, 1, multiBoxPanel);
-
-		content.setText(3, 2,
-				"Die erste ausgewählte Person ist sofern vorhanden der Steuermann.");
+		
+		FlexTable ft2 = new FlexTable();
+		
+		deleteTripMemberButton = new Button("TripMember löschen");
+		deleteTripMemberButton.setStylePrimaryName("buttonCancel buttonNegative");		
+		ft2.setWidget(0, 0, deleteTripMemberButton);
+		
+		setCoxButton = new Button("Als Steuermann setzen");
+		setCoxButton.setStylePrimaryName("buttonApply buttonNeutral");		
+		ft2.setWidget(1,0, setCoxButton);
+		
+		content.setWidget(3, 2, ft2);
 
 		setContent(content);
 	}
@@ -75,7 +86,7 @@ public class StartTripView extends HeaderButtonView implements
 		} else {
 			content.setText(1, 2, "Gesteuert: nein");
 		}
-		content.setText(2, 2, "Bootspl#tze: " + rowers);
+		content.setText(2, 2, "Bootsplätze: " + rowers);
 	}
 
 	public void setRouteInformation(double length) {
@@ -121,6 +132,11 @@ public class StartTripView extends HeaderButtonView implements
 	}
 
 	@Override
+	public ListBox getListBox() {
+		return multiBox;
+	}
+
+	@Override
 	public void setRouteOracle(SuggestOracle oracle) {
 		route = new SuggestBox(oracle, routeName);
 		content.setWidget(0, 1, route);
@@ -136,6 +152,16 @@ public class StartTripView extends HeaderButtonView implements
 	public void setMemberOracle(SuggestOracle oracle) {
 		member = new SuggestBox(oracle, memberName);
 		content.setWidget(2, 1, member);
+	}
+
+	@Override
+	public HasClickHandlers getDeleteTripMemberButton() {
+		return deleteTripMemberButton;
+	}
+
+	@Override
+	public HasClickHandlers getSetCoxButton() {
+		return setCoxButton;
 	}
 
 }
