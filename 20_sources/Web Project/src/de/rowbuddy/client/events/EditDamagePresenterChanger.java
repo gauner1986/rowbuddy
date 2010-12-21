@@ -30,7 +30,7 @@ public class EditDamagePresenterChanger extends PresenterChanger {
 	public Presenter createPresenter(AbstractEvent<?> event) {
 		EditDamageEvent e = (EditDamageEvent) event;
 		return new EditDamagePresenter(e.getId(), new EditDamageView(),
-				boatService, eventBus);
+				boatService, eventBus, member);
 	}
 
 	@Override

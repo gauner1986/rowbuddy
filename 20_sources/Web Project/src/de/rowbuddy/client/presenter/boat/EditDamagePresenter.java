@@ -7,10 +7,12 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.ListDamageEvent;
 import de.rowbuddy.client.events.StatusMessageEvent;
@@ -19,6 +21,7 @@ import de.rowbuddy.client.model.StatusMessage.Status;
 import de.rowbuddy.client.presenter.Presenter;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
 import de.rowbuddy.entities.BoatDamage;
+import de.rowbuddy.entities.Role.RoleName;
 import de.rowbuddy.exceptions.RowBuddyException;
 
 public class EditDamagePresenter implements Presenter {
@@ -31,6 +34,8 @@ public class EditDamagePresenter implements Presenter {
 		HasValue<String> getAddInformation();
 
 		HasValue<Boolean> getFixed();
+		
+		HasEnabled getUiFixed();
 
 		HasClickHandlers getSaveButton();
 
@@ -46,13 +51,15 @@ public class EditDamagePresenter implements Presenter {
 	private BoatDamage damage;
 	private Logger logger = Logger.getLogger(EditDamagePresenter.class
 			.getName());
+	private MemberDTO member;
 
 	public EditDamagePresenter(Long id, Display view,
-			BoatRemoteServiceAsync service, EventBus eventBus) {
+			BoatRemoteServiceAsync service, EventBus eventBus, MemberDTO member) {
 		this.view = view;
 		this.id = id;
 		this.service = service;
 		this.eventBus = eventBus;
+		this.member = member;
 	}
 
 	@Override
@@ -120,7 +127,12 @@ public class EditDamagePresenter implements Presenter {
 				eventBus.fireEvent(new ListDamageEvent());
 			}
 		});
-
+		setPermissons();
+	}
+	
+	private void setPermissons(){
+		if(!member.isInRole(RoleName.ADMIN))
+			view.getUiFixed().setEnabled(false);
 	}
 
 	private void fetchDamage() {

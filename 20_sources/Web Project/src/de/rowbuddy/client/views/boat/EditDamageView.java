@@ -4,6 +4,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
@@ -81,6 +82,11 @@ public class EditDamageView extends HeaderButtonView implements Display {
 	@Override
 	public HasClickHandlers getCancelButton() {
 		return cancelButton;
+	}
+
+	@Override
+	public HasEnabled getUiFixed() {
+		return box;
 	}
 
 }
