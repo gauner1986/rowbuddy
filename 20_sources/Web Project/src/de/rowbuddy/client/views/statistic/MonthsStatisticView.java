@@ -22,7 +22,11 @@ public class MonthsStatisticView extends HeaderButtonView implements
 			
 			@Override
 			public String asString() {
-				return "";
+				int maxValue= 510;
+				String values = "150, 200, 349, 344, 235, 456, 327, 438, 259, 510, 411, 312";
+				values = values.replace(" ", "");
+				String valuesStriked = values.replace(",", "|");
+				return "<img src='http://chart.apis.google.com/chart?chxl=0:|J|F|M|A|M|J|J|A|S|O|N|D|1:|"+valuesStriked+"&chxr=0,0,"+maxValue+"&chxs=0,676767,11.833,0,l,676767|1,676767,11.5,0,lt,676767&chxt=x,x&chbh=a&chs=440x220&cht=bvs&chco=336699&chds=0,"+maxValue+"&chd=t:"+values+"&chma=0,0,0,10' width='440' height='220' alt='' />";
 			}
 		};
 		content.setHTML(0, 1, statisticView);
@@ -39,7 +43,8 @@ public class MonthsStatisticView extends HeaderButtonView implements
 			public String asString() {// TODO form values
 				int maxValue= 20;
 				String values = statistic.getMonths().toString();
-				String valuesStriked = "1|2|3|4|5|6|7|8|9|10|11|12";
+				values = values.replace(" ", "");
+				String valuesStriked = values.replace(",", "|");
 				return "<img src='http://chart.apis.google.com/chart?chxl=0:|J|F|M|A|M|J|J|A|S|O|N|D|1:|"+valuesStriked+"&chxr=0,0,"+maxValue+"&chxs=0,676767,11.833,0,l,676767|1,676767,11.5,0,lt,676767&chxt=x,x&chbh=a&chs=440x220&cht=bvs&chco=336699&chds=0,20&chd=t:"+values+"&chma=0,0,0,10' width='440' height='220' alt='' />";
 			}
 		};

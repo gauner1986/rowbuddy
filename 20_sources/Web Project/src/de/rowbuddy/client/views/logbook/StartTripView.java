@@ -64,7 +64,7 @@ public class StartTripView extends HeaderButtonView implements
 		multiBoxPanel.add(multiBox);
 		content.setWidget(3, 1, multiBoxPanel);
 
-		content.setText(3, 3,
+		content.setText(3, 2,
 				"Die erste ausgewählte Person ist sofern vorhanden der Steuermann.");
 
 		setContent(content);
