@@ -109,33 +109,35 @@ public class StartTripPresenter implements Presenter {
 			public void onValueChange(ValueChangeEvent<String> arg0) {
 				MemberDTO member = memberOracle.getSuggestion(view.getMemberName().getValue());
 				
-				TripMemberDTO tm = new TripMemberDTO();
-				tm.setMember(member);
-				for (TripMemberDTO dto : tripMembers) {
-					if(dto.getMember().getId() == member.getId()) {
-						return;
+				if(member != null) {
+					TripMemberDTO tm = new TripMemberDTO();
+					tm.setMember(member);
+					for (TripMemberDTO dto : tripMembers) {
+						if(dto.getMember().getId() == member.getId()) {
+							return;
+						}
 					}
+					BoatDTO boat = boatOracle.getSuggestion(view.getBoatName().getValue());
+					if (boat == null) {
+						StatusMessage message = new StatusMessage(false);
+						message.setStatus(Status.NEGATIVE);
+						message.setMessage("Es muss ein Boot ausgewählt sein");
+						eventBus.fireEvent(new StatusMessageEvent(message));
+					} else {
+						int maxPlacesInBoat = boat.getNumberOfSeats();
+						if(boat.isCoxed()) {
+							++maxPlacesInBoat;
+						}
+						if (tripMembers.size() >= maxPlacesInBoat ) {
+							return;
+						}
+					}
+					tm.setTripMemberType(TripMemberType.Rower);
+					tripMembers.add(tm);
+					view.getMemberName().setValue("");
+					
+					updateTripMemberList();		
 				}
-				BoatDTO boat = boatOracle.getSuggestion(view.getBoatName().getValue());
-				if (boat == null) {
-					StatusMessage message = new StatusMessage(false);
-					message.setStatus(Status.NEGATIVE);
-					message.setMessage("Es muss ein Boot ausgewählt sein");
-					eventBus.fireEvent(new StatusMessageEvent(message));
-				} else {
-					int maxPlacesInBoat = boat.getNumberOfSeats();
-					if(boat.isCoxed()) {
-						++maxPlacesInBoat;
-					}
-					if (tripMembers.size() >= maxPlacesInBoat ) {
-						return;
-					}
-				}
-				tm.setTripMemberType(TripMemberType.Rower);
-				tripMembers.add(tm);
-				view.getMemberName().setValue("");
-				
-				updateTripMemberList();				
 			}
 		});
 		
@@ -143,7 +145,9 @@ public class StartTripPresenter implements Presenter {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> arg0) {
 				BoatDTO boat = boatOracle.getSuggestion(view.getBoatName().getValue());
-				view.setBoatInformation(boat.getName(), boat.isCoxed(), boat.getNumberOfSeats());
+				if(boat != null) {
+					view.setBoatInformation(boat.getName(), boat.isCoxed(), boat.getNumberOfSeats());
+				}
 			}
 			
 		});
@@ -152,7 +156,9 @@ public class StartTripPresenter implements Presenter {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> arg0) {
 				RouteDTO route = routeOracle.getSuggestion(view.getRouteName().getValue());
-				view.setRouteInformation(route.getLengthKM());
+				if(route != null) {
+					view.setRouteInformation(route.getLengthKM());
+				}
 			}
 			
 		});
