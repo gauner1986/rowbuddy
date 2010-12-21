@@ -43,7 +43,11 @@ public class MenuView extends Composite implements MenuDisplay {
 				final int h = i;
 				final Anchor toAdd = new Anchor(m.getSubItems().get(i).getTitle());
 				tb1.setWidget(i, 0, toAdd);
-				tb1.getRowFormatter().setStyleName(i, "menuItem");
+				if(m.getSubItems().get(i).getAssociatedEvent() != null){
+					tb1.getRowFormatter().setStyleName(i, "menuItem");
+				} else {
+					tb1.getRowFormatter().setStyleName(i, "crossedMenuItem");
+				}
 
 				toAdd.addClickHandler(new ClickHandler() {
 

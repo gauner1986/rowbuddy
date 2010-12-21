@@ -300,6 +300,11 @@ body {
 	height: 25px;
 }
 
+.crossedMenuItem {
+	text-decoration: line-through;
+	height: 25px;
+}
+
 .gwt-Anchor:HOVER {
 	color: blue;
 	background-color: #E6E6E6;
