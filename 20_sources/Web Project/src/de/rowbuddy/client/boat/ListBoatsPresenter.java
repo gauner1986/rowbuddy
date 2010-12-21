@@ -8,7 +8,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
@@ -16,7 +15,7 @@ import com.google.gwt.user.client.ui.Widget;
 import de.rowbuddy.boundary.dtos.BoatDTO;
 import de.rowbuddy.boundary.dtos.MemberDTO;
 import de.rowbuddy.client.Presenter;
-import de.rowbuddy.client.ServiceHolderFactory;
+import de.rowbuddy.client.ServerRequestHandler;
 import de.rowbuddy.client.events.AddBoatEvent;
 import de.rowbuddy.client.events.DetailsBoatEvent;
 import de.rowbuddy.client.services.BoatRemoteServiceAsync;
@@ -25,7 +24,7 @@ import de.rowbuddy.entities.Role.RoleName;
 public class ListBoatsPresenter implements Presenter {
 	public interface Display {
 		Widget asWidget();
-		
+
 		UIObject getUiAddButton();
 
 		HasClickHandlers getAddButton();
@@ -86,27 +85,21 @@ public class ListBoatsPresenter implements Presenter {
 		container.add(view.asWidget());
 		fetchBoats();
 	}
-	
-	private void setPermissions(){
-		if(!sessionMember.isInRole(RoleName.ADMIN))
+
+	private void setPermissions() {
+		if (!sessionMember.isInRole(RoleName.ADMIN))
 			view.getUiAddButton().setVisible(false);
 	}
 
 	private void fetchBoats() {
-		boatService.getBoatOverview(new AsyncCallback<List<BoatDTO>>() {
+		boatService.getBoatOverview(new ServerRequestHandler<List<BoatDTO>>(
+				eventBus, "Boote anzeigen", null, null) {
 
 			@Override
 			public void onSuccess(List<BoatDTO> arg0) {
 				fetchedBoats = arg0;
 				view.setData(fetchedBoats);
 				logger.info("Boats fetched");
-			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				ServiceHolderFactory.handleSessionFailure(arg0);
-				logger.severe(arg0.getMessage());
-				//Window.alert("error");
 			}
 		});
 	}
