@@ -61,4 +61,14 @@ public class RouteRemoteServiceImpl extends AbstractRemoteService implements
 		return getRowBuddyFacade().canEditRoute(route);
 	}
 
+	@Override
+	public Route getRouteForEdit(Long id) throws RowBuddyException {
+		Route route = getRoute(id);
+		if (!canEditRoute(route)) {
+			throw new RowBuddyException(
+					"Keine Berechtigung um Route zu bearbeiten");
+		}
+		return route;
+	}
+
 }

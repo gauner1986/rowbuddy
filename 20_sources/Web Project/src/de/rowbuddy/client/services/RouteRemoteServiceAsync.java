@@ -18,6 +18,8 @@ public interface RouteRemoteServiceAsync {
 
 	void getRoute(Long id, AsyncCallback<Route> callback);
 
+	void getRouteForEdit(Long id, AsyncCallback<Route> callback);
+
 	void getRouteList(AsyncCallback<List<Route>> callback);
 
 }

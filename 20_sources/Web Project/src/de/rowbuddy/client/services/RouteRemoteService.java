@@ -22,4 +22,6 @@ public interface RouteRemoteService extends RemoteService {
 
 	public boolean canEditRoute(Route route) throws NotLoggedInException;
 
+	Route getRouteForEdit(Long id) throws RowBuddyException;
+
 }

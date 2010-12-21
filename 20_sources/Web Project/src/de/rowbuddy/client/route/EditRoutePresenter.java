@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.rowbuddy.client.FailHandleCallback;
 import de.rowbuddy.client.Presenter;
 import de.rowbuddy.client.ServiceHolderFactory;
 import de.rowbuddy.client.events.DetailsRouteEvent;
@@ -90,69 +91,32 @@ public class EditRoutePresenter implements Presenter {
 	}
 
 	private void fetchRoute() {
-		logger.info("Get Route id:" + id);
-		routeService.getRoute(id, new AsyncCallback<Route>() {
 
-			@Override
+		logger.info("Get Route id:" + id);
+		routeService.getRouteForEdit(id, new FailHandleCallback<Route>(
+				eventBus, "Route bearbeiten", null, new DetailsRouteEvent(id)) {
+
 			public void onSuccess(Route arg0) {
 				route = arg0;
-				logger.info("Route feteched! id:" + route.getId());
-				routeService.canEditRoute(route, new AsyncCallback<Boolean>() {
+				view.getName().setValue(route.getName());
+				view.getLength().setValue("" + route.getLengthKM());
+				view.getDescription().setValue(route.getShortDescription());
+				view.isMutable().setValue(route.isMutable());
+				logger.info("WayPoints: " + route.getWayPoints().size());
 
-					@Override
-					public void onSuccess(Boolean arg0) {
-						logger.info("mutalbe: " + arg0);
-						if (arg0) {
-							logger.info("Route is mutable.");
-							view.getName().setValue(route.getName());
-							view.getLength().setValue("" + route.getLengthKM());
-							view.getDescription().setValue(
-									route.getShortDescription());
-							view.isMutable().setValue(route.isMutable());
-							logger.info("WayPoints: "
-									+ route.getWayPoints().size());
-
-							if (!route.getWayPoints().isEmpty()) {
-								LatLng[] points = new LatLng[route
-										.getWayPoints().size()];
-								int i = 0;
-								for (GpsPoint point : route.getWayPoints()) {
-									points[i] = LatLng.newInstance(
-											point.getLatitude(),
-											point.getLongitude());
-									EditRoutePresenter.this.points
-											.add(points[i]);
-									i++;
-								}
-								polyline = new Polyline(points);
-								view.setMap(points, polyline);
-							}
-						} else {
-							logger.info("Route is not mutable.");
-							eventBus.fireEvent(new DetailsRouteEvent(id));
-							StatusMessage message = new StatusMessage(false);
-							message.setStatus(Status.NEGATIVE);
-							message.setMessage("Route darf nicht editiert werden.");
-							eventBus.fireEvent(new StatusMessageEvent(message));
-						}
+				if (!route.getWayPoints().isEmpty()) {
+					LatLng[] points = new LatLng[route.getWayPoints().size()];
+					int i = 0;
+					for (GpsPoint point : route.getWayPoints()) {
+						points[i] = LatLng.newInstance(point.getLatitude(),
+								point.getLongitude());
+						EditRoutePresenter.this.points.add(points[i]);
+						i++;
 					}
-
-					@Override
-					public void onFailure(Throwable arg0) {
-					}
-				});
-			}
-
-			@Override
-			public void onFailure(Throwable arg0) {
-				ServiceHolderFactory.handleSessionFailure(arg0);
-				logger.severe("Cannot fetch route:" + arg0.getMessage());
-				eventBus.fireEvent(new ListRoutesEvent());
-				StatusMessage message = new StatusMessage(false);
-				message.setStatus(Status.NEGATIVE);
-				message.setMessage("Route existiert nicht");
-				eventBus.fireEvent(new StatusMessageEvent(message));
-			}
+					polyline = new Polyline(points);
+					view.setMap(points, polyline);
+				}
+			};
 		});
 	}
 
