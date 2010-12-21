@@ -70,18 +70,35 @@ public class MenuView extends Composite implements MenuDisplay {
 					}
 				},ClickEvent.getType());
 			}
-			menuPanel.add(tb1, getHeaderString(m.getTitle(), m.getImage()).getElement().getString(), true);
+			String panel = getHeaderString(m.getTitle(), m.getImage(),checkAllMenuSubItemEventsNull(m)).getElement().getString();
+			menuPanel.add(tb1, panel, true);
 		}
 	}
+	
+	private boolean checkAllMenuSubItemEventsNull(MenuItem item){
+		int overall = item.getSubItems().size();
+		int nullCount = 0;
+		for(MenuSubItem m : item.getSubItems()){
+			if(m.getAssociatedEvent()==null)
+				nullCount++;
+		}
+		if(nullCount!=overall)
+			return false;
+		else
+			return true;
+	}
 
-	private HorizontalPanel getHeaderString(String text, ImageResource image) {
+	private HorizontalPanel getHeaderString(String text, ImageResource image, boolean crossed) {
 		// Add the image and text to a horizontal panel
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setSpacing(0);
 		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		hPanel.add(new Image(image));
 		HTML headerText = new HTML(text);
-		headerText.setStyleName("cw-StackPanelHeader");
+		if(!crossed)
+			headerText.setStyleName("cw-StackPanelHeader");
+		else
+			headerText.setStyleName("crossedStackPanelHeader");
 		hPanel.add(headerText);
 
 		// Return the HTML string for the panel

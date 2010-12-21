@@ -104,6 +104,14 @@ body {
 	color: #336699;
 }
 
+.crossedStackPanelHeader {
+	text-decoration: line-through;
+	padding-left: 17px;
+	font-weight: bold;
+	font-size: 1.0em;
+	color: #336699;
+}
+
 .logoHeader {
 	background-image: url("icons/logo.png");
 	background-repeat: no-repeat;
