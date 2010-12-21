@@ -9,8 +9,4 @@
 	 <inherits name="de.rowbuddy.Core" />
 	    <source path="client"  ></source>
 	<entry-point class="de.rowbuddy.client.GWTEntryPoint" />
-	
-	<inherits name="com.google.gwt.user.AsyncProxy"/>
-	<inherits name="com.google.gwt.widgetideas.WidgetIdeas" />   
-	<inherits name="com.google.gwt.libideas.LibIdeas" />
 </module>
