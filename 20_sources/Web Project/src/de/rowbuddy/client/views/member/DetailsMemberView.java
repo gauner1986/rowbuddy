@@ -15,7 +15,7 @@ public class DetailsMemberView extends HeaderButtonView implements Display {
 	private FlexTable content;
 
 	public DetailsMemberView() {
-		super(PageTitles.BOAT_DAMAGE_DETAIL);
+		super(PageTitles.MEMBER_DETAIL);
 
 		cancelButton = new Button("Abbrechen");
 		cancelButton.setStylePrimaryName("buttonCancel buttonNegative");
