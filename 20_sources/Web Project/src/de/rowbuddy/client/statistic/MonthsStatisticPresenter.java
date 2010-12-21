@@ -1,5 +1,7 @@
 package de.rowbuddy.client.statistic;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import com.google.gwt.event.shared.EventBus;
